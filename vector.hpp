@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/01/28 11:12:47 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/28 11:14:36 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ namespace ft {
 	template<class T, class Allocator = std::allocator<T> >
 	class vector {
 		public:
-			typedef T												value_type;
-			typedef Allocator										allocator_type;
-			typedef typename allocator_type::reference				reference;
-			typedef typename allocator_type::const_reference		const_reference;
-			typedef typename allocator_type::pointer				pointer;
-			typedef typename allocator_type::const_pointer			const_pointer;
-			typedef ft::iterator<pointer>							iterator;
-			typedef ft::const_iterator<pointer>						const_iterator;
-			typedef ft::reverse_iterator<pointer>					reverse_iterator;
-			typedef ft::const_reverse_iterator<pointer>				const_reverse_iterator;
-			typedef std::ptrdiff_t									difference_type;
-			typedef std::size_t										size_type;
+			typedef T											value_type;
+			typedef Allocator									allocator_type;
+			typedef typename allocator_type::reference			reference;
+			typedef typename allocator_type::const_reference	const_reference;
+			typedef typename allocator_type::pointer			pointer;
+			typedef typename allocator_type::const_pointer		const_pointer;
+			typedef ft::iterator<pointer>						iterator;
+			typedef ft::const_iterator<pointer>					const_iterator;
+			typedef ft::reverse_iterator<pointer>				reverse_iterator;
+			typedef ft::const_reverse_iterator<pointer>			const_reverse_iterator;
+			typedef std::ptrdiff_t								difference_type;
+			typedef std::size_t									size_type;
 		private:
 
 	};
