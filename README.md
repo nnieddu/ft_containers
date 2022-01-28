@@ -38,6 +38,8 @@ toujours être compatible avec d’autres conteneurs comme celui de STL.
 Les conteneurs STL sont interdits.
 Vous êtes autorisé à utiliser la bibliothèque STD
 
-http://www.cplusplus.com/reference/vector/vector/
-http://www.cplusplus.com/reference/map/map/
-http://www.cplusplus.com/reference/stack/stack/
+http://www.cplusplus.com/reference/vector/vector/  
+http://www.cplusplus.com/reference/map/map/  
+http://www.cplusplus.com/reference/stack/stack/  
+ 
+ https://medium.com/sisgrammers/stl-containers-in-c-a95d0b0aa45a
