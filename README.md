@@ -1,29 +1,26 @@
-Dans ce projet, vous allez devoir ré-implémenter les différents containers de la C++ STL (standard template library).
+Dans ce projet, vous allez devoir ré-implémenter les différents containers de la C++ STL (standard template library).  
 
-Pour chaque container, vous devez rendre des fichiers de classe nommés correctement.
-Vous utiliserez le namespace ft, et vos containers seront appellés à l’aide de ft : :<container>.
-Vous devez respecter la structure de votre container de reference.  
-N’implementez que les élements présents.
+Pour chaque container, vous devez rendre des fichiers de classe nommés correctement.  
+Vous utiliserez le namespace ft, et vos containers seront appellés à l’aide de ft : :<container>.  
+Vous devez respecter la structure de votre container de reference.   
+N’implementez que les élements présents.  
 Nous vous rapellons que vous codez en C++98, donc toutes les nouvelles fonctions des containers NE DOIVENT PAS être implémentées. 
 Vous devez par contre implémenter les anciennes (même deprecated).  
 
-• Implémentez les containers suivants, et rendez les fichiers <container>.hpp nécessaires.
-• Vous devez également rendre un fichier main.cpp qui teste votre rendu en vue des évaluations. 
-(aller plus loin que dans les exemples !)
-• Vous devez produire un binaire avec uniquement vos conteneurs et un autre avec
-le même test avec les conteneurs STL.
-• Comparer les sorties et le temps (vous pouvez être jusqu’à 20 fois plus lent).
-• Les fonctions membres, les non-membres et les overloads sont attendues.
-• respectez le nommage, faites attention aux détails.
-• Vous devez utiliser std : :allocator.
-• Vous devez justifier votre structure de données interne pour chaque conteneur
-(utiliser un simple tableau pour une map n’est pas acceptable).
-• Si le conteneur a un système d’itérateur, vous devez l’implémenter.
-• iterators_traits, reverse_iterator, enable_if, is_integral, equal/lexicographical compare, std : :pair, std : :make_pair, doivent être réimplémenté.
-• Vous pouvez utiliser https://www.cplusplus.com/ et https://cppreference.com/ comme références.
+• Implémentez les containers suivants, et rendez les fichiers <container>.hpp nécessaires.  
+• Vous devez produire un binaire avec uniquement vos conteneurs et un autre avec le même test avec les conteneurs STL.  
+• Comparer les sorties et le temps (vous pouvez être jusqu’à 20 fois plus lent).  
+• Les fonctions membres, les non-membres et les overloads sont attendues.  
+• respectez le nommage, faites attention aux détails.  
+• Vous devez utiliser std : :allocator. 
+• Vous devez justifier votre structure de données interne pour chaque conteneur  
+(utiliser un simple tableau pour une map n’est pas acceptable).  
+• Si le conteneur a un système d’itérateur, vous devez l’implémenter.  
+• iterators_traits, reverse_iterator, enable_if, is_integral, equal/lexicographical compare, std : :pair, std : :make_pair, doivent être réimplémenté.  
+• Vous pouvez utiliser https://www.cplusplus.com/ et https://cppreference.com/ comme références.  
 • Vous ne pouvez pas implémenter plus de fonctions publiques que celles proposées dans les conteneurs standard. 
-Tout le reste doit être privé ou protégé. 
-Chaque fonction/variable publique doit être justifiée.
+Tout le reste doit être privé ou protégé.  
+Chaque fonction/variable publique doit être justifiée.  
 • Pour les overloads non-membres, le mot-clé friend est autorisé. 
 Chaque utilisation de friend doit être justifiée et sera vérifiée lors de l’évaluation.  
  
