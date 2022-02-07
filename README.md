@@ -12,11 +12,17 @@ Vous devez par contre implémenter les anciennes (même deprecated).
 • Comparer les sorties et le temps (vous pouvez être jusqu’à 20 fois plus lent).  
 • Les fonctions membres, les non-membres et les overloads sont attendues.  
 • respectez le nommage, faites attention aux détails.  
-• Vous devez utiliser std : :allocator. 
+• Vous devez utiliser std::allocator. 
 • Vous devez justifier votre structure de données interne pour chaque conteneur  
 (utiliser un simple tableau pour une map n’est pas acceptable).  
 • Si le conteneur a un système d’itérateur, vous devez l’implémenter.  
-• iterators_traits, reverse_iterator, enable_if, is_integral, equal/lexicographical compare, std : :pair, std : :make_pair, doivent être réimplémenté.  
+• iterators_traits, 
+reverse_iterator, 
+enable_if, 
+is_integral, 
+equal/lexicographical compare, 
+std::pair, 
+std::make_pair, doivent être réimplémenté.  
 • Vous pouvez utiliser https://www.cplusplus.com/ et https://cppreference.com/ comme références.  
 • Vous ne pouvez pas implémenter plus de fonctions publiques que celles proposées dans les conteneurs standard. 
 Tout le reste doit être privé ou protégé.  
@@ -35,8 +41,12 @@ toujours être compatible avec d’autres conteneurs comme celui de STL.
 Les conteneurs STL sont interdits.
 Vous êtes autorisé à utiliser la bibliothèque STD
 
+https://en.cppreference.com/w/cpp/container/vector
+
 http://www.cplusplus.com/reference/vector/vector/  
 http://www.cplusplus.com/reference/map/map/  
 http://www.cplusplus.com/reference/stack/stack/  
- 
- https://medium.com/sisgrammers/stl-containers-in-c-a95d0b0aa45a
+
+https://medium.com/sisgrammers/stl-containers-in-c-a95d0b0aa45a
+
+https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c
