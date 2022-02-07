@@ -50,3 +50,7 @@ http://www.cplusplus.com/reference/stack/stack/
 https://medium.com/sisgrammers/stl-containers-in-c-a95d0b0aa45a
 
 https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c
+
+
+As describe here : https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c
+"Maps are usually implemented as red-black trees"
