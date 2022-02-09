@@ -58,6 +58,8 @@ vector : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01082_source.ht
 stack  : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01078_source.html  
 map    : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01069_source.html   
 
+## Docs / refs :  
+
 ### Vector   
 https://getdoc.wiki/Cpp-standard-library-vector
 https://docs.microsoft.com/fr-fr/cpp/standard-library/vector-class?view=msvc-170
