@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/09 12:45:48 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 12:46:16 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,29 @@ namespace ft
 			typedef std::size_t									size_type;
 // Member functions :
 // (constructor)	Construct vector (public member function )
-			vector (const allocator_type& alloc = allocator_type())
+			explicit vector (const allocator_type& alloc = allocator_type())
 				: _size(0), _capacity(0), _array(NULL), _alloc(alloc) {}
-		
+
+			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+				: _size(0), _capacity(0), _array(NULL), _alloc(alloc)
+			{ assign(n, val); }
+
+			template <class InputIterator>
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+				typename ft::enable_if< !std::numeric_limits<InputIterator>::is_integer , void >::type* = 0)
+				: _size(0), _capacity(0), _array(NULL), _alloc(alloc)
+			{ assign(first, last); }
+
+			vector (const vector& x) : _size(0), _capacity(0), _array(NULL), _alloc(x._alloc)
+			{ *this = x; }
+			
 // (destructor)		Vector destructor (public member function )
 			~vector()
 			{
+				clear();
+				_alloc.deallocate(_array, _capacity);
 			}
+			
 // operator=		Assign content (public member function )
 			vector & operator=(const vector & og)
 			{

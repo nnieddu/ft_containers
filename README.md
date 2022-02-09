@@ -41,7 +41,6 @@ toujours être compatible avec d’autres conteneurs comme celui de STL.
 Les conteneurs STL sont interdits.
 Vous êtes autorisé à utiliser la bibliothèque STD
 
-
 ## libstdc++ gnu gcc (2021-07-28) (gcc-11.2.0 version)  
 https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/index.html    
   
@@ -62,18 +61,16 @@ map    : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01069_source.ht
 
 ### Vector   
 https://getdoc.wiki/Cpp-standard-library-vector
-https://docs.microsoft.com/fr-fr/cpp/standard-library/vector-class?view=msvc-170
+
 https://en.cppreference.com/w/cpp/container/vector
 http://www.cplusplus.com/reference/vector/vector/ 
 
 ### Stack    
 http://www.cplusplus.com/reference/stack/stack/ 
 
-### Map   
+### Map  
 http://www.cplusplus.com/reference/map/map/  
 
 ### Useful / interesting / various :   
-https://medium.com/sisgrammers/stl-containers-in-c-a95d0b0aa45a
-
 As describe here : https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c
 "Maps are usually implemented as red-black trees"
