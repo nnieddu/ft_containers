@@ -41,16 +41,38 @@ toujours être compatible avec d’autres conteneurs comme celui de STL.
 Les conteneurs STL sont interdits.
 Vous êtes autorisé à utiliser la bibliothèque STD
 
+-------------------------------------------------------------------------------------------------  
+##libstdc++ gnu gcc (2021-07-28)  
+https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/index.html    
+  
+vector (gcc-11.2.0 version) https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/a05095.html   
+source : https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/a00398_source.html  
+stack (gcc-11.2.0 version) https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/a05015.html    
+map (gcc-11.2.0 version) https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/a04951.html   
+-------------------------------------------------------------------------------------------------  
+[This project aim to reproduce containers based on C++98 so theses: are more accurate for the purpose but contain] 
+##libstdc++  (gcc 4.6.4)
+https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/   
+  
+vector : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01082_source.html  
+stack  : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01078_source.html  
+map    : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01069_source.html   
+-------------------------------------------------------------------------------------------------  
+
+###Vector
+https://getdoc.wiki/Cpp-standard-library-vector
+https://docs.microsoft.com/fr-fr/cpp/standard-library/vector-class?view=msvc-170
 https://en.cppreference.com/w/cpp/container/vector
+http://www.cplusplus.com/reference/vector/vector/ 
 
-http://www.cplusplus.com/reference/vector/vector/  
+###Stack  
+http://www.cplusplus.com/reference/stack/stack/ 
+
+###Map
 http://www.cplusplus.com/reference/map/map/  
-http://www.cplusplus.com/reference/stack/stack/  
 
+####Useful / interesting / various :
 https://medium.com/sisgrammers/stl-containers-in-c-a95d0b0aa45a
-
-https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c
-
 
 As describe here : https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c
 "Maps are usually implemented as red-black trees"
