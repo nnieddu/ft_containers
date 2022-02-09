@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/09 15:54:44 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 16:12:46 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,37 @@ namespace ft
 			// [Member functions]
 			// [CONSTRUCTORS]
 			// default (1)	
-			explicit vector (const allocator_type& alloc = allocator_type());
+			explicit vector (const allocator_type& alloc = allocator_type()) {}
 
 			// fill (2)
-			explicit vector (size_type n, const value_type& val = value_type(),
-				const allocator_type& alloc = allocator_type());
+			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
 
 			// range (3)
 			template <class InputIterator>
-				vector (InputIterator first, InputIterator last,
-					const allocator_type& alloc = allocator_type());
+				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
 			// copy (4)
 			vector (const vector& x);
 
 			// (destructor)	Vector destructor (public member function )
-			~vector();
+			~vector()
+			{
+				this->clear();
+				_alloc.deallocate(_start, this->capacity());
+			}
 						
 			// operator=	Assign content (public member function )
-			vector& operator=(const vector& x);
+			vector& operator=(const vector& x)
+			{
+				if (this != x)
+				{
+					this->clear(); // 
+					_alloc.deallocate(_start, this->capacity());
+					assign(x.begin(), x.end());
+				}
+				return *this;
+        }
+
 			// [ITERATORS]
 			// begin		Return iterator to beginning (public member function )
 			iterator begin();
