@@ -50,8 +50,8 @@ source : https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/a00398_source.h
 stack (gcc-11.2.0 version) https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/a05015.html    
 map (gcc-11.2.0 version) https://gcc.gnu.org/onlinedocs/gcc-11.2.0/libstdc++/api/a04951.html   
 -------------------------------------------------------------------------------------------------  
-[This project aim to reproduce containers based on C++98 so theses: are more accurate for the purpose but contain] 
-##libstdc++  (gcc 4.6.4)
+[This project aim to reproduce containers based on C++98 so theses: are more accurate for the purpose but contain]  
+##libstdc++  (gcc 4.6.4)   
 https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/   
   
 vector : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01082_source.html  
@@ -59,19 +59,19 @@ stack  : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01078_source.ht
 map    : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01069_source.html   
 -------------------------------------------------------------------------------------------------  
 
-###Vector
+###Vector   
 https://getdoc.wiki/Cpp-standard-library-vector
 https://docs.microsoft.com/fr-fr/cpp/standard-library/vector-class?view=msvc-170
 https://en.cppreference.com/w/cpp/container/vector
 http://www.cplusplus.com/reference/vector/vector/ 
 
-###Stack  
+###Stack    
 http://www.cplusplus.com/reference/stack/stack/ 
 
-###Map
+###Map   
 http://www.cplusplus.com/reference/map/map/  
 
-####Useful / interesting / various :
+####Useful / interesting / various :   
 https://medium.com/sisgrammers/stl-containers-in-c-a95d0b0aa45a
 
 As describe here : https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c
