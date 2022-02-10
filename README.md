@@ -75,8 +75,7 @@ http://www.cplusplus.com/reference/stack/stack/
 http://www.cplusplus.com/reference/map/map/  
 
 ### Useful / interesting / various :   
-As describe here : https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c  
-"Maps are usually implemented as red-black trees"
+https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c  
 
 https://cpp.developpez.com/cours/cpp/?page=page_14
 https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/SFINAE
