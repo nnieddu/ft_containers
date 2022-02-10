@@ -41,8 +41,12 @@ Votre pile utilisera votre classe vectorielle comme conteneur sous-jacent par d�
 il doit toujours être compatible avec d’autres conteneurs comme celui de STL.  
 Les conteneurs STL sont interdits.  
 Vous êtes autorisé à utiliser la bibliothèque STD  
-  
-  
+   
+    
+- vector: Dynamic contiguous array
+- map: Binary Search Tree of key-value pairs, sorted by unique keys.
+- stack: Adapts a container to provide stack (LIFO - Last In First Out)
+
 ## libstdc++ 
 (oldest gcc implemtentation found on gnu.org)
 https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/   
@@ -52,6 +56,11 @@ stack  : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01078_source.ht
 map    : https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01069_source.html   
 
 ## Docs / refs :  
+
+### Iterators 
+https://www.simplilearn.com/tutorials/cpp-tutorial/iterators-in-cpp#what_are_iterators_in_c  
+ 
+### Allocators 
 
 ### Vector   
 https://getdoc.wiki/Cpp-standard-library-vector  
