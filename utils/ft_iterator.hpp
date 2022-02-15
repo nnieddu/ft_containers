@@ -6,27 +6,51 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/15 14:20:01 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 14:43:41 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "utils.hpp"
+// #include "utils.hpp"
 
+// https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/RandomAccessIterator/
 
 namespace ft
 {
-	template <typename T>
+		// template <class Category, class T, class Distance = ptrdiff_t,
+		// 	class Pointer = T*, class Reference = T&>
+		// struct iterator {
+		// 	typedef T         value_type;
+		// 	typedef Distance  difference_type;
+		// 	typedef Pointer   pointer;
+		// 	typedef Reference reference;
+		// 	typedef Category  iterator_category;
+		// };
+		
+	    class random_access_iterator_tag { };
+    	template <class Category, class T, class Distance = ptrdiff_t,
+        class Pointer = T*, class Reference = T&>
+        class iterator
+        {
+            public:
+                typedef T           value_type;
+                typedef Distance    difference_type;
+                typedef Pointer     pointer;
+                typedef Reference   reference;
+                typedef Category    iterator_category;
+        };
+		
+		template <typename T>
 		class random_access_iterator : ft::iterator<ft::random_access_iterator_tag, T>
 		{
 			public:
-				typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category     iterator_category;
-				typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type            value_type;
-				typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type       difference_type;
-				typedef T*                                                                              pointer;
-				typedef T&                                                                              reference;
+				typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category		iterator_category;
+				typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type			value_type;
+				typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type		difference_type;
+				typedef T*																			pointer;
+				typedef T&																			reference;
 				
 				random_access_iterator(void) : _elem(nullptr) {}
 
