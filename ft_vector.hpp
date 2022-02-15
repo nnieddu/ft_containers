@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/09 16:12:46 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 10:25:01 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,6 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
-
-// http://www.cplusplus.com/reference/vector/vector/ :
-
-// type de membre 	        		définition 	                                    			Remarques
-// --------------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------------------------------------------------
-// value_type					The first template parameter (T)	
-// --------------------------------------------------------------------------------------------------------------------------------------
-// allocator_type				The second template parameter (Alloc)					defaults to: allocator<value_type>
-// --------------------------------------------------------------------------------------------------------------------------------------
-// reference					allocator_type::reference								for the default allocator: value_type&
-// --------------------------------------------------------------------------------------------------------------------------------------
-// const_reference				allocator_type::const_reference							for the default allocator: const value_type&
-// --------------------------------------------------------------------------------------------------------------------------------------
-// pointer						allocator_type::pointer									for the default allocator: value_type*
-// --------------------------------------------------------------------------------------------------------------------------------------
-// const_pointer				allocator_type::const_pointer							for the default allocator: const value_type*
-// --------------------------------------------------------------------------------------------------------------------------------------
-// iterator						a random access iterator to value_type					convertible to const_iterator
-// --------------------------------------------------------------------------------------------------------------------------------------
-// const_iterator				a random access iterator to const value_type	
-// --------------------------------------------------------------------------------------------------------------------------------------
-// reverse_iterator				reverse_iterator<iterator>	
-// --------------------------------------------------------------------------------------------------------------------------------------
-// const_reverse_iterator		reverse_iterator<const_iterator>	
-// --------------------------------------------------------------------------------------------------------------------------------------
-// difference_type				a signed integral type, identical to: 
-//						    	iterator_traits<iterator>::difference_type				usually the same as ptrdiff_t
-// --------------------------------------------------------------------------------------------------------------------------------------
-// size_type					an unsigned integral type that can represent any 
-//								non-negative value of difference_type					usually the same as size_t
-// --------------------------------------------------------------------------------------------------------------------------------------
 
 namespace ft 
 {
@@ -69,7 +37,7 @@ namespace ft
 			// [Member functions]
 			// [CONSTRUCTORS]
 			// default (1)	
-			explicit vector (const allocator_type& alloc = allocator_type()) {}
+			explicit vector (const allocator_type& alloc = allocator_type());
 
 			// fill (2)
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
@@ -79,26 +47,15 @@ namespace ft
 				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
 			// copy (4)
-			vector (const vector& x);
-
+			vector (const vector& x) { *this = x; }
+			
 			// (destructor)	Vector destructor (public member function )
 			~vector()
 			{
-				this->clear();
-				_alloc.deallocate(_start, this->capacity());
 			}
 						
 			// operator=	Assign content (public member function )
-			vector& operator=(const vector& x)
-			{
-				if (this != x)
-				{
-					this->clear(); // 
-					_alloc.deallocate(_start, this->capacity());
-					assign(x.begin(), x.end());
-				}
-				return *this;
-        }
+			vector& operator=(const vector& x);
 
 			// [ITERATORS]
 			// begin		Return iterator to beginning (public member function )
