@@ -78,6 +78,8 @@ http://www.cplusplus.com/reference/map/map/
 
 ### Useful / interesting / various :   
 https://stdcxx.apache.org/doc/stdlibug/16-3.html  
+  
+https://www.learncpp.com/cpp-tutorial/container-classes/  
 
 https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c  
 

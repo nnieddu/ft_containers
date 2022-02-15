@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/15 13:48:44 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 14:35:52 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,19 @@ namespace ft
 			// [Member functions]
 			// [CONSTRUCTORS]
 			// default (1)	
-			explicit vector (const allocator_type& alloc = allocator_type())
-			:
-				_alloc(alloc),
-				_start(u_nullptr),
-				_end(u_nullptr),
-				_end_capacity(u_nullptr)
-			{}
+			explicit vector (const allocator_type& alloc = allocator_type()) {}
 			// // fill (2)
-			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {}
-
+			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+			{
+				_start = _alloc.allocate( n );
+				_end_capacity = _start + n;
+				_end = _start;
+				while (n--)
+				{
+					_alloc.construct(_end, val);
+					_end++;
+				}
+			}
 			// // range (3)
 			// template <class InputIterator>
 				// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {}

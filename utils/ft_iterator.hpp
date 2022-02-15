@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/15 13:53:20 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 14:20:01 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,11 @@ namespace ft
 				typedef T*                                                                              pointer;
 				typedef T&                                                                              reference;
 				
-				random_access_iterator(void)
-				:
-					_elem(u_nullptr)
-				{}
+				random_access_iterator(void) : _elem(nullptr) {}
 
-				random_access_iterator(pointer elem)
-				:
-					_elem(elem)
-				{}
+				random_access_iterator(pointer elem) : _elem(elem) {}
 
-				random_access_iterator(const random_access_iterator& op)
-				:
-					_elem(op._elem)
-				{}
+				random_access_iterator(const random_access_iterator& op) : _elem(op._elem) {}
 
 				random_access_iterator &operator=(const random_access_iterator& op)
 				{
@@ -53,8 +44,7 @@ namespace ft
 
 				virtual ~random_access_iterator() {}
 
-				pointer base() const
-				{ return (this->_elem); }
+				pointer base() const { return (this->_elem); }
 
 				reference operator*(void) const { return (*_elem); }
 
@@ -65,7 +55,7 @@ namespace ft
 					_elem++;
 					return (*this);
 				}
-
+				
 				private:
 					pointer _elem;
 		};
