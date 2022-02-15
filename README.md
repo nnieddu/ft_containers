@@ -75,6 +75,8 @@ http://www.cplusplus.com/reference/stack/stack/
 http://www.cplusplus.com/reference/map/map/  
 
 ### Useful / interesting / various :   
+https://stdcxx.apache.org/doc/stdlibug/16-3.html  
+
 https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c  
 
 https://cpp.developpez.com/cours/cpp/?page=page_14  
