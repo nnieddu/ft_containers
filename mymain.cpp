@@ -10,14 +10,14 @@ int main ()
 
   // constructors used in the same order as described above:
   ft::vector<int> first;                                // empty vector of ints
-  // ft::vector<int> second (4,100);                       // four ints with value 100
+  ft::vector<int> second (4,100);                       // four ints with value 100
 //   ft::vector<int> third (second.begin(),second.end());  // iterating through second
   ft::vector<int> fourth (first);                       // a copy of third
   // the iterator constructor can also be used to construct from arrays:
   // ft::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
 
-  std::cout << "The contents of fifth are:";
-  for (ft::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
+  std::cout << "The contents of   second are:";
+  for (ft::vector<int>::iterator it = second.begin(); it != second.end(); ++it)
     std::cout << ' ' << *it;
   std::cout << '\n';
 

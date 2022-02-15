@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/15 13:15:27 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 13:48:44 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
-#include "../utils/utils.hpp"
-#include "../utils/random_access_iterator.hpp"
+
+#include "../utils/ft_iterator.hpp"
 
 namespace ft 
 {
@@ -24,18 +24,18 @@ namespace ft
 	class vector {
 		public: 
 			// [Type members]
-			typedef T											value_type;
-			typedef Alloc										allocator_type;
-			typedef typename allocator_type::reference			reference;
-			typedef typename allocator_type::const_reference	const_reference;
-			typedef typename allocator_type::pointer			pointer;
-			typedef typename allocator_type::const_pointer		const_pointer;
-			typedef ft::random_access_iterator<value_type>		iterator;
-			// typedef ft::const_iterator<const value_type>					const_iterator;
+			typedef T												value_type;
+			typedef Alloc											allocator_type;
+			typedef typename allocator_type::reference				reference;
+			typedef typename allocator_type::const_reference		const_reference;
+			typedef typename allocator_type::pointer				pointer;
+			typedef typename allocator_type::const_pointer			const_pointer;
+			typedef ft::random_access_iterator<value_type>			iterator;
+			// typedef ft::const_iterator<const value_type>			const_iterator;
 			// typedef ft::reverse_iterator<value_type>				reverse_iterator;
-			// typedef ft::const_reverse_iterator<const value_type>			const_reverse_iterator;
-			typedef std::ptrdiff_t								difference_type;
-			typedef std::size_t									size_type;
+			// typedef ft::const_reverse_iterator<const value_type>	const_reverse_iterator;
+			typedef std::ptrdiff_t									difference_type;
+			typedef std::size_t										size_type;
 			// [Member functions]
 			// [CONSTRUCTORS]
 			// default (1)	

@@ -107,4 +107,6 @@ https://stackoverflow.com/questions/59539057/c-does-it-lead-to-double-free-when-
  
 https://stackoverflow.com/questions/1051379/is-there-a-difference-between-copy-initialization-and-direct-initialization  
  
-https://stackoverflow.com/questions/12036037/explicit-call-to-a-constructor  
+https://stackoverflow.com/questions/12036037/explicit-call-to-a-constructor    
+   
+#### MEMO  
