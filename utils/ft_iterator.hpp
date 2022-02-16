@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/15 14:54:48 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 08:57:50 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft
 				typedef T*																			pointer;
 				typedef T&																			reference;
 				
-				random_access_iterator(void) : _elem(nullptr) {}
+				random_access_iterator(void) : _elem(NULL) {}
 
 				random_access_iterator(pointer elem) : _elem(elem) {}
 

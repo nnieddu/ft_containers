@@ -17,7 +17,7 @@ Vous devez par contre implémenter les anciennes (même deprecated).
 • Vous devez utiliser std::allocator.  
 • Vous devez justifier votre structure de données interne pour chaque conteneur  
 (utiliser un simple tableau pour une map n’est pas acceptable).  
-• Si le conteneur a un système d’itérateur, vous devez l’implémenter.  
+• Si le conteneur a un système d’itérateur, vous devez l’implémenter.
 * iterators_traits,   
 * reverse_iterator,   
 * enable_if,   
@@ -26,11 +26,11 @@ Vous devez par contre implémenter les anciennes (même deprecated).
 * std::pair,   
 * std::make_pair,  
 doivent être réimplémenté.  
-• Vous pouvez utiliser https://www.cplusplus.com/ et https://cppreference.com/ comme références.  
-• Vous ne pouvez pas implémenter plus de fonctions publiques que celles proposées dans les conteneurs standard. 
+Vous pouvez utiliser https://www.cplusplus.com/ et https://cppreference.com/ comme références.  
+Vous ne pouvez pas implémenter plus de fonctions publiques que celles proposées dans les conteneurs standard. 
 Tout le reste doit être privé ou protégé.  
 Chaque fonction/variable publique doit être justifiée.  
-• Pour les overloads non-membres, le mot-clé friend est autorisé. 
+Pour les overloads non-membres, le mot-clé friend est autorisé. 
 Chaque utilisation de friend doit être justifiée et sera vérifiée lors de l’évaluation.   
  
 Vous devez rendre les containers suivants et leur fonctions associés :  
@@ -43,16 +43,14 @@ Votre pile utilisera votre classe vectorielle comme conteneur sous-jacent par d�
 il doit toujours être compatible avec d’autres conteneurs comme celui de STL.  
 Les conteneurs STL sont interdits.  
 Vous êtes autorisé à utiliser la bibliothèque STD  
-   
-
-
+  
 # [Infos] 
 
 - vector: Dynamic contiguous array
 - map: Binary Search Tree of key-value pairs, sorted by unique keys.
 - stack: Adapts a container to provide stack (LIFO - Last In First Out)
 
-### iterator:
+### iterators:
     template<
         class Category,
         class T,
@@ -78,7 +76,7 @@ Vous êtes autorisé à utiliser la bibliothèque STD
     template< class Iter > class reverse_iterator;
 ### reverse_iterator::base
     iterator_type base() const;
-- The base iterator is an iterator of the same type as the one used to construct the reverse_iterator, but pointing to the element next to the one the reverse_iterator is currently pointing to (a reverse_iterator has always an offset of -1 with respect to its base iterator).
+- The base iterator is an iterator of the same type as the one used to construct the reverse_iterator, but pointing to the element next to the one is currently pointing to (a reverse_iterator has always an offset of -1 with respect to its base iterator).
 
 # [Links]
 
