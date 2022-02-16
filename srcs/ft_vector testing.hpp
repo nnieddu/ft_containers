@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 09:31:27 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 10:39:11 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 #include <iostream>
 #include <memory>
-#include <cstddef>
 
-#include "../utils/ft_iterator.hpp"
+#include "../utils/ft_vector_iterator.hpp"
 
 namespace ft 
 {
@@ -44,7 +43,6 @@ namespace ft
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
 				_begin = _alloc.allocate( n ); // allocate n elem size of value_type (but they are not constructed) and return ptr to first elem.
-				// _end_capacity = _begin + n;
 				_end = _begin;
 				while (n--)
 				{
@@ -53,15 +51,19 @@ namespace ft
 				}
 			}
 			// // range (3)
-			// template <class InputIterator>
-				// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {}
+			template <class InputIterator>
+				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc) 
+			{
+			}
 
 			// copy (4)
-			vector (const vector& x) { *this = x; }
+			vector (const vector& x) : _alloc(x._alloc), _begin(x._begin), _end(x._end)
+			{ *this = x; }
 			
 			// (destructor)	Vector destructor (public member function )
 			~vector()
 			{
+				//TODO : add clear and _alloc.dealocate()
 			}
 						
 			// operator=	Assign content (public member function )
@@ -79,6 +81,5 @@ namespace ft
 			allocator_type	_alloc;
 			pointer			_begin;
 			pointer			_end;
-			// pointer			_end_capacity;
 	};
 }

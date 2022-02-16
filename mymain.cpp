@@ -16,15 +16,15 @@ int main ()
 
   ft::vector<int> ftfirst;                                // empty vector of ints
   ft::vector<int> ftsecond (4,100);                       // four ints with value 100
-  // ft::vector<int> ftthird (ftsecond.begin(),ftsecond.end());  // iterating through second
-  // ft::vector<int> ftfourth (ftthird);                       // a copy of third
+//   ft::vector<int> ftthird (ftsecond.begin(),ftsecond.end());  // iterating through second
+  ft::vector<int> ftfourth (ftsecond);                       // a copy of third
 
   // ft::vector<int> ftfifth (myints, myints + sizeof(myints) / sizeof(int) );
 
-  // std::cout << "The contents of ftfifth are:";
-  // for (ft::vector<int>::iterator ftit = ftfifth.begin(); ftit != ftfifth.end(); ++ftit)
-  //   std::cout << ' ' << *ftit;
-  // std::cout << '\n';
+  std::cout << "The contents of ftfifth are:";
+  for (ft::vector<int>::iterator ftit = ftfourth.begin(); ftit != ftfourth.end(); ++ftit)
+    std::cout << ' ' << *ftit;
+  std::cout << '\n';
 
 //                       [STL VECTOR CONSTRUCTORS]
 
