@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 16:51:27 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:54:00 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@
 namespace ft
 {
 	template <typename T>
-	class ftIterator : public ft::iterator<ft::random_access_iterator_tag, typename iterator_traits<T>::value_type>
+	class MyIterator : public ft::iterator<ft::random_access_iterator_tag, typename iterator_traits<T>::value_type>
 	{
 	public:
 		typedef T pointer;
-		typedef typename iterator_traits<pointer>::iterator_category iterator_category;
-		typedef typename iterator_traits<pointer>::value_type value_type;
-		typedef typename iterator_traits<pointer>::difference_type difference_type;
-		typedef typename iterator_traits<pointer>::reference reference;
+		typedef typename iterator_traits<pointer>::iterator_category 	iterator_category;
+		typedef typename iterator_traits<pointer>::value_type 			value_type;
+		typedef typename iterator_traits<pointer>::difference_type 		difference_type;
+		typedef typename iterator_traits<pointer>::reference 			reference;
 
 	private:
 		pointer ptr;
 
 	public:
-		ftIterator() : ptr(NULL) {}
+		MyIterator() : ptr(NULL) {}
 		
-		ftIterator(pointer it) : ptr(it) {}
+		MyIterator(pointer it) : ptr(it) {}
 		
-		virtual ~ftIterator() {}
+		virtual ~MyIterator() {}
 
 		// [FUNCTIONS]
 		// [Iterator operations]
@@ -57,37 +57,37 @@ namespace ft
 	
 		reference operator*() { return *ptr; }
 
-		ftIterator operator+(difference_type x)
+		MyIterator operator+(difference_type x)
 		{
 			ptr += x;
 			return (*this);
 		}
 
-		ftIterator& operator++()
+		MyIterator& operator++()
 		{
 			++ptr;
 			return *this;
 		}
 
-		ftIterator operator+=(difference_type x)
+		MyIterator operator+=(difference_type x)
 		{
 			ptr += x;
 			return (*this);
 		}
 
-		ftIterator &operator-(difference_type x)
+		MyIterator &operator-(difference_type x)
 		{
 			ptr -= x;
 			return (*this);
 		}
 
-		ftIterator operator--()
+		MyIterator operator--()
 		{
 			ptr--;
 			return ptr;
 		}
 
-		ftIterator operator-=(difference_type x)
+		MyIterator operator-=(difference_type x)
 		{
 			ptr -= x;
 			return (*this);
@@ -95,10 +95,10 @@ namespace ft
 
 		reference operator[](difference_type x) { return (ptr[x]); }
 
-		bool operator==(const ftIterator &x) const { return ptr == x.ptr; }
+		bool operator==(const MyIterator &x) const { return ptr == x.ptr; }
 
-		bool operator!=(const ftIterator &x) const { return (ptr != x.ptr); }
+		bool operator!=(const MyIterator &x) const { return (ptr != x.ptr); }
 
-		bool operator<(const ftIterator &x) const { return (this->ptr < x.ptr); }
+		bool operator<(const MyIterator &x) const { return (this->ptr < x.ptr); }
 	};
 }
