@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 16:51:05 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:45:08 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,20 @@ namespace ft
 		{
 			_container = _alloc.allocate(n);
 			for (unsigned long i = 0; i < n; i++)
-			{
 				_container[i] = val;
-			}
 		}
-		
-		// explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-		// 	: _alloc(alloc), _begin(NULL), _end(NULL)
-		// 	{
-		// 		_begin = _alloc.allocate( n );
-		// 		_end = _begin;
-		// 		while (n--)
-		// 		{
-		// 			_alloc.construct(_end, val);
-		// 			_end++;
-		// 		}
-		// 	}
 
 		// range (3)
 		// template <class InputIterator>
 		// 	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
-		vector (const vector& x) : _alloc(x._alloc), _begin(x._begin), _end(x._end) { *this = x; }
+		vector (const vector& x) : _alloc(x._alloc), _container(x._container), _size(x._size), _capacity(x._capacity)
+		{ *this = x; }
 
 		~vector()
 		{
-			// TODO:
-			// this->clear();
-			// _alloc.deallocate(_start, this->capacity());
+			this->clear();
+			_alloc.deallocate(_container, this->capacity());
 		};
 
 		vector& operator=(const vector& x)
@@ -90,9 +76,7 @@ namespace ft
 			_capacity = x._capacity;
 			_container = _alloc.allocate(_capacity);
 			for (size_t i = 0; i < _size; i++)
-			{
 				_container[i] = x._container[i];
-			}
 			return (*this);
 		}
 
@@ -184,7 +168,19 @@ namespace ft
 			void swap (vector& x);
 			
 			// clear		Clear content (public member function )
-			void clear();
+			void clear()
+			{
+				size_t i;
+				i = 0;
+
+				while (i < _size)
+				{
+
+					_alloc.destroy(&_container[i]);
+					i++;
+				}
+				_size = 0;
+			}
 
 			// [ALLOCATOR]
 			// get_allocator	Get allocator (public member function )
@@ -217,7 +213,7 @@ namespace ft
 			// template <class T, class Alloc>
 			// bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
 			
-			// swap						Exchange contents of vectors (function template )
+			// swap	Exchange contents of vectors (function template )
 			// template <class T, class Alloc>
 			// void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
 	};
