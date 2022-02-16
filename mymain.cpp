@@ -31,7 +31,7 @@ int main ()
 //                       [STL VECTOR CONSTRUCTORS]
 
   std::vector<int> stdfirst;                                // empty vector of ints
-  std::vector<int> stdsecond (4,100);                       // four ints with value 100
+  std::vector<int> stdsecondEmpty class to identify the category of an iterator  (4,100);                       // four ints with value 100
   std::vector<int> stdthird (stdsecond.begin(),stdsecond.end());  // iterating through second
   std::vector<int> stdfourth (stdthird);                       // a copy of third
 

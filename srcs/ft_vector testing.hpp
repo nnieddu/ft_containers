@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 17:51:11 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 18:00:06 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <iostream>
 #include <memory>
 
-#include "../utils/ft_vector_iterator.hpp"
-#include "../utils/ft_iterator_traits.hpp"
+#include "../iterators/ft_vector_iterators.hpp"
+#include "../iterators/ft_iterator_traits.hpp"
 
 namespace ft 
 {	
