@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 08:56:46 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 09:31:27 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ namespace ft
 			// // fill (2)
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
-				_start = _alloc.allocate( n );
-				_end_capacity = _start + n;
-				_end = _start;
+				_begin = _alloc.allocate( n ); // allocate n elem size of value_type (but they are not constructed) and return ptr to first elem.
+				// _end_capacity = _begin + n;
+				_end = _begin;
 				while (n--)
 				{
-					_alloc.construct(_end, val);
+					_alloc.construct(_end, val); //Constructs an element object on the location pointed by _end.
 					_end++;
 				}
 			}
@@ -68,7 +68,7 @@ namespace ft
 			// vector& operator=(const vector& x);
 
 			// [ITERATORS]
-			iterator begin() { return (_start); };
+			iterator begin() { return (_begin); };
 			iterator end()			
 			{
 				// if (this->empty())
@@ -76,9 +76,9 @@ namespace ft
 				return (_end);
 			}
 		private:
-			allocator_type  _alloc;
-			pointer         _start;
-			pointer         _end;
-			pointer         _end_capacity;
+			allocator_type	_alloc;
+			pointer			_begin;
+			pointer			_end;
+			// pointer			_end_capacity;
 	};
 }

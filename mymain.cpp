@@ -10,36 +10,34 @@ int main ()
 // [-----------------------VECTOR TESTS--------------------------]
 //  -------------------------------------------------------------
 
-//                        [MY VECTOR CONSTRUCTORS]
   int myints[] = {16,2,77,29};
 
-  // constructors used in the same order as described above:
-  ft::vector<int> first;                                // empty vector of ints
-  ft::vector<int> second (4,100);                       // four ints with value 100
-//   ft::vector<int> third (second.begin(),second.end());  // iterating through second
-  ft::vector<int> fourth (first);                       // a copy of third
-  // the iterator constructor can also be used to construct from arrays:
-  // ft::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+//                        [MY VECTOR CONSTRUCTORS]
 
-  std::cout << "The contents of   second are:";
-  for (ft::vector<int>::iterator it = second.begin(); it != second.end(); ++it)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
+  ft::vector<int> ftfirst;                                // empty vector of ints
+  ft::vector<int> ftsecond (4,100);                       // four ints with value 100
+  // ft::vector<int> ftthird (ftsecond.begin(),ftsecond.end());  // iterating through second
+  // ft::vector<int> ftfourth (ftthird);                       // a copy of third
+
+  // ft::vector<int> ftfifth (myints, myints + sizeof(myints) / sizeof(int) );
+
+  // std::cout << "The contents of ftfifth are:";
+  // for (ft::vector<int>::iterator ftit = ftfifth.begin(); ftit != ftfifth.end(); ++ftit)
+  //   std::cout << ' ' << *ftit;
+  // std::cout << '\n';
 
 //                       [STL VECTOR CONSTRUCTORS]
 
-
-  // constructors used in the same order as described above:
   std::vector<int> stdfirst;                                // empty vector of ints
   std::vector<int> stdsecond (4,100);                       // four ints with value 100
   std::vector<int> stdthird (stdsecond.begin(),stdsecond.end());  // iterating through second
   std::vector<int> stdfourth (stdthird);                       // a copy of third
-  // the iterator constructor can also be used to construct from arrays:
+
   std::vector<int> stdfifth (myints, myints + sizeof(myints) / sizeof(int) );
 
   std::cout << "The contents of stdfifth are:";
   for (std::vector<int>::iterator stdit = stdfifth.begin(); stdit != stdfifth.end(); ++stdit)
-    std::cout << ' ' << *stdit;
+	std::cout << ' ' << *stdit;
   std::cout << '\n';
 
 //                        [FT ITERATORS]
