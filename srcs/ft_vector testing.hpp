@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 16:34:58 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 16:51:05 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ namespace ft
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 	private:
+		allocator_type  _alloc;
 		value_type *_container;
 		size_type _size;
 		size_type _capacity;
-		
-		allocator_type  _alloc;
-		pointer         _begin;
-		pointer         _end;
 	public:
 		// [CONSTRUCTORS]
 		// default (1)	
