@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector_iterators.hpp                            :+:      :+:    :+:   */
+/*   ft_random_access_iterator.hpp                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 18:00:06 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 11:38:47 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "../iterators/ft_iterator_traits.hpp"
+#include "ft_iterator_traits.hpp"
 
 // https://www.cplusplus.com/reference/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator/
-// https://www.cplusplus.com/reference/iterator/InputIterator/
 // https://www.cplusplus.com/reference/iterator/RandomAccessIterator/
 
 namespace ft

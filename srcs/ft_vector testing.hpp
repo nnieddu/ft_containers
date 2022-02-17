@@ -6,17 +6,19 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 18:00:06 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 11:39:24 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+// https://stackoverflow.com/questions/45847787/how-to-differentiate-fill-constructor-and-range-constructor-in-c11
 
 #pragma once
 
 #include <iostream>
 #include <memory>
 
-#include "../iterators/ft_vector_iterators.hpp"
-#include "../iterators/ft_iterator_traits.hpp"
+#include "../utils/iterators/ft_iterator_traits.hpp"
+#include "../utils/iterators/ft_random_access_iterator.hpp"
 
 namespace ft 
 {	

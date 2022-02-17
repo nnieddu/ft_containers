@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 17:42:22 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 11:37:46 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #include <iostream>
 #include <memory>
-#include <cstddef>
+
+#include "../utils/iterators/ft_random_access_iterator.hpp"
 
 namespace ft 
 {
