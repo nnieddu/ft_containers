@@ -18,13 +18,13 @@ Vous devez utiliser std::allocator.
 Vous devez justifier votre structure de données interne pour chaque conteneur  
 (utiliser un simple tableau pour une map n’est pas acceptable).  
 Si le conteneur a un système d’itérateur, vous devez l’implémenter.
-* iterators_traits,   
-* reverse_iterator,   
-* enable_if,   
-* is_integral,  
-* equal/lexicographical compare,  
-* std::pair,   
-* std::make_pair    
+• iterators_traits,   
+• reverse_iterator,   
+• enable_if,   
+• is_integral,  
+• equal/lexicographical compare,  
+• std::pair,   
+• std::make_pair    
 doivent être réimplémenté.  
 Vous pouvez utiliser https://www.cplusplus.com/ et https://cppreference.com/ comme références.  
 Vous ne pouvez pas implémenter plus de fonctions publiques que celles proposées dans les conteneurs standard. 
