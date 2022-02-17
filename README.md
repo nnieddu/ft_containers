@@ -24,7 +24,7 @@ Vous devez par contre implémenter les anciennes (même deprecated).
 * is_integral,  
 * equal/lexicographical compare,  
 * std::pair,   
-* std::make_pair,  
+* std::make_pair    
 doivent être réimplémenté.  
 Vous pouvez utiliser https://www.cplusplus.com/ et https://cppreference.com/ comme références.  
 Vous ne pouvez pas implémenter plus de fonctions publiques que celles proposées dans les conteneurs standard. 
