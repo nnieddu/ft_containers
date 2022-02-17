@@ -9,15 +9,15 @@ N’implementez que les élements présents.
 Nous vous rapellons que vous codez en C++98, donc toutes les nouvelles fonctions des containers NE DOIVENT PAS être implémentées. 
 Vous devez par contre implémenter les anciennes (même deprecated).  
 
-• Implémentez les containers suivants, et rendez les fichiers <container>.hpp nécessaires.  
-• Vous devez produire un binaire avec uniquement vos conteneurs et un autre avec le même test avec les conteneurs STL.  
-• Comparer les sorties et le temps (vous pouvez être jusqu’à 20 fois plus lent).  
-• Les fonctions membres, les non-membres et les overloads sont attendues.  
-• respectez le nommage, faites attention aux détails.  
-• Vous devez utiliser std::allocator.  
-• Vous devez justifier votre structure de données interne pour chaque conteneur  
+Implémentez les containers suivants, et rendez les fichiers <container>.hpp nécessaires.  
+Vous devez produire un binaire avec uniquement vos conteneurs et un autre avec le même test avec les conteneurs STL.  
+Comparer les sorties et le temps (vous pouvez être jusqu’à 20 fois plus lent).  
+Les fonctions membres, les non-membres et les overloads sont attendues.  
+respectez le nommage, faites attention aux détails.  
+Vous devez utiliser std::allocator.  
+Vous devez justifier votre structure de données interne pour chaque conteneur  
 (utiliser un simple tableau pour une map n’est pas acceptable).  
-• Si le conteneur a un système d’itérateur, vous devez l’implémenter.
+Si le conteneur a un système d’itérateur, vous devez l’implémenter.
 * iterators_traits,   
 * reverse_iterator,   
 * enable_if,   
