@@ -38,7 +38,7 @@ Vous devez rendre les containers suivants et leur fonctions associés :
 • Map  
 • Stack  
 
-Pour votre implémentation vectorielle, il n’est pas obligatoire de coder la spécialisation vector<bool>.  
+Pour votre implémentation vectorielle, il n’est pas obligatoire de coder la spécialisation vector< bool >.  
 Votre pile utilisera votre classe vectorielle comme conteneur sous-jacent par défaut,  
 il doit toujours être compatible avec d’autres conteneurs comme celui de STL.  
 Les conteneurs STL sont interdits.  
