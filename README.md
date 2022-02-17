@@ -17,7 +17,7 @@ respectez le nommage, faites attention aux détails.
 Vous devez utiliser std::allocator.  
 Vous devez justifier votre structure de données interne pour chaque conteneur  
 (utiliser un simple tableau pour une map n’est pas acceptable).  
-Si le conteneur a un système d’itérateur, vous devez l’implémenter.
+Si le conteneur a un système d’itérateur, vous devez l’implémenter.  
 • iterators_traits,   
 • reverse_iterator,   
 • enable_if,   
