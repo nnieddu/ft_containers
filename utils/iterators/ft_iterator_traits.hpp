@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/16 17:57:40 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 10:28:47 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 // https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator_traits/
 // https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
+// https://stackoverflow.com/questions/3582608/how-to-correctly-implement-custom-iterators-and-const-iterators
 
 namespace ft
 {
