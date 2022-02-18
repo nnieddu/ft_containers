@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:15:48 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/17 11:32:41 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 13:55:28 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@
 // template<class T> struct enable_if<true, T> { typedef T type; };
 
 
+// template<class InputIt = T, typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type >
+// vector(InputIt first, InputIt last, const Allocator &alloc = Allocator());
 
-template<class InputIt = T, typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type >
-vector(InputIt first, InputIt last, const Allocator &alloc = Allocator());
+// But I am trying to make it work with C++98 with something like this that doesn't work:
 
-But I am trying to make it work with C++98 with something like this that doesn't work:
-
-template<class InputIt>
-vector(typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type first,
-typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type last, const Allocator &alloc = Allocator());
+// template<class InputIt>
+// vector(typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type first,
+// typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type last, const Allocator &alloc = Allocator());
