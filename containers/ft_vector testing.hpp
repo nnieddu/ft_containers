@@ -6,11 +6,15 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/17 11:39:24 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 11:31:50 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 // https://stackoverflow.com/questions/45847787/how-to-differentiate-fill-constructor-and-range-constructor-in-c11
+// https://www.cplusplus.com/reference/iterator/iterator/ MyIterator
+
+// typedef Create an alias of the existence type, and typename Tell the compiler std::vector<T>::size_type Is a type rather than a member.
+//   http://web.archive.org/web/20120530060356/http://www.comeaucomputing.com/techtalk/templates/
 
 #pragma once
 
@@ -23,7 +27,7 @@
 namespace ft 
 {	
 
-		template < class T, class Alloc = std::allocator<T> >
+	template < class T, class Alloc = std::allocator<T> >
 	class vector {
 		public: 
 			typedef T												value_type;
@@ -213,10 +217,11 @@ namespace ft
 
 			// (6)	
 			// template <class T, class Alloc>
-			// bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-			
-			// swap	Exchange contents of vectors (function template )
-			// template <class T, class Alloc>
+			// bool operator>= (const vectortypename
+typename
+typename
+typename
+typenameloc>
 			// void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
 	};
 }

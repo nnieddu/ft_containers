@@ -134,3 +134,4 @@ map    :
 - https://stackoverflow.com/questions/59539057/c-does-it-lead-to-double-free-when-destroy-element-in-allocatorstring  
 - https://stackoverflow.com/questions/1051379/is-there-a-difference-between-copy-initialization-and-direct-initialization  
 - https://stackoverflow.com/questions/12036037/explicit-call-to-a-constructor    
+- https://www.reddit.com/r/cpp/comments/q1854/typedef_typename_please_help_me_understand/

@@ -6,7 +6,7 @@
 #    By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 06:10:57 by ninieddu          #+#    #+#              #
-#    Updated: 2022/02/16 17:44:37 by ninieddu         ###   ########lyon.fr    #
+#    Updated: 2022/02/18 09:29:13 by ninieddu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(NAME) : $(OBJ)
 	$(COMP) $(FLAG) $(OBJ) -o $(NAME)
 
 run : $(NAME)
-	./$(NAME)
+	valgrind ./$(NAME)
 	# rm -f $(NAME) $(OBJ)
 
 clean :
