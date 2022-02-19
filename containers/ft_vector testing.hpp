@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 13:14:22 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 13:27:50 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,16 @@ namespace ft
 			allocator_type  _alloc;
 			pointer         _start;
 			pointer         _end;
-			// pointer         _end_capacity;
+			size_type		_capacity;
 		public:
 			// [CONSTRUCTORS]
 			// default (1)	
 			explicit vector (const allocator_type& alloc = allocator_type()) 
-			: _alloc(alloc), _start(NULL),	_end(NULL)
-			{}
+			: _alloc(alloc), _start(NULL),	_end(NULL), _capacity(0) {}
 			
 			// fill (2)
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) 
-			: _alloc(alloc), _start(NULL), _end(NULL)
+			: _alloc(alloc), _start(NULL), _end(NULL), _capacity(n) 
 			{
 				_start = _alloc.allocate(n);
 				_end = _start;
@@ -73,16 +72,24 @@ namespace ft
 			// 	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 	
 			vector (const vector& x) 			
-			: _alloc(x._alloc), _start(NULL), _end(NULL)
-			{ this->insert(this->begin(), x.begin(), x.end()); }
+			: _alloc(x._alloc), _start(NULL), _end(NULL), _capacity(x._capacity) 
+			{ *this = x; }
 				
 			~vector()
 			{
 				this->clear();
-				// _alloc.deallocate(_start, this->capacity());
+				_alloc.deallocate(_start, this->capacity());
 			}
 	
-			vector& operator=(const vector& x) {}
+			vector& operator=(const vector& x)
+			{
+				_alloc = x._alloc;
+				_capacity = x._capacity;
+				_start = _alloc.allocate(_capacity);
+				for (size_t i = _capacity; i > 0; i--)
+					_start[i] = x._start[i];
+				return (*this);
+			}
 	
 			// [ITERATORS]
 			iterator begin() { return (_start); }
@@ -100,9 +107,12 @@ namespace ft
 			
 			// rbegin		Return reverse iterator to reverse beginning (public member function )
 			// reverse_iterator rbegin();
+
 			// const_reverse_iterator rbegin() const;
+			
 			// rend			Return reverse iterator to reverse end (public member function )
 			// reverse_iterator rend();
+			
 			// const_reverse_iterator rend() const;
 			
 			size_type size() const { return (this->_end - this->_start); }
@@ -111,7 +121,7 @@ namespace ft
 	
 			// void resize(size_type n, value_type val = value_type());
 	
-			// size_type capacity() const {} ///////
+			size_type capacity() const { return (_capacity); }
 	
 			bool empty() const { return (size() == 0 ? true : false); }
 
