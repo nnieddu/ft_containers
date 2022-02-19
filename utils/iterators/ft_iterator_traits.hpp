@@ -17,6 +17,7 @@
 // https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator_traits/
 // https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
+// https://docs.microsoft.com/en-us/cpp/standard-library/iterator-traits-struct?view=msvc-170
 // https://stackoverflow.com/questions/3582608/how-to-correctly-implement-custom-iterators-and-const-iterators
 
 namespace ft
