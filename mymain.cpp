@@ -1,7 +1,7 @@
 // constructing vectors
 #include <iostream>
 #include <vector>
-#include "containers/ft_vector testing.hpp"
+#include "containers/ft_vector.hpp"
 // #include "srcs/ft_vector.hpp"
 
 int main ()
@@ -29,7 +29,7 @@ int main ()
   std::cout << "ft::vector::begin() returns a " << ft::get_iterator_type(ftsecond.begin()) << " Iterator.\n" << std::endl;
 
 // OPERATORS TESTS
-  // ftfirst = ftsecond;
+  ftfirst = ftsecond;
 
 // FT FUNCTIONS TESTS
   std::cout << "FT size() : " << ftsecond.size() << std::endl;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector testing.hpp                              :+:      :+:    :+:   */
+/*   ft_vector.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 16:22:01 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 17:00:28 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,9 @@ namespace ft
 				_alloc.deallocate(_start, this->capacity());
 			}
 	
-			vector& operator=(const vector& x)
-			{
-				// _alloc = x._alloc;
-				// _size = x._size;
-				// _capacity = x._capacity;
-				// _container = _alloc.allocate(_capacity);
-				// for (size_t i = 0; i < _size; i++)
-				// 	_container[i] = x._container[i];
-				// return (*this);
-			}
+			// vector& operator=(const vector& x)
+			// {
+			// }
 	
 			// [ITERATORS]
 			iterator begin() { return (_start); }
