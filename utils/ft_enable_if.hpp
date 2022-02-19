@@ -6,9 +6,11 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:15:48 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/17 13:55:28 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 16:49:21 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+// https://en.cppreference.com/w/cpp/language/sfinae
 
 // https://www.cplusplus.com/reference/type_traits/enable_if/
 // rewrite enable_if :

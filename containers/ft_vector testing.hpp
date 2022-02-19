@@ -6,18 +6,14 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 13:37:51 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 16:22:01 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+// https://www.cplusplus.com/reference/memory/allocator/
+// https://www.cplusplus.com/reference/vector/vector/
 
-// https://stackoverflow.com/questions/45847787/how-to-differentiate-fill-constructor-and-range-constructor-in-c11
 // https://www.cplusplus.com/reference/iterator/iterator/ MyIterator
-
-// typedef Create an alias of the existence type, and typename Tell the compiler std::vector<T>::size_type Is a type rather than a member.
-//   http://web.archive.org/web/20120530060356/http://www.comeaucomputing.com/techtalk/templates/
-
-// https://www.cplusplus.com/reference/memory/allocator/?kw=allocator
 
 #pragma once
 

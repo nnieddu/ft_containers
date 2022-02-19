@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 13:17:10 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 16:52:18 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,70 +32,70 @@ namespace ft
 		private:
 			pointer _ptr;
 		public :
-		random_access_iterator() : _ptr(NULL) {}
-		
-		random_access_iterator(pointer it) : _ptr(it) {}
-		
-		virtual ~random_access_iterator() {}
-
-		// [FUNCTIONS]
-		// [Iterator operations]
-		template <class InputIterator, class Distance>
-			void advance (InputIterator& it, Distance n);
-		// Advance iterator (function template )
+			random_access_iterator() : _ptr(NULL) {}
 			
-		template<class InputIterator>
-		typename iterator_traits<InputIterator>::difference_type
-			distance (InputIterator first, InputIterator last);
-		// Return distance between iterators (function template )
-		// distance();
+			random_access_iterator(pointer it) : _ptr(it) {}
+			
+			virtual ~random_access_iterator() {}
+
+			// [FUNCTIONS]
+			// [Iterator operations]
+			template <class InputIterator, class Distance>
+				void advance (InputIterator& it, Distance n);
+			// Advance iterator (function template )
+				
+			template<class InputIterator>
+			typename iterator_traits<InputIterator>::difference_type
+				distance (InputIterator first, InputIterator last);
+			// Return distance between iterators (function template )
+			// distance();
+			
+			// [OPERATORS]
 		
-		// [OPERATORS]
-	
-		reference operator*() { return *_ptr; }
+			reference operator*() { return *_ptr; }
 
-		random_access_iterator operator+(difference_type x)
-		{
-			_ptr += x;
-			return (*this);
-		}
+			random_access_iterator operator+(difference_type x)
+			{
+				_ptr += x;
+				return (*this);
+			}
 
-		random_access_iterator& operator++()
-		{
-			++_ptr;
-			return *this;
-		}
+			random_access_iterator& operator++()
+			{
+				++_ptr;
+				return *this;
+			}
 
-		random_access_iterator operator+=(difference_type x)
-		{
-			_ptr += x;
-			return (*this);
-		}
+			random_access_iterator operator+=(difference_type x)
+			{
+				_ptr += x;
+				return (*this);
+			}
 
-		random_access_iterator &operator-(difference_type x)
-		{
-			_ptr -= x;
-			return (*this);
-		}
+			random_access_iterator &operator-(difference_type x)
+			{
+				_ptr -= x;
+				return (*this);
+			}
 
-		random_access_iterator operator--()
-		{
-			_ptr--;
-			return _ptr;
-		}
+			random_access_iterator operator--()
+			{
+				_ptr--;
+				return _ptr;
+			}
 
-		random_access_iterator operator-=(difference_type x)
-		{
-			_ptr -= x;
-			return (*this);
-		}
+			random_access_iterator operator-=(difference_type x)
+			{
+				_ptr -= x;
+				return (*this);
+			}
 
-		reference operator[](difference_type x) { return (_ptr[x]); }
+			reference operator[](difference_type x) { return (_ptr[x]); }
 
-		bool operator==(const random_access_iterator &x) const { return _ptr == x._ptr; }
+			bool operator==(const random_access_iterator &x) const { return _ptr == x._ptr; }
 
-		bool operator!=(const random_access_iterator &x) const { return (_ptr != x._ptr); }
+			bool operator!=(const random_access_iterator &x) const { return (_ptr != x._ptr); }
 
-		bool operator<(const random_access_iterator &x) const { return (this->_ptr < x._ptr); }
+			bool operator<(const random_access_iterator &x) const { return (this->_ptr < x._ptr); }
 	};
 }

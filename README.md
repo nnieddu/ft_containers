@@ -81,8 +81,9 @@ Vous êtes autorisé à utiliser la bibliothèque STD
 # [Links]
 
 ### libstdc++ 
-(oldest gcc implemtentation found on gnu.org)
-- https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/   
+
+iterator :
+- https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01067_source.html  
   
 vector : 
 - https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01082_source.html  
