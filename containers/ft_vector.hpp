@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 17:00:28 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 17:28:09 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ namespace ft
 			typedef typename allocator_type::pointer				pointer;
 			typedef typename allocator_type::const_pointer			const_pointer;
 			typedef ft::random_access_iterator<value_type>			iterator;
-			// typedef ft::MyIterator<const value_type>				const_iterator;
+			typedef ft::random_access_iterator<const value_type>	const_iterator;
 			// typedef ft::reverse_iterator<iterator>				reverse_iterator;
 			// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t									difference_type;
@@ -44,18 +44,18 @@ namespace ft
 			allocator_type  _alloc;
 			pointer         _start;
 			pointer         _end;
-			size_type		_capacity;
+			size_type		_size;
 		public:
 			// [CONSTRUCTORS]
 			// default (1)	
 			explicit vector (const allocator_type& alloc = allocator_type()) 
-			: _alloc(alloc), _start(NULL),	_end(NULL), _capacity(0) {}
+			: _alloc(alloc), _start(NULL),	_end(NULL), _size(0) {}
 			
 			// fill (2)
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) 
-			: _alloc(alloc), _start(NULL), _end(NULL), _capacity(n) 
+			: _alloc(alloc), _start(NULL), _end(NULL), _size(n) 
 			{
-				_start = _alloc.allocate(n);
+				_start = _alloc.allocate(n); // return a ptr to the first elem
 				_end = _start;
 				while (n--)
 				{
@@ -68,7 +68,7 @@ namespace ft
 			// 	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 	
 			vector (const vector& x) 			
-			: _alloc(x._alloc), _start(NULL), _end(NULL), _capacity(x._capacity) 
+			: _alloc(x._alloc), _start(NULL), _end(NULL), _size(x._size) 
 			{ *this = x; }
 				
 			~vector()
@@ -78,22 +78,26 @@ namespace ft
 			}
 	
 			// vector& operator=(const vector& x)
-			// {
-			// }
+			// {}
 	
 			// [ITERATORS]
 			iterator begin() { return (_start); }
 	
-			// const_iterator begin() const;
-	
-			iterator end() 
+			const_iterator begin() const { return (_start); }
+			
+			iterator end()
 			{
 				if (this->empty())
 					return (this->begin());
 				return (_end);
 			}
 	
-			// const_iterator end() const;
+			const_iterator end() const
+			{
+				if (this->empty())
+					return (this->begin());
+				return (_end);
+			}
 			
 			// rbegin		Return reverse iterator to reverse beginning (public member function )
 			// reverse_iterator rbegin();
@@ -111,7 +115,7 @@ namespace ft
 	
 			// void resize(size_type n, value_type val = value_type());
 	
-			size_type capacity() const { return (_capacity); }
+			size_type capacity() const { return (_size); }
 	
 			bool empty() const { return (size() == 0 ? true : false); }
 
@@ -155,11 +159,23 @@ namespace ft
 			// insert		Insert elements (public member function )
 			
 			// single element (1)	
-			iterator insert (iterator position, const value_type& val);
+			// iterator insert (iterator position, const value_type& val);
 			
-			// fill (2)	
-			void insert (iterator position, size_type n, const value_type& val);
-			
+			// // fill (2)	
+			void insert (iterator position, size_type n, const value_type& val)
+			{
+				size_type i;
+
+				i = 0;
+
+				while (i < n)
+				{
+					position = insert(position, val);
+					position++;
+					i++;
+				}
+			}
+
 			// range (3)	
 			template <class InputIterator>
 				void insert (iterator position, InputIterator first, InputIterator last);
