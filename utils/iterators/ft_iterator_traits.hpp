@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/17 11:38:55 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 10:23:02 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
 // https://docs.microsoft.com/en-us/cpp/standard-library/iterator-traits-struct?view=msvc-170
 // https://stackoverflow.com/questions/3582608/how-to-correctly-implement-custom-iterators-and-const-iterators
-// testgit
+
 namespace ft
 {
 	//Base iterator struct
