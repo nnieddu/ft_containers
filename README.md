@@ -117,6 +117,7 @@ map    :
 - http://www.cplusplus.com/reference/map/map/  
 
 ### Useful / interesting / various :   
+- https://isocpp.org/faq
 - https://stdcxx.apache.org/doc/stdlibug/16-3.html   
 - https://www.learncpp.com/cpp-tutorial/container-classes/  
 - https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c  
@@ -134,4 +135,4 @@ map    :
 - https://stackoverflow.com/questions/59539057/c-does-it-lead-to-double-free-when-destroy-element-in-allocatorstring  
 - https://stackoverflow.com/questions/1051379/is-there-a-difference-between-copy-initialization-and-direct-initialization  
 - https://stackoverflow.com/questions/12036037/explicit-call-to-a-constructor    
-- https://www.reddit.com/r/cpp/comments/q1854/typedef_typename_please_help_me_understand/
+- http://eigen.tuxfamily.org/dox-devel/TopicTemplateKeyword.html

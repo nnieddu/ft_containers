@@ -6,15 +6,18 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 10:41:59 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 13:14:22 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 // https://stackoverflow.com/questions/45847787/how-to-differentiate-fill-constructor-and-range-constructor-in-c11
 // https://www.cplusplus.com/reference/iterator/iterator/ MyIterator
 
 // typedef Create an alias of the existence type, and typename Tell the compiler std::vector<T>::size_type Is a type rather than a member.
 //   http://web.archive.org/web/20120530060356/http://www.comeaucomputing.com/techtalk/templates/
+
+// https://www.cplusplus.com/reference/memory/allocator/?kw=allocator
 
 #pragma once
 
@@ -35,86 +38,82 @@ namespace ft
 			typedef typename allocator_type::const_reference		const_reference;
 			typedef typename allocator_type::pointer				pointer;
 			typedef typename allocator_type::const_pointer			const_pointer;
-			typedef ft::MyIterator<pointer>							iterator;
-			typedef ft::MyIterator<const_pointer>					const_iterator;
-			// typedef ft::reverse_iterator<iterator>					reverse_iterator;
+			typedef ft::random_access_iterator<value_type>			iterator;
+			// typedef ft::MyIterator<const value_type>				const_iterator;
+			// typedef ft::reverse_iterator<iterator>				reverse_iterator;
 			// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
-	private:
-		allocator_type	_alloc;
-		value_type*		_container;
-		size_type		_size;
-		size_type		_capacity;
-	public:
-		// [CONSTRUCTORS]
-		// default (1)	
-		explicit vector (const allocator_type& alloc = allocator_type()) 
-		: _alloc(alloc), _container(NULL), _size(0), _capacity(0) {}
-		
-		// fill (2)
-		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) 
-		: _alloc(alloc), _container(NULL), _size(n), _capacity(n)
-		{
-			_container = _alloc.allocate(n);
-			for (unsigned long i = 0; i < n; i++)
-				_container[i] = val;
-		}
-
-		// range (3)
-		// template <class InputIterator>
-		// 	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
-
-		vector (const vector& x) : _alloc(x._alloc), _container(x._container), _size(x._size), _capacity(x._capacity)
-		{ *this = x; }
-
-		~vector()
-		{
-			this->clear();
-			_alloc.deallocate(_container, this->capacity());
-		};
-
-		vector& operator=(const vector& x)
-		{
-			_alloc = x._alloc;
-			_size = x._size;
-			_capacity = x._capacity;
-			_container = _alloc.allocate(_capacity);
-			for (size_t i = 0; i < _size; i++)
-				_container[i] = x._container[i];
-			return (*this);
-		}
-
-		// [ITERATORS]
-		iterator begin() { return iterator(_container); }
-
-		const_iterator begin() const;
-
-		iterator end() { return (iterator(&_container[_size])); }
-
-		const_iterator end() const;
-		
-		// rbegin		Return reverse iterator to reverse beginning (public member function )
-		// reverse_iterator rbegin();
-		// const_reverse_iterator rbegin() const;
-		// rend			Return reverse iterator to reverse end (public member function )
-		// reverse_iterator rend();
-		// const_reverse_iterator rend() const;
-		
-		size_type size() const { return (_size); }
-
-		size_type max_size() const { return (_alloc.max_size()); }
-
-		// void resize(size_type n, value_type val = value_type());
-
-		size_type capacity() const { return (_capacity); }
-
-		bool empty() const
-		{
-			if (!_size)
-				return (true);
-			return false;
-		}
+		private:
+			allocator_type  _alloc;
+			pointer         _start;
+			pointer         _end;
+			// pointer         _end_capacity;
+		public:
+			// [CONSTRUCTORS]
+			// default (1)	
+			explicit vector (const allocator_type& alloc = allocator_type()) 
+			: _alloc(alloc), _start(NULL),	_end(NULL)
+			{}
+			
+			// fill (2)
+			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) 
+			: _alloc(alloc), _start(NULL), _end(NULL)
+			{
+				_start = _alloc.allocate(n);
+				_end = _start;
+				while (n--)
+				{
+					_alloc.construct(_end, val);
+					_end++;
+				}
+			}
+			// range (3)
+			// template <class InputIterator>
+			// 	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+	
+			vector (const vector& x) 			
+			: _alloc(x._alloc), _start(NULL), _end(NULL)
+			{ this->insert(this->begin(), x.begin(), x.end()); }
+				
+			~vector()
+			{
+				this->clear();
+				// _alloc.deallocate(_start, this->capacity());
+			}
+	
+			vector& operator=(const vector& x) {}
+	
+			// [ITERATORS]
+			iterator begin() { return (_start); }
+	
+			// const_iterator begin() const;
+	
+			iterator end() 
+			{
+				if (this->empty())
+					return (this->begin());
+				return (_end);
+			}
+	
+			// const_iterator end() const;
+			
+			// rbegin		Return reverse iterator to reverse beginning (public member function )
+			// reverse_iterator rbegin();
+			// const_reverse_iterator rbegin() const;
+			// rend			Return reverse iterator to reverse end (public member function )
+			// reverse_iterator rend();
+			// const_reverse_iterator rend() const;
+			
+			size_type size() const { return (this->_end - this->_start); }
+	
+			size_type max_size() const { return allocator_type().max_size(); }
+	
+			// void resize(size_type n, value_type val = value_type());
+	
+			// size_type capacity() const {} ///////
+	
+			bool empty() const { return (size() == 0 ? true : false); }
 
 			// reserve		Request a change in capacity (public member function )
 			void reserve (size_type n);
@@ -167,6 +166,7 @@ namespace ft
 				
 			// erase		Erase elements (public member function )
 			iterator erase (iterator position);
+			
 			iterator erase (iterator first, iterator last);
 
 			// swap			Swap content (public member function )
@@ -175,21 +175,17 @@ namespace ft
 			// clear		Clear content (public member function )
 			void clear()
 			{
-				size_t i;
-				i = 0;
-
-				while (i < _size)
+				size_type save_size = this->size();
+				for (size_type i = 0; i < save_size; i++)
 				{
-
-					_alloc.destroy(&_container[i]);
-					i++;
+					_end--;
+					_alloc.destroy(_end);
 				}
-				_size = 0;
 			}
 
 			// [ALLOCATOR]
 			// get_allocator	Get allocator (public member function )
-			allocator_type get_allocator() const;
+			// allocator_type get_allocator() const;
 
 			// [Non-member function overloads]
 			// relational operators		Relational operators for vector (function template )

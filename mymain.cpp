@@ -27,6 +27,7 @@ int main ()
     std::cout << ' ' << *ftit;
   std::cout << '\n' << ftsecond.size();
   std::cout << '\n';
+  std::cout << "ft::vector::begin() returns a " << ft::get_iterator_type(ftsecond.begin()) << " Iterator.\n" << std::endl;
 
 //                       [STL VECTOR CONSTRUCTORS]
 
@@ -41,6 +42,8 @@ int main ()
   for (std::vector<int>::iterator stdit = stdfifth.begin(); stdit != stdfifth.end(); ++stdit)
 	std::cout << ' ' << *stdit;
   std::cout << '\n';
+
+  std::cout << "std::ector::begin() returns a " << ft::get_iterator_type(stdfifth.begin()) << " Iterator.\n" << std::endl;
 
 //                        [FT ITERATORS]
 
