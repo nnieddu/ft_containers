@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/18 11:31:50 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 10:41:59 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 namespace ft 
 {	
-
 	template < class T, class Alloc = std::allocator<T> >
 	class vector {
 		public: 
@@ -218,10 +217,7 @@ namespace ft
 			// (6)	
 			// template <class T, class Alloc>
 			// bool operator>= (const vectortypename
-typename
-typename
-typename
-typenameloc>
+
 			// void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
 	};
 }
