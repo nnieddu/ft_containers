@@ -43,40 +43,6 @@ Votre pile utilisera votre classe vectorielle comme conteneur sous-jacent par d�
 il doit toujours être compatible avec d’autres conteneurs comme celui de STL.  
 Les conteneurs STL sont interdits.  
 Vous êtes autorisé à utiliser la bibliothèque STD  
-  
-# [Infos] 
-
-- vector: Dynamic contiguous array
-- map: Binary Search Tree of key-value pairs, sorted by unique keys.
-- stack: Adapts a container to provide stack (LIFO - Last In First Out)
-
-### iterators:
-    template<
-        class Category,
-        class T,
-        class Distance = std::ptrdiff_t,
-        class Pointer = T*,
-        class Reference = T&
-     > struct iterator;
-- std::ptrdiff_t is the signed integer type of the result of subtracting two pointers.
-- When working with the C++ container library, the proper type for the difference between iterators is the member typedef difference_type, which is often synonymous with std::ptrdiff_t.
-#### Category 
-- Input Iterator (Read only, forward moving)
-- Output Iterator (Write only, forward moving)
-- Forward Iterator (Read and Write, forward moving)
-- Biderctional Iterator (Read and Write, moves forward or backward)
-- Random Access Iterator (Read and Write, random access)
-### iterator_traits
-    template <class Iterator> class iterator_traits;
-    template <class T> class iterator_traits<T*>;
-    template <class T> class iterator_traits<const T*>;
-- Traits class defining properties of iterators.
-- [iterator_traits] (https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits)
-### reverse_iterator
-    template< class Iter > class reverse_iterator;
-### reverse_iterator::base
-    iterator_type base() const;
-- The base iterator is an iterator of the same type as the one used to construct the reverse_iterator, but pointing to the element next to the one is currently pointing to (a reverse_iterator has always an offset of -1 with respect to its base iterator).
 
 # [Links]
 
