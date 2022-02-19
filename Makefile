@@ -6,7 +6,7 @@
 #    By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 06:10:57 by ninieddu          #+#    #+#              #
-#    Updated: 2022/02/18 09:29:13 by ninieddu         ###   ########lyon.fr    #
+#    Updated: 2022/02/19 10:19:46 by ninieddu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ OBJ		=	$(SRC:.cpp=.o)
 %.o : %.cpp $(INCS)
 	$(COMP) $(FLAG) -c $< -o $@
 
-all : $(NAME) run
+all : $(NAME) runv
 
 $(NAME) : $(OBJ)
 	$(COMP) $(FLAG) $(OBJ) -o $(NAME)
 
-run : $(NAME)
+runv : $(NAME)
 	valgrind ./$(NAME)
 	# rm -f $(NAME) $(OBJ)
 
