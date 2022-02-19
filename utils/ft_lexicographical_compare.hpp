@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:20:01 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/17 11:20:56 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 16:54:42 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,4 @@
 
 // template <class InputIterator1, class InputIterator2, class Compare>
 //   bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-//                                 InputIterator2 first2, InputIterator2 last2,
-//                                 Compare comp);
+//                                 InputIterator2 first2, InputIterator2 last2, Compare comp);
