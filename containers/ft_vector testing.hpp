@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 13:27:50 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/19 13:31:31 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,13 @@ namespace ft
 	
 			vector& operator=(const vector& x)
 			{
-				_alloc = x._alloc;
-				_capacity = x._capacity;
-				_start = _alloc.allocate(_capacity);
-				for (size_t i = _capacity; i > 0; i--)
-					_start[i] = x._start[i];
-				return (*this);
+				// _alloc = x._alloc;
+				// _size = x._size;
+				// _capacity = x._capacity;
+				// _container = _alloc.allocate(_capacity);
+				// for (size_t i = 0; i < _size; i++)
+				// 	_container[i] = x._container[i];
+				// return (*this);
 			}
 	
 			// [ITERATORS]
