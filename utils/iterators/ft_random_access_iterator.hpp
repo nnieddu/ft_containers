@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 12:22:39 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 16:58:05 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,17 @@ namespace ft
 			
 			virtual ~random_access_iterator() {}
 
-
 			// [FUNCTIONS]
-			// [Iterator operations]
-			template <class InputIterator, class Distance>
-				void advance (InputIterator& it, Distance n);
-			// Advance iterator (function template )
-				
-			template<class InputIterator>
-			typename iterator_traits<InputIterator>::difference_type
-				distance (InputIterator first, InputIterator last);
-			// Return distance between iterators (function template )
-			// distance();
 			
+			// [Iterator operations]
+			// template <class InputIterator, class Distance>
+			// 	void advance (InputIterator& it, Distance n);
+			// // Advance iterator (function template )
+				
+			// template<class InputIterator>
+			// typename std::iterator_traits<InputIterator>::difference_type 
+			// 	distance (InputIterator first, InputIterator last) 
+			// Return distance between iterators (function template )
 			
 			// [Iterator generators:]
 
@@ -74,12 +72,18 @@ namespace ft
 				return (*this);
 			}
 
-			random_access_iterator& operator++()
+			random_access_iterator& operator++() //pre increment
 			{
 				++_ptr;
 				return *this;
 			}
-
+			
+			random_access_iterator operator++(int) //post increment
+            {
+				_ptr++;
+				return _ptr;
+            }
+				
 			random_access_iterator operator+=(difference_type x)
 			{
 				_ptr += x;
@@ -91,7 +95,7 @@ namespace ft
 				_ptr -= x;
 				return (*this);
 			}
-
+			
 			random_access_iterator operator--()
 			{
 				_ptr--;

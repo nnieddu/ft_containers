@@ -6,13 +6,14 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:41:10 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 16:58:50 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <cstddef>
+#include <iostream>
 
 // https://www.cplusplus.com/reference/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator/
@@ -72,4 +73,34 @@ namespace ft
 		typedef const T&									reference;
 		typedef typename ft::random_access_iterator_tag 	iterator_category;
 	};
+
+	// UTILS / ITERATORS FT
+	// template <class InputIterator, class Distance>
+	// void advance (InputIterator& it, Distance n);
+	// Advance iterator (function template )
+    
+	template<class InputIterator>
+    typename ft::iterator_traits<InputIterator>::difference_type
+        distance (InputIterator first, InputIterator last)
+    {
+        typename ft::iterator_traits<InputIterator>::difference_type distance = 0;
+        while (first != last)
+        {
+            first++;
+            distance++;
+        }
+        return (distance);
+    }
+
+	// [Iterator generators:]
+	
+	// template <class Container>
+	// back_insert_iterator<Container> back_inserter (Container& x);
+	// 	Construct back insert iterator (function template )
+
+	// front_inserter
+	// 	Constructs front insert iterator (function template )
+
+	// inserter
+	// 	Construct insert iterator (function template )
 }

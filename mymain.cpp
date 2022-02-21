@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:17:43 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 16:58:59 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int main ()
     std::cout << ' ' << *ftit;
   std::cout << std::endl;
   std::cout << "ft::vector::begin() returns a " << get_iterator_type(ftsecond.begin()) << " Iterator.\n" << std::endl;
-
+  
+  
 // OPERATORS TESTS
   // ftfirst = ftsecond;
   // for (ftit = ftfirst.begin(); ftit != ftfirst.end(); ++ftit)
@@ -51,8 +52,17 @@ int main ()
   std::cout << "FT capacity() : " << ftsecond.capacity() << std::endl;
   std::cout << "FT empty() : " << ftsecond.empty() << std::endl;
 
+  std::cout << "ft::distance return : " << ft::distance(ftsecond.begin(),ftsecond.end()) << std::endl;
+  // std::cout << "test ft return : " << ftsecond.begin() - ftsecond.end() << std::endl;
+
+
+
+
+
+
 
   std::cout << std::endl << std::endl << "---[ STL TEST PART ]---" << std::endl;
+
 
 //                       [STL VECTOR]
 // CONSTRUCTORS
@@ -76,6 +86,8 @@ int main ()
   std::cout << "FT capacity() : " << stdsecond.capacity() << std::endl;
   std::cout << "FT empty() : " << stdsecond.empty() << std::endl;
 
+  std::cout << "distance return : " << std::distance(stdsecond.begin(),stdsecond.end()) << std::endl;
+  std::cout << "test return : " << stdsecond.begin() - stdsecond.end() << std::endl;
 //                        [FT ITERATORS]
 
 

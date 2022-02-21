@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:17:52 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 16:02:26 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <memory>
 #include "../utils/iterators/ft_random_access_iterator.hpp"
 
 namespace ft 
@@ -59,15 +60,53 @@ namespace ft
 				}
 			}
 			// range (3)
-			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			: _alloc(alloc), _start(NULL), _end(NULL), _size(0)
+			// template <class InputIterator>
+			// vector (iterator first, iterator last, const allocator_type& alloc = allocator_type())
+			// : _alloc(alloc), _start(NULL), _end(NULL), _size(0)
+			// {
+			// 	_start = _alloc.allocate(n);
+			// 	_end = _start;
+			// 	while (n--)
+			// 	{
+			// 		_alloc.construct(_end, val);
+			// 		_end++;
+			// 	}
+			// }
+			
+			// template <class InputIterator>
+			// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+			// : _alloc(alloc), _start(NULL), _end(NULL), _size(0)
+			// {
+			// 		// bool is_valid;
+			// 		// if (!(is_valid = ft::is_ft_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::value))
+			// 			// throw (ft::InvalidIteratorException<typename ft::is_ft_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::type>());
+					
+			// 		difference_type n = ft::distance(first, last);
+			// 		_start = _alloc.allocate( n );
+			// 		// _end_capacity = _start + n;
+			// 		_end = _start;
+			// 		while (n--)
+			// 		{
+			// 			_alloc.construct(_end, *first++);
+			// 			_end++;
+			// 		}
+			// }
+
+			template<class InputIterator>
+			typename ft::iterator_traits<InputIterator>::difference_type
+				distance (InputIterator first, InputIterator last)
 			{
-				(void)first;
-				(void)last;
-  				iterator test;
-				(void)test;
-			}
+				typename ft::iterator_traits<InputIterator>::difference_type rtn = 0;
+				while (first != last)
+				{
+					first++;
+					rtn++;
+				}
+				return (rtn);
+			}		
+			
+
+
 	
 			vector (const vector& x) 			
 			: _alloc(x._alloc), _start(NULL), _end(NULL), _size(x._size) 
