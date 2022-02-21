@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:48:23 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 09:51:41 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 // https://www.cplusplus.com/reference/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/RandomAccessIterator/
-
-// All random-access iterators are also valid bidirectional iterators.
 
 namespace ft
 {
@@ -69,28 +67,10 @@ namespace ft
 		
 			reference operator*() { return *_ptr; }
 
-			bidirectional_iterator operator+(difference_type x)
-			{
-				_ptr += x;
-				return (*this);
-			}
-
 			bidirectional_iterator& operator++()
 			{
 				++_ptr;
 				return *this;
-			}
-
-			bidirectional_iterator operator+=(difference_type x)
-			{
-				_ptr += x;
-				return (*this);
-			}
-
-			bidirectional_iterator &operator-(difference_type x)
-			{
-				_ptr -= x;
-				return (*this);
 			}
 
 			bidirectional_iterator operator--()
@@ -99,18 +79,9 @@ namespace ft
 				return _ptr;
 			}
 
-			bidirectional_iterator operator-=(difference_type x)
-			{
-				_ptr -= x;
-				return (*this);
-			}
-
-			reference operator[](difference_type x) { return (_ptr[x]); }
-
 			bool operator==(const bidirectional_iterator &x) const { return _ptr == x._ptr; }
 
 			bool operator!=(const bidirectional_iterator &x) const { return (_ptr != x._ptr); }
 
-			bool operator<(const bidirectional_iterator &x) const { return (this->_ptr < x._ptr); }
 	};
 }
