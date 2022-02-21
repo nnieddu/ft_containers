@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:53:20 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 09:58:07 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,7 @@ namespace ft
 		// --a
 		// a--
 		// *a--
+		// Where X is an iterator type, a and b are objects of this iterator type, 
+		// t is an object of the type pointed by the iterator type, and n is an integer value.
 	};
 }
