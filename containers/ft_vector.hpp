@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 16:02:26 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 17:01:58 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,7 @@ namespace ft
 			// 		}
 			// }
 
-			template<class InputIterator>
-			typename ft::iterator_traits<InputIterator>::difference_type
-				distance (InputIterator first, InputIterator last)
-			{
-				typename ft::iterator_traits<InputIterator>::difference_type rtn = 0;
-				while (first != last)
-				{
-					first++;
-					rtn++;
-				}
-				return (rtn);
-			}		
-			
+
 
 
 	
