@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:51:41 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 09:53:20 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,21 @@ namespace ft
 
 			bool operator!=(const bidirectional_iterator &x) const { return (_ptr != x._ptr); }
 
+		// X b(a);
+		// b = a;
+		// ++a
+		// a++
+		// a == b
+		// a != b
+		// *a
+		// a->m
+		// *a = t
+		// *a++ = t
+		// X a;
+		// X()
+		// { b=a; *a++; *b; }
+		// --a
+		// a--
+		// *a--
 	};
 }
