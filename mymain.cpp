@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:43:43 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:17:43 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int main ()
 //                        [MY VECTOR]
 // CONSTRUCTORS
   ft::vector<int> ftfirst;                            		// empty vector of ints
-  // ft::vector<const std::string> ftConstString(2, "YOLO"); // empty vector of ints
   ft::vector<int> ftsecond (4,100);                      	 // four ints with value 100
   // ft::vector<int> ftthird (ftsecond.begin(),ftsecond.end());  // iterating through second
   // ft::vector<int> ftfourth (ftsecond);                       // a copy of third
@@ -45,6 +44,7 @@ int main ()
   // for (ftit = ftfirst.begin(); ftit != ftfirst.end(); ++ftit)
   //   std::cout << ' ' << *ftit;
   // std::cout << std::endl;
+  
 // FT FUNCTIONS TESTS
   std::cout << "FT size() : " << ftsecond.size() << std::endl;
   std::cout << "FT max_size() : " << ftsecond.max_size() << std::endl;

@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:48:17 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 12:22:39 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ namespace ft
 			random_access_iterator(pointer it) : _ptr(it) {}
 			
 			virtual ~random_access_iterator() {}
+
 
 			// [FUNCTIONS]
 			// [Iterator operations]

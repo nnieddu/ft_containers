@@ -6,21 +6,16 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 17:28:09 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:17:52 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 // https://www.cplusplus.com/reference/memory/allocator/
 // https://www.cplusplus.com/reference/vector/vector/
-
-// https://www.cplusplus.com/reference/iterator/iterator/ MyIterator
+// https://www.cplusplus.com/reference/iterator/iterator/
 
 #pragma once
 
-#include <iostream>
-#include <memory>
-
-#include "../utils/iterators/ft_iterator_traits.hpp"
 #include "../utils/iterators/ft_random_access_iterator.hpp"
 
 namespace ft 
@@ -49,13 +44,13 @@ namespace ft
 			// [CONSTRUCTORS]
 			// default (1)	
 			explicit vector (const allocator_type& alloc = allocator_type()) 
-			: _alloc(alloc), _start(NULL),	_end(NULL), _size(0) {}
+			: _alloc(alloc), _start(NULL), _end(NULL), _size(0) {}
 			
 			// fill (2)
-			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) 
+			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) 
 			: _alloc(alloc), _start(NULL), _end(NULL), _size(n) 
 			{
-				_start = _alloc.allocate(n); // return a ptr to the first elem
+				_start = _alloc.allocate(n);
 				_end = _start;
 				while (n--)
 				{
@@ -64,8 +59,15 @@ namespace ft
 				}
 			}
 			// range (3)
-			// template <class InputIterator>
-			// 	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+			template <class InputIterator>
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+			: _alloc(alloc), _start(NULL), _end(NULL), _size(0)
+			{
+				(void)first;
+				(void)last;
+  				iterator test;
+				(void)test;
+			}
 	
 			vector (const vector& x) 			
 			: _alloc(x._alloc), _start(NULL), _end(NULL), _size(x._size) 

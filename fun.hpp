@@ -6,13 +6,13 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:40:35 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:43:48 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 10:20:50 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <typeinfo> // typeid
 #include <cstddef>
-#include "ft_iterator_traits.hpp"
+#include "utils/iterators/ft_iterator_traits.hpp"
 
 // https://www.youtube.com/watch?v=yTi46Pb32qg
 
