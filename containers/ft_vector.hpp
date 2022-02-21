@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 17:39:37 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 23:02:20 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,22 @@ namespace ft
 			// {}
 	
 			// [ITERATORS]
-			iterator begin() { return (_start); }
+			iterator begin() { return _start; }
 	
-			const_iterator begin() const { return (_start); }
+			const_iterator begin() const { return _start; }
 			
 			iterator end()
 			{
 				if (this->empty())
-					return (this->begin());
-				return (_end);
+					return _start;
+				return _end;
 			}
 	
 			const_iterator end() const
 			{
 				if (this->empty())
-					return (this->begin());
-				return (_end);
+					return _start;
+				return _end;
 			}
 			
 			// rbegin		Return reverse iterator to reverse beginning (public member function )

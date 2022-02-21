@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 17:39:41 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 23:02:29 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int main ()
 
 
 
-
-
   std::cout << std::endl << std::endl << "---[ STL TEST PART ]---" << std::endl;
 
 
@@ -86,8 +84,8 @@ int main ()
   std::cout << "FT capacity() : " << stdsecond.capacity() << std::endl;
   std::cout << "FT empty() : " << stdsecond.empty() << std::endl;
 
-  std::cout << "distance return : " << std::distance(stdsecond.begin(),stdsecond.end()) << std::endl;
-  std::cout << "test return : " << stdsecond.begin() - stdsecond.end() << std::endl;
+  std::cout << "std::distance return : " << std::distance(stdsecond.begin(),stdsecond.end()) << std::endl;
+  std::cout << "test std return : " << stdsecond.begin() - stdsecond.end() << std::endl;
 //                        [FT ITERATORS]
 
 
