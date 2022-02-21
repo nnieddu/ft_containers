@@ -6,13 +6,15 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 09:17:49 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 09:46:07 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 // https://www.cplusplus.com/reference/memory/allocator/
+// https://www.cplusplus.com/reference/iterator/iterator/
+// https://www.cplusplus.com/reference/map/map/
 
-// https://www.cplusplus.com/reference/iterator/iterator/ MyIterator
+// All random-access iterators are also valid bidirectional iterators.
 
 #pragma once
 
