@@ -6,14 +6,13 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/19 16:31:53 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 09:41:10 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <cstddef>
-#include <typeinfo> // typeid
 
 // https://www.cplusplus.com/reference/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator/
@@ -25,7 +24,7 @@ namespace ft
 {
 	//Base iterator struct
 	template <class Category, class T, class Distance = ptrdiff_t,
-			class Pointer = T*, class Reference = T&>
+		class Pointer = T*, class Reference = T&>
 	struct iterator {
 		typedef T         value_type;
 		typedef Distance  difference_type;
@@ -73,26 +72,4 @@ namespace ft
 		typedef const T&									reference;
 		typedef typename ft::random_access_iterator_tag 	iterator_category;
 	};
-
-
-	// https://www.youtube.com/watch?v=yTi46Pb32qg (TO_REMOVE)
-	template<class T>
-	std::string get_iterator_type (T) 
-	{
-		if      (typeid (typename ft::iterator_traits<T>::iterator_category) == typeid (ft::input_iterator_tag))	  		return "Input";
-		else if (typeid (typename ft::iterator_traits<T>::iterator_category) == typeid (ft::output_iterator_tag))        	return "Output";
-		else if (typeid (typename ft::iterator_traits<T>::iterator_category) == typeid (ft::forward_iterator_tag))       	return "Forward";
-		else if (typeid (typename ft::iterator_traits<T>::iterator_category) == typeid (ft::bidirectional_iterator_tag)) 	return "Bidirectional";
-		else if (typeid (typename ft::iterator_traits<T>::iterator_category) == typeid (ft::random_access_iterator_tag)) 	return "Random Access";
-		
-		// STD check :
-		else if (typeid (typename std::iterator_traits<T>::iterator_category) == typeid (std::input_iterator_tag))			return "Input";
-		else if (typeid (typename std::iterator_traits<T>::iterator_category) == typeid (std::output_iterator_tag))        	return "Output";
-		else if (typeid (typename std::iterator_traits<T>::iterator_category) == typeid (std::forward_iterator_tag))       	return "Forward";
-		else if (typeid (typename std::iterator_traits<T>::iterator_category) == typeid (std::bidirectional_iterator_tag)) 	return "Bidirectional";
-		else if (typeid (typename std::iterator_traits<T>::iterator_category) == typeid (std::random_access_iterator_tag)) 	return "Random Access";
-
-		return "missing";
-	}
-
 }
