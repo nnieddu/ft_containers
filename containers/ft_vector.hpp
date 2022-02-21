@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 23:02:20 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 23:32:37 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ namespace ft
 					_end++;
 				}
 			}
+			
 			// range (3)
 			// template <class InputIterator>
 			// vector (iterator first, iterator last, const allocator_type& alloc = allocator_type())
@@ -185,19 +186,19 @@ namespace ft
 			
 			// clear		Clear content (public member function )
 			void clear()
+			{
+				size_type save_size = this->size();
+				for (size_type i = 0; i < save_size; i++)
+				{
+					_alloc.destroy(_end);
+					_end--;
+				}
+			}
 			// {
-			// 	size_type save_size = this->size();
-			// 	for (size_type i = 0; i < save_size; i++)
-			// 	{
-			// 		_end--;
-			// 		_alloc.destroy(_end);
-			// 	}
+			// 	while(_size-- > 0) 
+			// 		_alloc.destroy(_start);
+			// 	_size = 0;
 			// }
-		{
-			while(_size-- > 0) 
-				_alloc.destroy(_start);
-			_size = 0;
-		}
 			// [ALLOCATOR]
 			// get_allocator	Get allocator (public member function )
 			// allocator_type get_allocator() const;
