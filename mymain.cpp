@@ -6,14 +6,16 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 23:02:29 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/22 10:43:50 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
 #include "containers/ft_vector.hpp"
-#include "fun.hpp"
+// #include "utils/iterators/ft_it_utils.hpp"
+
+// #include "fun.hpp"
 
 int main ()
 {
@@ -37,7 +39,7 @@ int main ()
   for (ftit = ftsecond.begin(); ftit != ftsecond.end(); ++ftit)
     std::cout << ' ' << *ftit;
   std::cout << std::endl;
-  std::cout << "ft::vector::begin() returns a " << get_iterator_type(ftsecond.begin()) << " Iterator.\n" << std::endl;
+  // std::cout << "ft::vector::begin() returns a " << get_iterator_type(ftsecond.begin()) << " Iterator.\n" << std::endl;
   
   
 // OPERATORS TESTS
@@ -76,7 +78,7 @@ int main ()
 	std::cout << ' ' << *stdit;
   std::cout << std::endl;
 
-  std::cout << "std::vector::begin() returns a " << get_iterator_type(stdfifth.begin()) << " Iterator.\n" << std::endl;
+  // std::cout << "std::vector::begin() returns a " << get_iterator_type(stdfifth.begin()) << " Iterator.\n" << std::endl;
 
 // STL FUNCTIONS TESTS
   std::cout << "FT size() : " << stdsecond.size() << std::endl;

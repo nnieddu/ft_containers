@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 16:58:50 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/22 10:48:18 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 #include <cstddef>
 #include <iostream>
+
+#include "ft_it_utils.hpp"
 
 // https://www.cplusplus.com/reference/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator/
@@ -25,7 +27,7 @@ namespace ft
 {
 	//Base iterator struct
 	template <class Category, class T, class Distance = ptrdiff_t,
-		class Pointer = T*, class Reference = T&>
+		class Pointer = T*, class Reference = T&> 
 	struct iterator {
 		typedef T         value_type;
 		typedef Distance  difference_type;
@@ -78,29 +80,29 @@ namespace ft
 	// template <class InputIterator, class Distance>
 	// void advance (InputIterator& it, Distance n);
 	// Advance iterator (function template )
-    
-	template<class InputIterator>
-    typename ft::iterator_traits<InputIterator>::difference_type
-        distance (InputIterator first, InputIterator last)
-    {
-        typename ft::iterator_traits<InputIterator>::difference_type distance = 0;
-        while (first != last)
-        {
-            first++;
-            distance++;
-        }
-        return (distance);
-    }
-
-	// [Iterator generators:]
 	
-	// template <class Container>
-	// back_insert_iterator<Container> back_inserter (Container& x);
-	// 	Construct back insert iterator (function template )
+	// template<class InputIterator>
+	// typename ft::iterator_traits<InputIterator>::difference_type
+	// 	distance (InputIterator first, InputIterator last)
+	// {
+	// 	typename ft::iterator_traits<InputIterator>::difference_type distance = 0;
+	// 	while (first != last)
+	// 	{
+	// 		first++;
+	// 		distance++;
+	// 	}
+	// 	return (distance);
+	// }
 
-	// front_inserter
-	// 	Constructs front insert iterator (function template )
+	// // [Iterator generators:]
+	
+	// // template <class Container>
+	// // back_insert_iterator<Container> back_inserter (Container& x);
+	// // 	Construct back insert iterator (function template )
 
-	// inserter
-	// 	Construct insert iterator (function template )
+	// // front_inserter
+	// // 	Constructs front insert iterator (function template )
+
+	// // inserter
+	// // 	Construct insert iterator (function template )
 }

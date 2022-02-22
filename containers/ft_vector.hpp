@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 23:32:37 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/22 09:54:41 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 #pragma once
 
-#include <memory>
+#include <stdexcept>
+
 #include "../utils/iterators/ft_random_access_iterator.hpp"
 
 namespace ft 
@@ -37,25 +38,25 @@ namespace ft
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 		private:
-			allocator_type  _alloc;
-			pointer         _start;
-			pointer         _end;
-			size_type		_size;
+			allocator_type  _alloc; // The container keeps an internal copy of alloc, which is used to allocate storage throughout its lifetime.
+			pointer         _start; // Pointer to the first element T (value_type) of the container 
+			pointer         _end; // Pointer to the last element T (value_type) of the container
+			size_type		_size; // Copy of the initial size of the container
 		public:
 			// [CONSTRUCTORS]
 			// default (1)	
 			explicit vector (const allocator_type& alloc = allocator_type()) 
 			: _alloc(alloc), _start(NULL), _end(NULL), _size(0) {}
 			
-			// fill (2)
+			// fill (2) Constructs a container with n elements. Each element is a copy of val.
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) 
-			: _alloc(alloc), _start(NULL), _end(NULL), _size(n) 
+			: _alloc(alloc), _size(n) 
 			{
-				_start = _alloc.allocate(n);
+				_start = _alloc.allocate(n); // allocate block of storage and return a pointer to the initial element.
 				_end = _start;
 				while (n--)
 				{
-					_alloc.construct(_end, val);
+					_alloc.construct(_end, val); // constructs an element object on the location pointed by p.
 					_end++;
 				}
 			}
@@ -64,13 +65,13 @@ namespace ft
 			// template <class InputIterator>
 			// vector (iterator first, iterator last, const allocator_type& alloc = allocator_type())
 			
+			// copy (4)  The copy constructor creates a container that keeps and uses a copy of x's allocator.
 			// vector (const vector& x)
-			// { *this = x; }
 					
 			~vector()
 			{
 				this->clear();
-				_alloc.deallocate(_start, this->capacity());
+				_alloc.deallocate(_start, _size);
 			}
 	
 			// vector& operator=(const vector& x)
