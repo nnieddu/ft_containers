@@ -81,18 +81,18 @@ namespace ft
 	// void advance (InputIterator& it, Distance n);
 	// Advance iterator (function template )
 	
-	// template<class InputIterator>
-	// typename ft::iterator_traits<InputIterator>::difference_type
-	// 	distance (InputIterator first, InputIterator last)
-	// {
-	// 	typename ft::iterator_traits<InputIterator>::difference_type distance = 0;
-	// 	while (first != last)
-	// 	{
-	// 		first++;
-	// 		distance++;
-	// 	}
-	// 	return (distance);
-	// }
+	template<class InputIterator>
+	typename ft::iterator_traits<InputIterator>::difference_type
+		distance (InputIterator first, InputIterator last)
+	{
+		typename ft::iterator_traits<InputIterator>::difference_type distance = 0;
+		while (first != last)
+		{
+			first++;
+			distance++;
+		}
+		return (distance);
+	}
 
 	// // [Iterator generators:]
 	
