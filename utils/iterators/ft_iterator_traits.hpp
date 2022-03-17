@@ -15,8 +15,6 @@
 #include <cstddef>
 #include <iostream>
 
-#include "ft_it_utils.hpp"
-
 // https://www.cplusplus.com/reference/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator_traits/

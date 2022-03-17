@@ -16,6 +16,7 @@ COMP 	=	c++
 
 FLAG	=	-Wall -Wextra -Werror -std=c++98
 
+# SRC		=	vector_test.cpp 
 SRC		=	mymain.cpp 
 
 INCS	=

@@ -80,8 +80,9 @@ namespace ft
 			
 			random_access_iterator operator++(int) //post increment
             {
-				_ptr++;
-				return _ptr;
+				random_access_iterator copy(*this);
+				++(*this);
+				return copy;
             }
 				
 			random_access_iterator operator+=(difference_type x)
@@ -102,6 +103,12 @@ namespace ft
 				return _ptr;
 			}
 
+			random_access_iterator operator--(int)
+			{
+				random_access_iterator copy(*this);
+				--(*this);
+				return copy;
+			}
 			random_access_iterator operator-=(difference_type x)
 			{
 				_ptr -= x;

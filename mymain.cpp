@@ -27,7 +27,7 @@ int main ()
 //                        [MY VECTOR]
 // CONSTRUCTORS
   ft::vector<int> ftfirst;                            		// empty vector of ints
-  ft::vector<int> ftsecond (4,100);                      	 // four ints with value 100
+  ft::vector<int> ftsecond (5,100);                      	 // four ints with value 100
   // ft::vector<int> ftthird (ftsecond.begin(),ftsecond.end());  // iterating through second
   // ft::vector<int> ftfourth (ftsecond);                       // a copy of third
 
