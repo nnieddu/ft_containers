@@ -103,5 +103,5 @@ map    :
 - https://stackoverflow.com/questions/1051379/is-there-a-difference-between-copy-initialization-and-direct-initialization  
 - https://stackoverflow.com/questions/12036037/explicit-call-to-a-constructor    
 - http://eigen.tuxfamily.org/dox-devel/TopicTemplateKeyword.html
-
+ 
 ### Notes
