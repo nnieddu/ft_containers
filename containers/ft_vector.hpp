@@ -38,7 +38,7 @@ namespace ft
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 		private:
-			allocator_type  _alloc;		// The container keeps an internal copy of alloc, which is used to allocate storage throughout its lifetime.
+			allocator_type  _alloc;		// The container keeps an internal copy of alloc, which is used to allocate storage throughout its lifetime. (ref)
 			size_type		_capacity;	// Copy of the initial capacity of the container (not necessarily the same as _size)
 			size_type		_size;		// Copy of the initial size of the container
 			T				*_items;	// ptr on the T type items array
@@ -54,8 +54,8 @@ namespace ft
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) 
 			: _alloc(alloc), _capacity(n), _size(n), _items(_alloc.allocate(n))
 			{
-				for ( size_type index = 0 ; index < n ; index++ )
-					_alloc.construct( &_items[index], val );
+				for (size_type index = 0; index < n; index++)
+					_alloc.construct(&_items[index], val);
 			}
 			
 			// range (3)
@@ -64,15 +64,10 @@ namespace ft
 			
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
 			vector (const vector& x)
-			: _alloc(x._alloc), _capacity(x.capacity()), _size(x.size()), _items(NULL)
+			: _alloc(x._alloc), _capacity(x.capacity()), _size(x.size()), _items(_alloc.allocate(_capacity))
 			{
-				if (_capacity != 0)
-				{
-					_items = _alloc.allocate(_capacity);
-
-					for (size_type index = 0 ; index < _size ; index++)
-						_alloc.construct(&_items[index], x._items[index]);
-				}
+				for (size_type index = 0 ; index < _size ; index++)
+					_alloc.construct(&_items[index], x._items[index]);
 			}
 					
 			~vector()

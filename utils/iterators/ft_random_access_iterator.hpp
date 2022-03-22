@@ -82,6 +82,12 @@ namespace ft
 		
 			// iterator operator +(difference_type b) const { return (iterator(_ptr + b)); }; // a + n
 
+			random_access_iterator operator+(int x)
+			{
+				_ptr += x;
+				return (*this);
+			}
+
 			random_access_iterator& operator++() //pre increment
 			{
 				++_ptr;
@@ -100,6 +106,7 @@ namespace ft
 				_ptr += x;
 				return (*this);
 			}
+
 
 			random_access_iterator operator-(difference_type x)
 			{

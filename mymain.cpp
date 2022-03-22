@@ -18,60 +18,92 @@
 
 int main ()
 {
+	int myints[] = {16,2,77,29};
 //  -------------------------------------------------------------d
 // [-----------------------VECTOR TESTS--------------------------]
 //  -------------------------------------------------------------
 
-  int myints[] = {16,2,77,29};
+//						[MY VECTOR]
+//					CONSTRUCTORS AND DESTRUCTOR 
 
-//                        [MY VECTOR]
-// CONSTRUCTORS
-  ft::vector<int> ftfirst;                            		// empty vector of ints
-  ft::vector<int> ftsecond (5,100);                      	 // four ints with value 100
-  // ft::vector<int> ftthird (ftsecond.begin(),ftsecond.end());  // iterating through second
-  ft::vector<int> ftfourth (ftsecond);                       // a copy of third
+	ft::vector<int> ftDefault;									// empty vector of ints (default constructor)
+	ft::vector<int> ftEmptyFill (10);							// 10 zero-initialized elements
+	ft::vector<int> ftFill (5,100);								// four ints with value 100 (fill constructor)
+	// ft::vector<int> ftRange (ftFill.begin(),ftFill.end());	// iterating through second (range constructor)
+	ft::vector<int> ftCpy (ftFill);								// a copy of third (copy constructor)
 
-  // ft::vector<int> ftfifth (myints, myints + sizeof(myints) / sizeof(int) );
+	ft::vector<int> *ftNew = new ft::vector<int>(4, 100);
+	delete ftNew;
+	ftDefault.~vector();
 
-  ft::vector<int>::iterator ftit;
-  std::cout << "The contents of ftfifth  are:";
-  for (ftit = ftsecond.begin(); ftit != ftsecond.end(); ++ftit)
-    std::cout << ' ' << *ftit;
-  std::cout << std::endl;
-  // std::cout << "ft::vector::begin() returns a " << get_iterator_type(ftsecond.begin()) << " Iterator.\n" << std::endl;
   
-  
-// OPERATORS TESTS
-  // ftfirst = ftsecond;
-  // for (ftit = ftfirst.begin(); ftit != ftfirst.end(); ++ftit)
-  //   std::cout << ' ' << *ftit;
-  // std::cout << std::endl;
-  
+//					OPERATORS TESTS
+// Assignement Operator (=) and operator[]
+	std::cout << "ftDefault size avant : " << ftDefault.size()  << std::endl;
+	ftDefault = ftFill;
+	std::cout << "ftDefault size apres : " << ftDefault.size()  << std::endl;
+	std::cout << "ftDefault de 0 apres : " << ftDefault[0] << std::endl<< std::endl;
+
+
+// 					ITERATORS TESTS
+	std::cout << "ftEmptyFill.begin() :" << *ftEmptyFill.begin() << std::endl;
+	std::cout << "ftFill.begin() :" << *ftFill.begin() << std::endl;
+
+
+
 // FT FUNCTIONS TESTS
-  std::cout << "FT size() : " << ftsecond.size() << std::endl;
-  std::cout << "FT max_size() : " << ftsecond.max_size() << std::endl;
-  std::cout << "FT capacity() : " << ftsecond.capacity() << std::endl;
-  std::cout << "FT empty() : " << ftsecond.empty() << std::endl;
+	std::cout << "FT size() : " << ftFill.size() << std::endl;
+	std::cout << "FT max_size() : " << ftFill.max_size() << std::endl;
+	std::cout << "FT capacity() : " << ftFill.capacity() << std::endl;
+	std::cout << "FT empty() : " << ftFill.empty() << std::endl;
 
-  std::cout << "ft::distance return : " << ft::distance(ftsecond.begin(),ftsecond.end()) << std::endl;
-  std::cout << "test ft return : " << *ftsecond.begin() - 5 << std::endl;
-  std::cout << "test ft return : " << ftsecond.begin() - ftsecond.end() << std::endl;
-  std::cout << "test ft addr return : " << &*ftsecond.begin() << std::endl;
-
-
+	std::cout << "ft::distance return : " << ft::distance(ftFill.begin(),ftFill.end()) << std::endl;
+	std::cout << "test ft return : " << *ftFill.begin() - 5 << std::endl;
+	std::cout << "test ft return : " << ftFill.begin() - ftFill.end() << std::endl;
+	std::cout << "test ft addr return : " << &*ftFill.begin() << std::endl;
 
 
 
 
-  std::cout << std::endl << std::endl << "---[ STL TEST PART ]---" << std::endl;
 
 
-//                       [STL VECTOR]
-// CONSTRUCTORS
-  std::vector<int> stdfirst;                                // empty vector of ints
-  std::vector<int> stdsecond (4,100);                       // four ints with value 100
-  std::vector<int> stdthird (stdsecond.begin(),stdsecond.end());  // iterating through second
-  std::vector<int> stdfourth (stdthird);                       // a copy of third
+  std::cout << std::endl << std::endl << "---[ STL TEST PART ]---\n" << std::endl;
+
+
+//						[STL VECTOR]
+//					CONSTRUCTORS AND DESTRUCTOR 
+
+	std::vector<int> stdDefault;                                // empty vector of ints
+	std::vector<int> stdFill (4,100);							// four ints with value 100
+	std::vector<int> stdRange (stdFill.begin(),stdFill.end());  // iterating through second
+	std::vector<int> stdCpy (stdDefault);							// a copy of third
+
+	std::vector<int> *stdNew = new std::vector<int>(5, 100);
+	delete stdNew;
+	stdDefault.~vector();
+
+//					OPERATORS TESTS
+// Assignement Operator (=)
+	std::cout << "stdDefault size avant : " << stdDefault.size() << std::endl;
+	stdDefault = stdFill;
+	std::cout << "stdDefault size apres : " << stdDefault.size() << std::endl;
+	std::cout << "stdDefault de 0 apres = " << stdDefault[0] << std::endl;
+
+
+
+
+    // std::cout << "=== Arithmetic Operators + (int or other iterator) ===" << std::endl;
+    // ft::vector<int>::const_iterator a = ftDefault.begin();
+    // std::cout << *(a + 3) << std::endl;
+    // std::cout << *a << std::endl;
+	// *a = 5;
+
+
+    std::vector<int>::iterator a = stdDefault.begin();
+    std::vector<int>::iterator b = stdDefault.end();
+	b - a;
+
+	std::cout << "test = " << stdDefault[0] << std::endl;
 
   std::vector<int> stdfifth (myints, myints + sizeof(myints) / sizeof(int) );
 
@@ -83,15 +115,15 @@ int main ()
   // std::cout << "std::vector::begin() returns a " << get_iterator_type(stdfifth.begin()) << " Iterator.\n" << std::endl;
 
 // STL FUNCTIONS TESTS
-  std::cout << "FT size() : " << stdsecond.size() << std::endl;
-  std::cout << "FT max_size() : " << stdsecond.max_size() << std::endl;
-  std::cout << "FT capacity() : " << stdsecond.capacity() << std::endl;
-  std::cout << "FT empty() : " << stdsecond.empty() << std::endl;
+  std::cout << "FT size() : " << stdFill.size() << std::endl;
+  std::cout << "FT max_size() : " << stdFill.max_size() << std::endl;
+  std::cout << "FT capacity() : " << stdFill.capacity() << std::endl;
+  std::cout << "FT empty() : " << stdFill.empty() << std::endl;
 
-  std::cout << "std::distance return : " << std::distance(stdsecond.begin(),stdsecond.end()) << std::endl;
-  std::cout << "test std return : " << stdsecond.begin() - stdsecond.end() << std::endl;
-  std::cout << "test std return : " <<  stdsecond.end() - stdsecond.begin() << std::endl;
-  std::cout << "test std addr return : " << &*stdsecond.begin() << std::endl;
+  std::cout << "std::distance return : " << std::distance(stdFill.begin(),stdFill.end()) << std::endl;
+  std::cout << "test std return : " << stdFill.begin() - stdFill.end() << std::endl;
+  std::cout << "test std return : " <<  stdFill.end() - stdFill.begin() << std::endl;
+  std::cout << "test std addr return : " << &*stdFill.begin() << std::endl;
 //                        [FT ITERATORS]
 
 
