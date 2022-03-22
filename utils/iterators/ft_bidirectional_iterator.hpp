@@ -18,6 +18,8 @@
 // https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/RandomAccessIterator/
 
+// Bidirectional iterators are like forward iterators but can also be iterated through backwards.
+
 namespace ft
 {
 	template <class T>
@@ -37,30 +39,6 @@ namespace ft
 			bidirectional_iterator(pointer it) : _ptr(it) {}
 			
 			virtual ~bidirectional_iterator() {}
-
-			// [FUNCTIONS]
-			// [Iterator operations]
-			template <class InputIterator, class Distance>
-				void advance (InputIterator& it, Distance n);
-			// Advance iterator (function template )
-				
-			template<class InputIterator>
-			typename iterator_traits<InputIterator>::difference_type
-				distance (InputIterator first, InputIterator last);
-			// Return distance between iterators (function template )
-			// distance();
-			
-			
-			// [Iterator generators:]
-
-			// back_inserter
-			// 	Construct back insert iterator (function template )
-
-			// front_inserter
-			// 	Constructs front insert iterator (function template )
-
-			// inserter
-			// 	Construct insert iterator (function template )
 			
 			
 			// [OPERATORS]

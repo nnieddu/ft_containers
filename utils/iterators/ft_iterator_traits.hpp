@@ -23,7 +23,14 @@
 
 namespace ft
 {
-	//Base iterator struct
+	// Empty class to identify the category/tag of an iterator 
+	struct input_iterator_tag {};
+	struct output_iterator_tag {};
+	struct forward_iterator_tag : input_iterator_tag {};
+	struct bidirectional_iterator_tag : forward_iterator_tag {};
+	struct random_access_iterator_tag : bidirectional_iterator_tag {};
+
+	// Base iterator struct
 	template <class Category, class T, class Distance = ptrdiff_t,
 		class Pointer = T*, class Reference = T&> 
 	struct iterator {
@@ -34,14 +41,7 @@ namespace ft
 		typedef Category  iterator_category;
 	};
 	
-	//Empty class to identify the category/tag of an iterator 
-	struct input_iterator_tag {};
-	struct output_iterator_tag {};
-	struct forward_iterator_tag : input_iterator_tag {};
-	struct bidirectional_iterator_tag : forward_iterator_tag {};
-	struct random_access_iterator_tag : bidirectional_iterator_tag {};
-  
-  	//generic definition
+  	// Generic iterator traits definition
 	template <class iterator>
 	struct iterator_traits
 	{
@@ -102,5 +102,17 @@ namespace ft
 	// // 	Constructs front insert iterator (function template )
 
 	// // inserter
+	
 	// // 	Construct insert iterator (function template )
+			// [Iterator generators:]
+
+			// back_inserter
+			// 	Construct back insert iterator (function template )
+
+			// front_inserter
+			// 	Constructs front insert iterator (function template )
+
+			// inserter
+			// 	Construct insert iterator (function template )
+			
 }

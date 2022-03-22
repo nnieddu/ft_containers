@@ -38,10 +38,10 @@ namespace ft
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 		private:
-			allocator_type  _alloc; // The container keeps an internal copy of alloc, which is used to allocate storage throughout its lifetime.
-			size_type		_capacity; // Copy of the initial size of the container
-			size_type		_size; // Copy of the initial size of the container
-			T				*_items; // ptr on the T type items, array
+			allocator_type  _alloc;		// The container keeps an internal copy of alloc, which is used to allocate storage throughout its lifetime.
+			size_type		_capacity;	// Copy of the initial capacity of the container (not necessarily the same as _size)
+			size_type		_size;		// Copy of the initial size of the container
+			T				*_items;	// ptr on the T type items array
 			// pointer         _items; // Pointer to the first element T (value_type) of the container 
 			// pointer         _items[_size]; // Pointer to the last element T (value_type) of the container
 		public:
@@ -64,7 +64,7 @@ namespace ft
 			
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
 			vector (const vector& x)
-			: _alloc(x.get_allocator()), _capacity(x.capacity()), _size(x.size()), _items(NULL)
+			: _alloc(x._alloc), _capacity(x.capacity()), _size(x.size()), _items(NULL)
 			{
 				if (_capacity != 0)
 				{

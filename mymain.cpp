@@ -18,7 +18,7 @@
 
 int main ()
 {
-//  -------------------------------------------------------------
+//  -------------------------------------------------------------d
 // [-----------------------VECTOR TESTS--------------------------]
 //  -------------------------------------------------------------
 
@@ -29,7 +29,7 @@ int main ()
   ft::vector<int> ftfirst;                            		// empty vector of ints
   ft::vector<int> ftsecond (5,100);                      	 // four ints with value 100
   // ft::vector<int> ftthird (ftsecond.begin(),ftsecond.end());  // iterating through second
-  // ft::vector<int> ftfourth (ftsecond);                       // a copy of third
+  ft::vector<int> ftfourth (ftsecond);                       // a copy of third
 
   // ft::vector<int> ftfifth (myints, myints + sizeof(myints) / sizeof(int) );
 
@@ -54,7 +54,10 @@ int main ()
   std::cout << "FT empty() : " << ftsecond.empty() << std::endl;
 
   std::cout << "ft::distance return : " << ft::distance(ftsecond.begin(),ftsecond.end()) << std::endl;
-  // std::cout << "test ft return : " << ftsecond.begin() - ftsecond.end() << std::endl;
+  std::cout << "test ft return : " << *ftsecond.begin() - 5 << std::endl;
+  std::cout << "test ft return : " << ftsecond.begin() - ftsecond.end() << std::endl;
+  std::cout << "test ft addr return : " << &*ftsecond.begin() << std::endl;
+
 
 
 
@@ -87,6 +90,8 @@ int main ()
 
   std::cout << "std::distance return : " << std::distance(stdsecond.begin(),stdsecond.end()) << std::endl;
   std::cout << "test std return : " << stdsecond.begin() - stdsecond.end() << std::endl;
+  std::cout << "test std return : " <<  stdsecond.end() - stdsecond.begin() << std::endl;
+  std::cout << "test std addr return : " << &*stdsecond.begin() << std::endl;
 //                        [FT ITERATORS]
 
 

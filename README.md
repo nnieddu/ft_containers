@@ -89,10 +89,11 @@ map    :
 - https://www.learncpp.com/cpp-tutorial/container-classes/  
 - https://openclassrooms.com/forum/sujet/implementation-d-un-conteneur-map-en-c  
 - https://cpp.developpez.com/cours/cpp/?page=page_14  
+- https://www.boost.org/community/generic_programming.html#concept
+- https://crazycpp.wordpress.com/2014/12/15/tutorial-on-tag-dispatching/
+- https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp
 - https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/SFINAE   
-- https://www.tutorialspoint.com/What-are-Lvalues-and-Rvalues-in-Cplusplus#:~:text=An%20lvalue%20(locator%20value)%20represents,some%20identifiable%20location%20in%20memory.  
 - https://stackoverflow.com/questions/2023977/difference-of-keywords-typename-and-class-in-templates  
-- https://stackoverflow.com/questions/1527849/how-do-you-understand-dependent-names-in-c#:~:text=A%20dependent%20name%20is%20essentially,depends%20on%20a%20template%20argument.&text=Names%20that%20depend%20on%20a,at%20the%20point%20of%20definition. 
 - https://stackoverflow.com/questions/121162/what-does-the-explicit-keyword-mean  
 - https://stackoverflow.com/questions/8054273/how-to-implement-an-stl-style-iterator-and-avoid-common-pitfalls  
 - https://stackoverflow.com/questions/7758580/writing-your-own-stl-container/7759622#7759622  
@@ -101,7 +102,12 @@ map    :
 - https://stackoverflow.com/questions/7923369/when-is-the-typename-keyword-necessary  
 - https://stackoverflow.com/questions/59539057/c-does-it-lead-to-double-free-when-destroy-element-in-allocatorstring  
 - https://stackoverflow.com/questions/1051379/is-there-a-difference-between-copy-initialization-and-direct-initialization  
-- https://stackoverflow.com/questions/12036037/explicit-call-to-a-constructor    
 - http://eigen.tuxfamily.org/dox-devel/TopicTemplateKeyword.html
-
+- https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus
+- https://www.tutorialspoint.com/cplusplus/cpp_friend_functions.htm
 ### Notes
+
+Keywords :
+
+[explicit](https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus)
+The explicit keyword in C++ is used to mark constructors to not implicitly convert types.
