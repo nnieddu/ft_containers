@@ -48,10 +48,10 @@ Vous êtes autorisé à utiliser la bibliothèque STD
 
 ### libstdc++ 
 
-iterator :
+iterator :  
 - https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01067_source.html  
-  
-vector : 
+   
+vector :  
 - https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01082_source.html  
 stack  : 
 - https://gcc.gnu.org/onlinedocs/gcc-4.6.4/libstdc++/api/a01078_source.html  

@@ -59,7 +59,7 @@ namespace ft
 		public :
 			random_access_iterator() : _ptr(NULL) {}
 			
-			random_access_iterator(pointer it) : _ptr(it) {}
+			random_access_iterator(pointer ptr) : _ptr(ptr) {}
 			
 			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {}
 
