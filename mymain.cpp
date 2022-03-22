@@ -58,9 +58,9 @@ int main ()
 	std::cout << "FT empty() : " << ftFill.empty() << std::endl;
 
 	std::cout << "ft::distance return : " << ft::distance(ftFill.begin(),ftFill.end()) << std::endl;
-	std::cout << "test ft return : " << *ftFill.begin() - 5 << std::endl;
-	std::cout << "test ft return : " << ftFill.begin() - ftFill.end() << std::endl;
-	std::cout << "test ft addr return : " << &*ftFill.begin() << std::endl;
+	std::cout << "*ftFill.begin() - 5 return : " << *ftFill.begin() - 5 << std::endl;
+	std::cout << "ftFill.begin() - ftFill.end() return : " << ftFill.begin() - ftFill.end() << std::endl;
+	std::cout << "test addr return : " << &*ftFill.begin() << std::endl;
 
 
 
@@ -89,7 +89,13 @@ int main ()
 	std::cout << "stdDefault size apres : " << stdDefault.size() << std::endl;
 	std::cout << "stdDefault de 0 apres = " << stdDefault[0] << std::endl;
 
-	std::cout << "test = " << stdDefault[0] << std::endl;
+
+    // ft::vector<int>::const_iterator a = ftDefault.begin();
+    // std::vector<int>::const_iterator a = stdDefault.begin();
+    // std::cout << *(a + 3) << std::endl;
+    // std::cout << *a << std::endl;
+	// // *a = 5;
+    // std::cout << *a << std::endl;
 
   std::vector<int> stdfifth (myints, myints + sizeof(myints) / sizeof(int) );
 
@@ -101,15 +107,15 @@ int main ()
   // std::cout << "std::vector::begin() returns a " << get_iterator_type(stdfifth.begin()) << " Iterator.\n" << std::endl;
 
 // STL FUNCTIONS TESTS
-  std::cout << "FT size() : " << stdFill.size() << std::endl;
-  std::cout << "FT max_size() : " << stdFill.max_size() << std::endl;
-  std::cout << "FT capacity() : " << stdFill.capacity() << std::endl;
-  std::cout << "FT empty() : " << stdFill.empty() << std::endl;
+  	std::cout << "FT size() : " << stdFill.size() << std::endl;
+  	std::cout << "FT max_size() : " << stdFill.max_size() << std::endl;
+  	std::cout << "FT capacity() : " << stdFill.capacity() << std::endl;
+  	std::cout << "FT empty() : " << stdFill.empty() << std::endl;
 
-  std::cout << "std::distance return : " << std::distance(stdFill.begin(),stdFill.end()) << std::endl;
-  std::cout << "test std return : " << stdFill.begin() - stdFill.end() << std::endl;
-  std::cout << "test std return : " <<  stdFill.end() - stdFill.begin() << std::endl;
-  std::cout << "test std addr return : " << &*stdFill.begin() << std::endl;
+  	std::cout << "std::distance return : " << std::distance(stdFill.begin(),stdFill.end()) << std::endl;
+  	std::cout << "*stdFill.begin() - 5 return : " << *stdFill.begin() - 5 << std::endl;
+	std::cout << "stdFill.begin() - stdFill.end() return : " << stdFill.begin() - stdFill.end() << std::endl;
+	std::cout << "test stdFill addr return : " << &*stdFill.begin() << std::endl;
 //                        [FT ITERATORS]
 
 
