@@ -98,15 +98,21 @@ map    :
 - https://stackoverflow.com/questions/7758580/writing-your-own-stl-container/7759622#7759622  
 - https://stackoverflow.com/questions/4329677/increment-operator-iterator-implementation  
 - https://stackoverflow.com/questions/7923369/when-is-the-typename-keyword-necessary  
-- https://stackoverflow.com/questions/59539057/c-does-it-lead-to-double-free-when-destroy-element-in-allocatorstring  
-- https://stackoverflow.com/questions/1051379/is-there-a-difference-between-copy-initialization-and-direct-initialization  
 - http://eigen.tuxfamily.org/dox-devel/TopicTemplateKeyword.html
 - https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus
 - https://www.tutorialspoint.com/cplusplus/cpp_friend_functions.htm
 
 ### Notes
 
-Keywords :
+[std::allocator](https://www.cplusplus.com/reference/memory/allocator/)
+Allocators are classes that define memory models to be used by some parts of the Standard Library, and most specifically, by STL containers.  
+  
+##### Keywords :
 
 [explicit](https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus)
 The explicit keyword in C++ is used to mark constructors to not implicitly convert types.
+
+[friend](https://www.tutorialspoint.com/cplusplus/cpp_friend_functions.htm)
+
+A friend function of a class is defined outside that class' scope but it has the right to access all private and protected members of the class. Even though the prototypes for friend functions appear in the class definition, friends are not member functions.
+A friend can be a function, function template, or member function, or a class or class template, in which case the entire class and all of its members are friends.
