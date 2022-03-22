@@ -89,20 +89,6 @@ int main ()
 	std::cout << "stdDefault size apres : " << stdDefault.size() << std::endl;
 	std::cout << "stdDefault de 0 apres = " << stdDefault[0] << std::endl;
 
-
-
-
-    // std::cout << "=== Arithmetic Operators + (int or other iterator) ===" << std::endl;
-    // ft::vector<int>::const_iterator a = ftDefault.begin();
-    // std::cout << *(a + 3) << std::endl;
-    // std::cout << *a << std::endl;
-	// *a = 5;
-
-
-    std::vector<int>::iterator a = stdDefault.begin();
-    std::vector<int>::iterator b = stdDefault.end();
-	b - a;
-
 	std::cout << "test = " << stdDefault[0] << std::endl;
 
   std::vector<int> stdfifth (myints, myints + sizeof(myints) / sizeof(int) );
