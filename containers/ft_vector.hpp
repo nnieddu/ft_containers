@@ -33,7 +33,6 @@ namespace ft
 			typedef typename allocator_type::const_pointer			const_pointer;
 			typedef ft::random_access_iterator<value_type>			iterator;
 			typedef ft::random_access_iterator<const value_type>	const_iterator;
-			// typedef ft::iterator_traits<random_access_iterator<const value_type> >	test;
 			// typedef ft::reverse_iterator<iterator>				reverse_iterator;
 			// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t									difference_type;
@@ -94,7 +93,7 @@ namespace ft
 	
 			// [ITERATORS]
 			iterator begin() { return iterator(_items); }
-	
+
 			const_iterator begin() const { return const_iterator(_items); }
 			
 			iterator end()
