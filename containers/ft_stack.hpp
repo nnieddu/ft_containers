@@ -20,13 +20,13 @@
 #include <memory>
 #include <deque>
 
-namespace ft 
-{	
-	template <class T, class Container = std::deque<T> > 
-	class stack {
-		public: 
-			typedef T												value_type;
-			typedef Container										container_type;
-			typedef std::size_t										size_type;
-	};
-}
+// namespace ft 
+// {	
+// 	template <class T, class Container = std::deque<T> > 
+// 	class stack {
+// 		public: 
+// 			typedef T				value_type;
+// 			typedef Container		container_type;
+// 			typedef std::size_t		size_type;
+// 	};
+// }

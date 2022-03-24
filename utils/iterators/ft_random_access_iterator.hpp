@@ -46,38 +46,40 @@
 namespace ft
 {
 	template <class T>
-	class random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T >
+	class random_access_iterator //: public ft::iterator<ft::random_access_iterator_tag, T >
 	{
 		public:
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type            value_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type       difference_type;
-			typedef T*               																pointer;
-			typedef T&            																	reference;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category     iterator_category;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type			value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type		difference_type;
+			typedef T*																				pointer;
+			typedef T&																				reference;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category		iterator_category;
 		private:
 			pointer _ptr;
 		public :
-			random_access_iterator() : _ptr(NULL) {}
+
+			random_access_iterator() : _ptr(NULL) {std::cout << "1\n";}
+	
+			explicit random_access_iterator(pointer ptr) : _ptr(ptr) {std::cout << "2\n";}
 			
-			random_access_iterator(pointer ptr) : _ptr(ptr) {}
-			
-			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {}
+			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {std::cout << "3\n";}
 
 			random_access_iterator& operator=(const random_access_iterator x) 
 			{ 
+				std::cout << "JE suis dans operator=(RandomAccessIt x)\n";
 				_ptr = x._ptr; 
 				return *this; 
 			}
 
-			virtual ~random_access_iterator() {}
+			virtual ~random_access_iterator() {_ptr = NULL; std::cout << "destruction\n";}
 				
-			pointer base() const { return (this->_ptr); }
+			// pointer base() const { return (this->_ptr); } /////
 			
-			// [OPERATORS]
 			operator random_access_iterator<const T>() 
-			{ return (random_access_iterator<const T>(_ptr)); }
-
+			{ return (random_access_iterator<const T>(_ptr)); } ////////
+			
 			reference operator*() { return *_ptr; }
+			const reference operator*() const { return *_ptr; }
 
 			pointer operator->() { return _ptr; }
 
@@ -107,6 +109,7 @@ namespace ft
 			}
 
 
+    // difference_type operator-(const random_access_iterator<T>& x){return std::distance(x.getPtr(),this->getPtr());}
 			random_access_iterator operator-(difference_type x)
 			{
 				_ptr -= x;
@@ -140,11 +143,11 @@ namespace ft
 			bool operator<(const random_access_iterator &x) const { return (this->_ptr < x._ptr); }
 	};
 
-	template<typename T>
-	typename ft::random_access_iterator<T>::difference_type
-	operator-(const ft::random_access_iterator<T> lhs,
-			  const ft::random_access_iterator<T> rhs)
-	{
-		return (lhs.base() - rhs.base());
-	}
+	// template<typename T>
+	// typename ft::random_access_iterator<T>::difference_type
+	// operator-(const ft::random_access_iterator<T> lhs,
+	// 		  const ft::random_access_iterator<T> rhs)
+	// {
+	// 	return (lhs.base() - rhs.base());
+	// }
 }

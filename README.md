@@ -83,7 +83,7 @@ map    :
 ### Map  
 - http://www.cplusplus.com/reference/map/map/  
 
-### Useful / interesting / various :   
+### Sources / Useful / various :   
 - https://isocpp.org/faq
 - https://stdcxx.apache.org/doc/stdlibug/16-3.html   
 - https://www.learncpp.com/cpp-tutorial/container-classes/  
@@ -100,6 +100,7 @@ map    :
 - https://stackoverflow.com/questions/7923369/when-is-the-typename-keyword-necessary  
 - http://eigen.tuxfamily.org/dox-devel/TopicTemplateKeyword.html
 - https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus
+- https://github.com/pratikparvati/cpp_stl_iterators/blob/master/readme.md
 - https://www.tutorialspoint.com/cplusplus/cpp_friend_functions.htm
 
 ### Notes
@@ -110,11 +111,41 @@ Allocators are classes that define memory models to be used by some parts of the
 #### Keywords :
 
 [iterator_traits]
+Iterator traits allows algorithms to access information about a particular iterator in a uniform way to avoid re-implement of all iterators for each specific case, when it needs to traverse different style of containers. For example, Finding elements in `std::list` is `O(n)` complexity whereas in `std::vector` the random access to an element is `O(1)` complexity (given the index position). It is better for an algorithm to know that the container can be traversed using `+=` operator (Random Access), or only `++` operator (Forward), to choose what is the better choice to reduce the complexity of the algorithm that is computed.
+
+The iterator traits are the following ones:
+- `difference_type`:
+	- the type for representing iterator distances
+	- The type of iterator difference `p2 - p1`.
+- `value_type`:
+    - the type of the value that iterator points
+- `pointer`: 
+    - the pointer value that iterator points
+	- usually `value_type*`
+- `reference`: 
+    - the reference value that iterator points
+	- usually `value_type&`
+- `iterator category`: 
+    - Identifies the iterator concept modeled by the iterator.
+
+
+The traits also improve the efficiency of algorithms by making use of knowledge about basic iterator categories provided by the iterator_category member. An algorithm can use this "tag" to select the most efficient implementation an iterator is capable of handling without compromising the flexibility to deal with a variety of iterator types.
+(see [distance] and [advance] functions in utils/iterators/ft_iterators_traits.hpp who illustrate this)
+
 [specializations]
+The iterator_traits class template is specialized for simple pointers or pointers to const. 
+These specializations lets you use a pointer as a random access iterator.
+
 [tags]
-  
-  
-  
+Empty struct to identifies the iterator concept modeled by the iterator.
+```C++
+    struct input_iterator_tag {};
+    struct output_iterator_tag {};
+    struct forward_iterator_tag : input_iterator_tag {};
+    struct bidirectional_iterator_tag : forward_iterator_tag {};
+    struct random_access_iterator_tag : bidirectional_iterator_tag {};
+   ```
+
 [explicit](https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus)  
 The explicit keyword in C++ is used to mark constructors to not implicitly convert types.
 
@@ -125,3 +156,4 @@ A friend can be a function, function template, or member function, or a class or
 [typeid]()  
 [typename]()  
 [typedef]()  
+[virtual]()

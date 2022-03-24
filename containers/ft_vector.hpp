@@ -12,7 +12,6 @@
 
 // https://www.cplusplus.com/reference/memory/allocator/
 // https://www.cplusplus.com/reference/vector/vector/
-// https://www.cplusplus.com/reference/iterator/iterator/
 
 #pragma once
 
@@ -38,12 +37,10 @@ namespace ft
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 		private:
-			allocator_type  _alloc;		// The container keeps an internal copy of alloc, which is used to allocate storage throughout its lifetime. (ref)
+			allocator_type  _alloc;		// The container keeps an int cpy of alloc, used to allocate storage throughout its lifetime. (ref)
 			size_type		_capacity;	// Copy of the initial capacity of the container (not necessarily the same as _size)
 			size_type		_size;		// Copy of the initial size of the container
 			T				*_items;	// ptr on the T type items array
-			// pointer         _items; // Pointer to the first element T (value_type) of the container 
-			// pointer         _items[_size]; // Pointer to the last element T (value_type) of the container
 		public:
 			// [CONSTRUCTORS]
 			// default (1)	
@@ -92,7 +89,9 @@ namespace ft
 			}
 	
 			// [ITERATORS]
-			iterator begin() { return iterator(_items); }
+			// En retournant un ptr direct = plus optimised (sinonz dans le cas d'un it1 = vec.begin(), 
+			// il y a un appel au constructeur et destructeur d'iterateur useless imo pour le moment)
+			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
 			
@@ -149,19 +148,19 @@ namespace ft
 			// reserve		Request a change in capacity (public member function)
 			void reserve (size_type n)
 			{
-				if ( n > this->max_size() )
+				if (n > this->max_size())
 					throw std::length_error("Maximum supported size exceeds");
 
-				if ( n > _capacity )
+				if (n > _capacity)
 				{
-					T *tmp = _alloc.allocate( n );
+					T *tmp = _alloc.allocate(n);
 
-					if ( _items != NULL )
+					if (_items != NULL)
 					{
-						for ( size_type index = 0 ; index < _size ; index++ )
-							_alloc.construct( &tmp[index], _items[index] );
+						for (size_type index = 0 ; index < _size ; index++)
+							_alloc.construct(&tmp[index], _items[index]);
 
-						_alloc.deallocate( _items, _capacity );
+						_alloc.deallocate(_items, _capacity);
 					}
 					_items = tmp;
 					_capacity = n;
@@ -178,18 +177,18 @@ namespace ft
 			// at	Access element (public member function)
 			reference at (size_type n)
 			{
-				if ( n >= _size )
+				if (n >= _size)
 					throw std::out_of_range("at() : index is out of range");
 
-				return ( _items[ n ] );
+				return (_items[ n ]);
 			}
 
 			const_reference at (size_type n) const
 			{
-				if ( n >= _size )
+				if (n >= _size)
 					throw std::out_of_range("at() : index is out of range");
 
-				return ( _items[ n ] );
+				return (_items[ n ]);
 			}
 
 			// front	Access first element (public member function)
