@@ -36,23 +36,22 @@ int main ()
 	delete ftNew;
 	ftDefault.~vector();
 
-  
 //					ITERATORS TESTS
 	int *ptr = NULL;
 	// int cool = 5;
 
-	// ft::vector<int>::iterator ftIt;	
+	// ft::vector<int>::iterator *ftItNew = new ft::vector<int>::iterator;
+	// delete ftItNew;
+
+	// ft::vector<int>::iterator ftIt;
 	// ft::vector<int>::iterator ftIt2(ptr);
+	// ft::vector<int>::iterator ftIt3(ftIt2);
 	// ftIt2 = ftIt;
 	// ftIt2 = ftFill.begin();
 
 	// *ftIt2 = cool;
 	// *ftIt2 = 42;
 
-
-	ft::vector<int>::iterator *ftItNew = new ft::vector<int>::iterator;
-	// ftItNew = &ftIt2;
-	delete ftItNew;
 
 
 	//-------- SAMPLE OF FORBIDEN / BAD THINGS --------
@@ -62,16 +61,9 @@ int main ()
 	//-------- END OF FORBIDEN THINGS -----------
 
 
-	std::vector<int>::iterator stdIt2(ptr);
-	// stdIt2 = cool;
-	// stdIt2 = ptr;
-
-	std::vector<int>::iterator *stdItNew = new std::vector<int>::iterator;
-	stdItNew = &stdIt2;
-	delete stdItNew;
-
-
-
+	// std::vector<int>::iterator stdIt;
+	// std::vector<int>::iterator *stdItNew = new std::vector<int>::iterator;
+	// delete stdItNew;
 
 
 //					OPERATORS TESTS
