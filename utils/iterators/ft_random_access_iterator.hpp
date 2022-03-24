@@ -108,8 +108,6 @@ namespace ft
 				return (*this);
 			}
 
-
-    // difference_type operator-(const random_access_iterator<T>& x){return std::distance(x.getPtr(),this->getPtr());}
 			random_access_iterator operator-(difference_type x)
 			{
 				_ptr -= x;
