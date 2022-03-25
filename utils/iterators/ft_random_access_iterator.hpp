@@ -75,7 +75,8 @@ namespace ft
 			virtual ~random_access_iterator() {_ptr = NULL; std::cout << "destruction\n";}
 				
 			pointer base() const { return (this->_ptr); } /////
-			
+	
+	      // Allow iterator to const_iterator conversion
 			operator random_access_iterator<const T>() 
 			{ return (random_access_iterator<const T>(_ptr)); } ////////
 			

@@ -18,6 +18,7 @@
 #include <stdexcept>
 
 #include "../utils/iterators/ft_random_access_iterator.hpp"
+#include "../utils/ft_enable_if.hpp"
 
 namespace ft 
 {	
@@ -58,7 +59,26 @@ namespace ft
 			// range (3)
 			// template <class InputIterator>
 			// vector (iterator first, iterator last, const allocator_type& alloc = allocator_type())
-			
+			template<class InputIterator>
+			vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) :
+				_alloc(alloc), _items(NULL)
+			{
+				difference_type size = ft::distance(first, last);
+
+				if (size != 0)
+				{
+					_items = _alloc.allocate(size);
+
+					for (size_type index = 0 ; first != last ; first++, index++)
+						_alloc.construct(&_items[index], *first);
+				}
+				_size = size;
+				_capacity = size;
+			}
+
+
+
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
 			vector (const vector& x)
 			: _alloc(x._alloc), _capacity(x.capacity()), _size(x.size()), _items(_alloc.allocate(_capacity))
@@ -99,9 +119,8 @@ namespace ft
 			
 			iterator end()
 			{
-				// if (_items == NULL)
-				// 	return iterator(_items);
-				std::cout << "Addr items=[" << &_items << "] Addr items[s]=[" << &_items[_size] << "] size = " << _size << std::endl;
+				if (_items == NULL)
+					return iterator(_items);
 				return iterator(&_items[_size]);
 			}
 	

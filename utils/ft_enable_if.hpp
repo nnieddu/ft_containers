@@ -26,17 +26,14 @@
 
 // This is useful to hide signatures on compile time when a particular condition is not met, since in this case, the member enable_if::type will not be defined and attempting to compile using it should fail.
 
-// It is defined with a behavior equivalent to:
+#pragma once
 
-// template<bool Cond, class T = void> struct enable_if {};
-// template<class T> struct enable_if<true, T> { typedef T type; };
+namespace ft 
+{
+    template<bool B, class T = void>
+    struct enable_if {};
 
+    template<class T> 
+    struct enable_if<true, T> { typedef T type; };
 
-// template<class InputIt = T, typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type >
-// vector(InputIt first, InputIt last, const Allocator &alloc = Allocator());
-
-// But I am trying to make it work with C++98 with something like this that doesn't work:
-
-// template<class InputIt>
-// vector(typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type first,
-// typename ft::enable_if<ft::is_integral<InputIt>::value, InputIt>::type last, const Allocator &alloc = Allocator());
+}

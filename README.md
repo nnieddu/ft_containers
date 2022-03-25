@@ -120,8 +120,16 @@ To summarize, you only need to remember 4 rules, and they are pretty logical:
 So a const in the type means the pointer is pointing at a const value.
  - A const after the asterisk means the pointer itself is const and it can not be assigned a new address. 
 
-Remembering the mnemonic, that lvalues can appear on the left of an assignment operator while
-
+[Lvalue]
+An object reference. You can take the address of an lvalue, but you
+cannot take the address of an rvalue. The lefthand operand of the
+built-in assignment operator must be a non-const lvalue (hence the l in lvalue).
+  
+[Rvalue]
+A value that does not necessarily have any storage or address. An rvalue of fundamental type can
+appear only on the right side of an assignment (hence the R in Rvalue).
+An lvalue can be implicitly converted to an rvalue, but not the other way around.
+  
 #### Keywords :
 
 [iterator_traits]
@@ -173,7 +181,8 @@ A friend can be a function, function template, or member function, or a class or
 [virtual]()
 
 [cv-qualified](https://en.cppreference.com/w/cpp/language/cv)
-c-v qualified means const and volatile...For e.g:-
+A const or volatile qualifier, or both (in any order).
+c-v qualified means const and volatile ex :
 ```
 // non cv_qualified 
 int first; 
@@ -183,4 +192,28 @@ char *second;
 const int third; 
 volatile char * fourth; 
 ```
+
+The const and volatile specifiers are optional. You can use either one, neither, or
+both in any order. The const and volatile keywords can be used in other parts of
+a declaration, so they are often referred to by the more general term qualifiers; for
+brevity, they are often referred to as cv-qualifiers.
+
+[const]
+Denotes an object that cannot be modified. A const object cannot ordinarily
+be the target of an assignment. You cannot call a non- const member function
+of a const object.
+  
+[volatile]
+Denotes an object whose value might change unexpectedly. The compiler is
+prevented from performing optimizations that depend on the value not
+changing. For example, a variable that is tied to a hardware register should be
+volatile .
+  
+  
+[SFINAE]
+Substitution Failure Is Not An Error. 
+When the compiler looks for candidate functions for overload resolution, 
+all function templates with the desired name are initially considered.  
+If the compiler cannot generate a template instance to match the function call’s arguments, 
+that function template is not considered. That is, failure to substitute the arguments is not an error.
   

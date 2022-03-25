@@ -49,9 +49,10 @@ int main ()
 	ft::vector<int>::iterator ftIt3(ftIt2);
 	ftIt2 = ftIt;
 	ftIt2 = ftFill.begin();
-	// *ftIt2 = cool;
-	// *ftIt2 = 42;
+	*ftIt2 = cool;
+	*ftIt2 = 42;
 	ftIt2 = ftDefault.end();
+
 
 
 	// int x = 100;
@@ -67,7 +68,6 @@ int main ()
 
 	std::vector<int> stdvec(5,100);
 	std::vector<int>::iterator stdIt(ptr);
-	std::vector<int>::iterator stdItemd = stdvec.end();
 	// *stdItemd = cool;
 	// *stdItemd = 42;
 	// std::cout << "STD END=" << *stdItemd << std::endl;

@@ -12,4 +12,12 @@
 
 // https://www.cplusplus.com/reference/type_traits/is_integral/?kw=is_integral
 
+#pragma once
+
+#include "ft_enable_if.hpp"
+
+namespace ft
+{
 // template <class T> struct is_integral;
+
+}
