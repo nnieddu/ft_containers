@@ -10,22 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// https://en.cppreference.com/w/cpp/language/sfinae
-// https://www.cplusplus.com/forum/beginner/270540/
-
-// https://www.cplusplus.com/reference/type_traits/enable_if/
-// rewrite enable_if :
-// https://en.cppreference.com/w/cpp/types/enable_if
 // https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/SFINAE
-
-// template <bool Cond, class T = void> struct enable_if;
-
-// The type T is enabled as member type enable_if::type if Cond is true.
-
-// Otherwise, enable_if::type is not defined.
-
-// This is useful to hide signatures on compile time when a particular condition is not met, 
-// since in this case, the member enable_if::type will not be defined and attempting to compile using it should fail.
+// https://www.cplusplus.com/reference/type_traits/enable_if/?kw=enable_if
+// https://www.cplusplus.com/reference/type_traits/is_integral/?kw=is_integral
+// https://www.cplusplus.com/reference/type_traits/integral_constant/
+// https://www.cplusplus.com/reference/type_traits/false_type/
+// https://www.cplusplus.com/reference/type_traits/true_type/
 
 #pragma once
 
