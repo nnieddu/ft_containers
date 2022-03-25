@@ -89,16 +89,19 @@ namespace ft
 			}
 	
 			// [ITERATORS]
-			// En retournant un ptr direct = plus optimised (sinonz dans le cas d'un it1 = vec.begin(), 
-			// il y a un appel au constructeur et destructeur d'iterateur useless imo pour le moment)
+			// En retournant un ptr direct = plus optimised 
+			// (sinon dans le cas d'un it1 = vec.begin(), 
+			// il y a un appel au constructeur et destructeur d'iterateur 
+			// useless imo pour le moment)
 			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
 			
 			iterator end()
 			{
-				if (_items == NULL)
-					return iterator(_items);
+				// if (_items == NULL)
+				// 	return iterator(_items);
+				std::cout << "Addr items=[" << &_items << "] Addr items[s]=[" << &_items[_size] << "] size = " << _size << std::endl;
 				return iterator(&_items[_size]);
 			}
 	

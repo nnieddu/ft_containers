@@ -108,6 +108,20 @@ map    :
 [std::allocator](https://www.cplusplus.com/reference/memory/allocator/)  
 Allocators are classes that define memory models to be used by some parts of the Standard Library, and most specifically, by STL containers.  
   
+[Pointer const recap]
+To summarize, you only need to remember 4 rules, and they are pretty logical:
+ - A non-const pointer can be assigned another address to change what it is pointing at
+ - A const pointer always points to the same address, and this address can not be changed.
+
+ - A pointer to a non-const value can change the value it is pointing to. These can not point to a const value.
+ - A pointer to a const value treats the value as const when accessed through the pointer, and thus can not change the value it is pointing to. These can be pointed to const or non-const l-values (but not r-values, which don’t have an address)
+
+ - The pointer’s type defines the type of the object being pointed at.  
+So a const in the type means the pointer is pointing at a const value.
+ - A const after the asterisk means the pointer itself is const and it can not be assigned a new address. 
+
+Remembering the mnemonic, that lvalues can appear on the left of an assignment operator while
+
 #### Keywords :
 
 [iterator_traits]
@@ -157,3 +171,16 @@ A friend can be a function, function template, or member function, or a class or
 [typename]()  
 [typedef]()  
 [virtual]()
+
+[cv-qualified](https://en.cppreference.com/w/cpp/language/cv)
+c-v qualified means const and volatile...For e.g:-
+```
+// non cv_qualified 
+int first; 
+char *second; 
+
+// cv-qualified 
+const int third; 
+volatile char * fourth; 
+```
+  

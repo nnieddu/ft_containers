@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include "containers/ft_vector.hpp"
 
 // #include "fun.hpp"
@@ -38,30 +39,41 @@ int main ()
 
 //					ITERATORS TESTS
 	int *ptr = NULL;
-	// int cool = 5;
+	int cool = 5;
 
-	// ft::vector<int>::iterator *ftItNew = new ft::vector<int>::iterator;
-	// delete ftItNew;
+	ft::vector<int>::iterator *ftItNew = new ft::vector<int>::iterator;
+	delete ftItNew;
 
-	// ft::vector<int>::iterator ftIt;
-	// ft::vector<int>::iterator ftIt2(ptr);
-	// ft::vector<int>::iterator ftIt3(ftIt2);
-	// ftIt2 = ftIt;
-	// ftIt2 = ftFill.begin();
-
+	ft::vector<int>::iterator ftIt;
+	ft::vector<int>::iterator ftIt2(ptr);
+	ft::vector<int>::iterator ftIt3(ftIt2);
+	ftIt2 = ftIt;
+	ftIt2 = ftFill.begin();
 	// *ftIt2 = cool;
 	// *ftIt2 = 42;
+	ftIt2 = ftDefault.end();
 
 
+	// int x = 100;
+	// while (x-- > 0)
+		// ftIt2++;
 
 	//-------- SAMPLE OF FORBIDEN / BAD THINGS --------
 	// ftIt2 = ptr;
 	// ftIt2 = &ptr;
-	// *ftIt2 = *ptr; // Segmentation fault if ptr = NULL;
+	// *ftIt2 = NULL; // Segmentation fault (like stl) 
 	//-------- END OF FORBIDEN THINGS -----------
 
 
-	// std::vector<int>::iterator stdIt;
+	std::vector<int> stdvec(5,100);
+	std::vector<int>::iterator stdIt(ptr);
+	std::vector<int>::iterator stdItemd = stdvec.end();
+	// *stdItemd = cool;
+	// *stdItemd = 42;
+	// std::cout << "STD END=" << *stdItemd << std::endl;
+	std::list<int> stdlst;
+	std::list<int>::iterator stlstdIt;
+	// *stdIt = NULL;
 	// std::vector<int>::iterator *stdItNew = new std::vector<int>::iterator;
 	// delete stdItNew;
 
@@ -80,7 +92,6 @@ int main ()
 	// std::cout << "DISTANCE: " << std::distance(b, a) << std::endl << std::endl;
 
 
-	// std::vector<int> test(5, 42);
 	// std::vector<int>::iterator it = &test[0];
 	// std::vector<int>::iterator it = test.begin();
 	
@@ -97,9 +108,14 @@ int main ()
 	// ftit++;
 	// std::cout << "JE SUIS EGALE A :" << *ftit << std::endl;
 
-	// st
-	// std::vector<int>::iterator b = test.end();
-	// std::cout << "DISTANCE: " << std::distance(b, a) << std::endl;
+	// ft::vector<int> test(5, 42);
+	// ft::vector<int>::iterator a = test.begin();
+	// ft::vector<int>::iterator b = test.end();
+
+	std::vector<int> test(5, 42);
+	std::vector<int>::iterator a = test.begin();
+	std::vector<int>::iterator b = test.end();
+	std::cout << "DISTANCE: " << ft::distance(b, a) << std::endl;
 
 	// int * pa = &test[0];
 	// int * pb = &test[5];

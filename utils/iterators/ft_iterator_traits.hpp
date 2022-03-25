@@ -37,13 +37,18 @@ namespace ft
 	};
 	
 	// Empty class to identify the category/tag of an iterator 
-	struct input_iterator_tag {};
-	struct output_iterator_tag {};
-	struct forward_iterator_tag : public input_iterator_tag {};
-	struct bidirectional_iterator_tag : public forward_iterator_tag {};
-	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+	// struct input_iterator_tag {};
+	// struct output_iterator_tag {};
+	// struct forward_iterator_tag : public input_iterator_tag {};
+	// struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	// struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
-
+	typedef struct std::input_iterator_tag input_iterator_tag;
+	typedef struct std::output_iterator_tag output_iterator_tag;
+	typedef struct std::forward_iterator_tag forward_iterator_tag;
+	typedef struct std::bidirectional_iterator_tag bidirectional_iterator_tag;
+	typedef struct std::random_access_iterator_tag random_access_iterator_tag;
+ 
   	// Generic iterator traits definition
 	template <class iterator>
 	struct iterator_traits
@@ -84,7 +89,7 @@ namespace ft
 	// Advance iterator (function template )
 	template <class InputIterator, class Distance>
 	void advance(InputIterator &i, Distance n,
-		input_iterator_tag)
+		ft::input_iterator_tag)
 	{
 		for (; n > 0; --n)
 			++i;
@@ -92,7 +97,7 @@ namespace ft
 
 	template <class BidirectionalIterator, class Distance>
 	void advance(BidirectionalIterator &i, Distance n,
-		bidirectional_iterator_tag)
+		ft::bidirectional_iterator_tag)
 	{
 		if (n <= 0)
 			for (; n > 0; --n)
@@ -104,7 +109,7 @@ namespace ft
 
 	template <class RandomAccessIterator, class Distance>
 	void advance(RandomAccessIterator &i, Distance n,
-		random_access_iterator_tag)
+		ft::random_access_iterator_tag)
 	{
 		i += n;
 	}
