@@ -57,8 +57,6 @@ namespace ft
 			}
 			
 			// range (3)
-			// template <class InputIterator>
-			// vector (iterator first, iterator last, const allocator_type& alloc = allocator_type())
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) :
@@ -223,7 +221,6 @@ namespace ft
 
 			// [MODIFIERS]
 			// assign		Assign vector content (public member function)
-			
 			// range (1)	
 			template <class InputIterator>
 			void assign (InputIterator first, InputIterator last);

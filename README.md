@@ -130,6 +130,8 @@ A value that does not necessarily have any storage or address. An rvalue of fund
 appear only on the right side of an assignment (hence the R in Rvalue).
 An lvalue can be implicitly converted to an rvalue, but not the other way around.
   
+[static]()  
+
 #### Keywords :
 
 [iterator_traits]
