@@ -18,7 +18,7 @@
 #include <stdexcept>
 
 #include "../utils/iterators/ft_random_access_iterator.hpp"
-#include "../utils/ft_enable_if.hpp"
+#include "../utils/ft_type_traits.hpp"
 
 namespace ft 
 {	
@@ -38,10 +38,14 @@ namespace ft
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 		private:
-			allocator_type  _alloc;		// The container keeps an int cpy of alloc, used to allocate storage throughout its lifetime. (ref)
-			size_type		_capacity;	// Copy of the initial capacity of the container (not necessarily the same as _size)
-			size_type		_size;		// Copy of the initial size of the container
-			T				*_items;	// ptr on the T type items array
+			// The container keeps an int cpy of alloc, used to allocate storage throughout its lifetime.(ref):
+			allocator_type  _alloc;
+			// Copy of the initial capacity of the container (not necessarily the same as _size) :
+			size_type		_capacity;	
+			// Copy of the initial size of the container (nbr of T things): 
+			size_type		_size;		
+			// ptr on the T type items array :
+			T				*_items;	
 		public:
 			// [CONSTRUCTORS]
 			// default (1)	
@@ -59,8 +63,8 @@ namespace ft
 			// range (3)
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) :
-				_alloc(alloc), _items(NULL)
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
+			: _alloc(alloc), _items(NULL)
 			{
 				difference_type size = ft::distance(first, last);
 
@@ -68,20 +72,18 @@ namespace ft
 				{
 					_items = _alloc.allocate(size);
 
-					for (size_type index = 0 ; first != last ; first++, index++)
+					for (size_type index = 0; first != last; first++, index++)
 						_alloc.construct(&_items[index], *first);
 				}
 				_size = size;
 				_capacity = size;
 			}
 
-
-
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
 			vector (const vector& x)
 			: _alloc(x._alloc), _capacity(x.capacity()), _size(x.size()), _items(_alloc.allocate(_capacity))
 			{
-				for (size_type index = 0 ; index < _size ; index++)
+				for (size_type index = 0; index < _size; index++)
 					_alloc.construct(&_items[index], x._items[index]);
 			}
 					
@@ -100,17 +102,16 @@ namespace ft
 
 				this->clear();
 				this->reserve(x.capacity());
-				for (size_type index = 0 ; index < x.size() ; index++)
+				for (size_type index = 0; index < x.size(); index++)
 					_alloc.construct(&_items[index], x[index]);
 				_size = x.size();
 				return *this;
 			}
 	
-			// [ITERATORS]
-			// En retournant un ptr direct = plus optimised 
-			// (sinon dans le cas d'un it1 = vec.begin(), 
-			// il y a un appel au constructeur et destructeur d'iterateur 
-			// useless imo pour le moment)
+			// ]----------[ITERATORS]----------
+
+			// En retournant un ptr direct = plus optimised mais stl retourne un it (dans le cas d'un it1 = vec.begin(), 
+			// il y a un appel au constructeur et destructeur d'iterateur qui me semble useless pour le moment, a voir)
 			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
@@ -147,7 +148,7 @@ namespace ft
 			{
 				if (n < _size)
 				{
-					for (size_type index = n ; index < _size ; index++)
+					for (size_type index = n; index < _size; index++)
 						_alloc.destroy(&_items[index]);
 					_size = n;
 				} 
@@ -155,7 +156,7 @@ namespace ft
 				{
 					if (n > _capacity)
 						reserve(n);
-					for (size_type index = _size ; index < n ; index++)
+					for (size_type index = _size; index < n; index++)
 						_alloc.construct(&_items[index], val);
 					_size = n;
 				}
@@ -177,7 +178,7 @@ namespace ft
 
 					if (_items != NULL)
 					{
-						for (size_type index = 0 ; index < _size ; index++)
+						for (size_type index = 0; index < _size; index++)
 							_alloc.construct(&tmp[index], _items[index]);
 
 						_alloc.deallocate(_items, _capacity);
@@ -187,14 +188,12 @@ namespace ft
 				}
 			}
 
-			// [ACCESORS : Element access]
+			// ----------[ACCESORS : Element access]----------
 
-			// operator[]	Access element (public member function)
 			reference operator[] (size_type n) { return (_items[n]); }
 
 			const_reference operator[] (size_type n) const { return (_items[n]); }
 		
-			// at	Access element (public member function)
 			reference at (size_type n)
 			{
 				if (n >= _size)
@@ -212,12 +211,26 @@ namespace ft
 			}
 
 			// front	Access first element (public member function)
-			reference front();
-			const_reference front() const;
+			reference front() { return (_items[0]); }
+			const_reference front() const { return (_items[0]); };
 		
 			// back		Access last element (public member function)
-			reference back();
-			const_reference back() const;
+			reference back()
+			{
+				if (_size != 0)
+					return _items[_size - 1];
+				else
+					return _items; //// a verif/test si mieux
+					// return _items[0];
+			}
+			const_reference back() const
+			{
+				if (_size != 0)
+					return _items[_size - 1];
+				else
+					return _items; //// a verif/test si mieux
+					// return _items[0];
+			}
 
 			// [MODIFIERS]
 			// assign		Assign vector content (public member function)
