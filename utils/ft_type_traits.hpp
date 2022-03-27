@@ -17,8 +17,6 @@
 // https://www.cplusplus.com/reference/type_traits/false_type/
 // https://www.cplusplus.com/reference/type_traits/true_type/
 
-// https://www.cplusplus.com/reference/type_traits/remove_cv/?kw=remove_cv
-
 #pragma once
 
 namespace ft 
@@ -43,6 +41,7 @@ namespace ft
 	struct false_type : ft::integral_constant<bool, false> {};
 
 	// add remove cv ?
+	// https://www.cplusplus.com/reference/type_traits/remove_cv/?kw=remove_cv
 
 	template<typename>
 	struct is_integral_helper : public ft::false_type {};
