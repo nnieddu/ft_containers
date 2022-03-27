@@ -169,7 +169,7 @@ namespace ft
 			// reserve		Request a change in capacity (public member function)
 			void reserve (size_type n)
 			{
-				if (n > this->max_size())
+				if (n > _alloc.max_size())
 					throw std::length_error("Maximum supported size exceeds");
 
 				if (n > _capacity)
@@ -188,7 +188,7 @@ namespace ft
 				}
 			}
 
-			// ----------[ACCESORS : Element access]----------
+			// ----------[ACCESORS]----------
 
 			reference operator[] (size_type n) { return (_items[n]); }
 
@@ -196,18 +196,16 @@ namespace ft
 		
 			reference at (size_type n)
 			{
-				if (n >= _size)
+				if (n >= _size) //test avec stl pour les negatif
 					throw std::out_of_range("at() : index is out of range");
-
-				return (_items[ n ]);
+				return (_items[n]);
 			}
 
 			const_reference at (size_type n) const
 			{
-				if (n >= _size)
+				if (n >= _size) //test avec stl pour les negatif
 					throw std::out_of_range("at() : index is out of range");
-
-				return (_items[ n ]);
+				return (_items[n]);
 			}
 
 			// front	Access first element (public member function)
@@ -232,8 +230,8 @@ namespace ft
 					// return _items[0];
 			}
 
-			// [MODIFIERS]
-			// assign		Assign vector content (public member function)
+			// ----------[MODIFIERS]----------
+			// assign		Assign vector content (public member function) 
 			// range (1)	
 			template <class InputIterator>
 			void assign (InputIterator first, InputIterator last);
@@ -255,9 +253,7 @@ namespace ft
 			// // fill (2)	
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				size_type i;
-
-				i = 0;
+				size_type i = 0;
 
 				while (i < n)
 				{

@@ -17,6 +17,8 @@
 // https://www.cplusplus.com/reference/type_traits/false_type/
 // https://www.cplusplus.com/reference/type_traits/true_type/
 
+// https://www.cplusplus.com/reference/type_traits/remove_cv/?kw=remove_cv
+
 #pragma once
 
 namespace ft 
@@ -40,21 +42,7 @@ namespace ft
 
 	struct false_type : ft::integral_constant<bool, false> {};
 
-	template<typename T>
-	struct remove_cv
-	{ typedef T type; };
-
-	template<typename T>
-	struct remove_cv<const T>
-	{ typedef T type; };
-
-	template<typename T>
-	struct remove_cv<volatile T>
-	{ typedef T type; };
-
-	template<typename T>
-	struct remove_cv<const volatile T>
-	{ typedef T type; };
+	// add remove cv ?
 
 	template<typename>
 	struct is_integral_helper : public ft::false_type {};
@@ -99,5 +87,5 @@ namespace ft
 	struct is_integral_helper<unsigned long long int> : public ft::true_type {};
 
 	template<typename T>
-	struct is_integral : public ft::is_integral_helper<typename ft::remove_cv<T>::type>::type {};
+	struct is_integral : public ft::is_integral_helper<T> {};
 }
