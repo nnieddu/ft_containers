@@ -244,7 +244,10 @@ namespace ft
 			
 			// pop_back		Delete last element (public member function)
 			void pop_back();
-			
+			{
+				// if (_size != 0) // useless to act like stl
+				_alloc.destroy(&_items[--_size]);
+			}
 			// insert		Insert elements (public member function)
 			
 			// single element (1)	
