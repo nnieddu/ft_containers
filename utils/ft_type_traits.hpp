@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 // https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/SFINAE
+// https://www.cplusplus.com/reference/type_traits/
 // https://www.cplusplus.com/reference/type_traits/enable_if/?kw=enable_if
 // https://www.cplusplus.com/reference/type_traits/is_integral/?kw=is_integral
 // https://www.cplusplus.com/reference/type_traits/integral_constant/

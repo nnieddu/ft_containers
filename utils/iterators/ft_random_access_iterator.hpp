@@ -18,12 +18,6 @@
 // https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/RandomAccessIterator/
 
-// Random-access iterators implement all the functionality of bidirectional iterators, 
-// and also have the ability to access ranges non-sequentially: 
-// distant elements can be accessed directly by
-// applying an offset value to an iterator without iterating through all the elements in between. 
-// These iterators have a similar functionality to standard pointers (pointers are iterators of this category).
-
 // 	Supports arithmetic operators + and -	
 // a + n
 // n + a
@@ -60,11 +54,12 @@ namespace ft
 
 			random_access_iterator() : _ptr(NULL) {std::cout << "1\n";}
 
-			//explicit needed here to avoid (like stl it) for ex : it = ptr;
-			explicit random_access_iterator(pointer ptr) : _ptr(ptr) {std::cout << "2\n";}
+			//explicit needed here to avoid (like stl iter) for ex : iter = ptr;
+			explicit random_access_iterator(pointer const& ptr) : _ptr(ptr) {std::cout << "2\n";}
 			
-			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {std::cout << "3\n";}
-
+			//useless ? Implicitly well created if don't exist
+			// random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {std::cout << "3\n";}
+			
 			random_access_iterator& operator=(const random_access_iterator x) 
 			{ 
 				std::cout << "operator=(RandomAccessIt x)\n";
@@ -72,7 +67,7 @@ namespace ft
 				return *this; 
 			}
 
-			virtual ~random_access_iterator() {_ptr = NULL; std::cout << "destruction\n";}
+			~random_access_iterator() {_ptr = NULL; std::cout << "destruction\n";}
 				
 			pointer base() const { return (this->_ptr); } /////
 	
@@ -119,7 +114,7 @@ namespace ft
 			random_access_iterator operator--()
 			{
 				_ptr--;
-				return _ptr;
+				return *this;
 			}
 
 			random_access_iterator operator--(int)

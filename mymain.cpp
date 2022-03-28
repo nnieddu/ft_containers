@@ -38,7 +38,8 @@ int main ()
 	ftDefault.~vector();
 
 //					ITERATORS TESTS
-	int *ptr = NULL;
+	int *ptr;
+	ptr = &ftFill[2];
 	int cool = 5;
 
 	ft::vector<int>::iterator *ftItNew = new ft::vector<int>::iterator;
@@ -47,13 +48,24 @@ int main ()
 	ft::vector<int>::iterator ftIt;
 	ft::vector<int>::iterator ftIt2(ptr);
 	ft::vector<int>::iterator ftIt3(ftIt2);
+
 	ftIt2 = ftIt;
 	ftIt2 = ftFill.begin();
 	*ftIt2 = cool;
+	std::cout << "*ftIt2=" << *ftIt2 << std::endl;
 	*ftIt2 = 42;
 	ftIt2 = ftDefault.end();
 
+	++ftIt2;
+	ftIt2++;
+	--ftIt2;
+	ftIt2--;
 
+	if (ftIt2 == ftDefault.end())
+		std::cout << "== works" << std::endl;
+
+	if (ftIt2 != ftFill.begin())
+		std::cout << "!= works" << std::endl;
 
 	// int x = 100;
 	// while (x-- > 0)
@@ -65,14 +77,15 @@ int main ()
 	// *ftIt2 = NULL; // Segmentation fault (like stl) 
 	//-------- END OF FORBIDEN THINGS -----------
 
-
 	std::vector<int> stdvec(5,100);
 	std::vector<int>::iterator stdIt(ptr);
+	// stdIt(tst);
 	// *stdItemd = cool;
 	// *stdItemd = 42;
 	// std::cout << "STD END=" << *stdItemd << std::endl;
 	std::list<int> stdlst;
 	std::list<int>::iterator stlstdIt;
+
 	// *stdIt = NULL;
 	// std::vector<int>::iterator *stdItNew = new std::vector<int>::iterator;
 	// delete stdItNew;
@@ -112,10 +125,10 @@ int main ()
 	// ft::vector<int>::iterator a = test.begin();
 	// ft::vector<int>::iterator b = test.end();
 
-	std::vector<int> test(5, 42);
-	std::vector<int>::iterator a = test.begin();
-	std::vector<int>::iterator b = test.end();
-	std::cout << "DISTANCE: " << ft::distance(b, a) << std::endl;
+	// std::vector<int> test(5, 42);
+	// std::vector<int>::iterator a = test.begin();
+	// std::vector<int>::iterator b = test.end();
+	// std::cout << "DISTANCE: " << ft::distance(b, a) << std::endl;
 
 	// int * pa = &test[0];
 	// int * pb = &test[5];
