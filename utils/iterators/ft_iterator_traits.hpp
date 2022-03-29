@@ -28,7 +28,8 @@ namespace ft
 	// Base iterator struct
 	template <class Category, class T, class Distance = ptrdiff_t,
 		class Pointer = T*, class Reference = T&> 
-	struct iterator {
+	struct iterator 
+	{
 		typedef T         value_type;
 		typedef Distance  difference_type;
 		typedef Pointer   pointer;
@@ -124,7 +125,7 @@ namespace ft
 	// Distance (function template )
 	template<class InputIterator>
 	typename ft::iterator_traits<InputIterator>::difference_type
-	distance(InputIterator first, InputIterator last, ft::input_iterator_tag)
+		distance(InputIterator& first, InputIterator& last, ft::input_iterator_tag)
 	{
 		typename ft::iterator_traits<InputIterator>::difference_type n = 0;
 
@@ -138,14 +139,14 @@ namespace ft
 
 	template<class RandomAccessIterator>
 	typename iterator_traits<RandomAccessIterator>::difference_type
-	distance(RandomAccessIterator first, RandomAccessIterator last, ft::random_access_iterator_tag)
+		distance(RandomAccessIterator& first, RandomAccessIterator& last, ft::random_access_iterator_tag)
 	{
 		return last - first;
 	}
 
 	template<class Iterator>
 	typename iterator_traits<Iterator>::difference_type
-	distance(Iterator first, Iterator last)
+		distance(Iterator& first, Iterator& last)
 	{
 		return ft::distance(first, last, typename iterator_traits<Iterator>::iterator_category());
 	}

@@ -34,50 +34,5 @@ namespace ft
 		private:
 			pointer _ptr;
 		public :
-			bidirectional_iterator() : _ptr(NULL) {}
-			
-			bidirectional_iterator(pointer it) : _ptr(it) {}
-			
-			virtual ~bidirectional_iterator() {}
-			
-			
-			// [OPERATORS]
-		
-			reference operator*() { return *_ptr; }
-
-			bidirectional_iterator& operator++()
-			{
-				++_ptr;
-				return *this;
-			}
-
-			bidirectional_iterator operator--()
-			{
-				_ptr--;
-				return _ptr;
-			}
-
-			bool operator==(const bidirectional_iterator &x) const { return _ptr == x._ptr; }
-
-			bool operator!=(const bidirectional_iterator &x) const { return (_ptr != x._ptr); }
-
-		// X b(a);
-		// b = a;
-		// ++a
-		// a++
-		// a == b
-		// a != b
-		// *a
-		// a->m
-		// *a = t
-		// *a++ = t
-		// X a;
-		// X()
-		// { b=a; *a++; *b; }
-		// --a
-		// a--
-		// *a--
-		// Where X is an iterator type, a and b are objects of this iterator type, 
-		// t is an object of the type pointed by the iterator type, and n is an integer value.
 	};
 }

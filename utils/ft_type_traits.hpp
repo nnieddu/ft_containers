@@ -37,6 +37,7 @@ namespace ft
 		typedef integral_constant<T, v> type;
 	};
 
+	// Helper classes
 	struct true_type : ft::integral_constant<bool, true> {};
 
 	struct false_type : ft::integral_constant<bool, false> {};

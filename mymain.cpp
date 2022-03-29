@@ -17,9 +17,8 @@
 
 // #include "fun.hpp"
 
-
 #define DUMPSTR_WNAME(os, name, a) \
-    do { (os) << (name) << " is value " << (a) << std::endl; } while(false)
+    do { (os) << (name) << " = " << (a) << std::endl; } while(false)
 
 #define DUMPSTR(os, a) DUMPSTR_WNAME((os), #a, (a))
 #define DUMP(a)        DUMPSTR_WNAME(std::cout, #a, (a))
@@ -48,42 +47,100 @@ int main ()
 //					ITERATORS TESTS
 	int *ptr;
 	ptr = &ftFill[2];
-	int cool = 5;
 
+	// copy-constructible, copy-assignable and destructible
 	ft::vector<int>::iterator *ftItNew = new ft::vector<int>::iterator;
 	delete ftItNew;
+	ft::vector<int>::iterator ftItDestroy;
+	ftItDestroy.~random_access_iterator();
 
-	ft::vector<int>::iterator ftIt;
 	ft::vector<int>::iterator ftIt2(ptr);
 	ft::vector<int>::iterator ftIt3(ftIt2);
 
-	ftIt2 = ftIt;
-	ftIt2 = ftFill.begin();
-	*ftIt2 = cool;
-	std::cout << "*ftIt2=" << *ftIt2 << std::endl;
-	*ftIt2 = 42;
-	ftIt2 = ftDefault.end();
+	ftIt2 = ftIt3;
 
+	// Can be incremented
 	++ftIt2;
 	ftIt2++;
-	--ftIt2;
-	ftIt2--;
 
+	// Supports equality/inequality comparisons
+	ftIt2 = ftDefault.end();
 	if (ftIt2 == ftDefault.end())
 		std::cout << "== works" << std::endl;
 
 	if (ftIt2 != ftFill.begin())
 		std::cout << "!= works" << std::endl;
 
-	// int x = 100;
-	// while (x-- > 0)
-		// ftIt2++;
+	// Can be dereferenced as an rvalue
+	ftIt2 = ftFill.begin();
+	std::cout << "dereferenced as an rvalue " << *ftIt2 << std::endl;
+
+	// Can be dereferenced as an lvalue
+	// (only for mutable iterator types)
+	*ftIt2 = 24;
+	*ftIt2++ = 6;
+
+	// default-constructible
+	ft::vector<int>::iterator ftIt;
+	ft::vector<int>::iterator();
+
+	// Multi-pass: neither dereferencing nor incrementing affects dereferenceability
+	DUMP(&*ftIt2);
+	DUMP(&*ftIt);
+	ftIt = ftIt2;
+	DUMP(&*ftIt);
+	*ftIt2++;
+	DUMP(&*ftIt);
+
+	// Can be decremented
+	--ftIt2;
+	ftIt2--;
+	*ftIt2--;
+
+	// Supports arithmetic operators + and -
+	ftIt2 + 1;
+	1 + ftIt2;
+	ftIt2 - 1;
+	1 - ftIt2;
+
+	// Supports inequality comparisons (<, >, <= and >=) between iterators
+	ftIt2 < ftIt;
+	ftIt2 <= ftIt;
+	ftIt2 > ftIt;
+	ftIt2 >= ftIt;
+
+	// Supports compound assignment operations += and -=	
+	ftIt2 += 1;
+	ftIt2 -= 1;
+
+	// Supports offset dereference operator ([])
+	ftIt2[1];
+
 
 	//-------- SAMPLE OF FORBIDEN / BAD THINGS --------
 	// ftIt2 = ptr;
 	// ftIt2 = &ptr;
 	// *ftIt2 = NULL; // Segmentation fault (like stl) 
+	// ftIt2 + ftIt;
+	// ftIt2 * 1;
+	// ftIt2 / 1;
+	// ftIt2[ftIt];
+	// ftIt2[ptr];
+	// ftIt2 -= ftIt;
+
+	// ftIt2 = ftDefault.end(); // Segmentation fault (like stl) if print :
+	// std::cout << "dereferenced as an rvalue " << *ftIt2 << std::endl;
+	// ft::vector<int>::iterator ftItempty;
+	// std::cout << "dereferenced as an rvalue " << *ftItempty << std::endl;
+
+
 	//-------- END OF FORBIDEN THINGS -----------
+
+
+
+
+
+
 
 	std::vector<int> stdvec(5,100);
 	std::vector<int>::iterator stdIt(ptr);
@@ -106,11 +163,11 @@ int main ()
 	// std::cout << "ftDefault size apres : " << ftDefault.size()  << std::endl;
 	// std::cout << "ftDefault de 0 apres : " << ftDefault[0] << std::endl<< std::endl;
 
-	// const int test = 42;
-	// int array[1] = {test};
-	// int* const a = &array[0];
-	// int* const b = &array[1];
-	// std::cout << "DISTANCE: " << std::distance(b, a) << std::endl << std::endl;
+	const int arrtest = 42;
+	int array[1] = {arrtest};
+	int* pa = &array[0];
+	int* pb = &array[1];
+	std::cout << "ptr DISTANCE: " << std::distance(pb, pa) << std::endl << std::endl;
 
 
 	// std::vector<int>::iterator it = &test[0];
@@ -133,10 +190,16 @@ int main ()
 	// ft::vector<int>::iterator a = test.begin();
 	// ft::vector<int>::iterator b = test.end();
 
-	// std::vector<int> test(5, 42);
-	// std::vector<int>::iterator a = test.begin();
-	// std::vector<int>::iterator b = test.end();
-	// std::cout << "DISTANCE: " << ft::distance(b, a) << std::endl;
+	std::vector<int> test(5, 42);
+	std::vector<int> stddefau;
+	std::vector<int>::iterator a = test.begin();
+	std::vector<int>::iterator b = test.end();
+	std::cout << "DISTANCE: " << std::distance(b, a) << std::endl;
+
+	ft::vector<int> fttest(5, 42);
+	ft::vector<int>::iterator fta = fttest.begin();
+	ft::vector<int>::iterator ftb = fttest.end();
+	std::cout << "DISTANCE: " << ft::distance(ftb, fta) << std::endl;
 
 	// int * pa = &test[0];
 	// int * pb = &test[5];
