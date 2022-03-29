@@ -17,7 +17,7 @@
 
 #include <stdexcept>
 
-#include "../utils/iterators/ft_random_access_iterator.hpp"
+#include "../iterators/ft_random_access_iterator.hpp"
 #include "../utils/ft_type_traits.hpp"
 
 namespace ft 
@@ -90,7 +90,7 @@ namespace ft
 					
 			~vector()
 			{
-				this->clear();
+				clear();
 				_alloc.deallocate(_items, _capacity);
 				_items = NULL;
 			}
@@ -101,8 +101,8 @@ namespace ft
 				if (&x == this)
 					return *this;
 
-				this->clear();
-				this->reserve(x.capacity());
+				clear();
+				reserve(x.capacity());
 				for (size_type index = 0; index < x.size(); index++)
 					_alloc.construct(&_items[index], x[index]);
 				_size = x.size();
@@ -257,8 +257,7 @@ namespace ft
 			void push_back (const value_type& val)
 			{
 				if (_size == _capacity)
-					this->reserve(++_capacity);
-
+					reserve(_capacity + 1);
 				_alloc.construct(&_items[_size], val);
 				_size++;
 			}
