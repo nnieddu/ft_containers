@@ -92,6 +92,15 @@ namespace ft
 			reference operator[](difference_type x) { return _ptr[x]; }
 
 			difference_type operator-(random_access_iterator& x) const { return (_ptr - x._ptr); }
+
+			// pointer base() const { return (this->_ptr); } /////
 			
 	};
+	// template<typename T>
+	// typename ft::random_access_iterator<T>::difference_type
+	// operator-(const ft::random_access_iterator<T> lhs,
+	// 		  const ft::random_access_iterator<T> rhs)
+	// {
+	// 	return (lhs.base() - rhs.base());
+	// }
 }

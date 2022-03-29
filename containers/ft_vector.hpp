@@ -53,7 +53,8 @@ namespace ft
 			: _alloc(alloc), _capacity(0), _size(0), _items(NULL) {}
 			
 			// fill (2) Constructs a container with n elements. Each element is a copy of val.
-			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) 
+			explicit vector(size_type n, const value_type& val = value_type(), 
+				const allocator_type& alloc = allocator_type()) 
 			: _alloc(alloc), _capacity(n), _size(n), _items(_alloc.allocate(n))
 			{
 				for (size_type index = 0; index < n; index++)
@@ -108,10 +109,11 @@ namespace ft
 				return *this;
 			}
 	
-			// ]----------[ITERATORS]----------
+			// ----------[ITERATORS]----------
 
-			// En retournant un ptr direct = plus optimised mais stl retourne un it (dans le cas d'un it1 = vec.begin(), 
-			// il y a un appel au constructeur et destructeur d'iterateur qui me semble useless pour le moment, a voir)
+			// En retournant un ptr direct = plus optimised mais stl retourne un it 
+			// (dans le cas d'un it1 = vec.begin(), il y a un appel au constructeur 
+			// et destructeur d'iterateur qui me semble useless pour le moment, a voir)
 			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
@@ -174,7 +176,7 @@ namespace ft
 
 				if (n > _capacity)
 				{
-					T *tmp = _alloc.allocate(n);
+					value_type *tmp = _alloc.allocate(n);
 
 					if (_items != NULL)
 					{
@@ -192,7 +194,7 @@ namespace ft
 
 			reference operator[] (size_type n) { return (_items[n]); }
 
-			const_reference operator[] (size_type n) const { return (_items[n]); }
+			const_reference operator[] (size_type n) const { return (_items[n]); } // a test
 		
 			reference at (size_type n)
 			{
@@ -221,6 +223,7 @@ namespace ft
 					return _items; //// a verif/test si mieux
 					// return _items[0];
 			}
+
 			const_reference back() const
 			{
 				if (_size != 0)
@@ -234,42 +237,59 @@ namespace ft
 			// assign		Assign vector content (public member function) 
 			// range (1)	
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last); ///// TODO
+			void assign(InputIterator first, InputIterator last, 
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, 
+					InputIterator>::type* = NULL)
+			{
+				clear();
+				for (InputIterator it = first ; it != last ; it++)
+					push_back(*it);
+			} 
 			
 			// fill (2)	
-			void assign (size_type n, const value_type& val); ///// TODO
-			
+			void assign(size_type n, value_type const &val)
+			{
+				clear();
+				resize(n, val);
+			}
+
 			// push_back	Add element at the end (public member function)
-			void push_back (const value_type& val); ///// TODO
+			void push_back (const value_type& val)
+			{
+				if (_size == _capacity)
+					this->reserve(++_capacity);
+
+				_alloc.construct(&_items[_size], val);
+				_size++;
+			}
 			
 			// pop_back		Delete last element (public member function)
+			// don't modify the capacity of the vector 				///// TODO (more tests)
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
 
 			// insert		Insert elements (public member function)
 			// single element (1)	
-			iterator insert (iterator position, const value_type& val)
+			iterator insert (iterator position, const value_type& val) ///// TODO
 			{
-
+				std::cout << "INSERT SINGLE ELEM" << std::endl;
 			}
 			
 			// // fill (2)	
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				size_type i = 0;
-
-				while (i < n)
-				{
-					position = insert(position, val);
-					position++;
-					i++;
-				}
+				std::cout << "INSERT FILL" << std::endl;
 			}
 
 			// range (3)	
 			template <class InputIterator>
-				void insert (iterator position, InputIterator first, InputIterator last); ///// TODO
+			void insert(iterator position, InputIterator first, InputIterator last, 
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, 
+					InputIterator>::type* = NULL)  ///// TODO
+			{
+				std::cout << "INSERT RANGE" << std::endl;
+			}
 
-			// erase		Erase elements (public member function)
+			// erase	Erase elements (public member function)
 			iterator erase (iterator position)
 			{
 				difference_type distance = ft::distance(begin(), position);
@@ -285,29 +305,46 @@ namespace ft
 				return (iterator(&_items[distance]));
 			}
 
-			iterator erase (iterator first, iterator last); ///// TODO
+			iterator erase (iterator first, iterator last) ///// TODO
+			{
+				size_type begin_index = ft::distance(begin(), first);
+				size_type end_index = ft::distance(begin(), last);
+				size_type offset = (_size < end_index) ? 0 : _size - end_index;
+				size_type index;
 
-			// swap			Swap content (public member function)
+				_size = _size - (end_index - begin_index);
+				for (index = 0 ; index < offset ; index++)
+				{
+					_alloc.destroy(&_items[begin_index + index]);
+					_items[begin_index + index] = _items[end_index + index];
+				}
+				for (; index < _size ; index++)
+				{
+					_alloc.destroy(&_items[begin_index + index]);
+				}
+				return (iterator(&_items[begin_index]));
+			}
+
+			// swap		Swap content (public member function)
 			void swap (vector& x)
 			{
-				Alloc	&tmp_alloc = x._alloc;
-				size_type	tmp_size = x._size;
-				size_type	tmp_capacity = x._capacity;
-				value_type	*tmp_items = x._items;
+				Alloc		&tmp_alloc	= x._alloc;
+				size_type	tmp_size	= x._size;
+				size_type	tmp_capa	= x._capacity;
+				value_type	*tmp_items	= x._items;
 
-				x._alloc = this->_alloc;
-				x._size = this->_size;
-				x._capacity = this->_capacity;
-				x._items = this->_items;
+				x._alloc 	= _alloc;
+				x._size 	= _size;
+				x._capacity = _capacity;
+				x._items 	= _items;
 
-
-				this->_alloc = tmp_alloc;
-				this->_size = tmp_size;
-				this->_capacity = tmp_capacity;
-				this->_items = tmp_items;
+				_alloc 		= tmp_alloc;
+				_size 		= tmp_size;
+				_capacity 	= tmp_capa;
+				_items 		= tmp_items;
 			}
 			
-			// clear		Clear content (public member function)
+			// clear	Clear content (public member function)
 			void clear()
 			{
 				if (_items != NULL)
@@ -320,34 +357,40 @@ namespace ft
 			// [ALLOCATOR]
 			// get_allocator	Get allocator (public member function)
 			allocator_type get_allocator() const { return _alloc; }
-
-			// [Non-member function overloads]
-			// relational operators		Relational operators for vector (function template)
-
-			// (1)	
-			// template <class T, class Alloc>
-			// bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
-			// (2)	
-			// template <class T, class Alloc>
-			// bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
-			// (3)	
-			// template <class T, class Alloc>
-			// bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
-			// (4)	
-			// template <class T, class Alloc>
-			// bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
-			// (5)	
-			// template <class T, class Alloc>
-			// bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
-			// (6)	
-			// template <class T, class Alloc>
-			// bool operator>= (const vectortypename
-
-			// void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
 	};
+
+		// [Non-member function overloads]
+		// Relational operators for vector (function template)
+		
+		// (1)	
+		template<class T, class Alloc>
+		bool operator==(const vector<T, Alloc> &lsh, const vector<T, Alloc> &rhs)
+		{ return lsh.size() == rhs.size() && ft::equal(lsh.begin(), lsh.end(),rhs.begin(), rhs.end()); }
+		
+		// (2)	
+		template <class T, class Alloc>
+		bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) 
+		{ return !(lhs == rhs); }
+		
+		// (3)	
+		template <class T, class Alloc>
+		bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+		{ return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
+		
+		// (4)	
+		template <class T, class Alloc>
+		bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return !(lhs < rhs); }
+		
+		// (5)	
+		template<class T, class Alloc>
+		bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return rhs < lhs; }
+		
+		// (6)	
+		template<class T, class Alloc>
+		bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		{ return !(lhs < rhs); }
+		
+		// Swap
+		template<class T, class Alloc>
+		void swap (vector<T, Alloc>& x, vector<T, Alloc>& y) { x.swap(y); }
 }

@@ -34,6 +34,18 @@ int main ()
 //						[MY VECTOR]
 //					CONSTRUCTORS AND DESTRUCTOR 
 
+		ft::vector<int> vector(10, 8);
+		std::cout << "capacity: " << vector.capacity() << std::endl;
+		std::cout << "size: " << vector.size() << std::endl;
+		vector.pop_back();
+		vector.pop_back();
+		std::cout << "capacity: " << vector.capacity() << std::endl;
+		std::cout << "size: " << vector.size() << std::endl;
+		vector.insert(vector.begin() + 2, 1, 42);
+		// vector.insert(vector.begin() + 2, 1, 42);
+		// vector.insert(vector.begin() + 2, 1, 42);
+
+
 	ft::vector<int> ftDefault;									// empty vector of ints (default constructor)
 	ft::vector<int> ftEmptyFill (10);							// 10 zero-initialized elements
 	ft::vector<int> ftFill (5,100);								// four ints with value 100 (fill constructor)
@@ -120,7 +132,7 @@ int main ()
 	//-------- SAMPLE OF FORBIDEN / BAD THINGS --------
 	// ftIt2 = ptr;
 	// ftIt2 = &ptr;
-	// *ftIt2 = NULL; // Segmentation fault (like stl) 
+	// *ftIt2 = *ptr; // Segmentation fault if ptr = NULL;
 	// ftIt2 + ftIt;
 	// ftIt2 * 1;
 	// ftIt2 / 1;
@@ -135,7 +147,10 @@ int main ()
 
 
 	//-------- END OF FORBIDEN THINGS -----------
-
+	// int *stdptr = NULL;
+	// std::vector<int> stddefau;
+	// std::vector<int>::iterator lol;
+	// *lol = *stdptr;
 
 
 
@@ -189,6 +204,8 @@ int main ()
 	// ft::vector<int> test(5, 42);
 	// ft::vector<int>::iterator a = test.begin();
 	// ft::vector<int>::iterator b = test.end();
+
+
 
 	std::vector<int> test(5, 42);
 	std::vector<int> stddefau;

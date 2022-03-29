@@ -10,17 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// https://www.cplusplus.com/reference/iterator/
+// https://www.cplusplus.com/reference/iterator/iterator_traits/
+// https://www.fluentcpp.com/2018/05/08/std-iterator-deprecated/
+
 #pragma once
 
 #include <cstddef>
 #include <iostream>
-#include <typeinfo> // typeid
-
-// #include "../../fun.hpp"
-
-// https://www.cplusplus.com/reference/iterator/
-// https://www.cplusplus.com/reference/iterator/iterator_traits/
-// https://www.fluentcpp.com/2018/05/08/std-iterator-deprecated/
 
 namespace ft
 {
@@ -85,7 +82,9 @@ namespace ft
 		typedef typename ft::random_access_iterator_tag 	iterator_category;
 	};
 
-	// UTILS / ITERATORS FT
+	// [ ITERATORS FT ] 
+
+	// https://www.cplusplus.com/reference/iterator/advance/
 	// template <class InputIterator, class Distance>
 	// Advance iterator (function template )
 	template <class InputIterator, class Distance>
@@ -122,19 +121,20 @@ namespace ft
 	}
 
 
+	// https://www.cplusplus.com/reference/iterator/distance/
 	// Distance (function template )
 	template<class InputIterator>
 	typename ft::iterator_traits<InputIterator>::difference_type
 		distance(InputIterator& first, InputIterator& last, ft::input_iterator_tag)
 	{
-		typename ft::iterator_traits<InputIterator>::difference_type n = 0;
+		typename ft::iterator_traits<InputIterator>::difference_type x = 0;
 
 		while ( first != last )
 		{
 			++first;
-			++n;
+			++x;
 		}
-		return n;
+		return x;
 	}
 
 	template<class RandomAccessIterator>
