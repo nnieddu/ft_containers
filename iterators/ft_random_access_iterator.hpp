@@ -42,10 +42,6 @@ namespace ft
 			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {std::cout << "Constructor 3\n";}
 			
 			// Allow iterator to const_iterator conversion
-			// operator random_access_iterator<const T>() 
-			// { return (random_access_iterator<const T>(_ptr)); } ////////
-
-			// Allow iterator to const_iterator conversion
 			template<class const_iter>
 			random_access_iterator(random_access_iterator<const_iter> const &it) : _ptr(it._ptr) {std::cout << "[constructor template]\n";}
 
@@ -92,15 +88,5 @@ namespace ft
 			reference operator[](difference_type x) { return _ptr[x]; }
 
 			difference_type operator-(random_access_iterator& x) const { return (_ptr - x._ptr); }
-
-			// pointer base() const { return (this->_ptr); } /////
-			
 	};
-	// template<typename T>
-	// typename ft::random_access_iterator<T>::difference_type
-	// operator-(const ft::random_access_iterator<T> lhs,
-	// 		  const ft::random_access_iterator<T> rhs)
-	// {
-	// 	return (lhs.base() - rhs.base());
-	// }
 }
