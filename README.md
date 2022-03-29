@@ -22,7 +22,8 @@ Si le conteneur a un système d’itérateur, vous devez l’implémenter.
 • reverse_iterator,   
 • enable_if,   
 • is_integral,  
-• equal/lexicographical compare,  
+• equal,
+• lexicographical compare,  
 • std::pair,   
 • std::make_pair    
 doivent être réimplémenté.  
