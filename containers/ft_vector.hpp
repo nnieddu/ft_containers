@@ -234,23 +234,23 @@ namespace ft
 			// assign		Assign vector content (public member function) 
 			// range (1)	
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last);
+			void assign (InputIterator first, InputIterator last); ///// TODO
 			
 			// fill (2)	
-			void assign (size_type n, const value_type& val);
+			void assign (size_type n, const value_type& val); ///// TODO
 			
 			// push_back	Add element at the end (public member function)
-			void push_back (const value_type& val);
+			void push_back (const value_type& val); ///// TODO
 			
 			// pop_back		Delete last element (public member function)
-			void pop_back()
-			{
-				_alloc.destroy(&_items[--_size]);
-			}
+			void pop_back() { _alloc.destroy(&_items[--_size]); }
+
 			// insert		Insert elements (public member function)
-			
 			// single element (1)	
-			// iterator insert (iterator position, const value_type& val);
+			iterator insert (iterator position, const value_type& val)
+			{
+
+			}
 			
 			// // fill (2)	
 			void insert (iterator position, size_type n, const value_type& val)
@@ -267,15 +267,45 @@ namespace ft
 
 			// range (3)	
 			template <class InputIterator>
-				void insert (iterator position, InputIterator first, InputIterator last);
-				
+				void insert (iterator position, InputIterator first, InputIterator last); ///// TODO
+
 			// erase		Erase elements (public member function)
-			iterator erase (iterator position);
-			
-			iterator erase (iterator first, iterator last);
+			iterator erase (iterator position)
+			{
+				difference_type distance = ft::distance(begin(), position);
+				
+				if (_size != 0)
+				{
+					size_type index = distance;
+					for (; index < _size - 1 ; index++)
+						_items[index] = _items[index + 1];
+					_alloc.destroy(&_items[index]);
+					_size--;
+				}
+				return (iterator(&_items[distance]));
+			}
+
+			iterator erase (iterator first, iterator last); ///// TODO
 
 			// swap			Swap content (public member function)
-			void swap (vector& x);
+			void swap (vector& x)
+			{
+				Alloc	&tmp_alloc = x._alloc;
+				size_type	tmp_size = x._size;
+				size_type	tmp_capacity = x._capacity;
+				value_type	*tmp_items = x._items;
+
+				x._alloc = this->_alloc;
+				x._size = this->_size;
+				x._capacity = this->_capacity;
+				x._items = this->_items;
+
+
+				this->_alloc = tmp_alloc;
+				this->_size = tmp_size;
+				this->_capacity = tmp_capacity;
+				this->_items = tmp_items;
+			}
 			
 			// clear		Clear content (public member function)
 			void clear()
@@ -286,14 +316,10 @@ namespace ft
 						_alloc.destroy(&_items[index]);
 				}
 			}
-			// {
-			// 	while(_size-- > 0) 
-			// 		_alloc.destroy(_items);
-			// 	_size = 0;
-			// }
+
 			// [ALLOCATOR]
 			// get_allocator	Get allocator (public member function)
-			// allocator_type get_allocator() const;
+			allocator_type get_allocator() const { return _alloc; }
 
 			// [Non-member function overloads]
 			// relational operators		Relational operators for vector (function template)

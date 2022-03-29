@@ -39,7 +39,7 @@ namespace ft
 			explicit random_access_iterator(pointer const& ptr) : _ptr(ptr) {std::cout << "[constructor] 2\n";}
 			
 			//useless ? Implicitly well created if don't exist
-			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {std::cout << "3\n";}
+			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {std::cout << "Constructor 3\n";}
 			
 			// Allow iterator to const_iterator conversion
 			// operator random_access_iterator<const T>() 
@@ -91,7 +91,7 @@ namespace ft
 			
 			reference operator[](difference_type x) { return _ptr[x]; }
 
-			difference_type operator-(random_access_iterator x) const { return (_ptr - x._ptr); }
+			difference_type operator-(random_access_iterator& x) const { return (_ptr - x._ptr); }
 			
 	};
 }
