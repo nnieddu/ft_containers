@@ -38,13 +38,9 @@ namespace ft
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 		private:
-			// The container keeps an int cpy of alloc, used to allocate storage throughout its lifetime.(ref):
 			allocator_type  _alloc;
-			// Copy of the initial capacity of the container (not necessarily the same as _size) :
 			size_type		_capacity;	
-			// Copy of the initial size of the container (nbr of T things): 
 			size_type		_size;		
-			// ptr on the T type items array :
 			T				*_items;	
 		public:
 			// [CONSTRUCTORS]
@@ -95,7 +91,6 @@ namespace ft
 				_items = NULL;
 			}
 
-			// Assignement Operator (=)
 			vector& operator=(const vector& x)
 			{
 				if (&x == this)
@@ -168,7 +163,7 @@ namespace ft
 	
 			bool empty() const { return (size() == 0 ? true : false); }
 
-			// reserve		Request a change in capacity (public member function)
+			// reserve : Request a change in capacity (public member function)
 			void reserve (size_type n)
 			{
 				if (n > _alloc.max_size())
@@ -191,6 +186,8 @@ namespace ft
 			}
 
 			// ----------[ACCESORS]----------
+			
+			// Access element at n
 
 			reference operator[] (size_type n) { return (_items[n]); }
 
@@ -257,7 +254,7 @@ namespace ft
 			void push_back (const value_type& val)
 			{
 				if (_size == _capacity)
-					reserve(_capacity + 1);
+					reserve(_capacity * 2);
 				_alloc.construct(&_items[_size], val);
 				_size++;
 			}
@@ -361,30 +358,24 @@ namespace ft
 		// [Non-member function overloads]
 		// Relational operators for vector (function template)
 		
-		// (1)	
 		template<class T, class Alloc>
 		bool operator==(const vector<T, Alloc> &lsh, const vector<T, Alloc> &rhs)
 		{ return lsh.size() == rhs.size() && ft::equal(lsh.begin(), lsh.end(),rhs.begin(), rhs.end()); }
 		
-		// (2)	
 		template <class T, class Alloc>
 		bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) 
 		{ return !(lhs == rhs); }
 		
-		// (3)	
 		template <class T, class Alloc>
 		bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 		{ return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
 		
-		// (4)	
 		template <class T, class Alloc>
 		bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return !(lhs < rhs); }
 		
-		// (5)	
 		template<class T, class Alloc>
 		bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return rhs < lhs; }
 		
-		// (6)	
 		template<class T, class Alloc>
 		bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
 		{ return !(lhs < rhs); }
