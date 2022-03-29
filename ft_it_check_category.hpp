@@ -12,7 +12,7 @@
 
 #include <typeinfo> // typeid
 #include <cstddef>
-#include "utils/iterators/ft_iterator_traits.hpp"
+#include "iterators/ft_iterator_traits.hpp"
 
 // https://www.youtube.com/watch?v=yTi46Pb32qg
 
