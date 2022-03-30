@@ -130,8 +130,6 @@ built-in assignment operator must be a non-const lvalue (hence the l in lvalue).
 A value that does not necessarily have any storage or address. An rvalue of fundamental type can
 appear only on the right side of an assignment (hence the R in Rvalue).
 An lvalue can be implicitly converted to an rvalue, but not the other way around.
-  
-[static]
 
 #### Keywords :
 
@@ -178,11 +176,12 @@ The explicit keyword in C++ is used to mark constructors to not implicitly conve
 A friend function of a class is defined outside that class' scope but it has the right to access all private and protected members of the class. Even though the prototypes for friend functions appear in the class definition, friends are not member functions.
 A friend can be a function, function template, or member function, or a class or class template, in which case the entire class and all of its members are friends.
 
-[typeid]()  
-[typename]()  
-[typedef]()  
-[virtual]()
-
+[typeid] wip
+[typename] wip
+[typedef] wip
+[virtual] wip
+[static] wip
+	
 [cv-qualified](https://en.cppreference.com/w/cpp/language/cv)
 A const or volatile qualifier, or both (in any order).
 c-v qualified means const and volatile ex :
