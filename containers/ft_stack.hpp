@@ -6,19 +6,15 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/21 15:35:52 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 23:20:06 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 // https://www.cplusplus.com/reference/stack/stack/
-// https://www.cplusplus.com/reference/deque/
-// https://www.cplusplus.com/reference/memory/allocator/
-// https://www.cplusplus.com/reference/iterator/iterator/ 
 
 #pragma once
 
 #include <memory>
-#include <deque>
 
 // namespace ft 
 // {	
@@ -30,3 +26,68 @@
 // 			typedef std::size_t		size_type;
 // 	};
 // }
+
+#include "ft_vector.hpp"
+
+namespace ft
+{
+	template<class T, class Container = ft::vector<T> >
+	class stack 
+	{
+		public:
+			typedef T		        value_type;
+			typedef Container       container_type;
+			typedef std::size_t     size_type;
+		private:
+			container_type _items;
+		public:
+			explicit stack (const container_type& ctnr = container_type())
+			: _items(ctnr) {}
+
+			~stack() {} //
+			
+			// Member functions
+			bool empty() const { return _items.empty(); }
+			
+			size_type size() const { return _items.size(); }
+
+			value_type& top() { return _items.back(); }
+			const value_type& top() const { return _items.back(); }
+
+			void push(const value_type& val) { _items.push_back(val); }
+
+			void pop() { _items.pop_back(); }
+			
+			template<class _T, class _Container>
+			friend bool operator==(const stack<_T, _Container> &, const stack<_T, _Container> &);
+
+			template<class _T, class _Container>
+			friend bool operator<(const stack<_T, _Container> &, const stack<_T, _Container> &);
+	};
+	
+	// Non-member function overloads : relational operators
+	template<class T, class Container>
+	bool operator==(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
+	{ return lhs._items == rhs._items; }
+
+	template<class T, class Container>
+	bool operator!=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
+	{ return !(lhs == rhs); }
+	
+	template<class T, class Container>
+	bool operator<(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
+	{ return lhs._items < rhs._items; }
+
+	template<class T, class Container>
+	bool operator<=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
+	{ return !(rhs < lhs); }
+	
+	template<class T, class Container>
+	bool operator>(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
+	{ return rhs < lhs; }
+	
+	template<class T, class Container>
+	bool operator>=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
+	{ return !(lhs < rhs); }
+
+}

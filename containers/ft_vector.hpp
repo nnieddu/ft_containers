@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 18:13:10 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 22:39:19 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ namespace ft
 					_alloc.construct(&_items[index], x._items[index]);
 			}
 					
-			~vector()
+			virtual ~vector()
 			{
 				clear();
 				_alloc.deallocate(_items, _capacity);

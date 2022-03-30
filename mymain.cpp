@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 12:26:59 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 20:55:32 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <vector>
 #include <list>
 #include "containers/ft_vector.hpp"
+#include "containers/ft_stack.hpp"
 
 // #include "fun.hpp"
 
