@@ -6,10 +6,11 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 11:19:47 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 11:20:18 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 11:24:28 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 
 namespace ft {
 

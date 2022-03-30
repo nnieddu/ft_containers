@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 11:21:07 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 11:25:13 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <stdexcept>
+// #include <stdexcept>
 
 #include "../iterators/ft_random_access_iterator.hpp"
 #include "../iterators/ft_reverse_iterator.hpp"
@@ -45,7 +45,7 @@ namespace ft
 			size_type		_size;		
 			T				*_items;	
 		public:
-			// [CONSTRUCTORS]
+			//  -----------[ Constructors / dest : ]-----------
 			// default (1)	
 			explicit vector (const allocator_type& alloc = allocator_type()) 
 			: _alloc(alloc), _capacity(0), _size(0), _items(NULL) {}
