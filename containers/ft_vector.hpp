@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/02/22 09:54:41 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 11:21:07 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "../iterators/ft_random_access_iterator.hpp"
 #include "../iterators/ft_reverse_iterator.hpp"
 #include "../utils/ft_type_traits.hpp"
+#include "../utils/ft_algorithm.hpp"
 
 namespace ft 
 {	
