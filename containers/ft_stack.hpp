@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 23:20:26 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 23:21:55 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ namespace ft
 			void push(const value_type& val) { _items.push_back(val); }
 
 			void pop() { _items.pop_back(); }
-			
-			template<class _T, class _Container>
-			friend bool operator==(const stack<_T, _Container> &, const stack<_T, _Container> &);
-
-			template<class _T, class _Container>
-			friend bool operator<(const stack<_T, _Container> &, const stack<_T, _Container> &);
 	};
 	
 	// Non-member function overloads : relational operators
