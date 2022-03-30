@@ -33,13 +33,13 @@ namespace ft
 			pointer _ptr;
 		public :
 
-			random_access_iterator() : _ptr(NULL) {}//std::cout << "[constructor] 1\n";}
+			random_access_iterator() : _ptr(NULL) {std::cout << "[constructor] 1\n";}
 
 			//explicit needed here to avoid (like stl iter) for ex : iter = ptr;
-			explicit random_access_iterator(pointer const& ptr) : _ptr(ptr) {}//std::cout << "[constructor] 2\n";}
+			explicit random_access_iterator(pointer const& ptr) : _ptr(ptr) {std::cout << "[constructor] 2\n";}
 			
 			//useless ? Implicitly well created if don't exist
-			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {}//std::cout << "Constructor 3\n";}
+			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {std::cout << "Constructor 3\n";}
 			
 			// Allow iterator to const_iterator conversion
 			template<class const_iter>
@@ -48,12 +48,12 @@ namespace ft
 			//useless ? Implicitly well created if don't exist
 			random_access_iterator& operator=(const random_access_iterator x) 
 			{ 
-				// std::cout << "operator=(RandomAccessIt x)\n";
+				std::cout << "operator=(RandomAccessIt x)\n";
 				_ptr = x._ptr; 
 				return *this; 
 			}
 
-			~random_access_iterator() { _ptr = NULL; }//std::cout << "destruction\n";}
+			~random_access_iterator() { _ptr = NULL; std::cout << "destruction\n";}
 				
 			// [ Operators ]
 
@@ -114,13 +114,6 @@ namespace ft
 	template<class IterL, class IterR>
 	bool operator>=(random_access_iterator<IterL> const &lhs, random_access_iterator<IterR> const &rhs)
 	{ return lhs.base() >= rhs.base(); }
-
-	template<class Iterator>
-	typename random_access_iterator<Iterator>::difference_type
-	operator-(random_access_iterator<Iterator> const &lhs, random_access_iterator<Iterator> const &rhs)
-	{
-		return lhs.base() - rhs.base();
-	}
 
 	template<class IteratorL, class IteratorR>
 	typename random_access_iterator<IteratorL>::difference_type

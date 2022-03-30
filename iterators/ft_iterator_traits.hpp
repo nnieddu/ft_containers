@@ -146,7 +146,7 @@ namespace ft
 
 	template<class Iterator>
 	typename iterator_traits<Iterator>::difference_type
-		distance(Iterator& first, Iterator& last)
+		distance(Iterator first, Iterator last)
 	{
 		return ft::distance(first, last, typename iterator_traits<Iterator>::iterator_category());
 	}
