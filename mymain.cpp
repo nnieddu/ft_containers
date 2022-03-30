@@ -6,24 +6,24 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 20:55:32 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 00:03:13 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
-#include <list>
+#include <stack>
+#include <map>
+
 #include "containers/ft_vector.hpp"
 #include "containers/ft_stack.hpp"
-
-// #include "fun.hpp"
+#include "containers/ft_map.hpp"
 
 #define DUMPSTR_WNAME(os, name, a) \
     do { (os) << (name) << " = " << (a) << std::endl; } while(false)
 
 #define DUMPSTR(os, a) DUMPSTR_WNAME((os), #a, (a))
 #define DUMP(a)        DUMPSTR_WNAME(std::cout, #a, (a))
-
 
 int main ()
 {
@@ -166,8 +166,6 @@ int main ()
 	// *stdItemd = cool;
 	// *stdItemd = 42;
 	// std::cout << "STD END=" << *stdItemd << std::endl;
-	std::list<int> stdlst;
-	std::list<int>::iterator stlstdIt;
 
 	// *stdIt = NULL;
 	// std::vector<int>::iterator *stdItNew = new std::vector<int>::iterator;
