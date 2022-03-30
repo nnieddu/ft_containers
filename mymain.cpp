@@ -216,7 +216,7 @@ int main ()
 	ft::vector<int> fttest(5, 42);
 	ft::vector<int>::iterator fta = fttest.begin();
 	ft::vector<int>::iterator ftb = fttest.end();
-	std::cout << "DISTANCE: " << ft::distance(ftb, fta) << std::endl;
+	std::cout << "DISTANCE: " << ft::distance(fttest.begin(), fta) << std::endl;
 
 	// int * pa = &test[0];
 	// int * pb = &test[5];
