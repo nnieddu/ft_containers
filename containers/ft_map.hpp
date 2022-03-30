@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 23:47:54 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/31 00:00:12 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 00:01:42 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,10 @@
 
 #include "../iterators/ft_bidirectional_iterator.hpp"
 #include "../utils/ft_utility.hpp"
+#include "../utils/ft_functional.hpp"
 
 namespace ft 
 {	
-	// https://www.cplusplus.com/reference/functional/less/
-	template <class T> struct less : std::binary_function <T,T,bool> 
-	{ bool operator() (const T& x, const T& y) const {return x<y;} };
-
-	// https://www.cplusplus.com/reference/functional/binary_function/
-	template <class Arg1, class Arg2, class Result>
-	struct binary_function 
-	{
-		typedef Arg1 first_argument_type;
-		typedef Arg2 second_argument_type;
-		typedef Result result_type;
-	};
-	// add to ft_functional.hpp
-	
 	template < class Key, class T, class Compare = ft::less<Key>, 
 		class Alloc = std::allocator<ft::pair<const Key,T> > >
 	class map 
