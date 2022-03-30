@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 11:25:13 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 15:40:05 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 #pragma once
 
-// #include <stdexcept>
+#include <stdexcept>
+#include <sstream>
 
 #include "../iterators/ft_random_access_iterator.hpp"
 #include "../iterators/ft_reverse_iterator.hpp"
@@ -191,7 +192,7 @@ namespace ft
 			void reserve (size_type n)
 			{
 				if (n > _alloc.max_size())
-					throw std::length_error("Maximum supported size exceeds");
+					throw std::length_error("vector::reserve"); //Maximum supported size exceeds
 
 				if (n > _capacity)
 				{
@@ -219,14 +220,24 @@ namespace ft
 			reference at (size_type n)
 			{
 				if (n >= _size) //test avec stl pour les negatif
-					throw std::out_of_range("at() : index is out of range");
+				{
+					std::stringstream s;
+					s << "n (which is " << n << ") >= this->size() (which is " << _size << ")";
+					throw std::out_of_range(s.str());
+					// throw std::out_of_range("at() : index is out of range");
+				}
 				return (_items[n]);
 			}
 
 			const_reference at (size_type n) const
 			{
 				if (n >= _size) //test avec stl pour les negatif
-					throw std::out_of_range("at() : index is out of range");
+				{
+					std::stringstream s;
+					s << "n (which is " << n << ") >= this->size() (which is " << _size << ")";
+					throw std::out_of_range(s.str());
+					// throw std::out_of_range("at() : index is out of range");
+				}
 				return (_items[n]);
 			}
 
@@ -240,7 +251,7 @@ namespace ft
 				if (_size != 0)
 					return _items[_size - 1];
 				else
-					return _items; //// a verif/test si mieux
+					return *_items; //// a verif/test si mieux
 					// return _items[0];
 			}
 
@@ -249,7 +260,7 @@ namespace ft
 				if (_size != 0)
 					return _items[_size - 1];
 				else
-					return _items; //// a verif/test si mieux
+					return *_items; //// a verif/test si mieux
 					// return _items[0];
 			}
 
@@ -390,6 +401,7 @@ namespace ft
 				{
 					for (size_type index = 0; index < _size; index++)
 						_alloc.destroy(&_items[index]);
+					_size = 0;
 				}
 			}
 
@@ -400,27 +412,32 @@ namespace ft
 		// [Non-member function overloads]
 		// Relational operators for vector (function template)
 		
-		template<class T, class Alloc>
-		bool operator==(const vector<T, Alloc>& lsh, const vector<T, Alloc>& rhs)
-		{ return lsh.size() == rhs.size() && ft::equal(lsh.begin(), lsh.end(),rhs.begin(), rhs.end()); }
+		// template<class T, class Alloc>
+		// bool operator==(const vector<T, Alloc>& lsh, const vector<T, Alloc>& rhs)
+		// { return lsh.size() == rhs.size() && ft::equal(lsh.begin(), lsh.end(),rhs.begin(), rhs.end()); }
 		
 		template <class T, class Alloc>
-		bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) 
-		{ return !(lhs == rhs); }
+		bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) 
+		{
+			if (lhs.size() != rhs.size())
+				return (false);
+			else
+				return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+		}
 		
 		template <class T, class Alloc>
-		bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-		{ return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
-		
+		bool operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) { return !(rhs == lhs); }
+
 		template <class T, class Alloc>
-		bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return !(lhs < rhs); }
-		
-		template<class T, class Alloc>
-		bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) { return rhs < lhs; }
-		
-		template<class T, class Alloc>
-		bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
-		{ return !(lhs < rhs); }
+		bool operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) 
+		{ return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));	}
+
+		template <class T_, class Alloc_>
+		bool operator<= (const vector<T_, Alloc_>& lhs, const vector<T_, Alloc_>& rhs) { return !(rhs < lhs); }
+		template <class T_, class Alloc_>
+		bool operator>  (const vector<T_, Alloc_>& lhs, const vector<T_, Alloc_>& rhs) { return rhs < lhs; }
+		template <class T_, class Alloc_>
+		bool operator>= (const vector<T_, Alloc_>& lhs, const vector<T_, Alloc_>& rhs) { return !(lhs < rhs); }
 		
 		// Swap
 		template<class T, class Alloc>

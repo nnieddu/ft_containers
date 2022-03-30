@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:34:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 11:22:20 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 12:35:37 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ namespace ft
 			~reverse_iterator() {}
 
 			iterator_type base() const { return _current; }
+			
 			reference operator*() const 
 			{
 				iterator_type tmp = _current;
