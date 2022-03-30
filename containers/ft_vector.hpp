@@ -18,6 +18,7 @@
 #include <stdexcept>
 
 #include "../iterators/ft_random_access_iterator.hpp"
+#include "../iterators/ft_reverse_iterator.hpp"
 #include "../utils/ft_type_traits.hpp"
 
 namespace ft 
@@ -33,8 +34,8 @@ namespace ft
 			typedef typename allocator_type::const_pointer			const_pointer;
 			typedef ft::random_access_iterator<value_type>			iterator;
 			typedef ft::random_access_iterator<const value_type>	const_iterator;
-			// typedef ft::reverse_iterator<iterator>				reverse_iterator;
-			// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+			typedef ft::reverse_iterator<iterator>					reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 		private:
@@ -104,7 +105,7 @@ namespace ft
 				return *this;
 			}
 	
-			// ----------[ITERATORS]----------
+			// -----------[ Iterators: ]-----------
 
 			// En retournant un ptr direct = plus optimised mais stl retourne un it 
 			// (dans le cas d'un it1 = vec.begin(), il y a un appel au constructeur 
@@ -127,16 +128,38 @@ namespace ft
 				return const_iterator(&_items[_size]);
 			}
 			
-			// rbegin		Return reverse iterator to reverse beginning (public member function)
-			// reverse_iterator rbegin();
+			// 		[Reverse :]
 
-			// const_reverse_iterator rbegin() const;
-			
-			// rend			Return reverse iterator to reverse end (public member function)
-			// reverse_iterator rend();
-			
-			// const_reverse_iterator rend() const;
-			
+			reverse_iterator rbegin()
+			{
+				if (_items == NULL)
+					return reverse_iterator();
+				return reverse_iterator(end());
+			}
+
+			const_reverse_iterator rbegin() const 
+			{
+				if (_items == NULL)
+					return const_reverse_iterator(NULL);
+				return const_reverse_iterator(end());
+			}
+
+			reverse_iterator rend()
+			{
+				if (_items == NULL)
+					return rbegin();
+				return reverse_iterator(begin());
+			}
+
+			const_reverse_iterator rend() const 
+			{
+				if (_items == NULL)
+					return rbegin();
+				return const_reverse_iterator(begin());
+			}
+
+			// ----------[ Capacity: ]-----------
+
 			size_type size() const { return _size; }
 	
 			size_type max_size() const { return allocator_type().max_size(); }
@@ -186,8 +209,7 @@ namespace ft
 			}
 
 			// ----------[ACCESORS]----------
-			
-			// Access element at n
+			// Access element at n :
 
 			reference operator[] (size_type n) { return (_items[n]); }
 
@@ -266,7 +288,6 @@ namespace ft
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
 
 			// insert		Insert elements (public member function)
-
 			// If vector has no previous allocation, position will point to a non-existent 
 			// pointer, that will cause a segmentation fault on stl and abort here.
 			// single element (1)	
