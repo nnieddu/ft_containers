@@ -257,8 +257,7 @@ namespace ft
 			// range (1)	
 			template <class InputIterator>
 			void assign(InputIterator first, InputIterator last, 
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, 
-					InputIterator>::type* = NULL)
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
 				clear();
 				for (InputIterator it = first; it != last; it++)
@@ -293,8 +292,7 @@ namespace ft
 			// single element (1)	
 			iterator insert (iterator position, const value_type& val)
 			{
-				iterator beg = begin();
-				size_type pos = ft::distance(beg, position);
+				size_type pos = ft::distance(begin(), position);
 
 				if (_capacity == 0)
 					reserve(1);
@@ -321,10 +319,9 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
-				iterator beg = begin();
-				difference_type distance = ft::distance(beg, position);
+				difference_type distance = ft::distance(begin(), position);
 
-				iterator it = beg + distance;
+				iterator it = begin() + distance;
 
 				for (; first != last; first++, it++)
 					it = insert(it, *first);
