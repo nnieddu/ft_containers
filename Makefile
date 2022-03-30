@@ -6,7 +6,7 @@
 #    By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 06:10:57 by ninieddu          #+#    #+#              #
-#    Updated: 2022/03/30 15:43:40 by ninieddu         ###   ########lyon.fr    #
+#    Updated: 2022/03/30 17:29:23 by ninieddu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	=	ft_containers
 COMP 	=	c++
 
 # FLAG	=	-Wall -Wextra -Werror -std=c++98
-FLAG	=	-Wall -Wextra -std=c++98
+FLAG	=	-Wall -Wextra #-std=c++98
 
 SRC		=	mymain.cpp 
 

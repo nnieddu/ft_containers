@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 15:30:59 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 18:04:05 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@ int main ()
 		for (unsigned long i = 0; i < 5; i++)
 			vector[i] = i * 2;
 		printVector(vector);
-		vector.insert(vector.begin() + 2, 100000, 42);
+		std::cout << "size:" << vector.size() << std::endl;
+		std::cout << "capa:" << vector.capacity() << std::endl;
+		vector.insert(vector.begin() + 2, 1000000, 42);
+		std::cout << "size:" << vector.size() << std::endl;
+		std::cout << "capa:" << vector.capacity() << std::endl;
 		ft::vector<int>::iterator it = vector.begin();
-		// while (it != vector.end())
-		// 	std::cout << *(it)++ << " ";
-		// std::cout << std::endl;
+		while (it != vector.end())
+			std::cout << *(it)++ << " ";
+		std::cout << std::endl;
 
-
+		
 		// std::cout << "=== big insert begin ===" << std::endl;
 		// ft::vector<int> vector(5, 8);
 		// for (unsigned long i = 0; i < 5; i++)

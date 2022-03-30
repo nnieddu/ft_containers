@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 15:40:05 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 18:13:10 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,9 +298,7 @@ namespace ft
 			// don't modify the capacity of the vector 				///// TODO (more tests)
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
 
-			// insert		Insert elements (public member function)
-			// If vector has no previous allocation, position will point to a non-existent 
-			// pointer, that will cause a segmentation fault on stl and abort here.
+			// insert		Insert elements (public member function)	
 			// single element (1)	
 			iterator insert (iterator position, const value_type& val)
 			{
@@ -322,8 +320,19 @@ namespace ft
 			// // fill (2)	
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				while(n--)
-					position = insert(position, val);
+				size_type pos = ft::distance(begin(), position);
+				size_type s = _size;
+
+				if ((_capacity - _size) < n)
+					reserve(_capacity + n);
+					
+				_size += n;
+				
+				for (size_type index = _size - 1; index != pos + n - 1; index--)
+					_items[index] = _items[--s];
+
+				for(; n--; ++pos)
+					_alloc.construct(&_items[pos], val);
 			}
 
 			// range (3)	
