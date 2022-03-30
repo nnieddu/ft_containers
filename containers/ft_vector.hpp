@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 22:39:19 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 23:59:57 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <stdexcept>
 #include <sstream>
+#include <memory>
 
 #include "../iterators/ft_random_access_iterator.hpp"
 #include "../iterators/ft_reverse_iterator.hpp"
