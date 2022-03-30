@@ -88,7 +88,6 @@ namespace ft
 			reference operator[](difference_type x) { return _ptr[x]; }
 
 			const pointer &base() const { return _ptr; }
-
 	};
 
 	//  Overload to compare random_access_iterator with const random_access_iterator
