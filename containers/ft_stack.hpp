@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 23:21:55 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 23:22:11 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 			explicit stack (const container_type& ctnr = container_type())
 			: _items(ctnr) {}
 
-			~stack() {} //
+			~stack() {}
 			
 			// Member functions
 			bool empty() const { return _items.empty(); }
