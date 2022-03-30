@@ -6,26 +6,13 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 23:20:06 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 23:20:26 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 // https://www.cplusplus.com/reference/stack/stack/
 
 #pragma once
-
-#include <memory>
-
-// namespace ft 
-// {	
-// 	template <class T, class Container = std::deque<T> > 
-// 	class stack {
-// 		public: 
-// 			typedef T				value_type;
-// 			typedef Container		container_type;
-// 			typedef std::size_t		size_type;
-// 	};
-// }
 
 #include "ft_vector.hpp"
 
