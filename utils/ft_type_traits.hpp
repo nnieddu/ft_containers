@@ -6,14 +6,13 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:15:48 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 16:27:21 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 00:08:44 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 // https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/SFINAE
 // https://www.cplusplus.com/reference/type_traits/
-// https://www.cplusplus.com/reference/type_traits/enable_if/?kw=enable_if
-// https://www.cplusplus.com/reference/type_traits/is_integral/?kw=is_integral
+// https://www.cplusplus.com/reference/type_traits/enable_if/
 // https://www.cplusplus.com/reference/type_traits/integral_constant/
 // https://www.cplusplus.com/reference/type_traits/false_type/
 // https://www.cplusplus.com/reference/type_traits/true_type/
