@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/30 23:59:57 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 10:16:52 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,14 @@ namespace ft
 			reverse_iterator rbegin()
 			{
 				if (_items == NULL)
-					return reverse_iterator();
+					return reverse_iterator(); //
 				return reverse_iterator(end());
 			}
 
 			const_reverse_iterator rbegin() const 
 			{
 				if (_items == NULL)
-					return const_reverse_iterator(NULL);
+					return const_reverse_iterator(); //
 				return const_reverse_iterator(end());
 			}
 
@@ -272,17 +272,23 @@ namespace ft
 			void assign(InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
+				size_type pos = ft::distance(first, last);
+
 				clear();
+				reserve(pos);
 				for (InputIterator it = first; it != last; it++)
-					push_back(*it);
+				{
+					_alloc.construct(&_items[_size], *it);
+					_size++;
+				}
 			} 
 			
 			// fill (2)	
-			void assign(size_type n, value_type const &val)
-			{
-				clear();
-				resize(n, val);
-			}
+			// void assign(size_type n, value_type const &val)
+			// {
+			// 	clear();
+			// 	resize(n, val);
+			// }
 
 			// push_back	Add element at the end (public member function)
 			void push_back (const value_type& val)
