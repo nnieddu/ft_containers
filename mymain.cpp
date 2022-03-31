@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/31 11:22:54 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 11:23:46 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ int main ()
 	
 	int x = 0;
 	for (std::vector<std::string>::iterator i = v.begin(); i != v.end(); i++)
+	{
 		DUMP(*i);	
+		COUNT(x);
+	}
+	x = 0;
 	std::cout << std::endl;
 	for (ft::vector<std::string>::iterator i = ft_v.begin(); i != ft_v.end(); i++)
 	{
