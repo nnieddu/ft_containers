@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/31 09:57:13 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 11:22:54 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,85 +25,62 @@
 #define DUMPSTR(os, a) DUMPSTR_WNAME((os), #a, (a))
 #define DUMP(a)        DUMPSTR_WNAME(std::cout, #a, (a))
 
+#define COUT_I(os, name, i) \
+    do { (os) << (name) << " = " << (i++) << std::endl; } while(false)
+	
+#define COUNT(i)       COUT_I(std::cout, #i, (i))
+
 int main ()
 {
-            /*------------------ std::vectors ---------------------*/
-            // ft::vector<std::string> ft_v1(1e6, "string2");
-            // // std::vector<std::string>    v1(1e6, "string2");
-            // std::vector<std::string> v2(1e4, "string2");
-            // v2.assign(ft_v1.begin(), ft_v1.end());
-            // /*------------------ ft::vectors ---------------------*/
-            // // ft::vector<std::string>    ft_v1(1e6, "string2");
-            // ft::vector<std::string> ft_v2(1e4, "string2");
-            // ft_v2.assign(ft_v1.begin(), ft_v1.end());
-        /*------------------ std::vectors ---------------------*/
-        std::vector<std::string> v1(20, "less");
-        std::vector<std::string> v2;
-        std::vector<std::string> v3(10, "string2");
-        /*------------------ std::vectors ---------------------*/
-        ft::vector<std::string> ft_v1(20, "less");
-        ft::vector<std::string> ft_v2;
-        ft::vector<std::string> ft_v3(10, "string2");
-        /*
-         * Strings to store the results
-         */
-        std::string s1, s2, s3, ft_s1, ft_s2, ft_s3;
-        /*
-         * Var to store the size and the capacity
-         */
-        size_t z1, z2, z3, ft_z1, ft_z2, ft_z3;
-        size_t c1, c2, c3, ft_c1, ft_c2, ft_c3;
-        // test for n greater than the vector capactiy
-        v3.assign(v1.begin(), v1.end());
-        ft_v3.assign(v1.begin(), v1.end());
+	std::string str, ft_str;
 
-        z1 = v3.size();
-        c1 = v3.capacity();
-        ft_z1 = ft_v3.size();
-        ft_c1 = ft_v3.capacity();
-        for (size_t i = 0; i < v3.size(); ++i)
-            s1 += v3.at(i);
+	ft::vector<std::string>::size_type s, ft_s;
+	ft::vector<std::string>::size_type c, ft_c;
+	ft::vector<std::string>::iterator ft_it;
+	std::vector<std::string>::iterator it;
+	// bool cond;
+	std::vector<std::string> v(20, "string");
+	ft::vector<std::string> ft_v(20, "string");
+	ft::vector<std::string>::iterator valid_it;
 
-        for (size_t i = 0; i < ft_v3.size(); ++i)
-            ft_s1 += ft_v3.at(i);
-        // test for n lesser than the vector capactiy
-        v1.assign(v3.begin(), v3.end());
-        ft_v1.assign(ft_v3.begin(), ft_v3.end());
+	v.reserve(30);
+	ft_v.reserve(30);
+	valid_it = ft_v.begin();
+	it = v.insert(v.begin() + 10, "hello");
+	ft_it = ft_v.insert(ft_v.begin() + 10, "hello");
 
-        z2 = v1.size();
-        c2 = v1.capacity();
-        ft_z2 = ft_v1.size();
-        ft_c2 = ft_v1.capacity();
-        for (size_t i = 0; i < v1.size(); ++i)
-            s3 += v1.at(i);
+	DUMP(ft_it->length());
+	DUMP(it->length());
 
-        for (size_t i = 0; i < ft_v1.size(); ++i)
-            ft_s3 += ft_v1.at(i);
-        // test for empty vectors
-        v2.assign(v1.begin(), v1.end());
-        ft_v2.assign(ft_v1.begin(), ft_v1.end());
+	DUMP(v.size());
+	DUMP(ft_v.size());
 
-        z3 = v2.size();
-        c3 = v2.capacity();
-        ft_z3 = ft_v2.size();
-        ft_c3 = ft_v2.capacity();
-        for (size_t i = 0; i < v2.size(); ++i)
-            s2 += v2.at(i);
+	DUMP(v.capacity());
+	DUMP(ft_v.capacity());
 
-        for (size_t i = 0; i < ft_v2.size(); ++i)
-            ft_s2 += ft_v2.at(i);
-		
-        DUMP((s3 == ft_s3 && z3 == ft_z3 && c3 == ft_c3));
-		
-		DUMP(s3);
-		DUMP(s3.size());
-		DUMP(ft_s3);
-		DUMP(ft_s3.size());
-		
-		DUMP(z3);
-		DUMP(ft_z3);	
-			
-		DUMP(c3);
-		DUMP(ft_c3);
+	DUMP(sizeof(v));
+	DUMP(sizeof(ft_v));
+	
+	int x = 0;
+	for (std::vector<std::string>::iterator i = v.begin(); i != v.end(); i++)
+		DUMP(*i);	
+	std::cout << std::endl;
+	for (ft::vector<std::string>::iterator i = ft_v.begin(); i != ft_v.end(); i++)
+	{
+		DUMP(*i);
+		COUNT(x);
+	}
+	// str.clear();
+	// ft_str.clear();
+	// s = v.size();
+	// ft_s = ft_v.size();
+	// c = v.capacity();
+	// ft_c = ft_v.capacity();
+	// for (size_t i = 0; i < v.size(); ++i)
+	// 	str += v[i];
+	// for (size_t i = 0; i < ft_v.size(); ++i)
+	// 	ft_str += ft_v[i];
+	// cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it) && (&(*valid_it) == &(*ft_v.begin())));
+	
 	return 0;
 }
