@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/31 11:23:46 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 10:46:16 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,70 +21,60 @@
 
 #define DUMPSTR_WNAME(os, name, a) \
     do { (os) << (name) << " = " << (a) << std::endl; } while(false)
-
+	
+#define DUMPSTR_WNAME_NO_STDENDL(os, name, a) \
+    do { (os) << (name) << " = " << "[" << (a) << "]"; } while(false)
+	
 #define DUMPSTR(os, a) DUMPSTR_WNAME((os), #a, (a))
 #define DUMP(a)        DUMPSTR_WNAME(std::cout, #a, (a))
+#define DUMPN(a)        DUMPSTR_WNAME_NO_STDENDL(std::cout, #a, (a))
 
 #define COUT_I(os, name, i) \
-    do { (os) << (name) << " = " << (i++) << std::endl; } while(false)
+    do { (os) << " " << (name) << " = " << (i++) << std::endl; } while(false)
 	
 #define COUNT(i)       COUT_I(std::cout, #i, (i))
 
+
+
+#define MAX_TEST 10000
+
+void	printOk() {
+	std::cout << "\033[0;32m" << "V" << "\033[0;37m";
+}
+
+void	printError(std::string message) {
+	std::cout << "\033[0;31m" << message << "\033[0;37m" << std::endl;
+}
+
+void	printvector(ft::vector<std::string> vector) 
+{
+	for (unsigned long i = 0; i < vector.size(); i++)
+		std::cout << vector[i] << " ";
+	std::cout << std::endl;
+}
+
+
 int main ()
 {
-	std::string str, ft_str;
-
-	ft::vector<std::string>::size_type s, ft_s;
-	ft::vector<std::string>::size_type c, ft_c;
 	ft::vector<std::string>::iterator ft_it;
-	std::vector<std::string>::iterator it;
-	// bool cond;
-	std::vector<std::string> v(20, "string");
-	ft::vector<std::string> ft_v(20, "string");
-	ft::vector<std::string>::iterator valid_it;
 
-	v.reserve(30);
-	ft_v.reserve(30);
-	valid_it = ft_v.begin();
-	it = v.insert(v.begin() + 10, "hello");
-	ft_it = ft_v.insert(ft_v.begin() + 10, "hello");
+	ft::vector<std::string> ft_v(100, "hello");
 
-	DUMP(ft_it->length());
-	DUMP(it->length());
+	ft_it = ft_v.erase(ft_v.begin() + 60, ft_v.end());
 
-	DUMP(v.size());
-	DUMP(ft_v.size());
+	ft::vector<int> myvector;
 
-	DUMP(v.capacity());
-	DUMP(ft_v.capacity());
+	// set some values (from 1 to 10)
+	for (int i=1; i<=10; i++) myvector.push_back(i);
 
-	DUMP(sizeof(v));
-	DUMP(sizeof(ft_v));
-	
-	int x = 0;
-	for (std::vector<std::string>::iterator i = v.begin(); i != v.end(); i++)
-	{
-		DUMP(*i);	
-		COUNT(x);
-	}
-	x = 0;
-	std::cout << std::endl;
-	for (ft::vector<std::string>::iterator i = ft_v.begin(); i != ft_v.end(); i++)
-	{
-		DUMP(*i);
-		COUNT(x);
-	}
-	// str.clear();
-	// ft_str.clear();
-	// s = v.size();
-	// ft_s = ft_v.size();
-	// c = v.capacity();
-	// ft_c = ft_v.capacity();
-	// for (size_t i = 0; i < v.size(); ++i)
-	// 	str += v[i];
-	// for (size_t i = 0; i < ft_v.size(); ++i)
-	// 	ft_str += ft_v[i];
-	// cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it) && (&(*valid_it) == &(*ft_v.begin())));
-	
-	return 0;
+	// erase the 6th element
+	// myvector.erase (myvector.begin()+5);
+
+	// erase the first 3 elements:
+	myvector.erase (myvector.begin(),myvector.begin()+3);
+
+	std::cout << "myvector contains:";
+	for (unsigned i=0; i<myvector.size(); ++i)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
 }

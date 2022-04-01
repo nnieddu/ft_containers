@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/31 10:39:57 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 10:47:57 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 // https://www.cplusplus.com/reference/vector/vector/
 
 #pragma once
+
+#include <string.h>
 
 #include <stdexcept>
 #include <sstream>
@@ -67,17 +69,18 @@ namespace ft
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
 			: _alloc(alloc), _items(NULL)
 			{
-				difference_type size = ft::distance(first, last);
+				std::cout << "[ RANGE VECTOR CONSTRUCTOR ]" << std::endl;
+				/// OPTI ET TEST AVC distance(first,last) == 1 ou 0
+				_size = last - first;
 
-				if (size != 0)
+				if (_size != 0)
 				{
-					_items = _alloc.allocate(size);
+					_items = _alloc.allocate(_size);
 
 					for (size_type index = 0; first != last; first++, index++)
 						_alloc.construct(&_items[index], *first);
 				}
-				_size = size;
-				_capacity = size;
+				_capacity = _size;
 			}
 
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
@@ -284,11 +287,11 @@ namespace ft
 			} 
 			
 			// fill (2)	
-			// void assign(size_type n, value_type const &val)
-			// {
-			// 	clear();
-			// 	resize(n, val);
-			// }
+			void assign(size_type n, value_type const &val)
+			{
+				clear();
+				resize(n, val);
+			}
 
 			// push_back	Add element at the end (public member function)
 			void push_back (const value_type& val)
@@ -301,24 +304,21 @@ namespace ft
 				_size++;
 			}
 			
-			// pop_back		Delete last element (public member function)
-			// don't modify the capacity of the vector 				///// TODO (more tests)
+			// pop_back		Delete last element (public member function) (don't modify _capacity)
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
 
-			// insert		Insert elements (public member function)	
+			// insert	Insert elements (public member function)	
 			// single element (1)	
 			iterator insert (iterator position, const value_type& val)
 			{
-				size_type pos = ft::distance(begin(), position);
+				size_type pos = position - begin();
 
 				if (_capacity == 0)
 					reserve(1);
 				else if (_size == _capacity)
 					reserve(_capacity * 2);
-
 				for (size_type index = _size; index != pos; index--)
 					_items[index] = _items[index - 1];
-
 				_alloc.construct(&_items[pos], val);
 				_size++;
 				return iterator(&_items[pos]);
@@ -327,7 +327,7 @@ namespace ft
 			// // fill (2)	
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				size_type pos = ft::distance(begin(), position);
+				size_type pos = position - begin();
 				size_type s = _size;
 
 				if ((_capacity - _size) < n)
@@ -347,9 +347,9 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
-				difference_type distance = ft::distance(begin(), position);
+				size_type pos = position - begin();
 
-				iterator it = begin() + distance;
+				iterator it = begin() + pos;
 
 				for (; first != last; first++, it++)
 					it = insert(it, *first);
@@ -358,36 +358,36 @@ namespace ft
 			// erase	Erase elements (public member function)
 			iterator erase (iterator position)
 			{
-				difference_type distance = ft::distance(begin(), position);
+				size_type pos = position - begin();
 				
 				if (_size != 0)
 				{
-					size_type index = distance;
+					size_type index = pos;
 					for (; index < _size - 1; index++)
 						_items[index] = _items[index + 1];
 					_alloc.destroy(&_items[index]);
 					_size--;
 				}
-				return (iterator(&_items[distance]));
+				return (iterator(&_items[pos]));
 			}
 
-			iterator erase (iterator first, iterator last) ///// TODO
+			iterator erase (iterator first, iterator last)
 			{
-				size_type begin_index = ft::distance(begin(), first);
-				size_type end_index = ft::distance(begin(), last);
-				size_type offset = (_size < end_index) ? 0 : _size - end_index;
-				size_type index;
+				size_type begin_index = first - begin();
+				size_type end_index = last - begin();
+				size_type offset = 0;
+
+				if (_size > end_index)
+					offset = _size - end_index;
 
 				_size = _size - (end_index - begin_index);
-				for (index = 0; index < offset; index++)
+				
+				for (size_type index = 0; index < offset; index++)
 				{
 					_alloc.destroy(&_items[begin_index + index]);
 					_items[begin_index + index] = _items[end_index + index];
 				}
-				for (; index < _size; index++)
-				{
-					_alloc.destroy(&_items[begin_index + index]);
-				}
+
 				return (iterator(&_items[begin_index]));
 			}
 
