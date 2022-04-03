@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/01 10:46:16 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/03 18:43:29 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,87 @@ void	printvector(ft::vector<std::string> vector)
 
 int main ()
 {
-	ft::vector<std::string>::iterator ft_it;
+        /*
+         * var to store the size and the capacity
+         */
+        /*
+         * bool to store the comparison
+         */
+        /*------------------------------- test 1: empty vector ----------------------------------------*/
+        // insert at the begin
+        // {
+        //     std::vector<std::string> v;
+        //     ft::vector<std::string> ft_v;
+        //     it = v.insert(v.begin(), "hello");
+        //     ft_it = ft_v.insert(ft_v.begin(), "hello");
+        //     ft_it->length();
 
-	ft::vector<std::string> ft_v(100, "hello");
+        //     s = v.size();
+        //     ft_s = ft_v.size();
+        //     c = v.capacity();
+        //     ft_c = ft_v.capacity();
+        //     for (size_t i = 0; i < v.size(); ++i)
+        //         str += v[i];
+        //     for (size_t i = 0; i < ft_v.size(); ++i)
+        //         ft_str += ft_v[i];
+        //     cond = ((str == ft_str) && (s == ft_s) && (c == ft_c) && (*ft_it == *it));
+        //     std::cout << cond << std::endl;
 
-	ft_it = ft_v.erase(ft_v.begin() + 60, ft_v.end());
+        // }
+        // insert at the end
+        // {
+        //     std::vector<std::string> v;
+        //     ft::vector<std::string> ft_v;
 
-	ft::vector<int> myvector;
+        //     it = v.insert(v.end(), "hello");
+        //     ft_it = ft_v.insert(ft_v.end(), "hello");
+        //     ft_it->length();
 
-	// set some values (from 1 to 10)
-	for (int i=1; i<=10; i++) myvector.push_back(i);
+        //     str.clear();
+        //     ft_str.clear();
 
-	// erase the 6th element
-	// myvector.erase (myvector.begin()+5);
+        //     s = v.size();
+        //     ft_s = ft_v.size();
+        //     c = v.capacity();
+        //     ft_c = ft_v.capacity();
+        //     for (size_t i = 0; i < v.size(); ++i)
+        //         str += v[i];
+        //     for (size_t i = 0; i < ft_v.size(); ++i)
+        //         ft_str += ft_v[i];
+        //     cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it));
+        //     std::cout << cond << std::endl;
+        // }
+        /*---------------------------------------------------------------------------------------------------*/
+        /*------------------------------- test 2: the vector capacity >= size + the new element ----------------------------------------*/
+        // {
+        	ft::vector<std::string>::iterator ft_it;
+        	ft::vector<std::string>::iterator ft_it2;
+            ft::vector<std::string> ft_v (10, "string");
 
-	// erase the first 3 elements:
-	myvector.erase (myvector.begin(),myvector.begin()+3);
+            // ft_v.reserve(20);
+            ft_it = ft_v.begin()+5;
+            ft_it2 = ft_v.begin()+3;
+            DUMP(*ft_it);
+            DUMP(&*ft_it);
+			ft_v.insert(ft_it2, "hello");
+            // ft_it = ft_v.begin()+5;
+            // DUMP(*ft_it);
+            // DUMP(&*ft_it);
+		int x = -1;
+		// std::cout << "ft_v contains:\n";
+		for (ft::vector<std::string>::iterator it = ft_v.begin() ; it != ft_v.end(); ++it)
+		{
+			std::cout << ++x << ' ' << *it;
+			std::cout << '\n';
+        }
+		DUMP(ft_v.size());
+		DUMP(ft_v.capacity());
+		// DUMP(*ft_v.begin());
+		// DUMP(*ft_v.end());
+        // std::cout << "\nAAAAAAAAAAAAH\n\n" << std::endl;
+        /*---------------------------------------------------------------------------------------------------*/
+        /*------------------------------- test 3: the vector capacity < size + the new element ----------------------------------------*/
+        // {
 
-	std::cout << "myvector contains:";
-	for (unsigned i=0; i<myvector.size(); ++i)
-		std::cout << ' ' << myvector[i];
-	std::cout << '\n';
+		// }
 }

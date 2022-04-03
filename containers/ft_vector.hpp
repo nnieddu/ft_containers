@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/01 10:47:57 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 00:03:51 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 #include <stdexcept>
 #include <sstream>
+#include <iostream>
 #include <memory>
 
 #include "../iterators/ft_random_access_iterator.hpp"
@@ -69,7 +70,7 @@ namespace ft
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
 			: _alloc(alloc), _items(NULL)
 			{
-				std::cout << "[ RANGE VECTOR CONSTRUCTOR ]" << std::endl;
+				// std::cout << "[ RANGE VECTOR CONSTRUCTOR ]" << std::endl;
 				/// OPTI ET TEST AVC distance(first,last) == 1 ou 0
 				_size = last - first;
 
@@ -192,7 +193,7 @@ namespace ft
 	
 			bool empty() const { return (size() == 0 ? true : false); }
 
-			// reserve : Request a change in capacity (public member function)
+			// reserve : Request a change in capacity (public member function) (don't modify the size)
 			void reserve (size_type n)
 			{
 				if (n > _alloc.max_size())
@@ -202,11 +203,10 @@ namespace ft
 				{
 					value_type *tmp = _alloc.allocate(n);
 
-					if (_items != NULL)
+					if (_items != NULL)// && _size > 0)
 					{
 						for (size_type index = 0; index < _size; index++)
 							_alloc.construct(&tmp[index], _items[index]);
-
 						_alloc.deallocate(_items, _capacity);
 					}
 					_items = tmp;
@@ -307,36 +307,45 @@ namespace ft
 			// pop_back		Delete last element (public member function) (don't modify _capacity)
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
 
-			// insert	Insert elements (public member function)	
-			// single element (1)	
 			iterator insert (iterator position, const value_type& val)
 			{
 				size_type pos = position - begin();
-
-				if (_capacity == 0)
-					reserve(1);
-				else if (_size == _capacity)
-					reserve(_capacity * 2);
-				for (size_type index = _size; index != pos; index--)
-					_items[index] = _items[index - 1];
-				_alloc.construct(&_items[pos], val);
-				_size++;
-				return iterator(&_items[pos]);
+				insert(position, 1, val);
+				return iterator(&_items[pos]);	
 			}
 			
 			// // fill (2)	
 			void insert (iterator position, size_type n, const value_type& val)
 			{
 				size_type pos = position - begin();
+
+				if (_capacity == 0)
+					reserve(1);
+				
+				if (n == 1)
+				{
+					if (_size == _capacity)
+						reserve(_capacity * 2);
+
+					for (size_type index = _size; index != pos; index--)
+						_alloc.construct(&_items[index], _items[index - 1]);
+
+					_alloc.construct(&_items[pos], val);
+					_size++;
+					return ;
+				}
+				
 				size_type s = _size;
 
-				if ((_capacity - _size) < n)
+				if (_size == _capacity && (n < _capacity * 2))
+					reserve(_capacity * 2);				
+				else
 					reserve(_capacity + n);
-					
+
 				_size += n;
-				
-				for (size_type index = _size - 1; index != pos + n - 1; index--)
-					_items[index] = _items[--s];
+
+				for (size_type index = _size - 1; index != (pos + n - 1); index--)
+					_alloc.construct(&_items[index], _items[--s]);
 
 				for(; n--; ++pos)
 					_alloc.construct(&_items[pos], val);
