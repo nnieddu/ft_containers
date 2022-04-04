@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 17:43:35 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 17:58:08 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,48 +61,42 @@ int main ()
 //  -------------------------------------------------------------
 
 
+    std::vector<std::string> v1(10, "string2");
+    std::vector<std::string> const v2(10, "string2");
+    /*-----------------------------------------------------*/
+    /*------------------ ft::vectors ---------------------*/
+    ft::vector<std::string> ft_v1(10, "string2");
+    ft::vector<std::string> const ft_v2(10, "string2");
+    /*----------------------------------------------------*/
+    /*------------------ strings to store the results ----*/
+    std::string res, ft_res, c_res, c_ft_res;
+    /*----------------------------------------------------*/
+    // for (std::vector<std::string>::reverse_iterator rit = v1.rbegin(); rit != v1.rend(); ++rit) // fill res from v1
+    //     res += *rit;
+    // for (std::vector<std::string>::const_reverse_iterator rit = v2.rbegin(); rit != v2.rend(); ++rit) // fill c_res from const v1
+    //     c_res += *rit;
 
-
-
-
-
-
-        std::vector<std::string> v1(10, "string2");
-        std::vector<std::string> const v2(10, "string2");
-        /*-----------------------------------------------------*/
-        /*------------------ ft::vectors ---------------------*/
-        ft::vector<std::string> ft_v1(10, "string2");
-        ft::vector<std::string> const ft_v2(10, "string2");
-        /*----------------------------------------------------*/
-        /*------------------ strings to store the results ----*/
-        std::string res, ft_res, c_res, c_ft_res;
-        /*----------------------------------------------------*/
-        // for (std::vector<std::string>::reverse_iterator rit = v1.rbegin(); rit != v1.rend(); ++rit) // fill res from v1
-        //     res += *rit;
-        // for (std::vector<std::string>::const_reverse_iterator rit = v2.rbegin(); rit != v2.rend(); ++rit) // fill c_res from const v1
-        //     c_res += *rit;
-
-        // for (ft::Vector<std::string>::reverse_iterator rit = ft_v1.rbegin(); rit != ft_v1.rend(); ++rit) // fill ft_res from ft_v1
-        //     ft_res += *rit;
-        // for (ft::Vector<std::string>::const_reverse_iterator rit = ft_v2.rbegin(); rit != ft_v2.rend(); ++rit) // fill c_ft_res from const ft_v1
-        //     c_ft_res += *rit;
+    // for (ft::Vector<std::string>::reverse_iterator rit = ft_v1.rbegin(); rit != ft_v1.rend(); ++rit) // fill ft_res from ft_v1
+    //     ft_res += *rit;
+    // for (ft::Vector<std::string>::const_reverse_iterator rit = ft_v2.rbegin(); rit != ft_v2.rend(); ++rit) // fill c_ft_res from const ft_v1
+    //     c_ft_res += *rit;
 
 		
 //						[MY VECTOR]
 //					CONSTRUCTORS AND DESTRUCTOR 
 
-		ft::vector<int> vector(10, 8);
-		std::cout << "capacity: " << vector.capacity() << std::endl;
-		std::cout << "size: " << vector.size() << std::endl;
-		vector.pop_back();
-		vector.pop_back();
-		std::cout << "capacity: " << vector.capacity() << std::endl;
-		std::cout << "size: " << vector.size() << std::endl;
-		vector.insert(vector.begin() + 2, 1, 42);
-		vector.insert(vector.begin(), 42);
-		vector.insert(vector.begin(), 5, 42);
-		// vector.insert(vector.begin() + 2, 1, 42);
-		// vector.insert(vector.begin() + 2, 1, 42);
+    ft::vector<int> vector(10, 8);
+    std::cout << "capacity: " << vector.capacity() << std::endl;
+    std::cout << "size: " << vector.size() << std::endl;
+    vector.pop_back();
+    vector.pop_back();
+    std::cout << "capacity: " << vector.capacity() << std::endl;
+    std::cout << "size: " << vector.size() << std::endl;
+    vector.insert(vector.begin() + 2, 1, 42);
+    vector.insert(vector.begin(), 42);
+    vector.insert(vector.begin(), 5, 42);
+    // vector.insert(vector.begin() + 2, 1, 42);
+    // vector.insert(vector.begin() + 2, 1, 42);
 
 
 	ft::vector<int> ftDefault;									// empty vector of ints (default constructor)
@@ -210,16 +204,6 @@ int main ()
 	// std::vector<int> stddefau;
 	// std::vector<int>::iterator lol;
 	// *lol = *stdptr;
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -366,8 +350,6 @@ int main ()
 //                    .name()
 //             << std::endl;
 
-
-
 //   std::cout << std::endl << std::endl << "---[ STL TEST PART ]---\n" << std::endl;
 
 	// std::iterator_traits<int*> traits;
@@ -381,10 +363,6 @@ int main ()
 	ft::vector<ft::vector<int> >::reverse_iterator ite = myvector.rend();
 	// DUMP(&*itb);
 	// DUMP(&*ite);
-	DUMP(itb->size());
-	if (itb != ite)
-		std::cout << "WOW\n";
-	// itb = ite;
 
 //   for (int i=0; i<10; i++) myvector.push_back(i);  // myvector: 0 1 2 3 4 5 6 7 8 9
 
@@ -417,7 +395,7 @@ int main ()
 //   std::cout << '\n';
 
 
-		// vector.insert(vector.begin(), 15);
+	// vector.insert(vector.begin(), 15);
 	// vector.insert(vector.begin(), 15);
 	// vector.insert(vector.begin(), 15);
 	// vector.insert(vector.begin(), 15);
@@ -432,8 +410,6 @@ int main ()
 	// // // vector.insert(vector.begin() + 2, 1, 42);
 	// // // vector.insert(vector.begin() + 2, 1, 42);
 	// // // vector.insert(vector.begin() + 2, 1, 42);
-
-
 
 
 //						[STL VECTOR]

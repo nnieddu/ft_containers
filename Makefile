@@ -6,7 +6,7 @@
 #    By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 06:10:57 by ninieddu          #+#    #+#              #
-#    Updated: 2022/04/04 17:33:10 by ninieddu         ###   ########lyon.fr    #
+#    Updated: 2022/04/04 17:56:41 by ninieddu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ OBJ		=	$(SRC:.cpp=.o)
 %.o : %.cpp $(INCS)
 	$(COMP) $(FLAG) -c $< -o $@
 
-# all : $(NAME) runv
-all : $(NAME)
+all : $(NAME) runv
+# all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(COMP) $(FLAG) $(OBJ) -o $(NAME)
