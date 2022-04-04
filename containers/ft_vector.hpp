@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 10:47:27 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 15:11:00 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ namespace ft
 			// En retournant un ptr direct = plus optimised mais stl retourne un it 
 			// (dans le cas d'un it1 = vec.begin(), il y a un appel au constructeur 
 			// et destructeur d'iterateur qui me semble useless pour le moment, a voir)
+
+			//TODO : Ternaires 
 			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
@@ -203,7 +205,7 @@ namespace ft
 				{
 					value_type *tmp = _alloc.allocate(n);
 
-					if (_items != NULL)// && _size > 0)
+					if (_items != NULL)
 					{
 						for (size_type index = 0; index < _size; index++)
 							_alloc.construct(&tmp[index], _items[index]);
@@ -228,7 +230,6 @@ namespace ft
 					std::stringstream s;
 					s << "n (which is " << n << ") >= this->size() (which is " << _size << ")";
 					throw std::out_of_range(s.str());
-					// throw std::out_of_range("at() : index is out of range");
 				}
 				return (_items[n]);
 			}
@@ -240,7 +241,6 @@ namespace ft
 					std::stringstream s;
 					s << "n (which is " << n << ") >= this->size() (which is " << _size << ")";
 					throw std::out_of_range(s.str());
-					// throw std::out_of_range("at() : index is out of range");
 				}
 				return (_items[n]);
 			}
@@ -310,6 +310,7 @@ namespace ft
 			iterator insert (iterator position, const value_type& val)
 			{
 				size_type pos = position - begin();
+				
 				if (_capacity == 0)
 					reserve(1);
 				if (_size == _capacity)
@@ -333,7 +334,7 @@ namespace ft
 					reserve(1);
 				if (_size == _capacity && (n < _capacity * 2))
 					reserve(_capacity * 2);				
-				else
+				else if (_capacity - _size < n)
 					reserve(_capacity + n);
 
 				_size += n;
@@ -350,11 +351,23 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
-				for (; first != last; first++, position++)
-					position = insert(position, *first);
+				size_type n = last - first;
+				size_type pos = position - begin();
+				size_type s = _size;
+
+				if (_size == _capacity && (n < _capacity * 2))
+					reserve(_capacity * 2);				
+				else if (_capacity - _size < n)
+					reserve(_capacity + n);
+
+				_size += n;
+
+				for (size_type index = _size - 1; index >= (pos + n); index--)
+					_alloc.construct(&_items[index], _items[--s]);
+
+				for(; n--; first++, ++pos)
+					_alloc.construct(&_items[pos], *first);
 			}
-
-
 
 			// erase	Erase elements (public member function)
 			iterator erase (iterator position)
