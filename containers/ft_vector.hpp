@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 15:55:31 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 17:40:27 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ namespace ft
 				for (size_type index = 0; index < x.size(); index++)
 					_alloc.construct(&_items[index], x[index]);
 				_size = x.size();
+				_capacity = x.capacity();
 				return *this;
 			}
 	

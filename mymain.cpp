@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 15:55:06 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 17:35:31 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,47 +54,116 @@ void	printvector(ft::vector<std::string> vector)
 }
 
 
+
+
+# define SANDBOX(x) do {             \
+    testSegvPid = fork();            \
+    if (testSegvPid == -1) abort();  \
+    if (testSegvPid == 0) {          \
+        do { (void)(x); } while(0);  \
+        exit(EXIT_SUCCESS);          \
+    }                                \
+    wait(&testSegvPid);              \
+} while(0)
+
+# define ASSERT(x) do {                                                         \
+    SANDBOX(x);                                                                 \
+    if (!WIFEXITED(testSegvPid)) log("[FAIL SEGV  ] ", __FILE__, __LINE__, #x); \
+    else if (!(x))               log("[FAIL ASSERT] ", __FILE__, __LINE__, #x); \
+    else                         log("[PASS       ] ", __FILE__, __LINE__, #x); \
+} while(0)
+
+# define TEST_SEGV(x) do {                                                      \
+    SANDBOX(x);                                                                 \
+    if (!WIFEXITED(testSegvPid)) log("[FAIL SEGV  ] ", __FILE__, __LINE__, #x); \
+    else                         log("[PASS       ] ", __FILE__, __LINE__, #x); \
+} while(0)
+
+
+# include <iostream>
+# include <string>
+# include <algorithm>
+
+# include <cstdlib>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+
+static pid_t testSegvPid;
+extern std::string testName;
+extern std::string testContainer;
+
+std::string testName = "";
+std::string testContainer = "";
+
+void log(const std::string& prefix,
+         const std::string& filename,
+         int lineNum,
+         const std::string& code)
+{
+    std::cout << prefix << "{"
+              << testContainer << "} {"
+              << ::testName << "} "
+              << filename << ':'
+              << lineNum
+              << " (" << code << ")"
+              << std::endl;
+}
+
+
 int main ()
 {
-        std::string str, ft_str;
-        /*
-         * var to store the size and the capacity
-         */
-        ft::vector<std::string>::size_type s, ft_s;
-        ft::vector<std::string>::size_type c, ft_c;
-        /*
-         * bool to store the comparison
-         */
-        bool cond;
+    testName = "vector.operator=";
 
-        /*------------------------------- test 1: empty vector ----------------------------------------*/
-        // insert at the begin
-            std::vector<std::string> v;
-            ft::vector<std::string> ft_v;
-            v.insert(v.begin(), 100, "hello");
-            ft_v.insert(ft_v.begin(), 100, "hello");
-            ft_v.begin()->length();
+    int                             arr1[5] = {1, 2, 3, 4, 5};
+    std::string                     arr2[3] = {"bonjour", "je", "suis"};
+    ft::vector<int>                 v1_duplicated(arr1, arr1 + 5);
+    ft::vector<std::string>         v2_duplicated(arr2, arr2 + 3);
+    ft::vector<float>               v3_duplicated(6, 42.0f);
+    ft::vector< ft::vector<char*> > v4_duplicated;
 
-            s = v.size();
-            ft_s = ft_v.size();
-            c = v.capacity();
-            ft_c = ft_v.capacity();
-            for (size_t i = 0; i < v.size(); ++i)
-                str += v[i];
-            for (size_t i = 0; i < ft_v.size(); ++i)
-                ft_str += ft_v[i];
-            cond = ((str == ft_str) && (s == ft_s) && (c == ft_c));
-        
-            DUMP(str);
-            DUMP(ft_str);
+    ft::vector<int> v1;
+    v1 = v1_duplicated;
+    ASSERT(v1.empty() == v1_duplicated.empty());
+    ASSERT(v1.size() == v1_duplicated.size());
+    ASSERT(v1.capacity() == v1_duplicated.capacity());
+    for (size_t i = 0; i < v1.size(); i++)
+        ASSERT(v1[i] == v1_duplicated[i]);
+    v1[0] = 0;
+    ASSERT(v1[0] == 0);
+    ASSERT(v1_duplicated[0] == 1);
 
-            DUMP(s);
-            DUMP(ft_s);
+    ft::vector<std::string> v2(10, "zzz");
+    v2 = v2_duplicated;
+    ASSERT(v2.empty() == v2_duplicated.empty());
+    ASSERT(v2.size() == v2_duplicated.size());
+    // ASSERT(v2.capacity() == v2_duplicated.capacity()); //////////////////////////////
+    for (size_t i = 0; i < v2.size(); i++)
+        ASSERT(v2[i] == v2_duplicated[i]);
+    v2[0] = "aaa";
+    ASSERT(v2[0] == "aaa");
+    ASSERT(v2_duplicated[0] == "bonjour");
+    v2[1] = "bbb";
+    ASSERT(v2[1] == "bbb");
+    ASSERT(v2_duplicated[1] == "je");
+    v2[2] = "ccc";
+    ASSERT(v2[2] == "ccc");
+    ASSERT(v2_duplicated[2] == "suis");
 
-            DUMP(c);
-            DUMP(ft_c);
-            
-            std::cout << "\n" << cond << std::endl;
-        // 
-        
+    ft::vector<float> v3(v3_duplicated);
+    v3 = v3_duplicated;
+    ASSERT(v3.empty() == v3_duplicated.empty());
+    ASSERT(v3.size() == v3_duplicated.size());
+    ASSERT(v3.capacity() == v3_duplicated.capacity());
+    for (size_t i = 0; i < v3.size(); i++)
+        ASSERT(v3[i] == v3_duplicated[i]);
+    v3[5] = 19.19f;
+    ASSERT(v3[5] == 19.19f);
+    ASSERT(v3_duplicated[0] == 42.0f);
+
+    ft::vector< ft::vector<char*> > v4(2, ft::vector<char*>(2, NULL));
+    v4 = v4_duplicated;
+    ASSERT(v4.empty() == v4_duplicated.empty());
+    ASSERT(v4.size() == v4_duplicated.size());
+    // ASSERT(v4.capacity() == v4_duplicated.capacity()); //////////////////////////////
 }
