@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 00:03:51 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 10:47:27 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,11 +306,20 @@ namespace ft
 			
 			// pop_back		Delete last element (public member function) (don't modify _capacity)
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
-
+			
 			iterator insert (iterator position, const value_type& val)
 			{
 				size_type pos = position - begin();
-				insert(position, 1, val);
+				if (_capacity == 0)
+					reserve(1);
+				if (_size == _capacity)
+					reserve(_capacity * 2);
+
+				for (size_type index = _size; index != pos; index--)
+					_alloc.construct(&_items[index], _items[index - 1]);
+
+				_alloc.construct(&_items[pos], val);
+				_size++;
 				return iterator(&_items[pos]);	
 			}
 			
@@ -318,25 +327,10 @@ namespace ft
 			void insert (iterator position, size_type n, const value_type& val)
 			{
 				size_type pos = position - begin();
+				size_type s = _size;
 
 				if (_capacity == 0)
 					reserve(1);
-				
-				if (n == 1)
-				{
-					if (_size == _capacity)
-						reserve(_capacity * 2);
-
-					for (size_type index = _size; index != pos; index--)
-						_alloc.construct(&_items[index], _items[index - 1]);
-
-					_alloc.construct(&_items[pos], val);
-					_size++;
-					return ;
-				}
-				
-				size_type s = _size;
-
 				if (_size == _capacity && (n < _capacity * 2))
 					reserve(_capacity * 2);				
 				else
@@ -344,7 +338,7 @@ namespace ft
 
 				_size += n;
 
-				for (size_type index = _size - 1; index != (pos + n - 1); index--)
+				for (size_type index = _size - 1; index >= (pos + n); index--)
 					_alloc.construct(&_items[index], _items[--s]);
 
 				for(; n--; ++pos)
@@ -356,13 +350,11 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
-				size_type pos = position - begin();
-
-				iterator it = begin() + pos;
-
-				for (; first != last; first++, it++)
-					it = insert(it, *first);
+				for (; first != last; first++, position++)
+					position = insert(position, *first);
 			}
+
+
 
 			// erase	Erase elements (public member function)
 			iterator erase (iterator position)

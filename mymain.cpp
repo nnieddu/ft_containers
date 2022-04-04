@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/03 18:43:29 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 10:47:40 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,28 +109,28 @@ int main ()
         /*---------------------------------------------------------------------------------------------------*/
         /*------------------------------- test 2: the vector capacity >= size + the new element ----------------------------------------*/
         // {
-        	ft::vector<std::string>::iterator ft_it;
-        	ft::vector<std::string>::iterator ft_it2;
-            ft::vector<std::string> ft_v (10, "string");
+        // 	ft::vector<std::string>::iterator ft_it;
+        // 	ft::vector<std::string>::iterator ft_it2;
+        //     ft::vector<std::string> ft_v (10, "string");
 
-            // ft_v.reserve(20);
-            ft_it = ft_v.begin()+5;
-            ft_it2 = ft_v.begin()+3;
-            DUMP(*ft_it);
-            DUMP(&*ft_it);
-			ft_v.insert(ft_it2, "hello");
-            // ft_it = ft_v.begin()+5;
-            // DUMP(*ft_it);
-            // DUMP(&*ft_it);
-		int x = -1;
-		// std::cout << "ft_v contains:\n";
-		for (ft::vector<std::string>::iterator it = ft_v.begin() ; it != ft_v.end(); ++it)
-		{
-			std::cout << ++x << ' ' << *it;
-			std::cout << '\n';
-        }
-		DUMP(ft_v.size());
-		DUMP(ft_v.capacity());
+        //     // ft_v.reserve(20);
+        //     ft_it = ft_v.begin()+5;
+        //     ft_it2 = ft_v.begin()+3;
+        //     DUMP(*ft_it);
+        //     DUMP(&*ft_it);
+		// 	ft_v.insert(ft_it2, "hello");
+        //     // ft_it = ft_v.begin()+5;
+        //     // DUMP(*ft_it);
+        //     // DUMP(&*ft_it);
+		// int x = -1;
+		// // std::cout << "ft_v contains:\n";
+		// for (ft::vector<std::string>::iterator it = ft_v.begin() ; it != ft_v.end(); ++it)
+		// {
+		// 	std::cout << ++x << ' ' << *it;
+		// 	std::cout << '\n';
+        // }
+		// DUMP(ft_v.size());
+		// DUMP(ft_v.capacity());
 		// DUMP(*ft_v.begin());
 		// DUMP(*ft_v.end());
         // std::cout << "\nAAAAAAAAAAAAH\n\n" << std::endl;
@@ -139,4 +139,62 @@ int main ()
         // {
 
 		// }
+
+
+	std::cout << "Insert with range" << std::endl;
+	{
+		ft::vector<int> vector(10, 8);
+		ft::vector<int> vectorToAdd(4, 42);
+		vector.insert(vector.begin(), vectorToAdd.begin(), vectorToAdd.end());
+		ft::vector<int>::iterator it = vector.begin();
+		while (it != vector.end())
+			std::cout << *(it++) << " ";
+		std::cout << std::endl;
+		ft::vector<int>::iterator it_add = vectorToAdd.begin();
+		while (it_add != vectorToAdd.end())
+			std::cout << *(it_add++) << " ";
+		std::cout << std::endl;
+		vector.insert(vector.end(), vectorToAdd.begin() + 1, vectorToAdd.end() - 1);
+		it = vector.begin();
+		while (it != vector.end())
+			std::cout << *(it++) << " ";
+		std::cout << std::endl;
+		it_add = vectorToAdd.begin();
+		while (it_add != vectorToAdd.end())
+			std::cout << *(it_add++) << " ";
+		std::cout << std::endl;
+	}
+	{
+		std::cout << "=== Big Insert Range ===" << std::endl;
+		ft::vector<int> vector(10, 8);
+		ft::vector<int> vectorToAdd(1000, 42);
+		vector.insert(vector.begin(), vectorToAdd.begin(), vectorToAdd.end());
+		ft::vector<int>::iterator it = vector.begin();
+		while (it != vector.end())
+			std::cout << *(it++) << " ";
+		std::cout << std::endl;
+		ft::vector<int>::iterator it_add = vectorToAdd.begin();
+		while (it_add != vectorToAdd.end())
+			std::cout << *(it_add++) << " ";
+		std::cout << std::endl;
+	}
+	{
+		std::cout << "=== Big Insert Range middle ===" << std::endl;
+		ft::vector<int> vector(10, 8);
+		for (unsigned long i = 0; i < 1000; i++) {
+			ft::vector<int> vectorToAdd(5, i * 2);
+			std::cout << "I: " << i << std::endl;
+			vector.insert(vector.begin(), vectorToAdd.begin() + 2, vectorToAdd.end() - 1);
+		}
+		ft::vector<int>::iterator it = vector.begin();
+		while (it != vector.end())
+			std::cout << *(it++) << " ";
+		std::cout << std::endl;
+	}
+
+
+
+
+
+        
 }
