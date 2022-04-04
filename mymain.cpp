@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 15:11:26 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 15:55:06 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,11 @@ int main ()
 
         /*------------------------------- test 1: empty vector ----------------------------------------*/
         // insert at the begin
-        {
             std::vector<std::string> v;
-            ft::vector<std::string> v1(300, "string");
             ft::vector<std::string> ft_v;
-
-            v.insert(v.end(), v1.begin(), v1.end());
-            ft_v.insert(ft_v.end(), v1.begin(), v1.end());
+            v.insert(v.begin(), 100, "hello");
+            ft_v.insert(ft_v.begin(), 100, "hello");
             ft_v.begin()->length();
-
-            str.clear();
-            ft_str.clear();
 
             s = v.size();
             ft_s = ft_v.size();
@@ -89,8 +83,7 @@ int main ()
                 str += v[i];
             for (size_t i = 0; i < ft_v.size(); ++i)
                 ft_str += ft_v[i];
-            cond = (str == ft_str) && (s == ft_s) && (c == ft_c);
-        }
+            cond = ((str == ft_str) && (s == ft_s) && (c == ft_c));
         
             DUMP(str);
             DUMP(ft_str);

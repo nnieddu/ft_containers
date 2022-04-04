@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 15:11:00 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 15:55:31 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,8 +330,6 @@ namespace ft
 				size_type pos = position - begin();
 				size_type s = _size;
 
-				if (_capacity == 0)
-					reserve(1);
 				if (_size == _capacity && (n < _capacity * 2))
 					reserve(_capacity * 2);				
 				else if (_capacity - _size < n)
