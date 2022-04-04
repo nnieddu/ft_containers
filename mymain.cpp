@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 17:58:08 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 17:59:51 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,7 @@ int main ()
 
 	// std::cout << "DISTANCE: " << ft::distance(itlst2, itlst) << std::endl << std::endl;
 
-//   std::cout << "std::vector::begin() returns a " << get_iterator_type(a) << " Iterator.\n" << std::endl;
+    // std::cout << "std::vector::begin() returns a " << get_iterator_type(a) << " Iterator.\n" << std::endl;
 
 	// const int array[10] = {0,0,0,0,0,0,0,0,0,0};
     // for (int i = 0; i < 10; i++)
@@ -296,7 +296,7 @@ int main ()
 	// std::vector<int>::iterator it = stdFill.begin();
 	// int* ptr = *(it);
 
-//   if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
+    // if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
     // std::cout << "int* is a random-access iterator";
 
     // ft::vector<int>::const_iterator b = ftFill.begin();
@@ -318,8 +318,6 @@ int main ()
 // 	std::cout << "*ftFill.begin() - 5 return : " << *ftFill.begin() - 5 << std::endl;
 // 	std::cout << "ftFill.begin() - ftFill.end() return : " << ftFill.begin() - ftFill.end() << std::endl;
 // 	std::cout << "test addr return : " << &*ftFill.begin() << std::endl;
-
-
 
 //   ft::vector<double> arr(3);
 //   arr[0] = 2.6;
