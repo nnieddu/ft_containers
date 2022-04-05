@@ -81,10 +81,9 @@ namespace ft
 		typedef typename ft::random_access_iterator_tag 	iterator_category;
 	};
 
-	// [ ITERATORS FT ] 
+	// [ ITERATORS FTs ] 
 
 	// https://www.cplusplus.com/reference/iterator/advance/
-	// template <class InputIterator, class Distance>
 	// Advance iterator (function template )
 	template <class InputIterator, class Distance>
 	void advance(InputIterator &i, Distance n,
@@ -128,7 +127,7 @@ namespace ft
 	{
 		typename ft::iterator_traits<InputIterator>::difference_type x = 0;
 
-		while ( first != last )
+		while (first != last)
 		{
 			++first;
 			++x;
@@ -149,7 +148,6 @@ namespace ft
 	{
 		return ft::distance(first, last, typename iterator_traits<Iterator>::iterator_category());
 	}
-
 
 	// // [Iterator generators:]
 	
