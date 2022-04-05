@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/03 10:56:33 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 15:53:45 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,22 @@ namespace ft
 			pointer _ptr;
 		public :
 
-			random_access_iterator() : _ptr(NULL) {}//std::cout << "[constructor] 1\n";}
+			random_access_iterator() : _ptr(NULL) {}
 
 			//explicit needed here to avoid (like stl iter) for ex : iter = ptr;
-			explicit random_access_iterator(pointer const& ptr) : _ptr(ptr) {}//std::cout << "[constructor] 2\n";}
+			explicit random_access_iterator(pointer const& ptr) : _ptr(ptr) {}
 			
 			//useless ? Implicitly well created if don't exist
-			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {}//std::cout << "Constructor 3\n";}
+			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {}
 			
 			// Allow iterator to const_iterator conversion
 			template<class const_iter>
-			random_access_iterator(random_access_iterator<const_iter> const &it) : _ptr(it.base()) {}//std::cout << "[constructor template]\n";}
-		    // operator random_access_iterator<const T>() { return (random_access_iterator<const T>(_ptr)); }
+			random_access_iterator(random_access_iterator<const_iter> const &it) : _ptr(it.base()) {}
 
 			//useless ? Implicitly well created if don't exist
 			random_access_iterator& operator=(const random_access_iterator x) { _ptr = x._ptr; return *this; }
 
-			~random_access_iterator() { _ptr = NULL; }//std::cout << "destruction\n";}
+			~random_access_iterator() { _ptr = NULL; }
 				
 			// [ Operators ]
 			reference operator*() const { return *_ptr; }
@@ -111,23 +110,17 @@ namespace ft
 	template<class IteratorL, class IteratorR>
 	typename random_access_iterator<IteratorL>::difference_type
 	operator-(random_access_iterator<IteratorL> const &lhs, random_access_iterator<IteratorR> const &rhs)
-	{
-		return lhs.base() - rhs.base();
-	}
+	{ return lhs.base() - rhs.base(); }
 
 	// for integer
 	template<class Iterator>
 	random_access_iterator<Iterator>
 	operator-(typename random_access_iterator<Iterator>::difference_type n, random_access_iterator<Iterator> const &i)
-	{
-		return random_access_iterator<Iterator>(i.base() - n);
-	}
+	{ return random_access_iterator<Iterator>(i.base() - n); }
 	
 	template<class Iterator>
 	random_access_iterator<Iterator>
 	operator+(typename random_access_iterator<Iterator>::difference_type n, random_access_iterator<Iterator> const &i)
-	{
-		return random_access_iterator<Iterator>(i.base() + n);
-	}
+	{ return random_access_iterator<Iterator>(i.base() + n); }
 
 }
