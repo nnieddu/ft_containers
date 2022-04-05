@@ -46,9 +46,9 @@ namespace ft
 			typedef std::size_t										size_type;
 		private:
 			allocator_type  _alloc;
-			size_type		_capacity;	
-			size_type		_size;		
-			T				*_items;	
+			size_type		_capacity;
+			size_type		_size;
+			T				*_items;
 		public:
 			//  -----------[ Constructors / dest : ]-----------
 			// default (1)	
@@ -193,7 +193,7 @@ namespace ft
 	
 			size_type capacity() const { return (_capacity); }
 	
-			bool empty() const { return (size() == 0 ? true : false); }
+			bool empty() const { return (_size == 0 ? true : false); }
 
 			// reserve : Request a change in capacity (public member function) (don't modify the size)
 			void reserve (size_type n)
