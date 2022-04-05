@@ -50,6 +50,8 @@ namespace ft
 
 			~random_access_iterator() { _ptr = NULL; }
 				
+			const pointer &base() const { return _ptr; }
+
 			// [ Operators ]
 			reference operator*() const { return *_ptr; }
 			pointer operator->() const { return _ptr; }
@@ -76,7 +78,6 @@ namespace ft
 			
 			reference operator[](difference_type x) { return _ptr[x]; }
 			
-			const pointer &base() const { return _ptr; }
 	};
 
 	//  Overload to compare random_access_iterator with const random_access_iterator
