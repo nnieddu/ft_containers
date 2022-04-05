@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:34:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/31 08:51:48 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 15:53:16 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ namespace ft
 			// Allow iterator to const_iterator conversion
 			template<class Iter>
 			reverse_iterator(const reverse_iterator<Iter>& rev_it) : _current(rev_it.base()) {}
-
-			// Allow iterator to const_iterator conversion
-		    // operator reverse_iterator<const T>() { return (reverse_iterator<const T>(_ptr)); }
 
 			~reverse_iterator() {}
 
@@ -109,10 +106,10 @@ namespace ft
 	// https://www.cplusplus.com/reference/iterator/reverse_iterator/operator_plus-free/
 	// https://www.cplusplus.com/reference/iterator/reverse_iterator/operator_minus-free/
 
-	template<class Iterator>
-	typename reverse_iterator<Iterator>::difference_type
-	operator-(reverse_iterator<Iterator> const &lhs, reverse_iterator<Iterator> const &rhs)
-	{ return rhs.base() - lhs.base(); }
+	template<class IteratorL, class IteratorR>
+	typename reverse_iterator<IteratorL>::difference_type
+	operator-(reverse_iterator<IteratorL> const &lhs, reverse_iterator<IteratorR> const &rhs)
+	{ return lhs.base() - rhs.base(); }
 
 	template<class Iterator>
 	reverse_iterator<Iterator>
