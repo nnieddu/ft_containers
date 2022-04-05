@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:02:19 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/05 15:53:45 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 16:23:35 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,13 @@ namespace ft
 	{ return lhs.base() >= rhs.base(); }
 
 
-	// [ operators + and - ]
-	// for cont or non const random it
+	// Substract of const or non const iterator
 	template<class IteratorL, class IteratorR>
 	typename random_access_iterator<IteratorL>::difference_type
 	operator-(random_access_iterator<IteratorL> const &lhs, random_access_iterator<IteratorR> const &rhs)
 	{ return lhs.base() - rhs.base(); }
 
-	// for integer
-	template<class Iterator>
-	random_access_iterator<Iterator>
-	operator-(typename random_access_iterator<Iterator>::difference_type n, random_access_iterator<Iterator> const &i)
-	{ return random_access_iterator<Iterator>(i.base() - n); }
-	
+	// [ operators+ for pre addition 5 + it]
 	template<class Iterator>
 	random_access_iterator<Iterator>
 	operator+(typename random_access_iterator<Iterator>::difference_type n, random_access_iterator<Iterator> const &i)
