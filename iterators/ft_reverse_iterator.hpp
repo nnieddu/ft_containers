@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:34:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/05 15:53:16 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 16:23:53 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ namespace ft
 			}
 
 			reverse_iterator operator+(difference_type n) const { return reverse_iterator(_current - n); }
+			reverse_iterator& operator+=(difference_type n) { _current -= n; return *this; }
 			reverse_iterator& operator++() { --_current; return *this; }
 			reverse_iterator operator++(int)
 			{
@@ -56,9 +57,9 @@ namespace ft
 				--_current;
 				return tmp;
 			}
-			reverse_iterator& operator+=(difference_type n) { _current -= n;	return *this; }
 
 			reverse_iterator operator-(difference_type n) const { return reverse_iterator(_current + n); }
+			reverse_iterator& operator-=(difference_type n) { _current += n; return *this; }
 			reverse_iterator& operator--() { ++_current; return *this; }
 			reverse_iterator operator--(int)
 			{
@@ -66,7 +67,6 @@ namespace ft
 				++_current;
 				return tmp;
 			}
-			reverse_iterator& operator-=(difference_type n) { _current += n;	return *this; }
 
 			pointer operator->() const { return &(operator*()); }
 			reference operator[](difference_type n) const { return *(*this + n); }
@@ -102,15 +102,13 @@ namespace ft
 	{ return lhs.base() <= rhs.base(); }
 
 
-	// [ operators + and - ]
-	// https://www.cplusplus.com/reference/iterator/reverse_iterator/operator_plus-free/
-	// https://www.cplusplus.com/reference/iterator/reverse_iterator/operator_minus-free/
-
+	// Substract of const or non const reverse_iterator
 	template<class IteratorL, class IteratorR>
 	typename reverse_iterator<IteratorL>::difference_type
 	operator-(reverse_iterator<IteratorL> const &lhs, reverse_iterator<IteratorR> const &rhs)
-	{ return lhs.base() - rhs.base(); }
+	{ return rhs.base() - lhs.base(); }
 
+	// [ operators+ for pre addition 5 + rit]
 	template<class Iterator>
 	reverse_iterator<Iterator>
 	operator+(typename reverse_iterator<Iterator>::difference_type n, reverse_iterator<Iterator> const &i)
