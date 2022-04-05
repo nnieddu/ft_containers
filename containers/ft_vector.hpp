@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 17:40:27 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 17:17:56 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 #include <iostream>
 #include <memory>
 
-#include "../iterators/ft_random_access_iterator.hpp"
-#include "../iterators/ft_reverse_iterator.hpp"
-#include "../utils/ft_type_traits.hpp"
-#include "../utils/ft_algorithm.hpp"
+#include "iterators/ft_random_access_iterator.hpp"
+#include "iterators/ft_reverse_iterator.hpp"
+#include "utils/ft_type_traits.hpp"
+#include "utils/ft_algorithm.hpp"
 
 namespace ft 
 {	
@@ -70,8 +70,6 @@ namespace ft
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
 			: _alloc(alloc), _items(NULL)
 			{
-				// std::cout << "[ RANGE VECTOR CONSTRUCTOR ]" << std::endl;
-				/// OPTI ET TEST AVC distance(first,last) == 1 ou 0
 				_size = last - first;
 
 				if (_size != 0)
@@ -119,7 +117,7 @@ namespace ft
 			// (dans le cas d'un it1 = vec.begin(), il y a un appel au constructeur 
 			// et destructeur d'iterateur qui me semble useless pour le moment, a voir)
 
-			//TODO : Ternaires 
+			//TODO : Ternaires //////////
 			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
@@ -200,7 +198,7 @@ namespace ft
 			void reserve (size_type n)
 			{
 				if (n > _alloc.max_size())
-					throw std::length_error("vector::reserve"); //Maximum supported size exceeds
+					throw std::length_error("vector::reserve");
 
 				if (n > _capacity)
 				{
@@ -218,11 +216,10 @@ namespace ft
 			}
 
 			// ----------[ACCESORS]----------
-			// Access element at n :
-
+			//		 Access element at n
 			reference operator[] (size_type n) { return (_items[n]); }
 
-			const_reference operator[] (size_type n) const { return (_items[n]); } // a test
+			const_reference operator[] (size_type n) const { return (_items[n]); } // a test w
 		
 			reference at (size_type n)
 			{
@@ -256,8 +253,7 @@ namespace ft
 				if (_size != 0)
 					return _items[_size - 1];
 				else
-					return *_items; //// a verif/test si mieux
-					// return _items[0];
+					return *_items;
 			}
 
 			const_reference back() const
@@ -265,8 +261,7 @@ namespace ft
 				if (_size != 0)
 					return _items[_size - 1];
 				else
-					return *_items; //// a verif/test si mieux
-					// return _items[0];
+					return *_items;
 			}
 
 			// ----------[MODIFIERS]----------
@@ -305,7 +300,7 @@ namespace ft
 				_size++;
 			}
 			
-			// pop_back		Delete last element (public member function) (don't modify _capacity)
+			// pop_back		Delete last element (public member function), don't modify _capacity.
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
 			
 			iterator insert (iterator position, const value_type& val)
@@ -440,10 +435,6 @@ namespace ft
 
 		// [Non-member function overloads]
 		// Relational operators for vector (function template)
-		
-		// template<class T, class Alloc>
-		// bool operator==(const vector<T, Alloc>& lsh, const vector<T, Alloc>& rhs)
-		// { return lsh.size() == rhs.size() && ft::equal(lsh.begin(), lsh.end(),rhs.begin(), rhs.end()); }
 		
 		template <class T, class Alloc>
 		bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) 
