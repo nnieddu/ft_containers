@@ -22,10 +22,10 @@
 #include <iostream>
 #include <memory>
 
-#include "iterators/ft_random_access_iterator.hpp"
-#include "iterators/ft_reverse_iterator.hpp"
-#include "utils/ft_type_traits.hpp"
-#include "utils/ft_algorithm.hpp"
+#include "../iterators/ft_random_access_iterator.hpp"
+#include "../iterators/ft_reverse_iterator.hpp"
+#include "../utils/ft_type_traits.hpp"
+#include "../utils/ft_algorithm.hpp"
 
 namespace ft 
 {	
@@ -70,7 +70,8 @@ namespace ft
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
 			: _alloc(alloc), _items(NULL)
 			{
-				_size = last - first;
+				// _size = last - first;
+				_size = ft::distance(first, last);
 
 				if (_size != 0)
 				{
@@ -305,7 +306,8 @@ namespace ft
 			
 			iterator insert (iterator position, const value_type& val)
 			{
-				size_type pos = position - begin();
+				// size_type pos = position - begin();
+				size_type pos = ft::distance(begin(), position);
 				
 				if (_capacity == 0)
 					reserve(1);
@@ -323,7 +325,9 @@ namespace ft
 			// // fill (2)	
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				size_type pos = position - begin();
+				// size_type pos = position - begin();
+				size_type pos = ft::distance(begin(), position);
+
 				size_type s = _size;
 
 				if (_size == _capacity && (n < _capacity * 2))
@@ -345,7 +349,8 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
-				size_type n = last - first;
+				// size_type n = last - first;
+				size_type n = ft::distance(first, last);
 				size_type pos = position - begin();
 				size_type s = _size;
 
@@ -353,11 +358,12 @@ namespace ft
 					reserve(_capacity * 2);				
 				else if (_capacity - _size < n)
 					reserve(_capacity + n);
-
+				
 				_size += n;
 
-				for (size_type index = _size - 1; index >= (pos + n); index--)
-					_alloc.construct(&_items[index], _items[--s]);
+				if (_size != 0)
+					for (size_type index = _size - 1; index > (pos + n); index--)
+						_alloc.construct(&_items[index], _items[--s]);
 
 				for(; n--; first++, ++pos)
 					_alloc.construct(&_items[pos], *first);
