@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:53:33 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 15:41:35 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 16:53:11 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ namespace ft
 			friend bool operator==(const stack<_T, _Container> &, const stack<_T, _Container> &);
 
 			template<class _T, class _Container>
-			friend bool operator<(const stack<_T, _Container> &, const stack<_T, _Container> &);			
+			friend bool operator<(const stack<_T, _Container> &, const stack<_T, _Container> &);
 	};
 	
 	// Non-member function overloads : relational operators
