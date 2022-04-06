@@ -71,15 +71,15 @@ namespace ft
 			: _alloc(alloc), _items(NULL)
 			{
 				_size = ft::distance(first, last);
+				_capacity = _size;
 
-				if (_size != 0)
+				if (_size > 0)
 				{
-					_items = _alloc.allocate(_size);
+					_items = _alloc.allocate(_capacity);
 
 					for (size_type index = 0; first != last; first++, index++)
 						_alloc.construct(&_items[index], *first);
 				}
-				_capacity = _size;
 			}
 
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
@@ -251,7 +251,7 @@ namespace ft
 			// TODO TERNAIRES //
 			reference back()
 			{
-				if (_size != 0)
+				if (_size > 0)
 					return _items[_size - 1];
 				else
 					return *_items;
@@ -260,7 +260,7 @@ namespace ft
 			// TODO TERNAIRES //
 			const_reference back() const
 			{
-				if (_size != 0)
+				if (_size > 0)
 					return _items[_size - 1];
 				else
 					return *_items;
@@ -371,7 +371,7 @@ namespace ft
 			{
 				size_type pos = position - begin();
 				
-				if (_size != 0)
+				if (_size > 0)
 				{
 					size_type index = pos;
 					for (; index < _size - 1; index++)
