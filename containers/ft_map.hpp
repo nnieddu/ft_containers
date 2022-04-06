@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 // https://www.cplusplus.com/reference/map/map/
-// https://www.programiz.com/dsa/binary-search-tree/
-// https://codereview.stackexchange.com/questions/43972/implementation-of-stdmap
+// https://en.cppreference.com/w/cpp/container/map
 
 #pragma once
 
@@ -193,4 +192,13 @@ namespace ft
 		allocator_type get_allocator() const { return _alloc; }
 	};
 
+// https://en.cppreference.com/w/cpp/container/map
+// Non-member functions
+// lexicographically compares the values in the map (function template)
+// operator==
+// operator!=
+// operator<
+// operator<=
+// operator>
+// operator>=
 }
