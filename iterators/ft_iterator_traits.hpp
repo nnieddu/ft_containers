@@ -40,6 +40,9 @@ namespace ft
 	// struct bidirectional_iterator_tag : public forward_iterator_tag {};
 	// struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
+	// typedef std tag, using personnal/ft tag who are juste empty struct (like above),
+	// don't allow to use std iterator in function like ditance, advance...
+	// This permit to use range function like, constructor, insert.. with stl iterator).
 	typedef struct std::input_iterator_tag input_iterator_tag;
 	typedef struct std::output_iterator_tag output_iterator_tag;
 	typedef struct std::forward_iterator_tag forward_iterator_tag;
