@@ -53,10 +53,10 @@ namespace ft
 
 		// (constructor)
 		// Construct map (public member function )
-
 		// empty (1)	
-		// explicit map (const key_compare& comp = key_compare(),
-			// const allocator_type& alloc = allocator_type());
+		explicit map (const key_compare& comp = key_compare(),
+			const allocator_type& alloc = allocator_type())
+		: _alloc(alloc), _capacity(0), _size(0) {}
 
 		// range (2)	
 		// template <class InputIterator>
