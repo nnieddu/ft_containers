@@ -42,7 +42,7 @@ namespace ft
 
 	// typedef std tag, using personnal/ft tag who are juste empty struct (like above),
 	// don't allow to use std iterator in function like ditance, advance...
-	// This permit to use range function like, constructor, insert.. with stl iterator).
+	// This permit to use range function like: constructor, insert.. with stl iterator.
 	typedef struct std::input_iterator_tag input_iterator_tag;
 	typedef struct std::output_iterator_tag output_iterator_tag;
 	typedef struct std::forward_iterator_tag forward_iterator_tag;
@@ -152,27 +152,17 @@ namespace ft
 		return ft::distance(first, last, typename iterator_traits<Iterator>::iterator_category());
 	}
 
-	// // [Iterator generators:]
+	// [Iterator generators:]
 	
-	// // template <class Container>
-	// // back_insert_iterator<Container> back_inserter (Container& x);
-	// // 	Construct back insert iterator (function template )
+	// back_inserter : Construct back insert iterator (function template )
+	// template <class Container>
+	// back_insert_iterator<Container> back_inserter (Container& x);
 
-	// // front_inserter
-	// // 	Constructs front insert iterator (function template )
-
-	// // inserter
-	
-	// // 	Construct insert iterator (function template )
-			// [Iterator generators:]
-
-			// back_inserter
-			// 	Construct back insert iterator (function template )
-
-			// front_inserter
-			// 	Constructs front insert iterator (function template )
-
-			// inserter
-			// 	Construct insert iterator (function template )
-	
+	// front_inserter : Constructs front insert iterator (function template )
+	// template <class Container>
+	// front_insert_iterator<Container> front_inserter (Container& x);
+		
+	// inserter : Construct insert iterator (function template )
+	// template <class Container, class Iterator>
+	// insert_iterator<Container> inserter (Container& x, Iterator it);
 }
