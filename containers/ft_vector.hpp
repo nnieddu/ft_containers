@@ -70,7 +70,6 @@ namespace ft
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
 			: _alloc(alloc), _items(NULL)
 			{
-				// _size = last - first;
 				_size = ft::distance(first, last);
 
 				if (_size != 0)
@@ -85,7 +84,7 @@ namespace ft
 
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
 			vector (const vector& x)
-			: _alloc(x._alloc), _capacity(x.capacity()), _size(x.size()), _items(_alloc.allocate(_capacity))
+			: _alloc(x._alloc), _capacity(x._capacity), _size(x._size), _items(_alloc.allocate(_capacity))
 			{
 				for (size_type index = 0; index < _size; index++)
 					_alloc.construct(&_items[index], x._items[index]);
@@ -104,11 +103,11 @@ namespace ft
 					return *this;
 
 				clear();
-				reserve(x.capacity());
-				for (size_type index = 0; index < x.size(); index++)
+				reserve(x._capacity);
+				for (size_type index = 0; index < x._size; index++)
 					_alloc.construct(&_items[index], x[index]);
-				_size = x.size();
-				_capacity = x.capacity();
+				_size = x._size;
+				_capacity = x._capacity;
 				return *this;
 			}
 	
@@ -118,7 +117,7 @@ namespace ft
 			// (dans le cas d'un it1 = vec.begin(), il y a un appel au constructeur 
 			// et destructeur d'iterateur qui me semble useless pour le moment, a voir)
 
-			//TODO : Ternaires //////////
+			//TODO : TERNAIRES //////////
 			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
@@ -171,7 +170,7 @@ namespace ft
 
 			size_type size() const { return _size; }
 	
-			size_type max_size() const { return allocator_type().max_size(); }
+			size_type max_size() const { return _alloc.max_size(); }
 	
 			void resize(size_type n, value_type val = value_type())
 			{
@@ -195,7 +194,7 @@ namespace ft
 	
 			bool empty() const { return (_size == 0 ? true : false); }
 
-			// reserve : Request a change in capacity (public member function) (don't modify the size)
+			// reserve : Request a change in capacity (don't modify the size)
 			void reserve (size_type n)
 			{
 				if (n > _alloc.max_size())
@@ -244,11 +243,12 @@ namespace ft
 				return (_items[n]);
 			}
 
-			// front	Access first element (public member function)
+			// front	Access first element 
 			reference front() { return (_items[0]); }
 			const_reference front() const { return (_items[0]); };
 		
-			// back		Access last element (public member function)
+			// back		Access last element
+			// TODO TERNAIRES //
 			reference back()
 			{
 				if (_size != 0)
@@ -257,6 +257,7 @@ namespace ft
 					return *_items;
 			}
 
+			// TODO TERNAIRES //
 			const_reference back() const
 			{
 				if (_size != 0)
@@ -266,7 +267,7 @@ namespace ft
 			}
 
 			// ----------[MODIFIERS]----------
-			// assign		Assign vector content (public member function) 
+			// assign		Assign vector content 
 			// range (1)	
 			template <class InputIterator>
 			void assign(InputIterator first, InputIterator last, 
@@ -290,7 +291,7 @@ namespace ft
 				resize(n, val);
 			}
 
-			// push_back	Add element at the end (public member function)
+			// push_back	Add element at the end 
 			void push_back (const value_type& val)
 			{
 				if (_capacity == 0)
@@ -301,7 +302,7 @@ namespace ft
 				_size++;
 			}
 			
-			// pop_back		Delete last element (public member function), don't modify _capacity.
+			// pop_back		Delete last element , don't modify _capacity.
 			void pop_back() { _alloc.destroy(&_items[--_size]); }
 			
 			iterator insert (iterator position, const value_type& val)
@@ -346,7 +347,6 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
-				// size_type n = last - first;
 				size_type n = ft::distance(first, last);
 
 				size_type pos = position - begin();
@@ -366,7 +366,7 @@ namespace ft
 					_alloc.construct(&_items[pos], *first);
 			}
 
-			// erase	Erase elements (public member function)
+			// erase	Erase elements 
 			iterator erase (iterator position)
 			{
 				size_type pos = position - begin();
@@ -402,7 +402,7 @@ namespace ft
 				return (iterator(&_items[begin_index]));
 			}
 
-			// swap		Swap content (public member function)
+			// swap		Swap content 
 			void swap (vector& x)
 			{
 				Alloc		&tmp_alloc	= x._alloc;
@@ -421,7 +421,8 @@ namespace ft
 				_items 		= tmp_items;
 			}
 			
-			// clear	Clear content (public member function)
+			// clear : Clear content (reallocation is not guaranteed to happen, 
+			//	and the vector capacity is not guaranteed to change)
 			void clear()
 			{
 				if (_items != NULL)
@@ -432,13 +433,13 @@ namespace ft
 				}
 			}
 
-			// get_allocator	Get allocator (public member function)
 			allocator_type get_allocator() const { return _alloc; }
 	};
 
 		// [Non-member function overloads]
 		// Relational operators for vector (function template)
 		
+		//TODO TERNAIRES for == 
 		template <class T, class Alloc>
 		bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) 
 		{
