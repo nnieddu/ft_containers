@@ -12,6 +12,7 @@
 
 // https://www.cplusplus.com/reference/map/map/
 // https://www.programiz.com/dsa/binary-search-tree/
+// https://codereview.stackexchange.com/questions/43972/implementation-of-stdmap
 
 #pragma once
 
@@ -24,7 +25,7 @@
 namespace ft 
 {	
 	template < class Key, class T, class Compare = ft::less<Key>, 
-		class Alloc = std::allocator<ft::pair<const Key,T> > >
+		class Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map 
 	{
 		public: 
@@ -104,7 +105,7 @@ namespace ft
 
 		// empty
 		// Test whether container is empty (public member function )
-		bool empty() const {return ( _size == 0 ? true : false); };
+		bool empty() const { return ( _size == 0 ? true : false); };
 
 		// size
 		// Return container size (public member function )
@@ -112,7 +113,7 @@ namespace ft
 
 		// max_size
 		// Return maximum size (public member function )
-		size_type max_size() const { allocator_type().max_size(); }
+		size_type max_size() const { return _alloc.max_size(); }
 
 		// Element access:
 
