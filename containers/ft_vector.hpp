@@ -48,7 +48,7 @@ namespace ft
 			allocator_type  _alloc;
 			size_type		_capacity;
 			size_type		_size;
-			T				*_items;
+			value_type*		_items;
 		public:
 			//  -----------[ Constructors / dest : ]-----------
 			// default (1)	
