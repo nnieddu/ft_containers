@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+// https://docs.microsoft.com/en-us/cpp/standard-library/function-objects-in-the-stl?view=msvc-170
 
+#pragma once
 namespace ft
 {
 	// https://www.cplusplus.com/reference/functional/binary_function/
