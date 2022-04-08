@@ -39,8 +39,6 @@ class rbtree
 		~rbtree()
 		{
 			delete nil;
-			if(root != nil)
-				clean(root);
 		}
 	
 		node* nil;
@@ -346,30 +344,6 @@ class rbtree
 		
 		void clean(node* x)
 		{
-			if(x->left != nil)
-				rbDelete(x->left);
-			if(x != nil)
-			{
-				std::cout << x->key << ' ';
-				if(x->color == true)
-					std::cout << "RED ";
-				else
-					std::cout << "BLACK ";
-				if(x->p != nil)
-					std::cout << x->p->key << ' ';
-				else
-					std::cout << "NULL ";
-				if(x->left != nil)
-					std::cout << x->left->key << ' ';
-				else
-					std::cout << "NULL ";
-				if(x->right != nil)
-					std::cout << x->right->key << ' ';
-				else
-					std::cout << "NULL ";
-			}
-			std::cout << std::endl;
-			if(x->right != nil)
-				rbDelete(x->right);
+
 		}
 };
