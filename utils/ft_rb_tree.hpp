@@ -175,7 +175,7 @@ class rbtree
 						{
 							z = z->p;
 							leftRotate(z);
-						}//
+						}
 						z->p->color = false;
 						z->p->p->color = true;
 						z->p->right->color = false;
@@ -352,12 +352,15 @@ class rbtree
 		void clean(node* x)
 		{
 			if(x->right != nil)
+			{
 				clean(x->right);
-			if(x->right != nil)
 				delete x->right;
+			}
+
 			if(x->left != nil)
+			{
 				clean(x->left);
-			if(x->left != nil)
 				delete x->left;
+			}
 		}
 };
