@@ -310,6 +310,21 @@ class rbtree
 			}
 			x->color = false;
 		}
+		
+		void clean(node* x)
+		{
+			if(x->right != nil)
+			{
+				clean(x->right);
+				delete x->right;
+			}
+
+			if(x->left != nil)
+			{
+				clean(x->left);
+				delete x->left;
+			}
+		}
 
 		void display()
 		{
@@ -317,7 +332,7 @@ class rbtree
 				_display(root);
 			else
 				std::cout << "Tree is empty !" << std::endl;
-			std::cout << "ROOT :" << root->key << std::endl;
+			std::cout << "ROOT :" << root->key << std::endl; ///////
 		}
 
 		void _display(node* x)
@@ -347,20 +362,5 @@ class rbtree
 			std::cout << std::endl;
 			if(x->right != nil)
 				_display(x->right);
-		}
-		
-		void clean(node* x)
-		{
-			if(x->right != nil)
-			{
-				clean(x->right);
-				delete x->right;
-			}
-
-			if(x->left != nil)
-			{
-				clean(x->left);
-				delete x->left;
-			}
 		}
 };
