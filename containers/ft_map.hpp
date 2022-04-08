@@ -20,6 +20,7 @@
 #include "../iterators/ft_bidirectional_iterator.hpp"
 #include "../utils/ft_utility.hpp"
 #include "../utils/ft_functional.hpp"
+#include "../utils/ft_rb_tree.hpp"
 
 namespace ft 
 {	
@@ -44,9 +45,11 @@ namespace ft
 			typedef std::ptrdiff_t										difference_type;
 			typedef std::size_t											size_type;
 		private:	
-			allocator_type  _alloc;
-			size_type		_capacity;	
-			size_type		_size;
+			allocator_type  		_alloc;
+			size_type				_capacity;	
+			size_type				_size;
+			// rb_node<value_type>*	_root;
+
 		public: 
 		// [ Member functions ]
 
@@ -55,7 +58,10 @@ namespace ft
 		// empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type())
-		: _alloc(alloc), _capacity(0), _size(0) {}
+		: _alloc(alloc), _capacity(0), _size(0) 
+		{
+			
+		}
 
 		// range (2)	
 		// template <class InputIterator>
