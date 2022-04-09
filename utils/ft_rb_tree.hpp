@@ -43,7 +43,7 @@ class rbtree
 		size_type	_height;
 
 	public:
-		rbtree() : nil(new node), root(nil) 
+		rbtree() : nil(new node), root(nil), _size(0), _height(0)
 		{ nil->left = 0; nil->p = 0; nil->right = 0; nil->color = false; }
 
 		~rbtree()
@@ -57,8 +57,9 @@ class rbtree
 		}
 	
 
-	size_type	size() { return _size; }
-	size_type	height() { return _height; }
+		size_type	size() { return _size; }
+		
+		size_type	height() { return _height; }
 
 		void insert(T value)
 		{
@@ -376,10 +377,76 @@ class rbtree
 				_display(x->right);
 		}
 		
+
+		void	printHelperR(node* x, std::string& padding)
+		{
+			if(x != nil)
+			{
+				// padding.erase(padding.end() - 4, padding.end() - 1);
+				std::cout << " " << x->value;
+
+				if(x->color == true)
+					std::cout << "(R)";
+				else
+					std::cout << "(B)";
+			}
+		}
+
+		void	printHelper(node* x, int flag, std::string& padding)
+		{
+			if(x != nil && flag == 0)
+			{
+				padding.erase(padding.end() - 4, padding.end() - 1);
+				std::cout << padding << x->value;
+
+				if(x->color == true)
+					std::cout << "(R)";
+				else
+					std::cout << "(B)";
+				
+				printHelperR(x->right, padding);
+				std::cout << std::endl;
+
+				std::cout << padding << "/    \\"<< std::endl;
+				// if(x->p != nil)
+				// 	std::cout << "p:" << x->p->value << ' ';
+				// else
+				// 	std::cout << "p:" << "NULL ";
+				// if(x->left == nil)
+				// {
+				// 	padding.erase(padding.end() - 4, padding.end() - 1);
+				// 	std::cout << padding << "NULL ";
+				// }
+				// if(x->right != nil)
+				// 	std::cout << "r:" << x->right->value << ' ';
+				// else
+				// 	std::cout << "r:" << "NULL ";
+
+			}
+			if(x->left != nil)
+				printHelper(x->left, 0, padding);
+			// if(x->right != nil)
+				// printHelper(x->right, 0, padding);
+		}
+
 		void	print()
 		{
+			std::string padding;
+
+			std::cout << _size << std::endl;
 			if(root != nil)
-				std::cout << root->value << std::endl;
+			{
+				for (size_type i = _size; i > 0; i--)
+					padding += "   ";
+				
+				std::cout << padding << " " << root->value << " (B)" << std::endl;
+				std::cout << padding << "/ \\"<< std::endl;
+				padding.erase(padding.end() - 1);
+				std::cout << padding << "/   \\"<< std::endl;
+			}
+		printHelper(root, 1, padding);
+
+			
 		}
 };
 
