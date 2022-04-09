@@ -69,17 +69,8 @@ int main()
 	tr.insert(4);
 	tr.insert(5);
 	tr.insert(6);
-	tr.insert(7);
-	tr.insert(8);
-	tr.insert(9);
-	tr.insert(10);
-	tr.insert(11);
 	tr.display();
 	
-	tr.insert(12);
-	tr.insert(13);
-	tr.insert(14);
-	tr.insert(15);
 	tr.insert(16);
 	tr.insert(17);
 	tr.insert(18);

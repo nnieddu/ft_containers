@@ -24,15 +24,25 @@ class rbtree
 {
 
 	public:
+		typedef std::size_t		size_type;
+
 		struct node
 		{
-			T 		key;
+			T 		value;
 			node 	*left;
 			node 	*right;
 			node 	*p;
 			bool 	color; // true == red | false == black
 		};
 
+		node* nil;
+		node* root;
+
+	private:
+		size_type	_size;
+		size_type	_height;
+
+	public:
 		rbtree() : nil(new node), root(nil) 
 		{ nil->left = 0; nil->p = 0; nil->right = 0; nil->color = false; }
 
@@ -46,20 +56,21 @@ class rbtree
 			delete nil;
 		}
 	
-		node* nil;
-		node* root;
 
-		void insert(T key)
+	size_type	size() { return _size; }
+	size_type	height() { return _height; }
+
+		void insert(T value)
 		{
 			node* t = new node;
 			node* x = root;
 			node* y = nil;
 
-			t->key = key;
+			t->value = value;
 			while(x != nil)
 			{
 				y = x;
-				if(key < x->key)
+				if(value < x->value)
 					x = x->left;
 				else
 					x = x->right;
@@ -69,7 +80,7 @@ class rbtree
 				root = t;
 			else
 			{
-				if (t->key < y->key)
+				if (t->value < y->value)
 					y->left = t;
 				else
 					y->right = t;
@@ -78,14 +89,15 @@ class rbtree
 			t->right = nil;
 			t->color = true;
 			rbInsertFixup(t);
+			++_size;
 		}
 
-		node* search(T key)
+		node* search(T value)
 		{
 			node* x = root;
-			while(x != nil && key != x->key)
+			while(x != nil && value != x->value)
 			{
-				if(key < x->key)
+				if(value < x->value)
 					x = x->left;
 				else
 					x = x->right;
@@ -93,9 +105,9 @@ class rbtree
 			return x;
 		}
 
-		void erase(T key)
+		void erase(T value)
 		{
-			node* x = search(key);
+			node* x = search(value);
 			if(x != nil)
 				rbDelete(x);
 		}
@@ -233,7 +245,7 @@ class rbtree
 					y->p->right = x;
 			}
 			if(y != z)
-				z->key = y->key;
+				z->value = y->value;
 			if(y->color == false)
 				rbDeleteFixup(x);
 			delete y;
@@ -332,7 +344,7 @@ class rbtree
 				_display(root);
 			else
 				std::cout << "Tree is empty !" << std::endl;
-			std::cout << "ROOT :" << root->key << std::endl; ///////
+			std::cout << "ROOT :" << root->value << std::endl; ///////
 		}
 
 		void _display(node* x)
@@ -341,21 +353,21 @@ class rbtree
 				_display(x->left);
 			if(x != nil)
 			{
-				std::cout << x->key << ' ';
+				std::cout << x->value << ' ';
 				if(x->color == true)
 					std::cout << "RED ";
 				else
 					std::cout << "BLACK ";
 				if(x->p != nil)
-					std::cout << "p:" << x->p->key << ' ';
+					std::cout << "p:" << x->p->value << ' ';
 				else
 					std::cout << "p:" << "NULL ";
 				if(x->left != nil)
-					std::cout << "l:" << x->left->key << ' ';
+					std::cout << "l:" << x->left->value << ' ';
 				else
 					std::cout << "l:" << "NULL ";
 				if(x->right != nil)
-					std::cout << "r:" << x->right->key << ' ';
+					std::cout << "r:" << x->right->value << ' ';
 				else
 					std::cout << "r:" << "NULL ";
 			}
@@ -363,4 +375,11 @@ class rbtree
 			if(x->right != nil)
 				_display(x->right);
 		}
+		
+		void	print()
+		{
+			if(root != nil)
+				std::cout << root->value << std::endl;
+		}
 };
+
