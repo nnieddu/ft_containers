@@ -466,4 +466,16 @@ namespace ft
 		// Swap
 		template<class T, class Alloc>
 		void swap (vector<T, Alloc>& lhs, vector<T, Alloc>& rhs) { lhs.swap(rhs); }
+
+
+		////////////////// for testing
+		template<class T >
+		std::ostream& operator<<(std::ostream& os, const vector<T>& v)
+		{
+			if (v.size() > 0)
+				os << *v.begin();
+			else
+			os << "Empty";
+			return os;
+		}
 }

@@ -33,6 +33,8 @@ class rbtree
 			node 	*right;
 			node 	*p;
 			bool 	color; // true == red | false == black
+			size_type	h;
+
 		};
 
 		node* nil;
@@ -44,7 +46,7 @@ class rbtree
 
 	public:
 		rbtree() : nil(new node), root(nil), _size(0), _height(0)
-		{ nil->left = 0; nil->p = 0; nil->right = 0; nil->color = false; }
+		{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; nil->h = 0; root->h = 0; }
 
 		~rbtree()
 		{
@@ -55,7 +57,6 @@ class rbtree
 			}
 			delete nil;
 		}
-	
 
 		size_type	size() { return _size; }
 		
@@ -67,6 +68,7 @@ class rbtree
 			node* x = root;
 			node* y = nil;
 
+			t->h = 0;
 			t->value = value;
 			while(x != nil)
 			{
@@ -75,8 +77,10 @@ class rbtree
 					x = x->left;
 				else
 					x = x->right;
+				t->h++;//////////
 			}
 			t->p = y;
+			t->h = 0; ////////////
 			if(y == nil)
 				root = t;
 			else
@@ -85,11 +89,13 @@ class rbtree
 					y->left = t;
 				else
 					y->right = t;
+				t->h++;////////////////
 			}
 			t->left = nil;
 			t->right = nil;
 			t->color = true;
-			rbInsertFixup(t);
+			if (_size < 4)
+				rbInsertFixup(t);
 			++_size;
 		}
 
@@ -134,7 +140,10 @@ class rbtree
 		{
 			node* y = x->right;
 			if(x->p == nil)
+			{
 				root = y;
+				root->h = 0; ///////////
+			}
 			else
 			{
 				if(x == x->p->left)
@@ -147,13 +156,17 @@ class rbtree
 			y->left->p = x;
 			y->left = x;
 			x->p = y;
+			x->h++; /////////////
 		}
 
 		void rightRotate(node*x)
 		{
 			node* y = x->left;
 			if(x->p == nil)
+			{
 				root = y;
+				root->h = 0; ///////////
+			}
 			else
 			{
 				if(x->p->left == x)
@@ -166,6 +179,8 @@ class rbtree
 			y->right->p = x;
 			y->right = x;
 			x->p = y;
+			x->h--; ///////////
+
 		}
 
 		void rbInsertFixup(node* z)
@@ -346,6 +361,8 @@ class rbtree
 			else
 				std::cout << "Tree is empty !" << std::endl;
 			std::cout << "ROOT :" << root->value << std::endl; ///////
+			std::cout << "SizE :" << _size << std::endl; ///////
+			std::cout << "Height :" << _height << std::endl; ///////
 		}
 
 		void _display(node* x)
@@ -372,81 +389,74 @@ class rbtree
 				else
 					std::cout << "r:" << "NULL ";
 			}
-			std::cout << std::endl;
+			std::cout << "H=" << x->h << std::endl;
 			if(x->right != nil)
 				_display(x->right);
 		}
-		
 
-		void	printHelperR(node* x, std::string& padding)
+		void	printHelper(node* x, size_type flag, std::string padding, std::string spaces)
 		{
 			if(x != nil)
 			{
-				// padding.erase(padding.end() - 4, padding.end() - 1);
-				std::cout << " " << x->value;
+				if (flag == 0)
+				{
+					for (size_type i = _size / 2 + 1; i > 0; i--)
+						padding.erase(padding.end() - 1);
+				}
+				if (flag == 1)
+				{
+					for (size_type i = _size / 2 + 1; i > 0; i--)
+						padding += " ";
+				}
 
-				if(x->color == true)
-					std::cout << "(R)";
-				else
-					std::cout << "(B)";
-			}
-		}
+				if (flag == 1)
+					std::cout << std::endl;
 
-		void	printHelper(node* x, int flag, std::string& padding)
-		{
-			if(x != nil && flag == 0)
-			{
-				padding.erase(padding.end() - 4, padding.end() - 1);
 				std::cout << padding << x->value;
 
 				if(x->color == true)
 					std::cout << "(R)";
 				else
 					std::cout << "(B)";
-				
-				printHelperR(x->right, padding);
-				std::cout << std::endl;
 
-				std::cout << padding << "/    \\"<< std::endl;
-				// if(x->p != nil)
-				// 	std::cout << "p:" << x->p->value << ' ';
-				// else
-				// 	std::cout << "p:" << "NULL ";
-				// if(x->left == nil)
-				// {
-				// 	padding.erase(padding.end() - 4, padding.end() - 1);
-				// 	std::cout << padding << "NULL ";
-				// }
-				// if(x->right != nil)
-				// 	std::cout << "r:" << x->right->value << ' ';
-				// else
-				// 	std::cout << "r:" << "NULL ";
+				if (flag == 0)
+				{
 
+					printHelper(x->left, 0, padding, spaces);
+					std::cout << std::endl;
+					printHelper(x->right, 1, padding, spaces);
+				}
+				// std::cout << padding << "/"<< spaces << "\\";
 			}
-			if(x->left != nil)
-				printHelper(x->left, 0, padding);
-			// if(x->right != nil)
-				// printHelper(x->right, 0, padding);
 		}
 
 		void	print()
 		{
 			std::string padding;
+			std::string spaces;
+			std::string tempPading;
 
-			std::cout << _size << std::endl;
 			if(root != nil)
 			{
-				for (size_type i = _size; i > 0; i--)
+				for (size_type i = _size ; i > 0; i--)
 					padding += "   ";
 				
-				std::cout << padding << " " << root->value << " (B)" << std::endl;
-				std::cout << padding << "/ \\"<< std::endl;
-				padding.erase(padding.end() - 1);
-				std::cout << padding << "/   \\"<< std::endl;
+				for (size_type i = _size ; i > 0; i--)
+					tempPading += "  ";
+				
+				for (size_type i = _size; i > 0; i--)
+						spaces += " ";
+				std::cout << padding << "[" << root->value << "]" << std::endl;
+				std::cout << padding << "/ " << std::endl;
+				printHelper(root->left, 0, padding, spaces);
+				std::cout << std::endl;
+				std::cout << "----------------------------------------------------------" << std::endl;
+				std::cout << std::endl;
+				std::cout << tempPading << "[" << root->value << "]" << std::endl;
+				std::cout << tempPading << "    \\" << std::endl;
+				tempPading += spaces;
+				printHelper(root->right, 0, tempPading, spaces);
 			}
-		printHelper(root, 1, padding);
-
-			
 		}
 };
 

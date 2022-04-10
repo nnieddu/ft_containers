@@ -57,27 +57,41 @@ void	printvector(ft::vector<std::string> vector)
 }
 
 
-
+#include<cstdlib>
 int main() 
 {
-	rbtree<int> tr;
-
-	tr.insert(1);
-	tr.insert(2);
-	tr.insert(3);
-	// tr.display();
-	tr.insert(4);
-	tr.insert(5);
-	tr.insert(6);
-	// tr.display();
+	rbtree<ft::vector<int> > tr;
 	
-	tr.insert(16);
-	tr.insert(17);
-	tr.insert(18);
-	tr.print();
-	std::cout << std::endl;
-	std::cout << std::endl;
-	tr.display();
+	// for (int i = 5; i > 0; i--)
+	// 	tr.insert(rand()%1000);
+	// tr.insert(886);
+	// tr.insert(2777);
+	// tr.insert(6915);
+	// tr.insert(7793);
+	// tr.insert(9383);
+	// tr.insert(880);
+	// tr.insert(887);
+	// tr.insert(879);
+	// tr.insert(878);
+	// tr.insert(888);
+	// tr.insert(876);
+	// tr.insert(881);
+
+	ft::vector<int> test;
+	test.push_back(50);
+	test.push_back(51);
+	ft::vector<int> test2;
+	// test2.push_back(42);
+	tr.insert(test);
+	tr.insert(test2);
+
+	// tr.print();
+	// std::cout << std::endl;
+	// std::cout << std::endl;
+	// tr.display();
+
+	std::cout << "TEST=" << test << std::endl;
+	std::cout << "TEST2=" << test2 << std::endl;
 	// tr.clean(tr);
 	return 0;
 }
