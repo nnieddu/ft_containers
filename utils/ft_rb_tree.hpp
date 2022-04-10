@@ -68,8 +68,11 @@ class rbtree
 			delete nil;
 		}
 
+		// -------------------------------- //
+		// -------------Utils-------------- //
+		// -------------------------------- //
+
 		size_type	size() { return _size; }
-		
 		size_type	height() { return _height; }
 
 		node* search(T value)
@@ -84,10 +87,11 @@ class rbtree
 			}
 			return x;
 		}
-		
+
 		// -------------------------------- //
-		// -------------Insert------------- //
+		// ------------Insert-------------- //
 		// -------------------------------- //
+
 		void insert(T value)
 		{
 			node* t = new node;
