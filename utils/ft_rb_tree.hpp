@@ -19,6 +19,7 @@
 // https://www.cs.usfca.edu/~galles/visualization/RedBlack.html // Simu
 
 // https://fr.abcdef.wiki/wiki/Red%E2%80%93black_tree
+// https://www.codesdope.com/course/data-structures-red-black-trees-insertion/
 
 // Chaque nœud est rouge ou noir. 
 // Tous les nœuds NIL sont considérés comme noirs. 
@@ -38,11 +39,11 @@ class rbtree
 
 		struct node
 		{
-			T 		value;
-			node 	*left;
-			node 	*right;
-			node 	*p;
-			bool 	color; // true == red | false == black
+			T 			value;
+			node 		*left;
+			node 		*right;
+			node 		*p;
+			bool 		color; // true == red | false == black
 			size_type	h;
 
 		};
@@ -56,7 +57,7 @@ class rbtree
 
 	public:
 		rbtree() : nil(new node), root(nil), _size(0), _height(0)
-		{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; nil->h = 0; root->h = 0; }
+		{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
 
 		~rbtree()
 		{
@@ -121,12 +122,12 @@ class rbtree
 			t->left = nil;
 			t->right = nil;
 			t->color = true;
+
 			rbInsertFixup(t);
 			++_size;
-			t->h++;
 		}
 
-		void leftRotate(node*x)
+		void leftRotate(node* x)
 		{
 			node* y = x->right;
 			if(x->p == nil)
@@ -143,17 +144,16 @@ class rbtree
 			y->left->p = x;
 			y->left = x;
 			x->p = y;
-			x->h--; /////
 		}
 
-		void rightRotate(node*x)
+		void rightRotate(node* x)
 		{
 			node* y = x->left;
 			if(x->p == nil)
 				root = y;
 			else
 			{
-				if(x->p->left == x)
+				if(x == x->p->left)
 					x->p->left = y;
 				else
 					x->p->right = y;
@@ -163,7 +163,7 @@ class rbtree
 			y->right->p = x;
 			y->right = x;
 			x->p = y;
-			x->h++; /////
+
 		}
 
 		void rbInsertFixup(node* z)
@@ -179,7 +179,6 @@ class rbtree
 						y->color = false;
 						z->p->p->color = true;
 						z = z->p->p;
-						z->h++;
 					}
 					else
 					{
@@ -203,7 +202,6 @@ class rbtree
 						y->color = false;
 						z->p->p->color = true;
 						z = z->p->p;
-						z->h--;
 					}
 					else
 					{

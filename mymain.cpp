@@ -49,10 +49,12 @@ void	printvector(ft::vector<std::string> vector)
 #include<cstdlib>
 int main() 
 {
-	rbtree<ft::vector<std::string> > tr;
+	rbtree<int> tr;
 	
-	// for (int i = 5; i > 0; i--)
-	// 	tr.insert(rand()%1000);
+	for (int i = 1; i <= 6; i++)
+		tr.insert(i);
+
+
 	// tr.insert(886);
 	// tr.insert(2777);
 	// tr.insert(6915);
@@ -66,23 +68,23 @@ int main()
 	// tr.insert(876);
 	// tr.insert(881);
 
-	ft::vector<std::string> test;
-	ft::vector<std::string> test2;
-	ft::vector<std::string> test3;
-	ft::vector<std::string> test4;
-	ft::vector<std::string> test5;
+	// ft::vector<std::string> test;
+	// ft::vector<std::string> test2;
+	// ft::vector<std::string> test3;
+	// ft::vector<std::string> test4;
+	// ft::vector<std::string> test5;
 
-	test3.push_back("z");
-	test4.push_back("d");
-	test.push_back("a");
-	test2.push_back("c");
-	test5.push_back("b");
+	// test3.push_back("z");
+	// test4.push_back("d");
+	// test.push_back("a");
+	// test2.push_back("c");
+	// test5.push_back("b");
 
-	tr.insert(test3);
-	tr.insert(test4);
-	tr.insert(test);
-	tr.insert(test2);
-	tr.insert(test5);
+	// tr.insert(test3);
+	// tr.insert(test4);
+	// tr.insert(test);
+	// tr.insert(test2);
+	// tr.insert(test5);
 
 	// tr.print();
 	// std::cout << std::endl;
