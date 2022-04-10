@@ -12,8 +12,18 @@
 
 // https://www.youtube.com/watch?v=1HYIJtM6FAU
 // https://www.youtube.com/watch?v=h1Z8_ebEqao
+
 // https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/
 // https://proprogramming.org/red-black-treerb-tree-implementation-in-c/
+
+// https://www.cs.usfca.edu/~galles/visualization/RedBlack.html // Simu
+
+// https://fr.abcdef.wiki/wiki/Red%E2%80%93black_tree
+
+// Chaque nœud est rouge ou noir. 
+// Tous les nœuds NIL sont considérés comme noirs. 
+// Un nœud rouge n'a pas d'enfant rouge. 
+// Chaque chemin d'un nœud donné à l'un de ses nœuds NIL descendants passe par le même nombre de nœuds noirs. 
 
 #pragma once
 
@@ -62,6 +72,22 @@ class rbtree
 		
 		size_type	height() { return _height; }
 
+		node* search(T value)
+		{
+			node* x = root;
+			while(x != nil && value != x->value)
+			{
+				if(value < x->value)
+					x = x->left;
+				else
+					x = x->right;
+			}
+			return x;
+		}
+		
+		// -------------------------------- //
+		// -------------Insert------------- //
+		// -------------------------------- //
 		void insert(T value)
 		{
 			node* t = new node;
@@ -77,10 +103,8 @@ class rbtree
 					x = x->left;
 				else
 					x = x->right;
-				t->h++;//////////
 			}
 			t->p = y;
-			t->h = 0; ////////////
 			if(y == nil)
 				root = t;
 			else
@@ -89,61 +113,20 @@ class rbtree
 					y->left = t;
 				else
 					y->right = t;
-				t->h++;////////////////
 			}
 			t->left = nil;
 			t->right = nil;
 			t->color = true;
-			if (_size < 4)
-				rbInsertFixup(t);
+			rbInsertFixup(t);
 			++_size;
-		}
-
-		node* search(T value)
-		{
-			node* x = root;
-			while(x != nil && value != x->value)
-			{
-				if(value < x->value)
-					x = x->left;
-				else
-					x = x->right;
-			}
-			return x;
-		}
-
-		void erase(T value)
-		{
-			node* x = search(value);
-			if(x != nil)
-				rbDelete(x);
-		}
-
-		node* treeSuccessor(node* x)
-		{
-			if(x->right != nil)
-			{
-				while(x->left != nil)
-					x = x->left;
-				return x;
-			}
-			node* y = x->p;
-			while(y != nil && x == y->right)
-			{
-				x = y;
-				y = y->p;
-			}
-			return y;
+			t->h++;
 		}
 
 		void leftRotate(node*x)
 		{
 			node* y = x->right;
 			if(x->p == nil)
-			{
 				root = y;
-				root->h = 0; ///////////
-			}
 			else
 			{
 				if(x == x->p->left)
@@ -156,17 +139,14 @@ class rbtree
 			y->left->p = x;
 			y->left = x;
 			x->p = y;
-			x->h++; /////////////
+			x->h--; /////
 		}
 
 		void rightRotate(node*x)
 		{
 			node* y = x->left;
 			if(x->p == nil)
-			{
 				root = y;
-				root->h = 0; ///////////
-			}
 			else
 			{
 				if(x->p->left == x)
@@ -179,13 +159,12 @@ class rbtree
 			y->right->p = x;
 			y->right = x;
 			x->p = y;
-			x->h--; ///////////
-
+			x->h++; /////
 		}
 
 		void rbInsertFixup(node* z)
 		{
-			while(z->p->color  == true)
+			while(z->p->color == true)
 			{
 				if(z->p == z->p->p->left)
 				{
@@ -196,6 +175,7 @@ class rbtree
 						y->color = false;
 						z->p->p->color = true;
 						z = z->p->p;
+						z->h++;
 					}
 					else
 					{
@@ -219,6 +199,7 @@ class rbtree
 						y->color = false;
 						z->p->p->color = true;
 						z = z->p->p;
+						z->h--;
 					}
 					else
 					{
@@ -235,6 +216,34 @@ class rbtree
 				}
 			}
 			root->color = false;
+		}
+
+		// -------------------------------- //
+		// -------------Erase-------------- //
+		// -------------------------------- //
+		
+		void erase(T value)
+		{
+			node* x = search(value);
+			if(x != nil)
+				rbDelete(x);
+		}
+
+		node* treeSuccessor(node* x)
+		{
+			if(x->right != nil)
+			{
+				while(x->left != nil)
+					x = x->left;
+				return x;
+			}
+			node* y = x->p;
+			while(y != nil && x == y->right)
+			{
+				x = y;
+				y = y->p;
+			}
+			return y;
 		}
 
 		void rbDelete(node* z)
@@ -354,6 +363,10 @@ class rbtree
 			}
 		}
 
+		// -------------------------------- //
+		// -------------Display------------ //
+		// -------------------------------- //
+		
 		void display()
 		{
 			if(root != nil)
