@@ -38,17 +38,6 @@
 #define COUNT(i)       COUT_I(std::cout, #i, (i))
 
 
-
-#define MAX_TEST 10000
-
-void	printOk() {
-	std::cout << "\033[0;32m" << "V" << "\033[0;37m";
-}
-
-void	printError(std::string message) {
-	std::cout << "\033[0;31m" << message << "\033[0;37m" << std::endl;
-}
-
 void	printvector(ft::vector<std::string> vector) 
 {
 	for (unsigned long i = 0; i < vector.size(); i++)
@@ -60,7 +49,7 @@ void	printvector(ft::vector<std::string> vector)
 #include<cstdlib>
 int main() 
 {
-	rbtree<ft::vector<int> > tr;
+	rbtree<ft::vector<std::string> > tr;
 	
 	// for (int i = 5; i > 0; i--)
 	// 	tr.insert(rand()%1000);
@@ -77,21 +66,29 @@ int main()
 	// tr.insert(876);
 	// tr.insert(881);
 
-	ft::vector<int> test;
-	test.push_back(50);
-	test.push_back(51);
-	ft::vector<int> test2;
-	// test2.push_back(42);
+	ft::vector<std::string> test;
+	ft::vector<std::string> test2;
+	ft::vector<std::string> test3;
+	ft::vector<std::string> test4;
+	ft::vector<std::string> test5;
+
+	test3.push_back("z");
+	test4.push_back("d");
+	test.push_back("a");
+	test2.push_back("c");
+	test5.push_back("b");
+
+	tr.insert(test3);
+	tr.insert(test4);
 	tr.insert(test);
 	tr.insert(test2);
+	tr.insert(test5);
 
 	// tr.print();
 	// std::cout << std::endl;
 	// std::cout << std::endl;
-	// tr.display();
+	tr.display();
 
-	std::cout << "TEST=" << test << std::endl;
-	std::cout << "TEST2=" << test2 << std::endl;
 	// tr.clean(tr);
 	return 0;
 }
