@@ -475,7 +475,7 @@ namespace ft
 			if (v.size() > 0)
 				os << *v.begin();
 			else
-			os << "Empty";
+				os << "Empty";
 			return os;
 		}
 }
