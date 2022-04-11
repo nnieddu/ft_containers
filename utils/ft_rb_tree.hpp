@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// https://www.youtube.com/watch?v=1HYIJtM6FAU
-// https://www.youtube.com/watch?v=h1Z8_ebEqao
-
 // https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/
 // https://proprogramming.org/red-black-treerb-tree-implementation-in-c/
 
@@ -20,11 +17,6 @@
 
 // https://fr.abcdef.wiki/wiki/Red%E2%80%93black_tree
 // https://www.codesdope.com/course/data-structures-red-black-trees-insertion/
-
-// Chaque nœud est rouge ou noir. 
-// Tous les nœuds NIL sont considérés comme noirs. 
-// Un nœud rouge n'a pas d'enfant rouge. 
-// Chaque chemin d'un nœud donné à l'un de ses nœuds NIL descendants passe par le même nombre de nœuds noirs. 
 
 #pragma once
 
