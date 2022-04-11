@@ -110,7 +110,7 @@ namespace ft
 	operator-(reverse_iterator<IteratorL> const &lhs, reverse_iterator<IteratorR> const &rhs)
 	{ return rhs.base() - lhs.base(); }
 
-	// [ operators+ for pre addition 5 + rit]
+	// [ operators+ for pre addition ex : 5 + rit]
 	template<class Iterator>
 	reverse_iterator<Iterator>
 	operator+(typename reverse_iterator<Iterator>::difference_type n, reverse_iterator<Iterator> const &i)
