@@ -49,48 +49,37 @@ void	printvector(ft::vector<std::string> vector)
 #include<cstdlib>
 int main() 
 {
-	rbtree<int> tr;
-	
-	for (int i = 1; i <= 6; i++)
-		tr.insert(i);
+	std::map<int, int> stdm;
+	std::pair<std::map<int,int>::iterator,bool> sit;
+	sit = stdm.insert(std::pair<int,int>(42,100));
+	stdm.insert(std::pair<int,int>(42,1000));
+	// stdm.insert(42, 24); ////
+
+	// ------------------------//
+
+  std::map<char,int> mymap;
+  // first insert function version (single parameter):
+  mymap.insert ( std::pair<char,int>('a',100) );
+  mymap.insert ( std::pair<char,int>('z',200) );
+
+  std::pair<std::map<char,int>::iterator,bool> ret;
+  ret = mymap.insert ( std::pair<char,int>('z',500) );
+  if (ret.second==false) 
+  {
+    std::cout << "element 'z' already existed";
+    std::cout << " with a value of " << ret.first->second << '\n';
+  }
+  
 
 
-	// tr.insert(886);
-	// tr.insert(2777);
-	// tr.insert(6915);
-	// tr.insert(7793);
-	// tr.insert(9383);
-	// tr.insert(880);
-	// tr.insert(887);
-	// tr.insert(879);
-	// tr.insert(878);
-	// tr.insert(888);
-	// tr.insert(876);
-	// tr.insert(881);
+	ft::map<int, int> m;
+	m.insert(ft::pair<int,int>(42,100));
+	m.insert(ft::pair<int,int>(42,42));
+	std::cout << m.empty() << std::endl;
+	std::cout << m.size() << std::endl;
+	std::cout << m.max_size() << std::endl;
+	m.insert(ft::pair<int,int>(42,42));
+	std::cout << m.size() << std::endl;
 
-	// ft::vector<std::string> test;
-	// ft::vector<std::string> test2;
-	// ft::vector<std::string> test3;
-	// ft::vector<std::string> test4;
-	// ft::vector<std::string> test5;
-
-	// test3.push_back("z");
-	// test4.push_back("d");
-	// test.push_back("a");
-	// test2.push_back("c");
-	// test5.push_back("b");
-
-	// tr.insert(test3);
-	// tr.insert(test4);
-	// tr.insert(test);
-	// tr.insert(test2);
-	// tr.insert(test5);
-
-	// tr.print();
-	// std::cout << std::endl;
-	// std::cout << std::endl;
-	tr.display();
-
-	// tr.clean(tr);
 	return 0;
 }

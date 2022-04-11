@@ -38,17 +38,17 @@ namespace ft
 			typedef typename allocator_type::const_reference			const_reference;
 			typedef typename allocator_type::pointer					pointer;
 			typedef typename allocator_type::const_pointer				const_pointer;
-			// typedef ft::bidirectional iterator<value_type>			iterator;
-			// typedef ft::bidirectional iterator <const value_type>	const_iterator;
-			// typedef ft::reverse_iterator<iterator>					reverse_iterator;
-			// typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
+			typedef ft::bidirectional_iterator<value_type>				iterator;
+			typedef ft::bidirectional_iterator <const value_type>		const_iterator;
+			typedef ft::reverse_iterator<iterator>						reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 			typedef std::ptrdiff_t										difference_type;
 			typedef std::size_t											size_type;
 		private:	
 			allocator_type  		_alloc;
-			size_type				_capacity;	
-			size_type				_size;
-			// rb_node<value_type>*	_root;
+			Compare					_comp;
+			size_type				_capacity;
+			ft::rbtree<value_type>	_rbtree;
 
 		public: 
 		// [ Member functions ]
@@ -58,22 +58,19 @@ namespace ft
 		// empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type())
-		: _alloc(alloc), _capacity(0), _size(0) 
-		{
-			
-		}
+		: _alloc(alloc), _comp(comp), _capacity(0) {}
 
 		// range (2)	
 		// template <class InputIterator>
 		// map (InputIterator first, InputIterator last,
 		// const key_compare& comp = key_compare(),
-		
 		// const allocator_type& alloc = allocator_type());
 
 		// copy (3)	
 		// map (const map& x);
 
 		// (destructor) : Map destructor (public member function )
+		~map() {};
 
 		// operator= : Copy container content (public member function )
 		// map& operator= (const map& x);
@@ -110,11 +107,11 @@ namespace ft
 
 		// empty
 		// Test whether container is empty (public member function )
-		bool empty() const { return ( _size == 0 ? true : false); };
+		bool empty() const { return ( _rbtree.size() == 0 ? true : false); };
 
 		// size
 		// Return container size (public member function )
-		size_type size() const { return _size; }
+		size_type size() const { return _rbtree.size(); }
 
 		// max_size
 		// Return maximum size (public member function )
@@ -131,7 +128,16 @@ namespace ft
 
 		// insert() : Insert elements (public member function )
 		// single element (1)	
-		// pair<iterator,bool> insert (const value_type& val);
+		// pair<iterator,bool> insert (const value_type& val)
+		void insert (const value_type& val)
+		{
+			typename ft::rbtree<value_type>::node *ret;
+			ret = _rbtree.search(val);
+			// ret->value.first
+
+			_rbtree.insert(val);
+			// return NULL;
+		}
 
 		// with hint (2)	
 		// iterator insert (iterator position, const value_type& val);

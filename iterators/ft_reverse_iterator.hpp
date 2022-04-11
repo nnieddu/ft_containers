@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// https://www.cplusplus.com/reference/iterator/
+// https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/reverse_iterator/
 
 #include "ft_iterator_traits.hpp"

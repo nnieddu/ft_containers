@@ -112,7 +112,7 @@ namespace ft
 	operator-(random_access_iterator<IteratorL> const &lhs, random_access_iterator<IteratorR> const &rhs)
 	{ return lhs.base() - rhs.base(); }
 
-	// [ operators+ for pre addition 5 + it]
+	// [ operators+ for pre addition ex : 5 + it]
 	template<class Iterator>
 	random_access_iterator<Iterator>
 	operator+(typename random_access_iterator<Iterator>::difference_type n, random_access_iterator<Iterator> const &i)

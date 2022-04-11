@@ -16,29 +16,7 @@
 
 // https://www.cplusplus.com/reference/iterator/
 // https://www.cplusplus.com/reference/iterator/iterator/
-// https://www.cplusplus.com/reference/iterator/RandomAccessIterator/
-
-// Bidirectional iterators are like forward iterators but can also be iterated through backwards.
-// Is default-constructible, copy-constructible, copy-assignable and destructible	X a;
-// X b(a);
-// b = a;
-// Can be compared for equivalence using the equality/inequality operators
-// (meaningful when both iterator values iterate over the same underlying sequence).	a == b
-// a != b
-// Can be dereferenced as an rvalue (if in a dereferenceable state).	*a
-// a->m
-// For mutable iterators (non-constant iterators):
-// Can be dereferenced as an lvalue (if in a dereferenceable state).	*a = t
-// Can be incremented (if in a dereferenceable state).
-// The result is either also dereferenceable or a past-the-end iterator.
-// Two iterators that compare equal, keep comparing equal after being both increased.
-// ++a
-// a++
-// *a++
-// Can be decremented (if a dereferenceable iterator value precedes it).
-// --a
-// a--
-// *a--
+// https://www.cplusplus.com/reference/iterator/BidirectionalIterator/
 
 namespace ft
 {
@@ -54,5 +32,44 @@ namespace ft
 		private:
 			pointer _ptr;
 		public :
+			bidirectional_iterator() : _ptr(NULL) {}
+
+			//explicit needed here to avoid (like stl iter) for ex : iter = ptr;
+			explicit bidirectional_iterator(pointer const& ptr) : _ptr(ptr) {}
+			
+			//useless ? Implicitly well created if don't exist
+			bidirectional_iterator(const bidirectional_iterator& x) : _ptr(x._ptr) {}
+			
+			// Allow iterator to const_iterator conversion
+			template<class const_iter>
+			bidirectional_iterator(bidirectional_iterator<const_iter> const &it) : _ptr(it.base()) {}
+
+			//useless ? Implicitly well created if don't exist
+			bidirectional_iterator& operator=(const bidirectional_iterator x) { _ptr = x._ptr; return *this; }
+
+			~bidirectional_iterator() { _ptr = NULL; }
+				
+			const pointer &base() const { return _ptr; }
+
+			// [ Operators ]
+			reference operator*() const { return *_ptr; }
+			pointer operator->() const { return _ptr; }
+			
+			bidirectional_iterator &operator++() { ++_ptr; return *this; };
+			bidirectional_iterator operator++(int) { bidirectional_iterator tmp = *this; ++(*this); return tmp; }
+			bidirectional_iterator &operator--() { --_ptr; return *this; }
+			bidirectional_iterator operator--(int) { bidirectional_iterator tmp = *this; --(*this); return tmp; }
+
+			bool operator==(const bidirectional_iterator& x) const { return (_ptr == x._ptr); }
+			bool operator!=(const bidirectional_iterator& x) const { return (_ptr != x._ptr); }
 	};
+	
+	//  Overload to compare random_access_iterator with const random_access_iterator
+	template<class IterL, class IterR>
+	bool operator==(bidirectional_iterator<IterL> const &lhs, bidirectional_iterator<IterR> const &rhs)
+	{ return lhs.base() == rhs.base(); }
+
+	template<class IterL, class IterR>
+	bool operator!=(bidirectional_iterator<IterL> const &lhs, bidirectional_iterator<IterR> const &rhs)
+	{ return lhs.base() != rhs.base(); }
 }
