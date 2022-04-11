@@ -15,8 +15,6 @@
 
 #pragma once
 
-#include <memory>
-
 #include "../iterators/ft_bidirectional_iterator.hpp"
 #include "../utils/ft_utility.hpp"
 #include "../utils/ft_functional.hpp"
