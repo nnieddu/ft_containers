@@ -38,14 +38,14 @@ namespace ft
 			//explicit needed here to avoid (like stl iter) for ex : iter = ptr;
 			explicit random_access_iterator(pointer const& ptr) : _ptr(ptr) {}
 			
-			//useless ? Implicitly well created if don't exist
+			//useless? Implicitly well created if don't exist
 			random_access_iterator(const random_access_iterator& x) : _ptr(x._ptr) {}
 			
 			// Allow iterator to const_iterator conversion
 			template<class const_iter>
 			random_access_iterator(random_access_iterator<const_iter> const &it) : _ptr(it.base()) {}
 
-			//useless ? Implicitly well created if don't exist
+			//useless? Implicitly well created if don't exist
 			random_access_iterator& operator=(const random_access_iterator x) { _ptr = x._ptr; return *this; }
 
 			~random_access_iterator() { _ptr = NULL; }
