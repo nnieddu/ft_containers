@@ -20,10 +20,35 @@
 
 #pragma once
 
+// #include "../containers/ft_map.hpp"
+
 namespace ft 
 {
-	template <class T>
-	class rbtree
+	// Empty class to allow pair specialisation
+	template <typename T, class Compare, bool isPair>
+	class rbtree_pair {};
+
+	// Specialisation to use rb_tree with pair type :
+	template <class T, class Compare>
+	class rbtree_pair<T, Compare, true> 
+	{
+		public:
+			bool comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
+			Compare		_comp;
+	};
+
+	// Specialisation to use rb_tree without pair type (default)
+	template <class T, class Compare>
+	class rbtree_pair<T, Compare, false> 
+	{
+		public:
+			bool comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
+			Compare		_comp;
+	};
+
+
+	template <class T, class Compare = ft::less<T>, bool isPair = false >
+	class rbtree : rbtree_pair<T, Compare, isPair>
 	{
 
 		public:
@@ -36,8 +61,6 @@ namespace ft
 				node 		*right;
 				node 		*p;
 				bool 		color; // true == red | false == black
-				size_type	h;
-
 			};
 
 			node* nil;
@@ -45,10 +68,11 @@ namespace ft
 
 		private:
 			size_type	_size;
+			Compare		_comp;
 			// size_type	_height;
 
 		public:
-			rbtree() : nil(new node), root(nil), _size(0)//, _height(0)
+			rbtree() : nil(new node), root(nil), _size(0), _comp(Compare()) //, _height(0)
 			{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
 
 			~rbtree()
@@ -73,16 +97,61 @@ namespace ft
 				node* x = root;
 				while(x != nil && value != x->value)
 				{
-					if(value < x->value)
+					if(this->comp_binded(value, x->value))
 						x = x->left;
 					else
 						x = x->right;
 				}
 				if (x == nil)
-					return NULL;
+					return NULL;  /// test erase empty
 				return x;
 			}
 			
+			// node* search(T value, bool isPair) ///// map / pair version
+			// {
+			// 	node* x = root;
+			// 	while(x != nil && value != x->value)
+			// 	{
+			// 		if(_comp(value.first, x->value.first))
+			// 			x = x->left;
+			// 		else
+			// 			x = x->right;
+			// 	}
+			// 	if (x == nil)
+			// 		return NULL;  /// test erase empty
+			// 	return x;
+			// }
+
+			// T* m_access(T& key)
+			// {
+			// 	node* x = root;
+			// 	while(x != nil && key.first != x->value.first)
+			// 	{
+			// 		if(key.first < x->value.first)
+			// 			x = x->left;
+			// 		else
+			// 			x = x->right;
+			// 	}
+			// 	if (x == nil)
+			// 		return NULL;
+			// 	return &x->value;
+			// }
+
+			// bool m_search(T value)
+			// {
+			// 	node* x = root;
+			// 	while(x != nil && value.first != x->value.first)
+			// 	{
+			// 		if(value.first < x->value.first)
+			// 			x = x->left;
+			// 		else
+			// 			x = x->right;
+			// 	}
+			// 	if (x == nil)
+			// 		return false;
+			// 	return true;
+			// }
+
 			// -------------------------------- //
 			// ------------Insert-------------- //
 			// -------------------------------- //
@@ -93,22 +162,21 @@ namespace ft
 				node* x = root;
 				node* y = nil;
 
-				t->h = 0;
 				t->value = value;
 				while(x != nil)
 				{
 					y = x;
-					if(value < x->value)
+					if (this->comp_binded(value, x->value))
 						x = x->left;
 					else
 						x = x->right;
 				}
 				t->p = y;
-				if(y == nil)
+				if (y == nil)
 					root = t;
 				else
 				{
-					if (t->value < y->value)
+					if (this->comp_binded(t->value, y->value))
 						y->left = t;
 					else
 						y->right = t;
@@ -217,14 +285,6 @@ namespace ft
 			// -------------------------------- //
 			// -------------Erase-------------- //
 			// -------------------------------- //
-			
-			void erase(T value)
-			{
-				node* x = search(value);
-				if(x != NULL)
-					rbDelete(x);
-				_size--;
-			}
 
 			node* treeSuccessor(node* x)
 			{
@@ -241,36 +301,6 @@ namespace ft
 					y = y->p;
 				}
 				return y;
-			}
-
-			void rbDelete(node* z)
-			{
-				node* x = nil;
-				node* y = nil;
-
-				if(z->left == nil || z->right == nil)
-					y = z;
-				else
-					y = treeSuccessor(z);
-				if(y->left != nil)
-					x = y->left;
-				else
-					x = y->right;
-				x->p = y->p;
-				if(y->p == nil)
-					root = x;
-				else
-				{
-					if(y == y->p->left)
-						y->p->left = x;
-					else
-						y->p->right = x;
-				}
-				if(y != z)
-					z->value = y->value;
-				if(y->color == false)
-					rbDeleteFixup(x);
-				delete y;
 			}
 
 			void rbDeleteFixup(node* x)
@@ -344,7 +374,45 @@ namespace ft
 				}
 				x->color = false;
 			}
-			
+
+		void rbDelete(node* z)
+			{
+				node* x = nil;
+				node* y = nil;
+
+				if(z->left == nil || z->right == nil)
+					y = z;
+				else
+					y = treeSuccessor(z);
+				if(y->left != nil)
+					x = y->left;
+				else
+					x = y->right;
+				x->p = y->p;
+				if(y->p == nil)
+					root = x;
+				else
+				{
+					if(y == y->p->left)
+						y->p->left = x;
+					else
+						y->p->right = x;
+				}
+				if(y != z)
+					z->value = y->value;
+				if(y->color == false)
+					rbDeleteFixup(x);
+				delete y;
+			}
+
+			void erase(T value)
+			{
+				node* x = search(value);
+				if(x != NULL)
+					rbDelete(x);
+				_size--;
+			}
+
 			void clean(node* x)
 			{
 				if(x->right != nil)
@@ -359,5 +427,90 @@ namespace ft
 					delete x->left;
 				}
 			}
+
+
+
+
+
+			void _display(node* x)
+			{
+				if(x->left != nil)
+					_display(x->left);
+				if(x != nil)
+				{
+					std::cout << x->value << ' ';
+					if(x->color == true)
+						std::cout << "RED ";
+					else
+						std::cout << "BLACK ";
+					if(x->p != nil)
+						std::cout << "p:" << x->p->value << ' ';
+					else
+						std::cout << "p:" << "NULL ";
+					if(x->left != nil)
+						std::cout << "l:" << x->left->value << ' ';
+					else
+						std::cout << "l:" << "NULL ";
+					if(x->right != nil)
+						std::cout << "r:" << x->right->value << ' ';
+					else
+						std::cout << "r:" << "NULL ";
+					if(x->p == nil)
+						std::cout << " =ROOT=";
+				}
+				// std::cout << " h =" << x->h << std::endl;
+				std::cout << std::endl;
+				if(x->right != nil)
+					_display(x->right);
+			}
+
+			void display()
+			{
+				if(root != nil)
+					_display(root);
+				else
+					std::cout << "Tree is empty !" << std::endl;
+			}
+
+			void __display(node* x)
+			{
+				if(x->left != nil)
+					__display(x->left);
+				if(x != nil)
+				{
+					std::cout << x->value.first << ' ';
+					if(x->color == true)
+						std::cout << "RED ";
+					else
+						std::cout << "BLACK ";
+					if(x->p != nil)
+						std::cout << "p:" << x->p->value.first << ' ';
+					else
+						std::cout << "p:" << "NULL ";
+					if(x->left != nil)
+						std::cout << "l:" << x->left->value.first << ' ';
+					else
+						std::cout << "l:" << "NULL ";
+					if(x->right != nil)
+						std::cout << "r:" << x->right->value.first << ' ';
+					else
+						std::cout << "r:" << "NULL ";
+					if(x->p == nil)
+						std::cout << " =ROOT=";
+				}
+				// std::cout << " h =" << x->h << std::endl;
+				std::cout << std::endl;
+				if(x->right != nil)
+					__display(x->right);
+			}
+
+			void display(bool map)
+			{
+				if(root != nil && map == true)
+					__display(root);
+				else
+					std::cout << "Map is empty !" << std::endl;
+			}
 	};
+
 }
