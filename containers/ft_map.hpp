@@ -30,7 +30,7 @@ namespace ft
 		public: 
 			typedef Key													key_type;
 			typedef T													mapped_type;
-			typedef ft::pair<key_type, mapped_type>						value_type; /////const key
+			typedef ft::pair<const key_type, mapped_type>				value_type;
 			typedef Compare												key_compare;
 			typedef Alloc												allocator_type;
 			typedef typename allocator_type::reference					reference;
@@ -47,7 +47,7 @@ namespace ft
 			allocator_type  					_alloc;
 			Compare								_comp;
 			size_type							_capacity;
-			ft::rbtree<value_type, key_compare, true, key_type> _rbtree;
+			ft::rbtree<value_type, key_compare, true, key_type, Alloc> _rbtree;
 
 		public: 
 		// [ Member functions ]

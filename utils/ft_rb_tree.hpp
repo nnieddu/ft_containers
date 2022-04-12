@@ -18,17 +18,22 @@
 // https://fr.abcdef.wiki/wiki/Red%E2%80%93black_tree
 // https://www.codesdope.com/course/data-structures-red-black-trees-insertion/
 
+// Chaque noeud est rouge ou noir. 
+// Tous les noeuds NIL sont considérés comme noirs. 
+// Un noeud rouge n'a pas d'enfant rouge. 
+// Chaque chemin d'un noeud donné à l'un de ses noeuds NIL descendants passe par le même nombre de noeuds noirs. 
+
 #pragma once
 
 namespace ft 
 {
 	// Empty class to allow pair specialisation
-	template <class T, class Compare, bool isPair, typename key_type> 
+	template <class T, class Compare, bool isPair, typename key_type, class Alloc > 
 	class rbtree_pair {};
 
 	// Specialisation to use rb_tree with pair type :
-	template <class T, class Compare, typename key_type>
-	class rbtree_pair<T, Compare, true, key_type> 
+	template <class T, class Compare, typename key_type, class Alloc>
+	class rbtree_pair<T, Compare, true, key_type, Alloc> 
 	{
 		public:
 			bool 		comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
@@ -38,7 +43,7 @@ namespace ft
 
 	// Specialisation to use rb_tree without pair type (default mode)
 	template <class T, class Compare>
-	class rbtree_pair<T, Compare, false, void> 
+	class rbtree_pair<T, Compare, false, void, void> 
 	{
 		public:
 			bool 	comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
@@ -47,8 +52,8 @@ namespace ft
 	};
 
 
-	template <class T, class Compare = ft::less<T>, bool isPair = false, typename key_type = void>
-	class rbtree : rbtree_pair<T, Compare, isPair, key_type>
+	template <class T, class Compare = ft::less<T>, bool isPair = false, typename key_type = void, class Alloc = std::allocator<T> >
+	class rbtree : rbtree_pair<T, Compare, isPair, key_type, Alloc>
 	{
 
 		public:
@@ -70,6 +75,7 @@ namespace ft
 		private:
 			size_type	_size;
 			Compare		_comp;
+			Alloc		_alloc;
 
 		public:
 			rbtree() : nil(new node), root(nil), _size(0), _comp(Compare())
@@ -115,23 +121,26 @@ namespace ft
 				node* x = root;
 				node* y = nil;
 
-				newNode->value = value;
+				_alloc.construct(&newNode->value, value);
 				while(x != nil)
 				{
 					y = x;
-					if (this->comp_binded(value, x->value))
+					if (!(this->comp_binded(x->value, value)))
 						x = x->left;
-					else
+					else if (this->comp_binded(x->value, value))
+					{
+						std::cout << "ELSE\n";
 						x = x->right;
+					}
 				}
 				newNode->p = y;
 				if (y == nil)
 					root = newNode;
 				else
 				{
-					if (this->comp_binded(newNode->value, y->value))
+					if (!(this->comp_binded(y->value, newNode->value)))
 						y->left = newNode;
-					else
+					else if (this->comp_binded(y->value, newNode->value))
 						y->right = newNode;
 				}
 				newNode->left = nil;
