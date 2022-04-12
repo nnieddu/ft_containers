@@ -24,6 +24,26 @@ namespace ft
 		typedef Result result_type;
 	};
 	
+	// https://www.cplusplus.com/reference/functional/equal_to/
+	template <class T> struct equal_to : binary_function <T,T,bool> 
+	{ bool operator() (const T& x, const T& y) const {return x==y;} };
+	
+	// https://www.cplusplus.com/reference/functional/not_equal_to/
+	template <class T> struct not_equal_to : binary_function <T,T,bool> 
+	{ bool operator() (const T& x, const T& y) const {return x!=y;} };
+
+	// https://www.cplusplus.com/reference/functional/greater/
+	template <class T> struct greater : binary_function <T,T,bool> 
+	{ bool operator() (const T& x, const T& y) const {return x>y;} };
+
+	// https://www.cplusplus.com/reference/functional/greater_equal/
+	template <class T> struct greater_equal : binary_function <T,T,bool> 
+	{ bool operator() (const T& x, const T& y) const {return x>=y;} };
+
+	// https://www.cplusplus.com/reference/functional/less_equal/
+	template <class T> struct less_equal : binary_function <T,T,bool> 
+	{ bool operator() (const T& x, const T& y) const {return x<=y;} };
+
 	// https://www.cplusplus.com/reference/functional/less/
 	template <class T> struct less : ft::binary_function <T,T,bool> 
 	{ bool operator() (const T& x, const T& y) const {return x<y;} };
