@@ -23,7 +23,7 @@
 namespace ft 
 {
 	// Empty class to allow pair specialisation
-	template <class T, class Compare, bool isPair, typename key_type>  ///key_type
+	template <class T, class Compare, bool isPair, typename key_type> 
 	class rbtree_pair {};
 
 	// Specialisation to use rb_tree with pair type :
@@ -31,8 +31,8 @@ namespace ft
 	class rbtree_pair<T, Compare, true, key_type> 
 	{
 		public:
-			bool comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
-			key_type disp(T value) { return value.first; }
+			bool 		comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
+			key_type 	disp(T value) { return value.first; }
 			Compare		_comp;
 	};
 
@@ -41,9 +41,9 @@ namespace ft
 	class rbtree_pair<T, Compare, false, void> 
 	{
 		public:
-			bool comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
-			T disp(T value) { return value; }
-			Compare		_comp;
+			bool 	comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
+			T 		disp(T value) { return value; }
+			Compare	_comp;
 	};
 
 
@@ -60,7 +60,8 @@ namespace ft
 				node 		*left;
 				node 		*right;
 				node 		*p;
-				bool 		color; // true == red | false == black
+				bool 		color; 
+				// true == red | false == black
 			};
 
 			node* nil;
@@ -69,10 +70,9 @@ namespace ft
 		private:
 			size_type	_size;
 			Compare		_comp;
-			// size_type	_height;
 
 		public:
-			rbtree() : nil(new node), root(nil), _size(0), _comp(Compare()) //, _height(0)
+			rbtree() : nil(new node), root(nil), _size(0), _comp(Compare())
 			{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
 
 			~rbtree()
@@ -90,21 +90,20 @@ namespace ft
 			// -------------------------------- //
 
 			size_type	size() const { return _size; }
-			// size_type	height() const { return _height; }
 
 			node* search(T value)
 			{
-				node* x = root;
-				while(x != nil && value != x->value)
+				node* nod = root;
+				while(nod != nil && value != nod->value)
 				{
-					if(this->comp_binded(value, x->value))
-						x = x->left;
+					if(this->comp_binded(value, nod->value))
+						nod = nod->left;
 					else
-						x = x->right;
+						nod = nod->right;
 				}
-				if (x == nil)
+				if (nod == nil)
 					return NULL;  /// test erase empty
-				return x;
+				return nod;
 			}
 			
 			// -------------------------------- //
@@ -112,11 +111,11 @@ namespace ft
 			// -------------------------------- //
 			void insert(T value)
 			{
-				node* t = new node;
+				node* newNode = new node;
 				node* x = root;
 				node* y = nil;
 
-				t->value = value;
+				newNode->value = value;
 				while(x != nil)
 				{
 					y = x;
@@ -125,21 +124,21 @@ namespace ft
 					else
 						x = x->right;
 				}
-				t->p = y;
+				newNode->p = y;
 				if (y == nil)
-					root = t;
+					root = newNode;
 				else
 				{
-					if (this->comp_binded(t->value, y->value))
-						y->left = t;
+					if (this->comp_binded(newNode->value, y->value))
+						y->left = newNode;
 					else
-						y->right = t;
+						y->right = newNode;
 				}
-				t->left = nil;
-				t->right = nil;
-				t->color = true;
+				newNode->left = nil;
+				newNode->right = nil;
+				newNode->color = true;
 
-				rbInsertFixup(t);
+				rbInsertFixup(newNode);
 				++_size;
 			}
 			
@@ -383,7 +382,9 @@ namespace ft
 			}
 
 
-
+			// -------------------------------- //
+			// -------------Display------------ //
+			// -------------------------------- //
 			void _display(node* x)
 			{
 				if(x->left != nil)
@@ -410,7 +411,6 @@ namespace ft
 					if(x->p == nil)
 						std::cout << " =ROOT=";
 				}
-				// std::cout << " h =" << x->h << std::endl;
 				std::cout << std::endl;
 				if(x->right != nil)
 					_display(x->right);
