@@ -20,35 +20,35 @@
 
 #pragma once
 
-// #include "../containers/ft_map.hpp"
-
 namespace ft 
 {
 	// Empty class to allow pair specialisation
-	template <typename T, class Compare, bool isPair>
+	template <class T, class Compare, bool isPair, typename key_type>  ///key_type
 	class rbtree_pair {};
 
 	// Specialisation to use rb_tree with pair type :
-	template <class T, class Compare>
-	class rbtree_pair<T, Compare, true> 
+	template <class T, class Compare, typename key_type>
+	class rbtree_pair<T, Compare, true, key_type> 
 	{
 		public:
 			bool comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
+			key_type disp(T value) { return value.first; }
 			Compare		_comp;
 	};
 
-	// Specialisation to use rb_tree without pair type (default)
+	// Specialisation to use rb_tree without pair type (default mode)
 	template <class T, class Compare>
-	class rbtree_pair<T, Compare, false> 
+	class rbtree_pair<T, Compare, false, void> 
 	{
 		public:
 			bool comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
+			T disp(T value) { return value; }
 			Compare		_comp;
 	};
 
 
-	template <class T, class Compare = ft::less<T>, bool isPair = false >
-	class rbtree : rbtree_pair<T, Compare, isPair>
+	template <class T, class Compare = ft::less<T>, bool isPair = false, typename key_type = void>
+	class rbtree : rbtree_pair<T, Compare, isPair, key_type>
 	{
 
 		public:
@@ -107,55 +107,9 @@ namespace ft
 				return x;
 			}
 			
-			// node* search(T value, bool isPair) ///// map / pair version
-			// {
-			// 	node* x = root;
-			// 	while(x != nil && value != x->value)
-			// 	{
-			// 		if(_comp(value.first, x->value.first))
-			// 			x = x->left;
-			// 		else
-			// 			x = x->right;
-			// 	}
-			// 	if (x == nil)
-			// 		return NULL;  /// test erase empty
-			// 	return x;
-			// }
-
-			// T* m_access(T& key)
-			// {
-			// 	node* x = root;
-			// 	while(x != nil && key.first != x->value.first)
-			// 	{
-			// 		if(key.first < x->value.first)
-			// 			x = x->left;
-			// 		else
-			// 			x = x->right;
-			// 	}
-			// 	if (x == nil)
-			// 		return NULL;
-			// 	return &x->value;
-			// }
-
-			// bool m_search(T value)
-			// {
-			// 	node* x = root;
-			// 	while(x != nil && value.first != x->value.first)
-			// 	{
-			// 		if(value.first < x->value.first)
-			// 			x = x->left;
-			// 		else
-			// 			x = x->right;
-			// 	}
-			// 	if (x == nil)
-			// 		return false;
-			// 	return true;
-			// }
-
 			// -------------------------------- //
 			// ------------Insert-------------- //
 			// -------------------------------- //
-
 			void insert(T value)
 			{
 				node* t = new node;
@@ -188,7 +142,7 @@ namespace ft
 				rbInsertFixup(t);
 				++_size;
 			}
-
+			
 			void leftRotate(node* x)
 			{
 				node* y = x->right;
@@ -430,29 +384,27 @@ namespace ft
 
 
 
-
-
 			void _display(node* x)
 			{
 				if(x->left != nil)
 					_display(x->left);
 				if(x != nil)
 				{
-					std::cout << x->value << ' ';
+					std::cout << this->disp(x->value) << ' ';
 					if(x->color == true)
 						std::cout << "RED ";
 					else
 						std::cout << "BLACK ";
 					if(x->p != nil)
-						std::cout << "p:" << x->p->value << ' ';
+						std::cout << "p:" << this->disp(x->p->value) << ' ';
 					else
 						std::cout << "p:" << "NULL ";
 					if(x->left != nil)
-						std::cout << "l:" << x->left->value << ' ';
+						std::cout << "l:" << this->disp(x->left->value) << ' ';
 					else
 						std::cout << "l:" << "NULL ";
 					if(x->right != nil)
-						std::cout << "r:" << x->right->value << ' ';
+						std::cout << "r:" << this->disp(x->right->value) << ' ';
 					else
 						std::cout << "r:" << "NULL ";
 					if(x->p == nil)
@@ -470,46 +422,6 @@ namespace ft
 					_display(root);
 				else
 					std::cout << "Tree is empty !" << std::endl;
-			}
-
-			void __display(node* x)
-			{
-				if(x->left != nil)
-					__display(x->left);
-				if(x != nil)
-				{
-					std::cout << x->value.first << ' ';
-					if(x->color == true)
-						std::cout << "RED ";
-					else
-						std::cout << "BLACK ";
-					if(x->p != nil)
-						std::cout << "p:" << x->p->value.first << ' ';
-					else
-						std::cout << "p:" << "NULL ";
-					if(x->left != nil)
-						std::cout << "l:" << x->left->value.first << ' ';
-					else
-						std::cout << "l:" << "NULL ";
-					if(x->right != nil)
-						std::cout << "r:" << x->right->value.first << ' ';
-					else
-						std::cout << "r:" << "NULL ";
-					if(x->p == nil)
-						std::cout << " =ROOT=";
-				}
-				// std::cout << " h =" << x->h << std::endl;
-				std::cout << std::endl;
-				if(x->right != nil)
-					__display(x->right);
-			}
-
-			void display(bool map)
-			{
-				if(root != nil && map == true)
-					__display(root);
-				else
-					std::cout << "Map is empty !" << std::endl;
 			}
 	};
 

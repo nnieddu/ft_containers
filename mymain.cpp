@@ -82,17 +82,19 @@ int main()
 
 
 
-	ft::map<int, int> m;
+	ft::map<int, int, std::equal_to<int> > m;
 	m.insert(ft::pair<int,int>(42,100));
 	m.insert(ft::pair<int,int>(41,101));
 	m.insert(ft::pair<int,int>(40,102));
+	m.insert(ft::pair<int,int>(42,105));
 	// std::cout << "test [] = " << m[42] << std::endl;
 	// m.insert(ft::pair<int,int>(42,42));
 	std::cout << "Empty:" << m.empty() << std::endl;
 	std::cout << m.size() << std::endl;
 	std::cout << m.max_size() << std::endl;
+	m.display();
 	// m.insert(ft::pair<int,int>(42,42));
-	std::cout << m.size() << std::endl;
+	// std::cout << m.size() << std::endl;
 
 
 

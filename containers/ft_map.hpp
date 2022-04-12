@@ -47,7 +47,7 @@ namespace ft
 			allocator_type  					_alloc;
 			Compare								_comp;
 			size_type							_capacity;
-			ft::rbtree<value_type, key_compare, true> _rbtree;
+			ft::rbtree<value_type, key_compare, true, key_type> _rbtree;
 
 		public: 
 		// [ Member functions ]
@@ -144,7 +144,6 @@ namespace ft
 		void insert (const value_type& val) ///////// return
 		{
 			_rbtree.insert(val);
-			_rbtree.display(true);
 			// else
 				// std::cout << "Key already in map !\n";
 
@@ -214,6 +213,11 @@ namespace ft
 
 		// get_allocator : Get allocator (public member function )
 		allocator_type get_allocator() const { return _alloc; }
+
+
+
+		//////////// Testing
+		void	display() { _rbtree.display(); }
 	};
 
 // https://en.cppreference.com/w/cpp/container/map
