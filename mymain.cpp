@@ -16,6 +16,9 @@
 #include <map>
 #include <list>
 
+#include<cstdlib>
+#include <typeinfo>
+
 #include "containers/ft_vector.hpp"
 #include "containers/ft_stack.hpp"
 #include "containers/ft_map.hpp"
@@ -45,41 +48,95 @@ void	printvector(ft::vector<std::string> vector)
 	std::cout << std::endl;
 }
 
-
-#include<cstdlib>
 int main() 
 {
-	std::map<int, int> stdm;
-	std::pair<std::map<int,int>::iterator,bool> sit;
-	sit = stdm.insert(std::pair<int,int>(42,100));
-	stdm.insert(std::pair<int,int>(42,1000));
-	// stdm.insert(42, 24); ////
+// 	std::map<std::string, int> stdm;
+// 	// std::pair<std::map<int,int>::iterator,bool> sit;
+// 	// sit = stdm.insert(std::pair<int,int>(42,100));
+// 	stdm.insert(std::pair<std::string,int>("coucou",1000));
+// 	// stdm.insert(42, 24); ////
+// 	std::cout << stdm["nut"] << std::endl;
 
-	// ------------------------//
+// 	// ------------------------//
 
-  std::map<char,int> mymap;
-  // first insert function version (single parameter):
-  mymap.insert ( std::pair<char,int>('a',100) );
-  mymap.insert ( std::pair<char,int>('z',200) );
+//   std::map<char,int, std::less_equal<char> > mymap;
+//   // first insert function version (single parameter):
+//   mymap.insert ( std::pair<char,int>('a',100) );
+//   mymap.insert ( std::pair<char,int>('a',200) );
+//   mymap.insert ( std::pair<char,int>('c',30000) );
+//   mymap.insert ( std::pair<char,int>('z',2700) );
+//   std::cout << "SIZE=" << mymap.size() << std::endl;
+//   std::pair<std::map<char,int>::iterator,bool> ret;
+//   ret = mymap.insert ( std::pair<char,int>('z',500) );
+//   if (ret.second==false) 
+//   {
+//     std::cout << "element 'z' already existed";
+//     std::cout << " with a value of " << ret.first->second << '\n';
+//   }
+//     for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+//     std::cout << it->first << " => " << it->second << '\n';
 
-  std::pair<std::map<char,int>::iterator,bool> ret;
-  ret = mymap.insert ( std::pair<char,int>('z',500) );
-  if (ret.second==false) 
-  {
-    std::cout << "element 'z' already existed";
-    std::cout << " with a value of " << ret.first->second << '\n';
-  }
-  
+// 	std::cout << "COUNT = " << mymap.count('a') << std::endl;
+
+
+
 
 
 	ft::map<int, int> m;
 	m.insert(ft::pair<int,int>(42,100));
-	m.insert(ft::pair<int,int>(42,42));
-	std::cout << m.empty() << std::endl;
+	m.insert(ft::pair<int,int>(41,101));
+	m.insert(ft::pair<int,int>(40,102));
+	// std::cout << "test [] = " << m[42] << std::endl;
+	// m.insert(ft::pair<int,int>(42,42));
+	std::cout << "Empty:" << m.empty() << std::endl;
 	std::cout << m.size() << std::endl;
 	std::cout << m.max_size() << std::endl;
-	m.insert(ft::pair<int,int>(42,42));
+	// m.insert(ft::pair<int,int>(42,42));
 	std::cout << m.size() << std::endl;
+
+
+
+
+
+
+
+	ft::rbtree<int> tr;
+	// for (int i = 1; i <= 6; i++)
+	// 	tr.insert(i);
+
+	// // int x = 6;
+	// // ft::rbtree<int>::node* test;
+	// // for (int i = 2; i > 0; i--)
+	// // {
+	// // 	test = tr.search(x);
+	// // 	if (test == NULL)
+	// // 		std::cout << x << " Not found" << std::endl;
+	// // 	else 
+	// // 		std::cout << test->value << " Found" << std::endl;
+	// // 	x++;
+	// // }
+
+	tr.insert(42);
+	tr.insert(41);
+	tr.insert(40);
+
+	// tr.insert(886);
+	// tr.insert(886);
+	// tr.insert(2777);
+	// tr.insert(6915);
+	// tr.insert(7793);
+	// tr.insert(9383);
+	// tr.insert(888);
+	// tr.insert(876);
+	// tr.insert(881);
+
+	std::cout << std::endl;
+	tr.display();
+	std::cout << std::endl;
+	std::cout << std::endl <<  "Size = " << tr.size() << std::endl; 
+	// tr.erase(6915);
+	// std::cout << "Erase";
+	// std::cout << std::endl <<  "Size = " << tr.size() << std::endl; 
 
 	return 0;
 }

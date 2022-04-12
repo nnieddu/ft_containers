@@ -12,6 +12,7 @@
 
 // https://www.cplusplus.com/reference/map/map/
 // https://en.cppreference.com/w/cpp/container/map
+// https://www.cplusplus.com/reference/memory/allocator/
 
 #pragma once
 
@@ -29,7 +30,7 @@ namespace ft
 		public: 
 			typedef Key													key_type;
 			typedef T													mapped_type;
-			typedef ft::pair<key_type, mapped_type> 					value_type;
+			typedef ft::pair<key_type, mapped_type>						value_type; /////const key
 			typedef Compare												key_compare;
 			typedef Alloc												allocator_type;
 			typedef typename allocator_type::reference					reference;
@@ -43,10 +44,10 @@ namespace ft
 			typedef std::ptrdiff_t										difference_type;
 			typedef std::size_t											size_type;
 		private:	
-			allocator_type  		_alloc;
-			Compare					_comp;
-			size_type				_capacity;
-			ft::rbtree<value_type>	_rbtree;
+			allocator_type  					_alloc;
+			Compare								_comp;
+			size_type							_capacity;
+			ft::rbtree<value_type, key_compare, true> _rbtree;
 
 		public: 
 		// [ Member functions ]
@@ -119,7 +120,20 @@ namespace ft
 
 		// operator[]
 		// Access element (public member function )
-		// mapped_type& operator[] (const key_type& k);
+		// mapped_type& operator[] (const key_type& k)
+		// {
+		// 	// value_type *ret = new value_type;
+		// 	pointer ret;
+		// 	ret = _alloc.allocate(1);
+		// 	_alloc.construct(ret, value_type(k, 0));
+		// 	// ret = _rbtree.m_access(ret);
+		// 	// if (ret)
+		// 	// {
+		// 	// 	return (ret->second);
+		// 	// }
+		// 	// ret->second = mapped_type();
+			
+		// }
 
 
 		// Modifiers:
@@ -127,16 +141,16 @@ namespace ft
 		// insert() : Insert elements (public member function )
 		// single element (1)	
 		// pair<iterator,bool> insert (const value_type& val)
-		void insert (const value_type& val)
+		void insert (const value_type& val) ///////// return
 		{
-			typename ft::rbtree<value_type>::node *ret;
-			ret = _rbtree.search(val);
-			// ret->value.first
-
 			_rbtree.insert(val);
-			// return NULL;
-		}
+			_rbtree.display(true);
+			// else
+				// std::cout << "Key already in map !\n";
 
+			// !comp(a,b) && !comp(b,a))
+		}
+		
 		// with hint (2)	
 		// iterator insert (iterator position, const value_type& val);
 
@@ -164,7 +178,7 @@ namespace ft
 		// Observers:
 
 		// key_comp : Return key comparison object (public member function )
-		// key_compare key_comp() const;
+		key_compare key_comp() const { return _comp; }
 
 		// value_comp : Return value comparison object (public member function )
 		// value_compare value_comp() const;
