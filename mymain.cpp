@@ -50,42 +50,49 @@ void	printvector(ft::vector<std::string> vector)
 
 int main() 
 {
-  std::map<char,int, std::equal_to<char> > mymap;
-//   // first insert function version (single parameter):
-//   mymap.insert ( std::pair<char,int>('a',100) );
-//   mymap.insert ( std::pair<char,int>('a',200) );
-//   mymap.insert ( std::pair<char,int>('c',30000) );
-//   mymap.insert ( std::pair<char,int>('z',2700) );
-//   std::cout << "SIZE=" << mymap.size() << std::endl;
-//   std::pair<std::map<char,int>::iterator,bool> ret;
-//   ret = mymap.insert ( std::pair<char,int>('z',500) );
-//   if (ret.second==false) 
-//   {
-//     std::cout << "element 'z' already existed";
-//     std::cout << " with a value of " << ret.first->second << '\n';
-//   }
-//     for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-//     std::cout << it->first << " => " << it->second << '\n';
+  std::map<char,int, std::less_equal<char> > mymap;
+  // first insert function version (single parameter):
+  mymap.insert ( std::pair<char,int>('a',100) );
+  mymap.insert ( std::pair<char,int>('a',200) );
+  mymap.insert ( std::pair<char,int>('c',30000) );
+  mymap.insert ( std::pair<char,int>('z',2700) );
+  std::cout << "SIZE=" << mymap.size() << std::endl;
+  std::pair<std::map<char,int>::iterator,bool> ret;
+  ret = mymap.insert ( std::pair<char,int>('z',500) );
+  if (ret.second==false) 
+  {
+    std::cout << "element 'z' already existed";
+    std::cout << " with a value of " << ret.first->second << '\n';
+  }
+    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
 
-// 	std::cout << "COUNT = " << mymap.count('a') << std::endl;
-
-	int x = 42;
-	int x2 = 42;
-	if ((x == x2) && !(x2 == x))
-		std::cout << "true\n";
+	std::cout << "COUNT = " << mymap.count('a') << std::endl;
 
 
-	ft::map<int, int, std::equal_to<int> > m;
-	m.insert(ft::pair<int,int>(42,100));
-	m.insert(ft::pair<int,int>(42,100));
-	m.insert(ft::pair<int,int>(42,100));
-	m.insert(ft::pair<int,int>(42,100));
-	m.insert(ft::pair<int,int>(41,101));
-	// m.insert(ft::pair<int,int>(42,101));
-	m.insert(ft::pair<int,int>(40,102));
-	m.insert(ft::pair<int,int>(39,102));
-	m.insert(ft::pair<int,int>(38,102));
-	m.insert(ft::pair<int,int>(37,102));
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	ft::map<char,int, std::less_equal<char> > m;
+	m.insert (ft::pair<char,int>('a',100) );
+	m.insert (ft::pair<char,int>('a',200) );
+	m.insert (ft::pair<char,int>('c',30000) );
+	m.insert (ft::pair<char,int>('z',2700) );
+  	m.insert (ft::pair<char,int>('z',500) );
+
+
+
+  	// ret = m.insert (std::pair<char,int>('z',500) );
+	// m.insert(ft::pair<int,int>(42,100));
+	// m.insert(ft::pair<int,int>(42,100));
+	// m.insert(ft::pair<int,int>(42,100));
+	// m.insert(ft::pair<int,int>(42,100));
+	// m.insert(ft::pair<int,int>(41,101));
+	// // m.insert(ft::pair<int,int>(42,101));
+	// m.insert(ft::pair<int,int>(40,102));
+	// m.insert(ft::pair<int,int>(39,102));
+	// m.insert(ft::pair<int,int>(38,102));
+	// m.insert(ft::pair<int,int>(37,102));
 	// m.insert(ft::pair<int,int>(42,105));
 	// std::cout << "test [] = " << m[42] << std::endl;
 	// m.insert(ft::pair<int,int>(42,42));
