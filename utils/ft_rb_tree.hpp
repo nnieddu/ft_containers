@@ -115,21 +115,35 @@ namespace ft
 			// -------------------------------- //
 			// ------------Insert-------------- //
 			// -------------------------------- //
-			void insert(T value)
+			void insert(T value, bool allowSameKey = true, bool onlySameKey = false)
 			{
+				if (onlySameKey == true && _size > 0 && 
+					((this->disp(value) != this->disp(root->value))))
+						return ;
 				node* newNode = new node;
 				node* x = root;
 				node* y = nil;
-
+		
 				_alloc.construct(&newNode->value, value);
 				while(x != nil)
 				{
 					y = x;
-					if (!(this->comp_binded(x->value, value)))
-						x = x->left;
-					else if (this->comp_binded(x->value, value))
+					if (this->comp_binded(value, x->value))
 					{
-						std::cout << "ELSE\n";
+						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
+						{
+							delete newNode;
+							return ;
+						}	
+						x = x->left;
+					}
+					else
+					{
+						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
+						{
+							delete newNode;
+							return ;
+						}
 						x = x->right;
 					}
 				}
@@ -138,9 +152,9 @@ namespace ft
 					root = newNode;
 				else
 				{
-					if (!(this->comp_binded(y->value, newNode->value)))
+					if (this->comp_binded(newNode->value, y->value))
 						y->left = newNode;
-					else if (this->comp_binded(y->value, newNode->value))
+					else
 						y->right = newNode;
 				}
 				newNode->left = nil;

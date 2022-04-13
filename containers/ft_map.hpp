@@ -143,11 +143,12 @@ namespace ft
 		// pair<iterator,bool> insert (const value_type& val)
 		void insert (const value_type& val) ///////// return
 		{
-			_rbtree.insert(val);
-			// else
-				// std::cout << "Key already in map !\n";
-
-			// !comp(a,b) && !comp(b,a))
+			int x = 1;
+			int x1 = 1;
+			if (x == x1 && _comp(x, x1))
+				_rbtree.insert(val, true, true);
+			else
+				_rbtree.insert(val, false, false);
 		}
 		
 		// with hint (2)	

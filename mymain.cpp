@@ -69,16 +69,23 @@ int main()
 
 // 	std::cout << "COUNT = " << mymap.count('a') << std::endl;
 
+	int x = 42;
+	int x2 = 42;
+	if ((x == x2) && !(x2 == x))
+		std::cout << "true\n";
 
 
-
-
-	ft::map<int, int, std::less<int> > m;
+	ft::map<int, int, std::equal_to<int> > m;
+	m.insert(ft::pair<int,int>(42,100));
+	m.insert(ft::pair<int,int>(42,100));
+	m.insert(ft::pair<int,int>(42,100));
 	m.insert(ft::pair<int,int>(42,100));
 	m.insert(ft::pair<int,int>(41,101));
-	m.insert(ft::pair<int,int>(42,101));
 	// m.insert(ft::pair<int,int>(42,101));
 	m.insert(ft::pair<int,int>(40,102));
+	m.insert(ft::pair<int,int>(39,102));
+	m.insert(ft::pair<int,int>(38,102));
+	m.insert(ft::pair<int,int>(37,102));
 	// m.insert(ft::pair<int,int>(42,105));
 	// std::cout << "test [] = " << m[42] << std::endl;
 	// m.insert(ft::pair<int,int>(42,42));
