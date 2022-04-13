@@ -50,7 +50,7 @@ void	printvector(ft::vector<std::string> vector)
 
 int main() 
 {
-  std::map<char,int, std::less_equal<char> > mymap;
+  std::map<char,int, std::less<char> > mymap;
   // first insert function version (single parameter):
   mymap.insert ( std::pair<char,int>('a',100) );
   mymap.insert ( std::pair<char,int>('a',200) );
@@ -73,7 +73,7 @@ int main()
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	ft::map<char,int, std::less_equal<char> > m;
+	ft::map<char,int, std::less<char> > m;
 	m.insert (ft::pair<char,int>('a',100) );
 	m.insert (ft::pair<char,int>('a',200) );
 	m.insert (ft::pair<char,int>('c',30000) );

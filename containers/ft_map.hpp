@@ -143,12 +143,9 @@ namespace ft
 		// pair<iterator,bool> insert (const value_type& val)
 		void insert (const value_type& val) ///////// return
 		{
-			if (!_comp(1, 2) && !_comp(2, 1))
-			{
-				std::cout << "IF\n";
+			if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
 				_rbtree.insert(val, true, true);
-			}
-			else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1)))
+			else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1))) // greater/less _equal
 				_rbtree.insert(val, true, false);
 			else
 				_rbtree.insert(val, false, false);
