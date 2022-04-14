@@ -28,28 +28,30 @@
 namespace ft 
 {
 	// Specialisation to use rb_tree without pair (default mode)
-	template <class T, class Compare, bool isPair, typename key_type, class Alloc> 
+	template <class T, class Compare, bool isPair, typename key_type, typename mapped_type, class Alloc> 
 	class rbtree_pair 
 	{
 		public:
 			bool 	comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
-			T 		disp(T value) { return value; }
+			T 		value_binded(T value) { return value; }
+			T& 		value_second(T& value) { return value; }
 			Compare	_comp;
 	};
 
-	// Specialisation to use rb_tree with pair type :
-	template <class T, class Compare, typename key_type, class Alloc>
-	class rbtree_pair<T, Compare, true, key_type, Alloc> 
+	// Specialisation to use rb_tree with pair type (mainly for map):
+	template <class T, class Compare, typename key_type, typename mapped_type, class Alloc>
+	class rbtree_pair<T, Compare, true, key_type, mapped_type, Alloc> 
 	{
 		public:
-			bool 		comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
-			key_type 	disp(T value) { return value.first; }
-			Compare		_comp;
+			bool 			comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
+			key_type 		value_binded(T value) { return value.first; }
+			mapped_type& 	value_second(T& value) { return value.second; }
+			Compare			_comp;
 	};
 
 	template <class T, class Compare = ft::less<T>, bool isPair = false, 
-		typename key_type = void, class Alloc = std::allocator<T> >
-	class rbtree : rbtree_pair<T, Compare, isPair, key_type, Alloc>
+		typename key_type = T, typename mapped_type = T, class Alloc = std::allocator<T> >
+	class rbtree : rbtree_pair<T, Compare, isPair, key_type, mapped_type, Alloc>
 	{
 		private:
 			typedef std::size_t				size_type;
@@ -116,19 +118,36 @@ namespace ft
 
 			size_type	size() const { return _size; }
 
-			node* search(T value)
+			node* searchNode(key_type value)
 			{
 				node* n = root;
-				while(n != nil && value != n->value)
+				while(n != nil && value != this->value_binded(n->value))
 				{
-					if(this->comp_binded(value, n->value))
+					if(_comp(value, this->value_binded(n->value)))
+						n = n->left;
+					else
+						n = n->right;
+				}
+				return n;
+			}
+
+			mapped_type& searchValue(key_type value) //
+			{
+				node* n = root;
+				while(n != nil && value != this->value_binded(n->value))
+				{
+					if(this->_comp(value, this->value_binded(n->value)))
 						n = n->left;
 					else
 						n = n->right;
 				}
 				if (n == nil)
-					return NULL;  /// test erase empty
-				return n;
+				{
+					ft::pair <key_type, mapped_type> foo(value, mapped_type());
+					// foo = ft::make_pair(value, mapped_type());
+					insert(foo);
+				}
+				return (this->value_second(n->value));
 			}
 
 			// -------------------------------- //
@@ -137,7 +156,7 @@ namespace ft
 			void insert(T value, bool allowSameKey = true, bool onlySameKey = false)
 			{
 				if (onlySameKey == true && _size > 0 && 
-					((this->disp(value) != this->disp(root->value))))
+					((this->value_binded(value) != this->value_binded(root->value))))
 						return ;
 				node* newNode = new node;
 				node* x = root;
@@ -149,7 +168,7 @@ namespace ft
 					y = x;
 					if (this->comp_binded(value, x->value))
 					{
-						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
+						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
 							delete newNode;
 							return ;
@@ -158,7 +177,7 @@ namespace ft
 					}
 					else
 					{
-						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
+						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
 							delete newNode;
 							return ;
@@ -402,10 +421,12 @@ namespace ft
 		public:	
 			void erase(T value)
 			{
-				node* x = search(this->disp(value));
-				if(x != NULL)
+				node* x = searchNode(this->value_binded(value));
+				if(x != nil)
+				{
 					rbDelete(x);
-				_size--;
+					_size--;
+				}
 			}
 
 			// -------------------------------- //
@@ -418,21 +439,21 @@ namespace ft
 					_display(x->left);
 				if(x != nil)
 				{
-					std::cout << this->disp(x->value) << ' ';
+					std::cout << this->value_binded(x->value) << ' ';
 					if(x->color == true)
 						std::cout << "RED ";
 					else
 						std::cout << "BLACK ";
 					if(x->p != nil)
-						std::cout << "p:" << this->disp(x->p->value) << ' ';
+						std::cout << "p:" << this->value_binded(x->p->value) << ' ';
 					else
 						std::cout << "p:" << "NULL ";
 					if(x->left != nil)
-						std::cout << "l:" << this->disp(x->left->value) << ' ';
+						std::cout << "l:" << this->value_binded(x->left->value) << ' ';
 					else
 						std::cout << "l:" << "NULL ";
 					if(x->right != nil)
-						std::cout << "r:" << this->disp(x->right->value) << ' ';
+						std::cout << "r:" << this->value_binded(x->right->value) << ' ';
 					else
 						std::cout << "r:" << "NULL ";
 					if(x->p == nil)
@@ -470,6 +491,38 @@ namespace ft
 				}
 			}
 
+			void clearHelper(node* x)
+			{
+				if(x->right != nil)
+				{
+					clearHelper(x->right);
+					_alloc.destroy(&x->right->value);
+					_size--;
+				}
+
+				if(x->left != nil)
+				{
+					clearHelper(x->left);
+					_alloc.destroy(&x->left->value);
+					_size--;
+				}
+			}
+
+		public:
+			void clear()
+			{ 
+				if(root != nil)
+				{
+					clearHelper(root);
+					_alloc.destroy(&root->value);
+					// std::cout << "ROOT = " <<   root->value.first << std::endl;
+					// std::cout << "ROOT = " <<  root->value.second << std::endl;
+					_size--;
+					//// value still accessible???
+				}
+			}
+		private:
+
 			void _cpy(node* x, node* nil)
 			{
 				if(x->left != nil)
@@ -483,6 +536,6 @@ namespace ft
 					insert(x->right->value);
 					_cpy(x->right, nil);
 				}
-			}	
+			}
 	};
 }

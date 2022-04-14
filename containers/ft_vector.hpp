@@ -408,7 +408,7 @@ namespace ft
 				Alloc		&tmp_alloc	= x._alloc;
 				size_type	tmp_size	= x._size;
 				size_type	tmp_capa	= x._capacity;
-				value_type	*tmp_items	= x._items;
+				value_type	*tmp_items	= x._items; ////////////////
 
 				x._alloc 	= _alloc;
 				x._size 	= _size;

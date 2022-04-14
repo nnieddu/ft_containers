@@ -47,7 +47,7 @@ namespace ft
 			allocator_type  					_alloc;
 			Compare								_comp;
 			size_type							_capacity;
-			ft::rbtree<value_type, key_compare, true, key_type, Alloc> _rbtree;
+			ft::rbtree<value_type, key_compare, true, key_type, mapped_type, Alloc> _rbtree;
 
 		public: 
 		// [ Member functions ]
@@ -126,9 +126,7 @@ namespace ft
 
 		// operator[]
 		// Access element (public member function )
-		// mapped_type& operator[] (const key_type& k)
-		// {
-		// }
+		mapped_type& operator[] (const key_type& k) { return (_rbtree.searchValue(k)); }
 
 
 		// Modifiers:
@@ -155,20 +153,33 @@ namespace ft
 
 		// erase : Erase elements (public member function )
 		// (1)	
-		// 	void erase (iterator position);
+		// void erase (iterator position);
 
 		// (2)	
-		// size_type erase (const key_type& k) { _rbtree.erase(k); }
+		size_type erase (const key_type& k) 
+		{ 
+			_rbtree.erase(k);
+			return 1; ////////// test avec map avc plusieurs key identique ou une
+		}
 
 		// (3)	
 		// 	void erase (iterator first, iterator last);
 
 		// swap : Swap content (public member function )
-		// void swap (map& x);
+		void swap (map& x)
+		{
+			Alloc		&tmp_alloc	= x._alloc;
+			ft::rbtree<value_type, key_compare, true, key_type, mapped_type, Alloc> tmp_rbtree = x._rbtree;
+
+			x._alloc 	= _alloc;
+			x._rbtree 	= _rbtree;
+
+			_alloc 		= tmp_alloc;
+			_rbtree		= tmp_rbtree;			
+		}
 
 		// clear : Clear content (public member function )
-		// void clear();
-
+		void clear() { _rbtree.clear(); }
 
 		// Observers:
 
