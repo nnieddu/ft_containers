@@ -113,7 +113,13 @@ int main()
 
 	std::cout << "T3=" << std::endl;
 	ft::rbtree<int> t3;
-	t3 = t2;
+	// t3 = t2;
+	t3.insert(421);
+	t3.insert(43);
+	t3.insert(454);
+	t3.insert(45);
+	t3.insert(46);
+
 	t3.display();
 
 

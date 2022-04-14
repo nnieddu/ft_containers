@@ -417,10 +417,7 @@ namespace ft
 			void _display(node* x)
 			{
 				if(x->left != nil)
-				{
-					// std::cout << &x->left << std::endl;
 					_display(x->left);
-				}
 				if(x != nil)
 				{
 					std::cout << &x << std::endl;
@@ -446,10 +443,7 @@ namespace ft
 				}
 				std::cout << std::endl;
 				if(x->right != nil)
-				{
-					// std::cout << &x->right << std::endl;
 					_display(x->right);
-				}
 			}
 		public:
 			void display()
