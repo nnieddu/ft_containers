@@ -51,9 +51,7 @@ namespace ft
 
 		public: 
 		// [ Member functions ]
-
-		// (constructor)
-		// Construct map (public member function )
+		// (constructor) : Construct map (public member function )
 		// empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type())
@@ -64,9 +62,10 @@ namespace ft
 		// map (InputIterator first, InputIterator last,
 		// const key_compare& comp = key_compare(),
 		// const allocator_type& alloc = allocator_type());
+		// typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
 
 		// copy (3)	
-		// map (const map& x);
+		map (const map& x) : _alloc(x._alloc), _comp(x._comp), _capacity(x._capacity) {}//, _rbtree(x._rbtree) {} ////
 
 		// (destructor) : Map destructor (public member function )
 		~map() {};
@@ -122,17 +121,6 @@ namespace ft
 		// Access element (public member function )
 		// mapped_type& operator[] (const key_type& k)
 		// {
-		// 	// value_type *ret = new value_type;
-		// 	pointer ret;
-		// 	ret = _alloc.allocate(1);
-		// 	_alloc.construct(ret, value_type(k, 0));
-		// 	// ret = _rbtree.m_access(ret);
-		// 	// if (ret)
-		// 	// {
-		// 	// 	return (ret->second);
-		// 	// }
-		// 	// ret->second = mapped_type();
-			
 		// }
 
 
@@ -163,7 +151,7 @@ namespace ft
 		// 	void erase (iterator position);
 
 		// (2)	
-		// size_type erase (const key_type& k);
+		// size_type erase (const key_type& k) { _rbtree.erase(k); }
 
 		// (3)	
 		// 	void erase (iterator first, iterator last);
@@ -211,13 +199,12 @@ namespace ft
 
 
 		// Allocator:
-
 		// get_allocator : Get allocator (public member function )
 		allocator_type get_allocator() const { return _alloc; }
 
 
 
-		//////////// Testing
+		//////////// Testing, to remove
 		void	display() { _rbtree.display(); }
 	};
 

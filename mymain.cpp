@@ -50,37 +50,48 @@ void	printvector(ft::vector<std::string> vector)
 
 int main() 
 {
-  std::map<char,int, std::less<char> > mymap;
-  // first insert function version (single parameter):
-  mymap.insert ( std::pair<char,int>('a',100) );
-  mymap.insert ( std::pair<char,int>('a',200) );
-  mymap.insert ( std::pair<char,int>('c',30000) );
-  mymap.insert ( std::pair<char,int>('z',2700) );
-  std::cout << "SIZE=" << mymap.size() << std::endl;
-  std::pair<std::map<char,int>::iterator,bool> ret;
-  ret = mymap.insert ( std::pair<char,int>('z',500) );
-  if (ret.second==false) 
-  {
-    std::cout << "element 'z' already existed";
-    std::cout << " with a value of " << ret.first->second << '\n';
-  }
-    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-    std::cout << it->first << " => " << it->second << '\n';
-
-	std::cout << "COUNT = " << mymap.count('a') << std::endl;
+//   std::map<char,int, std::less<char> > mymap;
+//   // first insert function version (single parameter):
+//   mymap.insert ( std::pair<char,int>('a',100) );
+//   mymap.insert ( std::pair<char,int>('a',200) );
+//   mymap.insert ( std::pair<char,int>('c',30000) );
+//   mymap.insert ( std::pair<char,int>('z',2700) );
+//   std::pair<std::map<char,int>::iterator,bool> ret;
+//   ret = mymap.insert ( std::pair<char,int>('z',500) );
+//   if (ret.second==false) 
+//   {
+//     std::cout << "element 'z' already existed";
+//     std::cout << " with a value of " << ret.first->second << '\n';
+//   }
+//     for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+//     std::cout << it->first << " => " << it->second << '\n';
 
 
-	std::cout << std::endl;
-	std::cout << std::endl;
+// 	std::cout << std::endl;
+// 	std::cout << std::endl;
 
-	ft::map<char,int, std::less<char> > m;
+
+	ft::map<char,int> m;
 	m.insert (ft::pair<char,int>('a',100) );
 	m.insert (ft::pair<char,int>('a',200) );
 	m.insert (ft::pair<char,int>('c',30000) );
 	m.insert (ft::pair<char,int>('z',2700) );
   	m.insert (ft::pair<char,int>('z',500) );
+	// m.erase('z');
+	// std::cout << m.size() << std::endl;
+	m.display();
+	std::cout << "SIZE = " << m.size() << std::endl;
+
+    // for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    // std::cout << it->first << " => " << it->second << '\n';
+
+	// ft::map<char,int, std::less<char> > mcpy(m);
 
 
+
+	ft::rbtree<int> t1;
+	t1.insert(42);
+	// ft::rbtree<int> t2(t1);
 
   	// ret = m.insert (std::pair<char,int>('z',500) );
 	// m.insert(ft::pair<int,int>(42,100));
@@ -96,8 +107,8 @@ int main()
 	// m.insert(ft::pair<int,int>(42,105));
 	// std::cout << "test [] = " << m[42] << std::endl;
 	// m.insert(ft::pair<int,int>(42,42));
-	std::cout << m.size() << std::endl;
-	m.display();
+	// std::cout << m.size() << std::endl;
+	// m.display();
 	// m.insert(ft::pair<int,int>(42,42));
 	// std::cout << m.size() << std::endl;
 

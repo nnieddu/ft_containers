@@ -27,9 +27,15 @@
 
 namespace ft 
 {
-	// Empty class to allow pair specialisation
-	template <class T, class Compare, bool isPair, typename key_type, class Alloc > 
-	class rbtree_pair {};
+	// Specialisation to use rb_tree without pair (default mode)
+	template <class T, class Compare, bool isPair, typename key_type, class Alloc> 
+	class rbtree_pair 
+	{
+		public:
+			bool 	comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
+			T 		disp(T value) { return value; }
+			Compare	_comp;
+	};
 
 	// Specialisation to use rb_tree with pair type :
 	template <class T, class Compare, typename key_type, class Alloc>
@@ -41,21 +47,10 @@ namespace ft
 			Compare		_comp;
 	};
 
-	// Specialisation to use rb_tree without pair type (default mode)
-	template <class T, class Compare>
-	class rbtree_pair<T, Compare, false, void, void> 
-	{
-		public:
-			bool 	comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
-			T 		disp(T value) { return value; }
-			Compare	_comp;
-	};
-
-
-	template <class T, class Compare = ft::less<T>, bool isPair = false, typename key_type = void, class Alloc = std::allocator<T> >
+	template <class T, class Compare = ft::less<T>, bool isPair = false, 
+		typename key_type = void, class Alloc = std::allocator<T> >
 	class rbtree : rbtree_pair<T, Compare, isPair, key_type, Alloc>
 	{
-
 		public:
 			typedef std::size_t		size_type;
 
@@ -73,13 +68,21 @@ namespace ft
 			node* root;
 
 		private:
-			size_type	_size;
-			Compare		_comp;
 			Alloc		_alloc;
+			Compare		_comp;
+			size_type	_size;
 
 		public:
-			rbtree() : nil(new node), root(nil), _size(0), _comp(Compare())
+			rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
 			{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
+
+			rbtree (const rbtree& x) : nil(new node), root(nil), _alloc(x._alloc), _comp(x._comp), _size(x._size)
+			{
+				if(x.root != x.nil)
+					_cpy(x.root);
+			}
+
+			// rbtree& operator= (const rbtree& x);
 
 			~rbtree()
 			{
@@ -97,19 +100,35 @@ namespace ft
 
 			size_type	size() const { return _size; }
 
+
+			void _cpy(node* x)
+			{
+				if(x->left != nil)
+				{
+					insert(x->value);
+					_cpy(x->left);
+				}
+
+				// if(x->right != nil)
+				// {
+				// 	insert(x->right->value);
+				// 	_cpy(x->right);
+				// }
+			}
+
 			node* search(T value)
 			{
-				node* nod = root;
-				while(nod != nil && value != nod->value)
+				node* n = root;
+				while(n != nil && value != n->value)
 				{
-					if(this->comp_binded(value, nod->value))
-						nod = nod->left;
+					if(this->comp_binded(value, n->value))
+						n = n->left;
 					else
-						nod = nod->right;
+						n = n->right;
 				}
-				if (nod == nil)
+				if (n == nil)
 					return NULL;  /// test erase empty
-				return nod;
+				return n;
 			}
 			
 			// -------------------------------- //
@@ -201,7 +220,6 @@ namespace ft
 				y->right->p = x;
 				y->right = x;
 				x->p = y;
-
 			}
 
 			void rbInsertFixup(node* z)
@@ -383,7 +401,7 @@ namespace ft
 
 			void erase(T value)
 			{
-				node* x = search(value);
+				node* x = search(this->disp(value));
 				if(x != NULL)
 					rbDelete(x);
 				_size--;
@@ -403,7 +421,6 @@ namespace ft
 					delete x->left;
 				}
 			}
-
 
 			// -------------------------------- //
 			// -------------Display------------ //
