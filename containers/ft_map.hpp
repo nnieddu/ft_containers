@@ -65,7 +65,7 @@ namespace ft
 		// typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
 
 		// copy (3)	
-		map (const map& x) : _alloc(x._alloc), _comp(x._comp), _capacity(x._capacity) {}//, _rbtree(x._rbtree) {} ////
+		map (const map& x) : _alloc(x._alloc), _comp(x._comp), _capacity(x._capacity), _rbtree(x._rbtree) {} ////
 
 		// (destructor) : Map destructor (public member function )
 		~map() {};
