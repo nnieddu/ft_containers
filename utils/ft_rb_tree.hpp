@@ -78,7 +78,6 @@ namespace ft
 			rbtree (const rbtree& x) 
 			: nil(new node), root(nil), _alloc(x._alloc), _comp(x._comp), _size(0)
 			{
-				std::cout << "Copy Constructor\n";
 				nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
 				if (x.root != x.nil)
 					insert(x.root->value);
@@ -88,12 +87,11 @@ namespace ft
 
 			rbtree& operator=(const rbtree& x)
 			{
-				std::cout << "operator======\n";
 				if (&x == this)
 					return *this;
 				if (root != nil)
 				{
-					clean(root);
+					this->~rbtree();
 					nil = new node;
 					root = nil;
 					nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
@@ -420,7 +418,6 @@ namespace ft
 					_display(x->left);
 				if(x != nil)
 				{
-					std::cout << &x << std::endl;
 					std::cout << this->disp(x->value) << ' ';
 					if(x->color == true)
 						std::cout << "RED ";

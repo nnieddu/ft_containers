@@ -74,53 +74,24 @@ int main()
 // 	std::cout << std::endl;
 
 
-	// ft::map<char,int> m;
-	// m.insert (ft::pair<char,int>('a',100) );
-	// m.insert (ft::pair<char,int>('a',200) );
-	// m.insert (ft::pair<char,int>('c',30000) );
-	// m.insert (ft::pair<char,int>('z',2700) );
-  	// m.insert (ft::pair<char,int>('z',500) );
-	// // m.erase('z');
-	// // std::cout << m.size() << std::endl;
-	// m.display();
-	// std::cout << "SIZE = " << m.size() << std::endl;
+	ft::map<char,int, std::greater<char> > m;
+	m.insert (ft::pair<char,int>('a',100) );
+	m.insert (ft::pair<char,int>('a',200) );
+	m.insert (ft::pair<char,int>('c',30000) );
+	m.insert (ft::pair<char,int>('z',2700) );
+  	m.insert (ft::pair<char,int>('z',500) );
+	// m.erase('z');
+	std::cout << m.size() << std::endl;
+	m.display();
+	std::cout << "SIZE = " << m.size() << std::endl;
 
-    // for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-    // std::cout << it->first << " => " << it->second << '\n';
+	ft::map<char,int, std::greater<char> > mcpy;
+	mcpy = m;
 
-	// ft::map<char,int> mcpy(m);
-	// mcpy.display();
-	// std::cout << "SIZE = " << mcpy.size() << std::endl;
-
-	// std::cout << std::endl;
-
-	ft::rbtree<int> t1;
-	t1.insert(42);
-	t1.insert(43);
-	t1.insert(44);
-	t1.insert(45);
-	t1.insert(46);
-	t1.display();
+	mcpy.display();
+	std::cout << "SIZE = " << mcpy.size() << std::endl;
 
 	std::cout << std::endl;
-	std::cout << std::endl;
-
-	ft::rbtree<int> t2(t1);
-	t2.display();
-
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-	std::cout << "T3=" << std::endl;
-	ft::rbtree<int> t3;
-	// t3 = t2;
-	t3.insert(421);
-	t3.insert(43);
-	t3.insert(454);
-	t3.insert(45);
-	t3.insert(46);
-
-	t3.display();
 
 
 
@@ -142,11 +113,6 @@ int main()
 	// m.display();
 	// m.insert(ft::pair<int,int>(42,42));
 	// std::cout << m.size() << std::endl;
-
-
-
-
-
 
 
 	// for (int i = 1; i <= 6; i++)

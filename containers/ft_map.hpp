@@ -71,7 +71,14 @@ namespace ft
 		~map() {};
 
 		// operator= : Copy container content (public member function )
-		// map& operator= (const map& x);
+		map& operator= (const map& x)
+		{
+			_alloc = x._alloc;
+			_comp = x._comp;
+			_capacity = x._capacity;
+			_rbtree = x._rbtree;
+			return *this;
+		}
 
 
 		// Iterators:
@@ -129,7 +136,7 @@ namespace ft
 		// insert() : Insert elements (public member function )
 		// single element (1)	
 		// pair<iterator,bool> insert (const value_type& val)
-		void insert (const value_type& val) ///////// return
+		void insert (const value_type& val) ////////////////// return
 		{
 			if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
 				_rbtree.insert(val, true, true);
