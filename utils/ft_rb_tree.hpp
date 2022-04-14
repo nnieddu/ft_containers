@@ -52,7 +52,7 @@ namespace ft
 	class rbtree : rbtree_pair<T, Compare, isPair, key_type, Alloc>
 	{
 		private:
-			typedef std::size_t		size_type;
+			typedef std::size_t				size_type;
 
 			struct node
 			{
@@ -71,50 +71,121 @@ namespace ft
 			Compare		_comp;
 			size_type	_size;
 
-			void clean(node* x)
-			{
-				if(x->right != nil)
-				{
-					clean(x->right);
-					delete x->right;
-				}
+		public:
+			rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
+			{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
 
-				if(x->left != nil)
-				{
-					clean(x->left);
-					delete x->left;
-				}
+			rbtree (const rbtree& x) 
+			: nil(new node), root(nil), _alloc(x._alloc), _comp(x._comp), _size(0)
+			{
+				std::cout << "Copy Constructor\n";
+				nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
+				if (x.root != x.nil)
+					insert(x.root->value);
+				if(root != nil)
+					_cpy(x.root, x.nil);				
 			}
 
-			void _cpy(node* x, node* nil)
+			rbtree& operator=(const rbtree& x)
 			{
-				if(x->left != nil)
+				std::cout << "operator======\n";
+				if (&x == this)
+					return *this;
+				if (root != nil)
 				{
-					insert(x->left->value);
-					_cpy(x->left, nil);
+					clean(root);
+					nil = new node;
+					root = nil;
+					nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
 				}
+				if (x.root != x.nil)
+				{
+					insert(x.root->value);
+					_cpy(x.root, x.nil);				
+				}
+				return *this;
+			}
 
-				if(x->right != nil)
-				{
-					insert(x->right->value);
-					_cpy(x->right, nil);
-				}
-			}	
-			
-			void _assign(node* og, node* x, node* nil)
+			~rbtree()
 			{
-				if(x->left != nil)
+				if(root != nil)
 				{
-					og->left = x->left;
-					_assign(x->left, nil);
+					clean(root);
+					delete root;
 				}
+				delete nil;
+			}
 
-				if(x->right != nil)
+			size_type	size() const { return _size; }
+
+			node* search(T value)
+			{
+				node* n = root;
+				while(n != nil && value != n->value)
 				{
-					og->right = x->right;
-					_assign(x->right, nil);
+					if(this->comp_binded(value, n->value))
+						n = n->left;
+					else
+						n = n->right;
 				}
-			}			
+				if (n == nil)
+					return NULL;  /// test erase empty
+				return n;
+			}
+
+			// -------------------------------- //
+			// -------------Insert------------- //
+			// -------------------------------- //
+			void insert(T value, bool allowSameKey = true, bool onlySameKey = false)
+			{
+				if (onlySameKey == true && _size > 0 && 
+					((this->disp(value) != this->disp(root->value))))
+						return ;
+				node* newNode = new node;
+				node* x = root;
+				node* y = nil;
+		
+				_alloc.construct(&newNode->value, value);
+				while(x != nil)
+				{
+					y = x;
+					if (this->comp_binded(value, x->value))
+					{
+						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
+						{
+							delete newNode;
+							return ;
+						}	
+						x = x->left;
+					}
+					else
+					{
+						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
+						{
+							delete newNode;
+							return ;
+						}
+						x = x->right;
+					}
+				}
+				newNode->p = y;
+				if (y == nil)
+					root = newNode;
+				else
+				{
+					if (this->comp_binded(newNode->value, y->value))
+						y->left = newNode;
+					else
+						y->right = newNode;
+				}
+				newNode->left = nil;
+				newNode->right = nil;
+				newNode->color = true;
+				rbInsertFixup(newNode);
+				++_size;
+			}
+
+		private:
 			void leftRotate(node* x)
 			{
 				node* y = x->right;
@@ -210,7 +281,7 @@ namespace ft
 			// -------------------------------- //
 			// -------------Erase-------------- //
 			// -------------------------------- //
-
+		private:
 			node* treeSuccessor(node* x)
 			{
 				if(x->right != nil)
@@ -330,12 +401,29 @@ namespace ft
 				delete y;
 			}
 
+		public:	
+			void erase(T value)
+			{
+				node* x = search(this->disp(value));
+				if(x != NULL)
+					rbDelete(x);
+				_size--;
+			}
+
+			// -------------------------------- //
+			// -------------Display------------ //
+			// -------------------------------- //
+		private:
 			void _display(node* x)
 			{
 				if(x->left != nil)
+				{
+					// std::cout << &x->left << std::endl;
 					_display(x->left);
+				}
 				if(x != nil)
 				{
+					std::cout << &x << std::endl;
 					std::cout << this->disp(x->value) << ' ';
 					if(x->color == true)
 						std::cout << "RED ";
@@ -358,391 +446,12 @@ namespace ft
 				}
 				std::cout << std::endl;
 				if(x->right != nil)
+				{
+					// std::cout << &x->right << std::endl;
 					_display(x->right);
+				}
 			}
-
 		public:
-			rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
-			{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
-
-			rbtree (const rbtree& x) : nil(new node), root(nil), _alloc(x._alloc), _comp(x._comp), _size(0)
-			{
-				nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
-				if (x.root != x.nil)
-					insert(x.root->value);
-				if(root != nil)
-					_cpy(x.root, x.nil);				
-			}
-
-			rbtree& operator= (const rbtree& x)
-			{
-				if (&x == this)
-					return *this;	
-				clean();
-				nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
-				if (x.root != x.nil)
-					root = x.root;
-				if(root != nil)
-					_assign(root, x.root, x.nil);		
-
-			}
-
-			~rbtree()
-			{
-				if(root != nil)
-				{
-					clean(root);
-					delete root;
-				}
-				delete nil;
-			}
-
-			// -------------------------------- //
-			// -------------Utils-------------- //
-			// -------------------------------- //
-
-			size_type	size() const { return _size; }
-
-			node* search(T value)
-			{
-				node* n = root;
-				while(n != nil && value != n->value)
-				{
-					if(this->comp_binded(value, n->value))
-						n = n->left;
-					else
-						n = n->right;
-				}
-				if (n == nil)
-					return NULL;  /// test erase empty
-				return n;
-			}
-			
-			// -------------------------------- //
-			// ------------Insert-------------- //
-			// -------------------------------- //
-			void insert(T value, bool allowSameKey = true, bool onlySameKey = false)
-			{
-				if (onlySameKey == true && _size > 0 && 
-					((this->disp(value) != this->disp(root->value))))
-						return ;
-				node* newNode = new node;
-				node* x = root;
-				node* y = nil;
-		
-				_alloc.construct(&newNode->value, value);
-				while(x != nil)
-				{
-					y = x;
-					if (this->comp_binded(value, x->value))
-					{
-						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
-						{
-							delete newNode;
-							return ;
-						}	
-						x = x->left;
-					}
-					else
-					{
-						if (allowSameKey == false && this->disp(value) == this->disp(x->value))
-						{
-							delete newNode;
-							return ;
-						}
-						x = x->right;
-					}
-				}
-				newNode->p = y;
-				if (y == nil)
-					root = newNode;
-				else
-				{
-					if (this->comp_binded(newNode->value, y->value))
-						y->left = newNode;
-					else
-						y->right = newNode;
-				}
-				newNode->left = nil;
-				newNode->right = nil;
-				newNode->color = true;
-
-				rbInsertFixup(newNode);
-				++_size;
-			}
-			
-		// 	void leftRotate(node* x)
-		// 	{
-		// 		node* y = x->right;
-		// 		if(x->p == nil)
-		// 			root = y;
-		// 		else
-		// 		{
-		// 			if(x == x->p->left)
-		// 				x->p->left = y;
-		// 			else
-		// 				x->p->right = y;
-		// 		}
-		// 		y->p = x->p;
-		// 		x->right = y->left;
-		// 		y->left->p = x;
-		// 		y->left = x;
-		// 		x->p = y;
-		// 	}
-
-		// 	void rightRotate(node* x)
-		// 	{
-		// 		node* y = x->left;
-		// 		if(x->p == nil)
-		// 			root = y;
-		// 		else
-		// 		{
-		// 			if(x == x->p->left)
-		// 				x->p->left = y;
-		// 			else
-		// 				x->p->right = y;
-		// 		}
-		// 		y->p = x->p;
-		// 		x->left = y->right;
-		// 		y->right->p = x;
-		// 		y->right = x;
-		// 		x->p = y;
-		// 	}
-
-		// 	void rbInsertFixup(node* z)
-		// 	{
-		// 		while(z->p->color == true)
-		// 		{
-		// 			if(z->p == z->p->p->left)
-		// 			{
-		// 				node* y = z->p->p->right;
-		// 				if(y->color == true)
-		// 				{
-		// 					z->p->color = false;
-		// 					y->color = false;
-		// 					z->p->p->color = true;
-		// 					z = z->p->p;
-		// 				}
-		// 				else
-		// 				{
-		// 					if(z == z->p->right)
-		// 					{
-		// 						z = z->p;
-		// 						leftRotate(z);
-		// 					}
-		// 					z->p->color = false;
-		// 					z->p->p->color = true;
-		// 					z->p->right->color = false;
-		// 					rightRotate(z->p->p);
-		// 				}
-		// 			}
-		// 			else
-		// 			{
-		// 				node* y = z->p->p->left;
-		// 				if(y->color == true)
-		// 				{
-		// 					z->p->color = false;
-		// 					y->color = false;
-		// 					z->p->p->color = true;
-		// 					z = z->p->p;
-		// 				}
-		// 				else
-		// 				{
-		// 					if(z == z->p->left)
-		// 					{
-		// 						z = z->p;
-		// 						rightRotate(z);
-		// 					}
-		// 					z->p->color = false;
-		// 					z->p->p->color = true;
-		// 					z->p->left->color = false;
-		// 					leftRotate(z->p->p);
-		// 				}
-		// 			}
-		// 		}
-		// 		root->color = false;
-		// 	}
-
-		// 	// -------------------------------- //
-		// 	// -------------Erase-------------- //
-		// 	// -------------------------------- //
-
-		// 	node* treeSuccessor(node* x)
-		// 	{
-		// 		if(x->right != nil)
-		// 		{
-		// 			while(x->left != nil)
-		// 				x = x->left;
-		// 			return x;
-		// 		}
-		// 		node* y = x->p;
-		// 		while(y != nil && x == y->right)
-		// 		{
-		// 			x = y;
-		// 			y = y->p;
-		// 		}
-		// 		return y;
-		// 	}
-
-		// 	void rbDeleteFixup(node* x)
-		// 	{
-		// 		while(x != root && x->color == false)
-		// 		{
-		// 			node* w = 0;
-
-		// 			if(x->p->left == x)
-		// 			{
-		// 				w = x->p->right;
-		// 				if(w->color == true)
-		// 				{
-		// 					w->color = false;
-		// 					x->p->color = true;
-		// 					leftRotate(x->p);
-		// 					w = x->p->right;
-		// 				}
-		// 				if(w->left->color == false && w->right->color == false)
-		// 				{
-		// 					w->color = true;
-		// 					x = x->p;
-		// 				}
-		// 				else
-		// 				{
-		// 					if(w->right->color == false)
-		// 					{
-		// 						w->left->color = false;
-		// 						w->color = true;
-		// 						rightRotate(w);
-		// 						w = x->p->right;
-		// 					}
-		// 					w->color = x->p->color;
-		// 					x->p->color = false;
-		// 					w->right->color = false;
-		// 					leftRotate(x->p);
-		// 					x = root;
-		// 				}
-		// 			}
-		// 			else
-		// 			{
-		// 				w = x->p->left;
-		// 				if(w->color == true)
-		// 				{
-		// 					w->color = false;
-		// 					x->p->color = true;
-		// 					rightRotate(x->p);
-		// 					w = x->p->left;
-		// 				}
-		// 				if(w->right->color == false && w->left->color == false)
-		// 				{
-		// 					w->color = true;
-		// 					x = x->p;
-		// 				}
-		// 				else
-		// 				{
-		// 					if(w->left->color == false)
-		// 					{
-		// 						w->right->color = false;
-		// 						w->color = true;
-		// 						leftRotate(w);
-		// 						w = x->p->left;
-		// 					}
-		// 					w->color = x->p->color;
-		// 					x->p->color = false;
-		// 					w->left->color = false;
-		// 					rightRotate(x->p);
-		// 					x = root;
-		// 				}
-		// 			}
-		// 		}
-		// 		x->color = false;
-		// 	}
-
-		// void rbDelete(node* z)
-		// 	{
-		// 		node* x = nil;
-		// 		node* y = nil;
-
-		// 		if(z->left == nil || z->right == nil)
-		// 			y = z;
-		// 		else
-		// 			y = treeSuccessor(z);
-		// 		if(y->left != nil)
-		// 			x = y->left;
-		// 		else
-		// 			x = y->right;
-		// 		x->p = y->p;
-		// 		if(y->p == nil)
-		// 			root = x;
-		// 		else
-		// 		{
-		// 			if(y == y->p->left)
-		// 				y->p->left = x;
-		// 			else
-		// 				y->p->right = x;
-		// 		}
-		// 		if(y != z)
-		// 			z->value = y->value;
-		// 		if(y->color == false)
-		// 			rbDeleteFixup(x);
-		// 		delete y;
-		// 	}
-
-			void erase(T value)
-			{
-				node* x = search(this->disp(value));
-				if(x != NULL)
-					rbDelete(x);
-				_size--;
-			}
-
-			// void clean(node* x)
-			// {
-			// 	if(x->right != nil)
-			// 	{
-			// 		clean(x->right);
-			// 		delete x->right;
-			// 	}
-
-			// 	if(x->left != nil)
-			// 	{
-			// 		clean(x->left);
-			// 		delete x->left;
-			// 	}
-			// }
-
-			// -------------------------------- //
-			// -------------Display------------ //
-			// -------------------------------- //
-			// void _display(node* x)
-			// {
-			// 	if(x->left != nil)
-			// 		_display(x->left);
-			// 	if(x != nil)
-			// 	{
-			// 		std::cout << this->disp(x->value) << ' ';
-			// 		if(x->color == true)
-			// 			std::cout << "RED ";
-			// 		else
-			// 			std::cout << "BLACK ";
-			// 		if(x->p != nil)
-			// 			std::cout << "p:" << this->disp(x->p->value) << ' ';
-			// 		else
-			// 			std::cout << "p:" << "NULL ";
-			// 		if(x->left != nil)
-			// 			std::cout << "l:" << this->disp(x->left->value) << ' ';
-			// 		else
-			// 			std::cout << "l:" << "NULL ";
-			// 		if(x->right != nil)
-			// 			std::cout << "r:" << this->disp(x->right->value) << ' ';
-			// 		else
-			// 			std::cout << "r:" << "NULL ";
-			// 		if(x->p == nil)
-			// 			std::cout << " =ROOT=";
-			// 	}
-			// 	std::cout << std::endl;
-			// 	if(x->right != nil)
-			// 		_display(x->right);
-			// }
-
 			void display()
 			{
 				if(root != nil)
@@ -750,6 +459,39 @@ namespace ft
 				else
 					std::cout << "Tree is empty !" << std::endl;
 			}
-	};
 
+			// -------------------------------- //
+			// -------------Utils-------------- //
+			// -------------------------------- //
+		private:
+			void clean(node* x)
+			{
+				if(x->right != nil)
+				{
+					clean(x->right);
+					delete x->right;
+				}
+
+				if(x->left != nil)
+				{
+					clean(x->left);
+					delete x->left;
+				}
+			}
+
+			void _cpy(node* x, node* nil)
+			{
+				if(x->left != nil)
+				{
+					insert(x->left->value);
+					_cpy(x->left, nil);
+				}
+
+				if(x->right != nil)
+				{
+					insert(x->right->value);
+					_cpy(x->right, nil);
+				}
+			}	
+	};
 }

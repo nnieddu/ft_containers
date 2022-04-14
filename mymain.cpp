@@ -16,7 +16,7 @@
 #include <map>
 #include <list>
 
-#include<cstdlib>
+#include <cstdlib>
 #include <typeinfo>
 
 #include "containers/ft_vector.hpp"
@@ -41,12 +41,12 @@
 #define COUNT(i)       COUT_I(std::cout, #i, (i))
 
 
-void	printvector(ft::vector<std::string> vector) 
-{
-	for (unsigned long i = 0; i < vector.size(); i++)
-		std::cout << vector[i] << " ";
-	std::cout << std::endl;
-}
+// void	printvector(ft::vector<std::string> vector) 
+// {
+// 	for (unsigned long i = 0; i < vector.size(); i++)
+// 		std::cout << vector[i] << " ";
+// 	std::cout << std::endl;
+// }
 
 int main() 
 {
@@ -56,6 +56,9 @@ int main()
 //   mymap.insert ( std::pair<char,int>('a',200) );
 //   mymap.insert ( std::pair<char,int>('c',30000) );
 //   mymap.insert ( std::pair<char,int>('z',2700) );
+
+//   std::map<char,int, std::less<char> > mymapa = mymap;
+
 //   std::pair<std::map<char,int>::iterator,bool> ret;
 //   ret = mymap.insert ( std::pair<char,int>('z',500) );
 //   if (ret.second==false) 
@@ -97,17 +100,24 @@ int main()
 	t1.insert(44);
 	t1.insert(45);
 	t1.insert(46);
+	t1.display();
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+
 	ft::rbtree<int> t2(t1);
 	t2.display();
 
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	
 	std::cout << "T3=" << std::endl;
-	ft::rbtree<int> t3 = t2;
+	ft::rbtree<int> t3;
+	t3 = t2;
 	t3.display();
-	
+
+
+
   	// ret = m.insert (std::pair<char,int>('z',500) );
 	// m.insert(ft::pair<int,int>(42,100));
 	// m.insert(ft::pair<int,int>(42,100));
@@ -133,7 +143,6 @@ int main()
 
 
 
-	// ft::rbtree<int> tr;
 	// for (int i = 1; i <= 6; i++)
 	// 	tr.insert(i);
 
@@ -171,5 +180,5 @@ int main()
 	// std::cout << "Erase";
 	// std::cout << std::endl <<  "Size = " << tr.size() << std::endl; 
 
-	return 0;
+	// return 0;
 }
