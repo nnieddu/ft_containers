@@ -56,13 +56,16 @@ int main()
 		std::cout << "coucou\n";
 
 
-	ft::map<char,int, std::greater<char> > m;
+	ft::map<char,int> m;
 
 	m.insert (ft::pair<char,int>('a',100) );
 	m.insert (ft::pair<char,int>('a',200) );
 	m.insert (ft::pair<char,int>('c',30000) );
 	m.insert (ft::pair<char,int>('z',2700) );
   	m.insert (ft::pair<char,int>('z',500) );
+					std::cout << "COUNT= " << m.count('a');
+					// std::cout << "COUNT= " << m.count('z');
+					// std::cout << "COUNT= " << m.count('w');
 	// m.erase('z');
 	m.display();
 	std::cout << "SIZE = " << m.size() << std::endl;
@@ -122,6 +125,11 @@ int main()
 	tr.insert(888);
 	tr.insert(876);
 	tr.insert(881);
+
+
+	std::cout << "COUNT= " << tr.count(42) << std::endl;
+	std::cout << "COUNT= " << tr.count(41) << std::endl;
+	std::cout << "COUNT= " << tr.count(4051651651) << std::endl;
 
 	std::cout << std::endl;
 	tr.display();

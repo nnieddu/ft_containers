@@ -32,9 +32,9 @@ namespace ft
 	class rbtree_pair 
 	{
 		public:
-			bool 	comp_binded(T lhs, T rhs) { return _comp(lhs, rhs); }
-			T 		value_binded(T value) { return value; }
-			T& 		value_second(T& value) { return value; }
+			bool 	comp_binded(T lhs, T rhs) const { return _comp(lhs, rhs); }
+			T 		value_binded(T value) const { return value; }
+			T& 		value_second(T& value) const { return value; }
 			Compare	_comp;
 	};
 
@@ -43,9 +43,9 @@ namespace ft
 	class rbtree_pair<T, Compare, true, key_type, mapped_type, Alloc> 
 	{
 		public:
-			bool 			comp_binded(T lhs, T rhs) { return _comp(lhs.first, rhs.first); }
-			key_type 		value_binded(T value) { return value.first; }
-			mapped_type& 	value_second(T& value) { return value.second; }
+			bool 			comp_binded(T lhs, T rhs) const { return _comp(lhs.first, rhs.first); }
+			key_type 		value_binded(T value) const { return value.first; }
+			mapped_type& 	value_second(T& value) const { return value.second; }
 			Compare			_comp;
 	};
 
@@ -131,7 +131,12 @@ namespace ft
 				return n;
 			}
 
-			mapped_type& searchValue(key_type value) //
+
+			// -------------------------------- //
+			// -------------ForMap------------- //
+			// -------------------------------- //
+
+			mapped_type& searchValue(key_type value)
 			{
 				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
@@ -149,6 +154,22 @@ namespace ft
 				}
 				return (this->value_second(n->value));
 			}
+
+			size_type count(const key_type value) const //////// test
+			{
+				node* n = root;
+				while(n != nil && value != this->value_binded(n->value))
+				{
+					if(this->_comp(value, this->value_binded(n->value)))
+						n = n->left;
+					else
+						n = n->right;
+				}
+				if (n == nil)
+					return 0;
+				return 1;
+			}
+
 
 			// -------------------------------- //
 			// -------------Insert------------- //

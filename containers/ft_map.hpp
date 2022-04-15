@@ -159,7 +159,7 @@ namespace ft
 		size_type erase (const key_type& k) 
 		{ 
 			_rbtree.erase(k);
-			return 1; ////////// test avec map avc plusieurs key identique ou une
+			return 1; ////////// test avec std::map avc plusieurs key identique ou une
 		}
 
 		// (3)	
@@ -198,7 +198,7 @@ namespace ft
 		// const_iterator find (const key_type& k) const;
 
 		// count : Count elements with a specific key (public member function )
-		// size_type count (const key_type& k) const;
+		size_type count (const key_type& k) const { return (_rbtree.count(k)); } ///////
 
 		// lower_bound : Return iterator to lower bound (public member function )
 		// iterator lower_bound (const key_type& k);
