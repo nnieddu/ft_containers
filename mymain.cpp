@@ -52,11 +52,14 @@ int main()
 {
 	std::map<char,int, std::greater<char> > sm;
 	std::map<char,int, std::greater<char> > sm2;
-	if (sm != sm2)
-		std::cout << "coucou\n";
+	if (sm == sm2)
+		std::cout << "coucou1\n";
 
 
 	ft::map<char,int> m;
+	ft::map<char,int> m2;
+	// if (m != m2)
+	// 	std::cout << "coucou\n";
 
 	m.insert (ft::pair<char,int>('a',100) );
 	m.insert (ft::pair<char,int>('a',200) );
