@@ -219,3 +219,4 @@ all function templates with the desired name are initially considered.
 If the compiler cannot generate a template instance to match the function call’s arguments, 
 that function template is not considered. That is, failure to substitute the arguments is not an error.
   
+BinaryPredicate
