@@ -102,13 +102,15 @@ namespace ft
 
 		// begin
 		// Return iterator to beginning (public member function )
-		// iterator begin();
+		// iterator begin() { return &_rbtree.begin(); } ////////////////
+		value_type* begin() { return _rbtree.begin(); }
 
 		// const_iterator begin() const;
 
 		// end
 		// Return iterator to end (public member function )
-		// iterator end();
+		// iterator end()	{ return &_rbtree.end(); } //////////////////
+		value_type* end()	{ return &_rbtree.end(); }
 
 		// const_iterator end() const;
 
@@ -143,7 +145,10 @@ namespace ft
 
 		// operator[]
 		// Access element (public member function )
-		mapped_type& operator[] (const key_type& k) { return (_rbtree.searchValue(k)); }
+		mapped_type& operator[] (const key_type& k) 
+		{ return (_rbtree.searchValue(k)); }
+		// { return insert(ft::make_pair(k, mapped_type())).first->second;}
+		// {return (*((this->insert(ft::make_pair(k, mapped_type()))).first)).second; }
 
 
 		// Modifiers:
@@ -151,7 +156,7 @@ namespace ft
 		// insert() : Insert elements (public member function )
 		// single element (1)	
 		// pair<iterator,bool> insert (const value_type& val)
-		void insert (const value_type& val) ////////////////// return
+		void insert (const value_type& val) ///////////////////// return
 		{
 			if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
 				_rbtree.insert(val, true, true);

@@ -48,12 +48,37 @@
 // 	std::cout << std::endl;
 // }
 
+
 int main() 
 {
-	std::map<char,int, std::greater<char> > sm;
-	std::map<char,int, std::greater<char> > sm2;
-	if (sm == sm2)
-		std::cout << "coucou1\n";
+
+std::map<char,int> mymap;
+  
+  mymap['c'] = 3400;
+  mymap['a'] = 200;
+  mymap['f'] = 30;
+  mymap['b'] = 100;
+  mymap['e'] = 3006;
+  mymap['d'] = 3050;
+
+  std::cout << mymap.lower_bound('e')->second << " = lowerbound e \n";
+  std::cout << mymap.lower_bound('d')->second << " = lowerbound d \n";
+  std::cout << mymap.end()->second << " = end() \n";
+  std::cout << mymap.begin()->first << " = begin() \n";
+  std::cout << mymap.begin()->second << " = begin(sec) \n";
+
+
+  // show content:
+  for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+
+	std::cout << std::endl;
+
+
+
+
+
 
 
 	ft::map<char,int> m;
@@ -61,87 +86,96 @@ int main()
 	// if (m != m2)
 	// 	std::cout << "coucou\n";
 
-	m.insert (ft::pair<char,int>('a',100) );
-	m.insert (ft::pair<char,int>('a',200) );
-	m.insert (ft::pair<char,int>('c',30000) );
-	m.insert (ft::pair<char,int>('z',2700) );
-  	m.insert (ft::pair<char,int>('z',500) );
-					std::cout << "COUNT= " << m.count('a');
-					// std::cout << "COUNT= " << m.count('z');
-					// std::cout << "COUNT= " << m.count('w');
+//   m.insert ( ft::pair<char,int>('a',100) );
+	m['a'] = 42;
+  m.insert ( ft::pair<char,int>('b',200) );
+  m.insert ( ft::pair<char,int>('d',5200) );
+  m.insert ( ft::pair<char,int>('h',20540) );
+  m.insert ( ft::pair<char,int>('g',2050) );
+  m.insert ( ft::pair<char,int>('z',2000) );
+  m.insert ( ft::pair<char,int>('c',2006) );
+
+		// std::cout << "COUNT= " << m.count('a');
+		// std::cout << "COUNT= " << m.count('z');
+		// std::cout << "COUNT= " << m.count('w');
+
 	// m.erase('z');
+  std::cout << m.begin()->first << " = begin()\n";
+//   std::cout << m.begin()->second << " = begin(second)\n";
+  std::cout << m.end()->first << " = end()\n";
+  std::cout << m.end()->second << " = end(second)\n";
+
+	std::cout << std::endl;
+
 	m.display();
 	std::cout << "SIZE = " << m.size() << std::endl;
 
-	ft::map<std::vector<int> ,int > mcpy;
-	// mcpy = m;
-	std::vector<int> test;
-	// mcpy.display();
-	// std::cout << "SIZE = " << mcpy.size() << std::endl;
+	// ft::map<std::vector<int> ,int > mcpy;
+	// // mcpy = m;
+	// std::vector<int> test;
+	// // mcpy.display();
+	// // std::cout << "SIZE = " << mcpy.size() << std::endl;
+ 
+	// // std::cout << std::endl;
+	// // std::cout << m['c'];
+	// // std::cout << "SIZE = " << mcpy.size() << std::endl;
 
-	// std::cout << std::endl;
-	// std::cout << m['c'];
-	// std::cout << "SIZE = " << mcpy.size() << std::endl;
-
-	std::cout << mcpy[test] << std::endl;
-	m.clear();
-	std::cout << "Size apres clear = " << m.size() << std::endl;
-
-	std::cout << std::endl;
+	// std::cout << mcpy[test] << std::endl;
+	// m.clear();
+	// std::cout << "Size apres clear = " << m.size() << std::endl;
 
 
-
-	// ft::rbtree<ft::pair<int,int>, int, true > coucou;
-	// coucou.insert(ft::pair<int,int>(42,100));
-	// coucou.insert(ft::pair<int,int>(42,100));
-	// coucou.insert(ft::pair<int,int>(42,100));
-	// std::cout << std::endl <<  "SEARCHVAL= " << coucou.searchValue(42) << std::endl; 
-
-
-  	// ret = m.insert (std::pair<char,int>('z',500) );
-	// m.insert(ft::pair<int,int>(42,100));
-	// m.insert(ft::pair<int,int>(42,100));
-	// m.insert(ft::pair<int,int>(41,101));
-	// // m.insert(ft::pair<int,int>(42,101));
-	// m.insert(ft::pair<int,int>(40,102));
-
-	// std::cout << "test [] = " << m[42] << std::endl;
-	// m.insert(ft::pair<int,int>(42,42));
-	// std::cout << m.size() << std::endl;
-	// m.display();
-	// m.insert(ft::pair<int,int>(42,42));
-	// std::cout << m.size() << std::endl;
-
-	ft::rbtree<int> tr;
-	for (int i = 1; i <= 3; i++)
-		tr.insert(i);
-
-	tr.insert(42);
-	tr.insert(41);
-	tr.insert(40);
-	tr.insert(886);
-	tr.insert(886);
-	tr.insert(2777);
-	tr.insert(6915);
-	tr.insert(7793);
-	tr.insert(9383);
-	tr.insert(888);
-	tr.insert(876);
-	tr.insert(881);
+	// // ft::rbtree<ft::pair<int,int>, int, true > coucou;
+	// // coucou.insert(ft::pair<int,int>(42,100));
+	// // coucou.insert(ft::pair<int,int>(42,100));
+	// // coucou.insert(ft::pair<int,int>(42,100));
+	// // std::cout << std::endl <<  "SEARCHVAL= " << coucou.searchValue(42) << std::endl; 
 
 
-	std::cout << "COUNT= " << tr.count(42) << std::endl;
-	std::cout << "COUNT= " << tr.count(41) << std::endl;
-	std::cout << "COUNT= " << tr.count(4051651651) << std::endl;
+  	// // ret = m.insert (std::pair<char,int>('z',500) );
+	// // m.insert(ft::pair<int,int>(42,100));
+	// // m.insert(ft::pair<int,int>(42,100));
+	// // m.insert(ft::pair<int,int>(41,101));
+	// // // m.insert(ft::pair<int,int>(42,101));
+	// // m.insert(ft::pair<int,int>(40,102));
 
-	std::cout << std::endl;
-	tr.display();
-	std::cout << std::endl;
-	std::cout << std::endl <<  "Size = " << tr.size() << std::endl; 
-	tr.erase(6915);
-	tr.erase(6915);
-	std::cout << "Erase";
-	std::cout << std::endl <<  "Size = " << tr.size() << std::endl; 
+	// // std::cout << "test [] = " << m[42] << std::endl;
+	// // m.insert(ft::pair<int,int>(42,42));
+	// // std::cout << m.size() << std::endl;
+	// // m.display();
+	// // m.insert(ft::pair<int,int>(42,42));
+	// // std::cout << m.size() << std::endl;
+
+	// ft::rbtree<int> tr;
+	// for (int i = 1; i <= 3; i++)
+	// 	tr.insert(i);
+
+	// tr.insert(42);
+	// tr.insert(41);
+	// tr.insert(40);
+	// tr.insert(886);
+	// tr.insert(886);
+	// tr.insert(2777);
+	// tr.insert(6915);
+	// tr.insert(7793);
+	// tr.insert(9383);
+	// tr.insert(888);
+	// tr.insert(876);
+	// tr.insert(881);
+
+
+	// // std::cout << "COUNT= " << tr.count(42) << std::endl;
+	// // std::cout << "COUNT= " << tr.count(41) << std::endl;
+	// // std::cout << "COUNT= " << tr.count(4051651651) << std::endl;
+
+	// // std::cout << std::endl;
+	// // tr.display();
+	// // std::cout << std::endl;
+	// std::cout << std::endl <<  "Size = " << tr.size() << std::endl; 
+	// tr.erase(6915);
+	// tr.erase(6915);
+	// std::cout << "Erase";
+	// std::cout << std::endl <<  "Size = " << tr.size() << std::endl; 
 
 	// std::cout << "SEARCH VAL = " << tr.searchValue(7793) << std::endl;;
 

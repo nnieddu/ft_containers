@@ -32,10 +32,10 @@ namespace ft
 	class rbtree_pair 
 	{
 		public:
-			bool 	comp_binded(T lhs, T rhs) const { return _comp(lhs, rhs); }
-			T 		value_binded(T value) const { return value; }
-			T& 		value_second(T& value) const { return value; }
-			Compare	_comp;
+			bool 		comp_binded(T& lhs, T& rhs) const { return _comp(lhs, rhs); }
+			const T& 	value_binded(T& value) const { return value; }
+			const T& 	value_second(T& value) const { return value; }
+			Compare		_comp;
 	};
 
 	// Specialisation to use rb_tree with pair type (mainly for map):
@@ -43,10 +43,10 @@ namespace ft
 	class rbtree_pair<T, Compare, true, key_type, mapped_type, Alloc> 
 	{
 		public:
-			bool 			comp_binded(T lhs, T rhs) const { return _comp(lhs.first, rhs.first); }
-			key_type 		value_binded(T value) const { return value.first; }
-			mapped_type& 	value_second(T& value) const { return value.second; }
-			Compare			_comp;
+			bool 				comp_binded(T& lhs, T& rhs) const { return _comp(lhs.first, rhs.first); }
+			const key_type&		value_binded(T& value) const { return value.first; }
+			mapped_type& 		value_second(T& value) const { return value.second; }
+			Compare				_comp;
 	};
 
 	template <class T, class Compare = ft::less<T>, bool isPair = false, 
@@ -68,6 +68,9 @@ namespace ft
 
 			node* nil;
 			node* root;
+
+			// node* _beg;
+			// node* _end;
 
 			Alloc		_alloc;
 			Compare		_comp;
@@ -114,6 +117,22 @@ namespace ft
 					delete root;
 				}
 				delete nil;
+			}
+
+			T* begin()
+			{
+				node* x = root;
+				while (x->left != nil)
+					x = x->left;
+				return &x->value;
+			}
+
+			T& end()
+			{
+				node* x = root;
+				while (x->right != nil)
+					x = x->right;
+				return x->value;
 			}
 
 			size_type	size() const { return _size; }
@@ -262,54 +281,54 @@ namespace ft
 				x->p = y;
 			}
 
-			void rbInsertFixup(node* z)
+			void rbInsertFixup(node* nN)
 			{
-				while(z->p->color == true)
+				while(nN->p->color == true)
 				{
-					if(z->p == z->p->p->left)
+					if(nN->p == nN->p->p->left)
 					{
-						node* y = z->p->p->right;
+						node* y = nN->p->p->right;
 						if(y->color == true)
 						{
-							z->p->color = false;
+							nN->p->color = false;
 							y->color = false;
-							z->p->p->color = true;
-							z = z->p->p;
+							nN->p->p->color = true;
+							nN = nN->p->p;
 						}
 						else
 						{
-							if(z == z->p->right)
+							if(nN == nN->p->right)
 							{
-								z = z->p;
-								leftRotate(z);
+								nN = nN->p;
+								leftRotate(nN);
 							}
-							z->p->color = false;
-							z->p->p->color = true;
-							z->p->right->color = false;
-							rightRotate(z->p->p);
+							nN->p->color = false;
+							nN->p->p->color = true;
+							nN->p->right->color = false;
+							rightRotate(nN->p->p);
 						}
 					}
 					else
 					{
-						node* y = z->p->p->left;
+						node* y = nN->p->p->left;
 						if(y->color == true)
 						{
-							z->p->color = false;
+							nN->p->color = false;
 							y->color = false;
-							z->p->p->color = true;
-							z = z->p->p;
+							nN->p->p->color = true;
+							nN = nN->p->p;
 						}
 						else
 						{
-							if(z == z->p->left)
+							if(nN == nN->p->left)
 							{
-								z = z->p;
-								rightRotate(z);
+								nN = nN->p;
+								rightRotate(nN);
 							}
-							z->p->color = false;
-							z->p->p->color = true;
-							z->p->left->color = false;
-							leftRotate(z->p->p);
+							nN->p->color = false;
+							nN->p->p->color = true;
+							nN->p->left->color = false;
+							leftRotate(nN->p->p);
 						}
 					}
 				}
@@ -454,10 +473,10 @@ namespace ft
 			// -------------Display------------ //
 			// -------------------------------- //
 		private:
-			void _display(node* x)
+			void displayHelper(node* x)
 			{
 				if(x->left != nil)
-					_display(x->left);
+					displayHelper(x->left);
 				if(x != nil)
 				{
 					std::cout << this->value_binded(x->value) << ' ';
@@ -482,13 +501,13 @@ namespace ft
 				}
 				std::cout << std::endl;
 				if(x->right != nil)
-					_display(x->right);
+					displayHelper(x->right);
 			}
 		public:
 			void display()
 			{
 				if(root != nil)
-					_display(root);
+					displayHelper(root);
 				else
 					std::cout << "Tree is empty !" << std::endl;
 			}
