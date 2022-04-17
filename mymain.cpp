@@ -74,9 +74,7 @@ std::map<char,int> mymap;
 
 
 	std::cout << std::endl;
-
-
-
+	std::cout << std::endl;
 
 
 
@@ -88,6 +86,7 @@ std::map<char,int> mymap;
 
 //   m.insert ( ft::pair<char,int>('a',100) );
 	m['a'] = 42;
+	m['a'] = 42;
   m.insert ( ft::pair<char,int>('b',200) );
   m.insert ( ft::pair<char,int>('d',5200) );
   m.insert ( ft::pair<char,int>('h',20540) );
@@ -95,20 +94,26 @@ std::map<char,int> mymap;
   m.insert ( ft::pair<char,int>('z',2000) );
   m.insert ( ft::pair<char,int>('c',2006) );
 
-		// std::cout << "COUNT= " << m.count('a');
-		// std::cout << "COUNT= " << m.count('z');
-		// std::cout << "COUNT= " << m.count('w');
+	// std::cout << "COUNT= " << m.count('a');
+	// std::cout << "COUNT= " << m.count('z');
+	// std::cout << "COUNT= " << m.count('w');
 
 	// m.erase('z');
-  std::cout << m.begin()->first << " = begin()\n";
-//   std::cout << m.begin()->second << " = begin(second)\n";
+  	std::cout << m.begin()->first << " = begin()\n";
+  	std::cout << m.begin()->second << " = begin()\n";
+	
+	ft::map<char,int>::iterator i = m.begin();
+
+	std::cout << i->first << " = i begin()\n";
+  	std::cout << i->second << " = i begin()\n";
+	// std::cout << m.begin()->second << " = begin(second)\n";
   std::cout << m.end()->first << " = end()\n";
   std::cout << m.end()->second << " = end(second)\n";
 
 	std::cout << std::endl;
 
-	m.display();
-	std::cout << "SIZE = " << m.size() << std::endl;
+	// m.display();
+	// std::cout << "SIZE = " << m.size() << std::endl;
 
 	// ft::map<std::vector<int> ,int > mcpy;
 	// // mcpy = m;

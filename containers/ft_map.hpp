@@ -102,15 +102,14 @@ namespace ft
 
 		// begin
 		// Return iterator to beginning (public member function )
-		// iterator begin() { return &_rbtree.begin(); } ////////////////
-		value_type* begin() { return _rbtree.begin(); }
+		iterator begin() { return iterator(&_rbtree.begin()); } ////////////////
+		// value_type* begin() { return _rbtree.begin(); }
 
 		// const_iterator begin() const;
 
 		// end
 		// Return iterator to end (public member function )
-		// iterator end()	{ return &_rbtree.end(); } //////////////////
-		value_type* end()	{ return &_rbtree.end(); }
+		iterator end()	{ return iterator(&_rbtree.end()); } //return &_rbtree.end(); }
 
 		// const_iterator end() const;
 

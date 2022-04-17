@@ -23,6 +23,8 @@
 // Un noeud rouge n'a pas d'enfant rouge. 
 // Chaque chemin d'un noeud donné à l'un de ses noeuds NIL descendants passe par le même nombre de noeuds noirs. 
 
+
+
 #pragma once
 
 namespace ft 
@@ -119,12 +121,12 @@ namespace ft
 				delete nil;
 			}
 
-			T* begin()
+			T& begin()
 			{
 				node* x = root;
 				while (x->left != nil)
 					x = x->left;
-				return &x->value;
+				return x->value;
 			}
 
 			T& end()
@@ -132,7 +134,7 @@ namespace ft
 				node* x = root;
 				while (x->right != nil)
 					x = x->right;
-				return x->value;
+				return x->value; //////////////
 			}
 
 			size_type	size() const { return _size; }
