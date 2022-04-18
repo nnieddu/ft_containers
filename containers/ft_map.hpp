@@ -16,10 +16,11 @@
 
 #pragma once
 
-#include "../iterators/ft_bidirectional_iterator.hpp"
+
 #include "../utils/ft_utility.hpp"
 #include "../utils/ft_functional.hpp"
 #include "../utils/ft_rb_tree.hpp"
+#include "../iterators/ft_rbtree_iterator.hpp"
 
 namespace ft 
 {	
@@ -37,14 +38,14 @@ namespace ft
 			typedef typename allocator_type::const_reference			const_reference;
 			typedef typename allocator_type::pointer					pointer;
 			typedef typename allocator_type::const_pointer				const_pointer;
-			typedef ft::bidirectional_iterator<value_type>				iterator;
-			typedef ft::bidirectional_iterator <const value_type>		const_iterator;
-			typedef ft::reverse_iterator<iterator>						reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
+			typedef ft::rbtree_iterator<node<value_type>, value_type >	iterator;
+			// typedef ft::rbtree_iterator <node<value_type>, const value_type>		const_iterator; // / const node ?
+			// typedef ft::reverse_iterator<iterator>						reverse_iterator;
+			// typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 			typedef std::ptrdiff_t										difference_type;
 			typedef std::size_t											size_type;
 
-			class value_compare : std::binary_function<value_type, value_type, bool> 
+			class value_compare : ft::binary_function<value_type, value_type, bool> 
 			{	// in C++98, it is required to inherit binary_function<value_type,value_type,bool>
 				friend class map;
 				protected:
@@ -102,14 +103,13 @@ namespace ft
 
 		// begin
 		// Return iterator to beginning (public member function )
-		iterator begin() { return iterator(&_rbtree.begin()); } ////////////////
-		// value_type* begin() { return _rbtree.begin(); }
+		iterator begin() { return iterator( _rbtree.begin()); }
 
 		// const_iterator begin() const;
 
 		// end
 		// Return iterator to end (public member function )
-		iterator end()	{ return iterator(&_rbtree.end()); } //return &_rbtree.end(); }
+		iterator end()	{ return iterator( _rbtree.end()); }
 
 		// const_iterator end() const;
 
@@ -145,24 +145,25 @@ namespace ft
 		// operator[]
 		// Access element (public member function )
 		mapped_type& operator[] (const key_type& k) 
-		{ return (_rbtree.searchValue(k)); }
-		// { return insert(ft::make_pair(k, mapped_type())).first->second;}
-		// {return (*((this->insert(ft::make_pair(k, mapped_type()))).first)).second; }
+		{ return insert(ft::make_pair(k, mapped_type())).first->second;}
 
 
 		// Modifiers:
 
 		// insert() : Insert elements (public member function )
 		// single element (1)	
-		// pair<iterator,bool> insert (const value_type& val)
-		void insert (const value_type& val) ///////////////////// return
+		pair<iterator,bool> insert (const value_type& val)
 		{
+			pair<node<value_type>*, bool> ret;
+
 			if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
-				_rbtree.insert(val, true, true);
+				ret = _rbtree.insert(val, true, true);
 			else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1))) // greater/less _equal
-				_rbtree.insert(val, true, false);
+				ret = _rbtree.insert(val, true, false);
 			else
-				_rbtree.insert(val, false, false);
+				ret = _rbtree.insert(val, false, false);
+
+			return make_pair(iterator(ret.first), ret.second); /// test bool et it avec stl et compar a equal_to
 		}
 		
 		// with hint (2)	

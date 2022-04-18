@@ -52,65 +52,102 @@
 int main() 
 {
 
-std::map<char,int> mymap;
+// std::map<char,int> mymap;
   
-  mymap['c'] = 3400;
-  mymap['a'] = 200;
-  mymap['f'] = 30;
-  mymap['b'] = 100;
-  mymap['e'] = 3006;
-  mymap['d'] = 3050;
+// 	mymap['a'] = 42;
+//   mymap.insert ( std::pair<char,int>('b',200) );
+//   mymap.insert ( std::pair<char,int>('d',5200) );
+//   mymap.insert ( std::pair<char,int>('h',20540) );
+//   mymap.insert ( std::pair<char,int>('g',2050) );
+//   mymap.insert ( std::pair<char,int>('z',2000) );
+//   mymap.insert ( std::pair<char,int>('c',2006) );
 
-  std::cout << mymap.lower_bound('e')->second << " = lowerbound e \n";
-  std::cout << mymap.lower_bound('d')->second << " = lowerbound d \n";
-  std::cout << mymap.end()->second << " = end() \n";
-  std::cout << mymap.begin()->first << " = begin() \n";
-  std::cout << mymap.begin()->second << " = begin(sec) \n";
-
-
-  // show content:
-  for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-    std::cout << it->first << " => " << it->second << '\n';
+//   std::cout << mymap.lower_bound('e')->second << " = lowerbound e \n";
+//   std::cout << mymap.lower_bound('d')->second << " = lowerbound d \n";
+//   std::cout << mymap.end()->second << " = end() \n";
+//   std::cout << mymap.begin()->first << " = begin() \n";
+//   std::cout << mymap.begin()->second << " = begin(sec) \n";
 
 
-	std::cout << std::endl;
+//   // show content:
+//   for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+//     std::cout << it->first << " => " << it->second << '\n';
+
+	// std::map<char,int>::iterator i = mymap.begin(); 
+	// i++;
+  	// std::cout << i->first << " = begin() ++\n";
+	//   i++;
+  	// std::cout << i->first << " = begin() ++\n";
+
+	// std::cout << std::endl;
 	std::cout << std::endl;
 
 
 
 
 	ft::map<char,int> m;
-	ft::map<char,int> m2;
+	
+	// ft::map<char,int> m2;
 	// if (m != m2)
 	// 	std::cout << "coucou\n";
 
 //   m.insert ( ft::pair<char,int>('a',100) );
 	m['a'] = 42;
-	m['a'] = 42;
-  m.insert ( ft::pair<char,int>('b',200) );
-  m.insert ( ft::pair<char,int>('d',5200) );
-  m.insert ( ft::pair<char,int>('h',20540) );
-  m.insert ( ft::pair<char,int>('g',2050) );
-  m.insert ( ft::pair<char,int>('z',2000) );
-  m.insert ( ft::pair<char,int>('c',2006) );
+	m.insert ( ft::pair<char,int>('b',200) );
+	m.insert ( ft::pair<char,int>('d',5200) );
+	m.insert ( ft::pair<char,int>('h',20540) );
+	m.insert ( ft::pair<char,int>('g',2050) );
+	m.insert ( ft::pair<char,int>('z',2000) );
+	m.insert ( ft::pair<char,int>('c',2006) );
+	m.insert ( ft::pair<char,int>('e',20066) );
+	m.insert ( ft::pair<char,int>('f',24006) );
+	m.insert ( ft::pair<char,int>('\'',240066) );
+	m.insert ( ft::pair<char,int>(',',24042066) );
+//   m.display();
 
 	// std::cout << "COUNT= " << m.count('a');
 	// std::cout << "COUNT= " << m.count('z');
 	// std::cout << "COUNT= " << m.count('w');
 
 	// m.erase('z');
+
   	std::cout << m.begin()->first << " = begin()\n";
   	std::cout << m.begin()->second << " = begin()\n";
 	
-	ft::map<char,int>::iterator i = m.begin();
+	std::cout << std::endl;
 
-	std::cout << i->first << " = i begin()\n";
-  	std::cout << i->second << " = i begin()\n";
-	// std::cout << m.begin()->second << " = begin(second)\n";
+
+	ft::map<char,int>::iterator i = m.begin();
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";	  
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";		  
+	// std::cout << "try to derefebce i :" << *i << std::endl;
+	
+	std::cout << std::endl;
+
+
+	// ft::map<char,int>::iterator i = m.begin();
+	// std::cout << "I first = " << i->first << std::endl;
+	// std::cout << "I first = " << i->value.second << std::endl;
+// 	std::cout << i->first << " = i begin()\n";
+//   	std::cout << i->second << " = i begin()\n";
+// 	// std::cout << m.begin()->second << " = begin(second)\n";
   std::cout << m.end()->first << " = end()\n";
   std::cout << m.end()->second << " = end(second)\n";
 
-	std::cout << std::endl;
+	// std::cout << std::endl;
 
 	// m.display();
 	// std::cout << "SIZE = " << m.size() << std::endl;

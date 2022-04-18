@@ -220,3 +220,4 @@ If the compiler cannot generate a template instance to match the function callâ€
 that function template is not considered. That is, failure to substitute the arguments is not an error.
   
 BinaryPredicate
+forward declarations 
