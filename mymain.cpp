@@ -182,6 +182,8 @@ std::map<char,int> mymap;
 	
 	std::cout << std::endl;
 
+  std::cout << m.end()->first << " = end()\n";
+  std::cout << m.end()->second << " = end(second)\n";
 
 	// ft::map<char,int>::iterator i = m.begin();
 	// std::cout << "I first = " << i->first << std::endl;
@@ -189,8 +191,6 @@ std::map<char,int> mymap;
 // 	std::cout << i->first << " = i begin()\n";
 //   	std::cout << i->second << " = i begin()\n";
 // 	// std::cout << m.begin()->second << " = begin(second)\n";
-  std::cout << m.end()->first << " = end()\n";
-  std::cout << m.end()->second << " = end(second)\n";
 
 	// std::cout << std::endl;
 
