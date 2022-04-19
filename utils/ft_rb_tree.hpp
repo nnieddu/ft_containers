@@ -31,20 +31,9 @@
 
 namespace ft 
 {
-	template <class T>
-	struct node
-	{
-		T 			value;
-		node<T>		*left;
-		node<T>		*right;
-		node<T>		*p;
-		bool 		color;
-		// true == red | false == black
-	};
-
 	// Specialisation to use rb_tree without pair (default mode)
-	template <class T, class Compare, bool isPair, typename key_type, typename mapped_type, class Alloc> 
-	class rbtree_pair 
+	template <class T, class Compare, bool isPair> 
+	class rbtree_pair
 	{
 		public:
 			bool 		comp_binded(T& lhs, T& rhs) const { return _comp(lhs, rhs); }
@@ -53,50 +42,56 @@ namespace ft
 			Compare		_comp;
 	};
 
-	// Specialisation to use rb_tree with pair type (mainly for map):
-	template <class T, class Compare, typename key_type, typename mapped_type, class Alloc>
-	class rbtree_pair<T, Compare, true, key_type, mapped_type, Alloc> 
+	// Specialisation to use rb_tree with pair type (mainly for my map container):
+	template <class T, class Compare>
+	class rbtree_pair<T, Compare, true> 
 	{
 		public:
+			typedef typename T::first_type 		key_type;
+			typedef typename T::second_type 	mapped_type;
+
 			bool 				comp_binded(T& lhs, T& rhs) const { return _comp(lhs.first, rhs.first); }
 			const key_type&		value_binded(T& value) const { return value.first; }
 			mapped_type& 		value_second(T& value) const { return value.second; }
 			Compare				_comp;
 	};
 
-	template <class T, class Compare = ft::less<T>, bool isPair = false, 
-		typename key_type = T, typename mapped_type = T, class Alloc = std::allocator<T> >
-	class rbtree : rbtree_pair<T, Compare, isPair, key_type, mapped_type, Alloc>
+	// Rb_tree main class
+	template <class T, class Compare = ft::less<T>, bool isPair = false, typename key_type = T, 
+		typename mapped_type = T, class Alloc = std::allocator<T> >
+	class rbtree : rbtree_pair<T, Compare, isPair>
 	{
+		public:
+			struct node
+			{
+				typedef T		node_value;
+				node_value 		value;
+				node*			left;
+				node*			right;
+				node* 			p;
+				bool 			color; 
+				// true == red | false == black
+			};
+
+			typedef std::size_t									size_type;
+			typedef typename ft::rbtree_iterator<node>			iterator;
+			typedef typename ft::rbtree_iterator<const node>	const_iterator;
+
 		private:
-			typedef std::size_t				size_type;
 
-			// struct node
-			// {
-			// 	T 			value;
-			// 	node 		*left;
-			// 	node 		*right;
-			// 	node 		*p;
-			// 	bool 		color; 
-			// 	// true == red | false == black
-			// };
-
-			node<T>* nil;
-			node<T>* root;
-
-			// node* _beg;
-			// node* _end;
+			node* nil;
+			node* root;
 
 			Alloc		_alloc;
 			Compare		_comp;
 			size_type	_size;
 
 		public:
-			rbtree() : nil(new node<T>), root(nil), _comp(Compare()), _size(0)
+			rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
 			{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
 
 			rbtree (const rbtree& x) 
-			: nil(new node<T>), root(nil), _alloc(x._alloc), _comp(x._comp), _size(0)
+			: nil(new node), root(nil), _alloc(x._alloc), _comp(x._comp), _size(0)
 			{
 				nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
 				if (x.root != x.nil)
@@ -112,7 +107,7 @@ namespace ft
 				if (root != nil)
 				{
 					this->~rbtree();
-					nil = new node<T>;
+					nil = new node;
 					root = nil;
 					nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
 				}
@@ -134,28 +129,28 @@ namespace ft
 				delete nil;
 			}
 
-			node<T>* begin()
+			node* begin()
 			{
-				node<T>* x = root;
+				node* x = root;
 				while (x->left != nil)
 					x = x->left;
 				return x;
 			}
 
-			node<T>* end()
+			node* end()
 			{
-				node<T>* x = root;
+				node* x = root;
 				while (x->right != nil)
 					x = x->right;
-				return x;
+				return x->right;
 			}
 
 			size_type	size() const { return _size; }
-			// node<T>*	getRoot() const { return root; } ///
+			// node*	getRoot() const { return root; } ///
 
-			node<T>* searchNode(key_type value)
+			node* searchNode(key_type value)
 			{
-				node<T>* n = root;
+				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
 				{
 					if(_comp(value, this->value_binded(n->value)))
@@ -173,7 +168,7 @@ namespace ft
 
 			// mapped_type& searchValue(key_type value)
 			// {
-			// 	node<T>* n = root;
+			// 	node* n = root;
 			// 	while(n != nil && value != this->value_binded(n->value))
 			// 	{
 			// 		if(this->_comp(value, this->value_binded(n->value)))
@@ -192,7 +187,7 @@ namespace ft
 
 			size_type count(const key_type value) const //////// test
 			{
-				node<T>* n = root;
+				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
 				{
 					if(this->_comp(value, this->value_binded(n->value)))
@@ -209,14 +204,14 @@ namespace ft
 			// -------------------------------- //
 			// -------------Insert------------- //
 			// -------------------------------- //
-			pair<node<T>*, bool> insert(T value, bool allowSameKey = true, bool onlySameKey = false)
+			pair<iterator, bool> insert(T value, bool allowSameKey = true, bool onlySameKey = false)
 			{
 				if (onlySameKey == true && _size > 0 && 
 					((this->value_binded(value) != this->value_binded(root->value))))
 						return make_pair(root, false);
-				node<T>* newNode = new node<T>;
-				node<T>* x = root;
-				node<T>* y = nil;
+				node* newNode = new node;
+				node* x = root;
+				node* y = nil;
 		
 				_alloc.construct(&newNode->value, value);
 				while(x != nil)
@@ -260,9 +255,9 @@ namespace ft
 			}
 
 		private:
-			void leftRotate(node<T>* x)
+			void leftRotate(node* x)
 			{
-				node<T>* y = x->right;
+				node* y = x->right;
 				if(x->p == nil)
 					root = y;
 				else
@@ -279,9 +274,9 @@ namespace ft
 				x->p = y;
 			}
 
-			void rightRotate(node<T>* x)
+			void rightRotate(node* x)
 			{
-				node<T>* y = x->left;
+				node* y = x->left;
 				if(x->p == nil)
 					root = y;
 				else
@@ -298,13 +293,13 @@ namespace ft
 				x->p = y;
 			}
 
-			void rbInsertFixup(node<T>* nN)
+			void rbInsertFixup(node* nN)
 			{
 				while(nN->p->color == true)
 				{
 					if(nN->p == nN->p->p->left)
 					{
-						node<T>* y = nN->p->p->right;
+						node* y = nN->p->p->right;
 						if(y->color == true)
 						{
 							nN->p->color = false;
@@ -327,7 +322,7 @@ namespace ft
 					}
 					else
 					{
-						node<T>* y = nN->p->p->left;
+						node* y = nN->p->p->left;
 						if(y->color == true)
 						{
 							nN->p->color = false;
@@ -356,7 +351,7 @@ namespace ft
 			// -------------Erase-------------- //
 			// -------------------------------- //
 		private:
-			node<T>* treeSuccessor(node<T>* x)
+			node* treeSuccessor(node* x)
 			{
 				if(x->right != nil)
 				{
@@ -364,7 +359,7 @@ namespace ft
 						x = x->left;
 					return x;
 				}
-				node<T>* y = x->p;
+				node* y = x->p;
 				while(y != nil && x == y->right)
 				{
 					x = y;
@@ -373,11 +368,11 @@ namespace ft
 				return y;
 			}
 
-			void rbDeleteFixup(node<T>* x)
+			void rbDeleteFixup(node* x)
 			{
 				while(x != root && x->color == false)
 				{
-					node<T>* w = 0;
+					node* w = 0;
 
 					if(x->p->left == x)
 					{
@@ -445,10 +440,10 @@ namespace ft
 				x->color = false;
 			}
 
-		void rbDelete(node<T>* z)
+		void rbDelete(node* z)
 			{
-				node<T>* x = nil;
-				node<T>* y = nil;
+				node* x = nil;
+				node* y = nil;
 
 				if(z->left == nil || z->right == nil)
 					y = z;
@@ -478,7 +473,7 @@ namespace ft
 		public:	
 			void erase(T value)
 			{
-				node<T>* x = searchNode(this->value_binded(value));
+				node* x = searchNode(this->value_binded(value));
 				if(x != nil)
 				{
 					rbDelete(x);
@@ -490,7 +485,7 @@ namespace ft
 			// -------------Display------------ //
 			// -------------------------------- //
 		private:
-			void displayHelper(node<T>* x)
+			void displayHelper(node* x)
 			{
 				if(x->left != nil)
 					displayHelper(x->left);
@@ -533,7 +528,7 @@ namespace ft
 			// -------------Utils-------------- //
 			// -------------------------------- //
 		private:
-			void clean(node<T>* x)
+			void clean(node* x)
 			{
 				if(x->right != nil)
 				{
@@ -548,7 +543,7 @@ namespace ft
 				}
 			}
 
-			void clearHelper(node<T>* x)
+			void clearHelper(node* x)
 			{
 				if(x->right != nil)
 				{
@@ -580,7 +575,7 @@ namespace ft
 			}
 		private:
 
-			void _cpy(node<T>* x, node<T>* nil)
+			void _cpy(node* x, node* nil)
 			{
 				if(x->left != nil)
 				{

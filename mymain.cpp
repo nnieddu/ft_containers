@@ -52,7 +52,7 @@
 int main() 
 {
 
-// std::map<char,int> mymap;
+std::map<char,int> mymap;
   
 // 	mymap['a'] = 42;
 //   mymap.insert ( std::pair<char,int>('b',200) );
@@ -69,15 +69,48 @@ int main()
 //   std::cout << mymap.begin()->second << " = begin(sec) \n";
 
 
-//   // show content:
-//   for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-//     std::cout << it->first << " => " << it->second << '\n';
+// //   // show content:
+// //   for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+// //     std::cout << it->first << " => " << it->second << '\n';
 
-	// std::map<char,int>::iterator i = mymap.begin(); 
-	// i++;
-  	// std::cout << i->first << " = begin() ++\n";
-	//   i++;
-  	// std::cout << i->first << " = begin() ++\n";
+// 	std::map<char,int>::iterator it = mymap.begin(); 
+// 	it++;
+// 	it++;
+// 	it++;
+// 	it++;
+// 	it++;
+// 	it++;
+// 	it = mymap.end(); 
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+//   	std::cout << it->first << " = begin() ++\n";
+// 	it++;
+// 	// it++;
+
+
+// 	// it++;
+// 	// it++;
+// 	// it++;
+// 	// it++;
+
+
+//   	std::cout << it->first << " = begin() ++\n";
 
 	// std::cout << std::endl;
 	std::cout << std::endl;
@@ -103,6 +136,8 @@ int main()
 	m.insert ( ft::pair<char,int>('f',24006) );
 	m.insert ( ft::pair<char,int>('\'',240066) );
 	m.insert ( ft::pair<char,int>(',',24042066) );
+	m.insert ( ft::pair<char,int>('!',2466) );
+	m.insert ( ft::pair<char,int>('@',2427066) );
 //   m.display();
 
 	// std::cout << "COUNT= " << m.count('a');
@@ -127,6 +162,16 @@ int main()
   	std::cout << i->first << " = begin()\n";
 	i++;
   	std::cout << i->first << " = begin()\n";	  
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
 	i++;
   	std::cout << i->first << " = begin()\n";
 	i++;

@@ -20,7 +20,6 @@
 #include "../utils/ft_utility.hpp"
 #include "../utils/ft_functional.hpp"
 #include "../utils/ft_rb_tree.hpp"
-#include "../iterators/ft_rbtree_iterator.hpp"
 
 namespace ft 
 {	
@@ -29,17 +28,17 @@ namespace ft
 	class map 
 	{
 		public: 
-			typedef Key													key_type;
-			typedef T													mapped_type;
-			typedef ft::pair<const key_type, mapped_type>				value_type;
-			typedef Compare												key_compare;
-			typedef Alloc												allocator_type;
-			typedef typename allocator_type::reference					reference;
-			typedef typename allocator_type::const_reference			const_reference;
-			typedef typename allocator_type::pointer					pointer;
-			typedef typename allocator_type::const_pointer				const_pointer;
-			typedef ft::rbtree_iterator<node<value_type>, value_type >	iterator;
-			// typedef ft::rbtree_iterator <node<value_type>, const value_type>		const_iterator; // / const node ?
+			typedef Key																	key_type;
+			typedef T																	mapped_type;
+			typedef ft::pair<const key_type, mapped_type>								value_type;
+			typedef Compare																key_compare;
+			typedef Alloc																allocator_type;
+			typedef typename allocator_type::reference									reference;
+			typedef typename allocator_type::const_reference							const_reference;
+			typedef typename allocator_type::pointer									pointer;
+			typedef typename allocator_type::const_pointer								const_pointer;
+			typedef typename ft::rbtree<value_type, key_compare, true>::iterator		iterator;
+			typedef typename ft::rbtree<value_type, key_compare, true>::const_iterator	const_iterator;
 			// typedef ft::reverse_iterator<iterator>						reverse_iterator;
 			// typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 			typedef std::ptrdiff_t										difference_type;
@@ -65,7 +64,7 @@ namespace ft
 			allocator_type  					_alloc;
 			Compare								_comp;
 			size_type							_capacity;
-			ft::rbtree<value_type, key_compare, true, key_type, mapped_type, Alloc> _rbtree;
+			ft::rbtree<value_type, key_compare, true> _rbtree;
 
 		public: 
 		// [ Member functions ]
@@ -154,16 +153,12 @@ namespace ft
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{
-			pair<node<value_type>*, bool> ret;
-
 			if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
-				ret = _rbtree.insert(val, true, true);
+				return(_rbtree.insert(val, true, true));
 			else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1))) // greater/less _equal
-				ret = _rbtree.insert(val, true, false);
+				return (_rbtree.insert(val, true, false));
 			else
-				ret = _rbtree.insert(val, false, false);
-
-			return make_pair(iterator(ret.first), ret.second); /// test bool et it avec stl et compar a equal_to
+				return (_rbtree.insert(val, false, false));
 		}
 		
 		// with hint (2)	
@@ -190,8 +185,8 @@ namespace ft
 		// swap : Swap content (public member function )
 		void swap (map& x)
 		{
-			Alloc		&tmp_alloc	= x._alloc;
-			ft::rbtree<value_type, key_compare, true, key_type, mapped_type, Alloc> tmp_rbtree = x._rbtree;
+			Alloc										&tmp_alloc	= x._alloc;
+			ft::rbtree<value_type, key_compare, true> 	tmp_rbtree = x._rbtree;
 
 			x._alloc 	= _alloc;
 			x._rbtree 	= _rbtree;
