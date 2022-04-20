@@ -38,11 +38,11 @@ namespace ft
 			typedef typename allocator_type::pointer									pointer;
 			typedef typename allocator_type::const_pointer								const_pointer;
 			typedef typename ft::rbtree<value_type, key_compare, true>::iterator		iterator;
-			// typedef typename ft::rbtree<value_type, key_compare, true>::const_iterator	const_iterator;
-			// typedef ft::reverse_iterator<iterator>						reverse_iterator;
-			// typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
-			typedef std::ptrdiff_t										difference_type;
-			typedef std::size_t											size_type;
+			typedef typename ft::rbtree<const value_type, key_compare, true>::iterator	const_iterator;
+			typedef ft::reverse_iterator<iterator>										reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>								const_reverse_iterator;
+			typedef std::ptrdiff_t														difference_type;
+			typedef std::size_t															size_type;
 
 			class value_compare : ft::binary_function<value_type, value_type, bool> 
 			{	// in C++98, it is required to inherit binary_function<value_type,value_type,bool>
@@ -98,31 +98,31 @@ namespace ft
 		}
 
 
-		// Iterators:
+		// Iterators: 
 
 		// begin
 		// Return iterator to beginning (public member function )
 		iterator begin() { return (_rbtree.begin()); }
 
-		// const_iterator begin() const;
+		const_iterator begin() const { return (_rbtree.begin()); }
 
 		// end
 		// Return iterator to end (public member function )
-		iterator end()	{ return (_rbtree.end()); }
+		iterator end() { return (_rbtree.end()); }
 
-		// const_iterator end() const;
+		const_iterator end() const { return (_rbtree.end()); }
 
 		// rbegin
 		// Return reverse iterator to reverse beginning (public member function )
-		// reverse_iterator rbegin();
+		reverse_iterator rbegin() { return (reverse_iterator(_rbtree.end())); }
 
-		// const_reverse_iterator rbegin() const;
+		const_reverse_iterator rbegin() const { return (_rbtree.end()); }
 
 		// rend
 		// Return reverse iterator to reverse end (public member function )
-		// reverse_iterator rend();
+		reverse_iterator rend() { return (_rbtree.begin()); }
 
-		// const_reverse_iterator rend() const;
+		const_reverse_iterator rend() const { return (_rbtree.begin()); }
 
 
 		// Capacity:

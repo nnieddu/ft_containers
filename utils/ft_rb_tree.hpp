@@ -35,7 +35,7 @@ namespace ft
 	template <class T, class Compare, bool isPair> 
 	class rbtree_pair
 	{
-		public:
+		protected:
 			typedef T			key_type;
 			typedef T		 	mapped_type;
 
@@ -49,7 +49,7 @@ namespace ft
 	template <class T, class Compare>
 	class rbtree_pair<T, Compare, true> 
 	{
-		public:
+		protected:
 			typedef typename T::first_type 		key_type;
 			typedef typename T::second_type 	mapped_type;
 
@@ -66,22 +66,22 @@ namespace ft
 		public:
 			struct node
 			{
-				typedef T		node_value;
-				node_value 		value;
-				node*			left;
-				node*			right;
-				node* 			p;
-				bool 			color; 
-				// true == red | false == black
+					typedef T		node_value;
+					node_value 		value;
+					node*			left;
+					node*			right;
+					node* 			p;
+					bool 			color; 
+					// true == red | false == black
 			};
 
-			typedef std::size_t									size_type;
+			typedef std::size_t												size_type;
 
 			typedef typename rbtree_pair<T, Compare, isPair>::key_type		key_type;
 			typedef typename rbtree_pair<T, Compare, isPair>::mapped_type	mapped_type;
 			
-			typedef typename ft::rbtree_iterator<node>			iterator;
-			typedef typename ft::rbtree_iterator<const node>	const_iterator;
+			typedef typename ft::rbtree_iterator<node>						iterator;
+			// typedef typename ft::rbtree_iterator<node>						const_iterator;
 
 		private:
 			node* nil;
@@ -152,7 +152,7 @@ namespace ft
 
 			size_type	size() const { return _size; }
 
-			node* searchNode(key_type& value)
+			node* searchNode(key_type value)
 			{
 				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
@@ -474,7 +474,7 @@ namespace ft
 			}
 
 		public:	
-			void erase(key_type& value)
+			void erase(key_type value)
 			{
 				node* x = searchNode(value);
 				if(x != nil)
