@@ -45,8 +45,8 @@ namespace ft
 			rbtree_iterator(const rbtree_iterator& x) : _ptr(x._ptr), _prev(x._prev),  _nil(x._nil) {}
 			
 			// Allow iterator to const_iterator conversion
-			// template<class const_iter>
-			// rbtree_iterator(rbtree_iterator<const_iter> const &it) : _ptr(it.base()) {} //////////
+			template<class const_iter>
+			rbtree_iterator(rbtree_iterator<const_iter> const &it) : _ptr(it.base()), _prev(it.base()), _nil(it.getNil()) {}
 
 			//useless ? Implicitly well created if don't exist
 			rbtree_iterator& operator=(const rbtree_iterator x) 
@@ -59,6 +59,7 @@ namespace ft
 			~rbtree_iterator() {}
 				
 			const node_pointer &base() const { return _ptr; }
+			const node_pointer &getNil() const { return _nil; }
 
 			// [ Operators ]
 			node_reference operator*() const { return *_ptr; }
@@ -86,27 +87,46 @@ namespace ft
 				_ptr = _ptr->p;
 				return *this;
 			};
-			
-			rbtree_iterator operator++(int) { rbtree_iterator tmp = *this; ++(*this); return tmp; }
 
-			rbtree_iterator &operator--() 
+			rbtree_iterator operator++(int) { rbtree_iterator tmp = *this; ++(*this); return tmp; }  
+
+
+			rbtree_iterator& operator--() 
 			{
-				--_ptr; 
+				if (_ptr == _nil)
+				{
+					_ptr = _prev; /// end
+					return *this;
+				}
+				_prev = _ptr;
+				if (_ptr->left != _nil)
+				{
+					node_pointer tmp = _ptr->left;
+
+					while (tmp->right != _nil) 
+						tmp = tmp->right;
+					_ptr = tmp;
+					return *this;
+				}
+				while(_ptr != _nil && _ptr->p != _nil && _ptr->p->left == _ptr)
+					_ptr = _ptr->p;
+				_ptr = _ptr->p;
 				return *this; 
 			}
+
 			rbtree_iterator operator--(int) { rbtree_iterator tmp = *this; --(*this); return tmp; }
 
 			bool operator==(const rbtree_iterator& x) const { return (_ptr == x._ptr); }
 			bool operator!=(const rbtree_iterator& x) const { return (_ptr != x._ptr); }
 	};
 
-	//  Overload to compare random_access_iterator with const random_access_iterator
-	// template<class IterL, class IterR>
-	// bool operator==(rbtree_iterator<IterL> const &lhs, rbtree_iterator<IterR> const &rhs)
-	// { return lhs.base() == rhs.base(); }
+	//  Overload to compare iterator with const iterator
+	template<class IterL, class IterR>
+	bool operator==(rbtree_iterator<IterL> const &lhs, rbtree_iterator<IterR> const &rhs)
+	{ return lhs.base() == rhs.base(); }
 
-	// template<class IterL, class IterR>
-	// bool operator!=(rbtree_iterator<IterL> const &lhs, rbtree_iterator<IterR> const &rhs)
-	// { return lhs.base() != rhs.base(); }
+	template<class IterL, class IterR>
+	bool operator!=(rbtree_iterator<IterL> const &lhs, rbtree_iterator<IterR> const &rhs)
+	{ return lhs.base() != rhs.base(); }
 
 }
