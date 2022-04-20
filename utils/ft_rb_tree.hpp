@@ -36,6 +36,9 @@ namespace ft
 	class rbtree_pair
 	{
 		public:
+			typedef T			key_type;
+			typedef T		 	mapped_type;
+
 			bool 		comp_binded(T& lhs, T& rhs) const { return _comp(lhs, rhs); }
 			const T& 	value_binded(T& value) const { return value; }
 			const T& 	value_second(T& value) const { return value; }
@@ -57,8 +60,7 @@ namespace ft
 	};
 
 	// Rb_tree main class
-	template <class T, class Compare = ft::less<T>, bool isPair = false, typename key_type = T, 
-		typename mapped_type = T, class Alloc = std::allocator<T> >
+	template <class T, class Compare = ft::less<T>, bool isPair = false, class Alloc = std::allocator<T> >
 	class rbtree : rbtree_pair<T, Compare, isPair>
 	{
 		public:
@@ -74,11 +76,14 @@ namespace ft
 			};
 
 			typedef std::size_t									size_type;
+
+			typedef typename rbtree_pair<T, Compare, isPair>::key_type		key_type;
+			typedef typename rbtree_pair<T, Compare, isPair>::mapped_type	mapped_type;
+			
 			typedef typename ft::rbtree_iterator<node>			iterator;
 			typedef typename ft::rbtree_iterator<const node>	const_iterator;
 
 		private:
-
 			node* nil;
 			node* root;
 
@@ -129,26 +134,25 @@ namespace ft
 				delete nil;
 			}
 
-			node* begin()
+			iterator begin()
 			{
 				node* x = root;
 				while (x->left != nil)
 					x = x->left;
-				return x;
+				return iterator(x, nil);
 			}
 
-			node* end()
+			iterator end()
 			{
 				node* x = root;
 				while (x->right != nil)
 					x = x->right;
-				return x->right;
+				return iterator(x->right, nil);
 			}
 
 			size_type	size() const { return _size; }
-			// node*	getRoot() const { return root; } ///
 
-			node* searchNode(key_type value)
+			node* searchNode(key_type& value)
 			{
 				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
@@ -165,7 +169,6 @@ namespace ft
 			// -------------------------------- //
 			// -------------ForMap------------- //
 			// -------------------------------- //
-
 			// mapped_type& searchValue(key_type value)
 			// {
 			// 	node* n = root;
@@ -208,7 +211,7 @@ namespace ft
 			{
 				if (onlySameKey == true && _size > 0 && 
 					((this->value_binded(value) != this->value_binded(root->value))))
-						return make_pair(root, false);
+						return make_pair(iterator(root, nil), false);
 				node* newNode = new node;
 				node* x = root;
 				node* y = nil;
@@ -222,7 +225,7 @@ namespace ft
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
 							delete newNode;
-							return make_pair(x, false);
+							return make_pair(iterator(x, nil), false);
 						}	
 						x = x->left;
 					}
@@ -231,7 +234,7 @@ namespace ft
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
 							delete newNode;
-							return make_pair(x, false);
+							return make_pair(iterator(x, nil), false);
 						}
 						x = x->right;
 					}
@@ -251,7 +254,7 @@ namespace ft
 				newNode->color = true;
 				rbInsertFixup(newNode);
 				++_size;
-				return make_pair(newNode, true);
+				return make_pair(iterator(newNode, nil), true);
 			}
 
 		private:
@@ -464,16 +467,16 @@ namespace ft
 						y->p->right = x;
 				}
 				if(y != z)
-					z->value = y->value;
+					_alloc.construct(&z->value, y->value);
 				if(y->color == false)
 					rbDeleteFixup(x);
 				delete y;
 			}
 
 		public:	
-			void erase(T value)
+			void erase(key_type& value)
 			{
-				node* x = searchNode(this->value_binded(value));
+				node* x = searchNode(value);
 				if(x != nil)
 				{
 					rbDelete(x);

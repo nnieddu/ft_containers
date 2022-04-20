@@ -34,56 +34,59 @@ namespace ft
 		private:
 			node_pointer _ptr;
 			node_pointer _prev;
+			node_pointer _nil;
 		public :
-			rbtree_iterator() : _ptr(NULL) {}
+			rbtree_iterator() : _ptr(NULL), _prev(NULL), _nil(NULL) {}
 
 			//explicit needed here to avoid (like stl iter) for ex : iter = ptr;
-			explicit rbtree_iterator(node_pointer const& ptr) : _ptr(ptr), _prev(ptr) {}
+			explicit rbtree_iterator(node_pointer const& ptr, node_pointer const& nil) : _ptr(ptr), _prev(ptr), _nil(nil) {}
 			
 			//useless ? Implicitly well created if don't exist
-			rbtree_iterator(const rbtree_iterator& x) : _ptr(x._ptr) {}
+			rbtree_iterator(const rbtree_iterator& x) : _ptr(x._ptr), _prev(x._prev),  _nil(x._nil) {}
 			
 			// Allow iterator to const_iterator conversion
-			template<class const_iter>
-			rbtree_iterator(rbtree_iterator<const_iter> const &it) : _ptr(it.base()) {} ////
+			// template<class const_iter>
+			// rbtree_iterator(rbtree_iterator<const_iter> const &it) : _ptr(it.base()) {} //////////
 
 			//useless ? Implicitly well created if don't exist
-			rbtree_iterator& operator=(const rbtree_iterator x) { _ptr = x._ptr; return *this; }
+			rbtree_iterator& operator=(const rbtree_iterator x) 
+			{ 
+				_ptr = x._ptr; 
+				_prev = x._prev; 
+				_nil = x._nil; 
+				return *this; }
 
-			~rbtree_iterator() { _ptr = NULL; }
+			~rbtree_iterator() {}
 				
 			const node_pointer &base() const { return _ptr; }
 
 			// [ Operators ]
-			node_reference operator*() const { return *_ptr; } //// ?
+			node_reference operator*() const { return *_ptr; }
 			node_value* operator->() const { return &_ptr->value; }
 			
-			rbtree_iterator &operator++() 
+			rbtree_iterator& operator++() 
 			{
-				if (_ptr->p->p == NULL)
+				if (_ptr == _nil)
 				{
-					// std::cout << "P = NULL =" << _ptr->value << std::endl;
-					std::cout << "v = NULL =" << _ptr->value.first << std::endl;
-					// _ptr = 
+					_ptr = _prev;
+					return *this;
 				}
+				_prev = _ptr;
+				if (_ptr->right != _nil)
+				{
+					node_pointer tmp = _ptr->right;
 
-				if (_ptr->right->value.first != 0)
-				{
-					_ptr = _ptr->right;
+					while (tmp->left != _nil) 
+						tmp = tmp->left;
+					_ptr = tmp;
 					return *this;
 				}
-				
-				if (_ptr->p->value.first != 0)
-				{
-					if (_prev == _ptr->p)
-						_ptr = _ptr->p->p;
-					else
-						_ptr = _ptr->p;
-					_prev = _ptr;
-					return *this;
-				}
+				while(_ptr != _nil && _ptr->p != _nil && _ptr->p->right == _ptr)
+					_ptr = _ptr->p;
+				_ptr = _ptr->p;
 				return *this;
 			};
+			
 			rbtree_iterator operator++(int) { rbtree_iterator tmp = *this; ++(*this); return tmp; }
 
 			rbtree_iterator &operator--() 
@@ -96,7 +99,7 @@ namespace ft
 			bool operator==(const rbtree_iterator& x) const { return (_ptr == x._ptr); }
 			bool operator!=(const rbtree_iterator& x) const { return (_ptr != x._ptr); }
 	};
-	
+
 	//  Overload to compare random_access_iterator with const random_access_iterator
 	// template<class IterL, class IterR>
 	// bool operator==(rbtree_iterator<IterL> const &lhs, rbtree_iterator<IterR> const &rhs)

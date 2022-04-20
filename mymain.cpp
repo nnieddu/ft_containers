@@ -54,13 +54,21 @@ int main()
 
 std::map<char,int> mymap;
   
-// 	mymap['a'] = 42;
-//   mymap.insert ( std::pair<char,int>('b',200) );
-//   mymap.insert ( std::pair<char,int>('d',5200) );
-//   mymap.insert ( std::pair<char,int>('h',20540) );
-//   mymap.insert ( std::pair<char,int>('g',2050) );
-//   mymap.insert ( std::pair<char,int>('z',2000) );
-//   mymap.insert ( std::pair<char,int>('c',2006) );
+	mymap['a'] = 42;
+	mymap.insert ( std::pair<char,int>('b',200) );
+	mymap.insert ( std::pair<char,int>('d',5200) );
+	mymap.insert ( std::pair<char,int>('h',20540) );
+	mymap.insert ( std::pair<char,int>('g',2050) );
+	mymap.insert ( std::pair<char,int>('z',2000) );
+	mymap.insert ( std::pair<char,int>('c',2006) );
+	mymap.insert ( std::pair<char,int>('e',20066) );
+	mymap.insert ( std::pair<char,int>('f',24006) );
+	mymap.insert ( std::pair<char,int>('\'',240066) );
+	mymap.insert ( std::pair<char,int>(',',24042066) );
+	mymap.insert ( std::pair<char,int>('!',2466) );
+	mymap.insert ( std::pair<char,int>('@',2427066) );
+	mymap.erase('a');
+	mymap['a'] = 42;
 
 //   std::cout << mymap.lower_bound('e')->second << " = lowerbound e \n";
 //   std::cout << mymap.lower_bound('d')->second << " = lowerbound d \n";
@@ -73,7 +81,7 @@ std::map<char,int> mymap;
 // //   for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
 // //     std::cout << it->first << " => " << it->second << '\n';
 
-// 	std::map<char,int>::iterator it = mymap.begin(); 
+	std::map<char,int>::iterator it = mymap.begin(); 
 // 	it++;
 // 	it++;
 // 	it++;
@@ -82,25 +90,43 @@ std::map<char,int> mymap;
 // 	it++;
 // 	it = mymap.end(); 
 //   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
-//   	std::cout << it->first << " = begin() ++\n";
-// 	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
+	it++;
+  	std::cout << it->first << " = begin() ++\n";
 // 	// it++;
 
 
@@ -114,6 +140,8 @@ std::map<char,int> mymap;
 
 	// std::cout << std::endl;
 	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 
 
 
@@ -124,7 +152,6 @@ std::map<char,int> mymap;
 	// if (m != m2)
 	// 	std::cout << "coucou\n";
 
-//   m.insert ( ft::pair<char,int>('a',100) );
 	m['a'] = 42;
 	m.insert ( ft::pair<char,int>('b',200) );
 	m.insert ( ft::pair<char,int>('d',5200) );
@@ -138,21 +165,20 @@ std::map<char,int> mymap;
 	m.insert ( ft::pair<char,int>(',',24042066) );
 	m.insert ( ft::pair<char,int>('!',2466) );
 	m.insert ( ft::pair<char,int>('@',2427066) );
-//   m.display();
-
-	// std::cout << "COUNT= " << m.count('a');
 	// std::cout << "COUNT= " << m.count('z');
 	// std::cout << "COUNT= " << m.count('w');
 
-	// m.erase('z');
+	m.erase('a');
 
   	std::cout << m.begin()->first << " = begin()\n";
   	std::cout << m.begin()->second << " = begin()\n";
 	
 	std::cout << std::endl;
-
+	m['a'] = 42;
 
 	ft::map<char,int>::iterator i = m.begin();
+	ft::map<char,int>::iterator i2;
+	
   	std::cout << i->first << " = begin()\n";
 	i++;
   	std::cout << i->first << " = begin()\n";
@@ -177,7 +203,19 @@ std::map<char,int> mymap;
 	i++;
   	std::cout << i->first << " = begin()\n";
 	i++;
-  	std::cout << i->first << " = begin()\n";		  
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";
+	i++;
+  	std::cout << i->first << " = begin()\n";	  
 	// std::cout << "try to derefebce i :" << *i << std::endl;
 	
 	std::cout << std::endl;
