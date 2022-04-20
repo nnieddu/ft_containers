@@ -95,7 +95,11 @@ namespace ft
 			{
 				if (_ptr == _nil)
 				{
-					_ptr = _prev; /// end
+					_ptr = _prev;
+					while (_ptr->p != _nil)
+						_ptr = _ptr->p;
+					while (_ptr->right != _nil)		
+						_ptr = _ptr->right;
 					return *this;
 				}
 				_prev = _ptr;
