@@ -31,7 +31,7 @@ namespace ft
 			typedef T*               																node_pointer;
 			typedef T&            																	node_reference;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
-		private:
+		public:
 			node_pointer _ptr;
 			node_pointer _prev;
 			node_pointer _nil;
@@ -46,7 +46,7 @@ namespace ft
 			
 			// Allow iterator to const_iterator conversion
 			template<class const_iter>
-			rbtree_iterator(rbtree_iterator<const_iter> &it) : _ptr(it.base()) {} //: _ptr(it.base()), _prev(it.getPrev()), _nil(it.getNil()) {}
+			rbtree_iterator(rbtree_iterator<const_iter> &it) {} //: _ptr(it.base()), _prev(it.getPrev()), _nil(it.getNil()) {}
 
 			//useless ? Implicitly well created if don't exist
 			rbtree_iterator& operator=(const rbtree_iterator& x) 

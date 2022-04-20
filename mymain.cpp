@@ -54,9 +54,11 @@ int main()
 
 	ft::map<char,int> m;
 	m['n'] = 42;
-	ft::map<char,int>::iterator i = m.begin();
+	ft::map<char,int>::iterator i; // = m.begin();
 	ft::map<char,int>::const_iterator i2;
 	i2 = i;
+
+	// ft::map<char,int>::reverse_iterator ri = m.rbegin();
 
 	std::map<char,int> stdm;
 	std::map<char,int>::iterator sit = stdm.begin();

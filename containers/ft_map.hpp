@@ -104,25 +104,25 @@ namespace ft
 		// Return iterator to beginning (public member function )
 		iterator begin() { return (_rbtree.begin()); }
 
-		const_iterator begin() const { return (_rbtree.begin()); }
+		// const_iterator begin() const { return (_rbtree.begin()); }
 
-		// end
-		// Return iterator to end (public member function )
-		iterator end() { return (_rbtree.end()); }
+		// // end
+		// // Return iterator to end (public member function )
+		// iterator end() { return (_rbtree.end()); }
 
-		const_iterator end() const { return (_rbtree.end()); }
+		// const_iterator end() const { return (_rbtree.end()); }
 
-		// rbegin
-		// Return reverse iterator to reverse beginning (public member function )
-		reverse_iterator rbegin() { return (reverse_iterator(_rbtree.end())); }
+		// // rbegin
+		// // Return reverse iterator to reverse beginning (public member function )
+		// reverse_iterator rbegin() { return (reverse_iterator(_rbtree.end())); }
 
-		const_reverse_iterator rbegin() const { return (_rbtree.end()); }
+		// const_reverse_iterator rbegin() const { return (_rbtree.end()); }
 
-		// rend
-		// Return reverse iterator to reverse end (public member function )
-		reverse_iterator rend() { return (_rbtree.begin()); }
+		// // rend
+		// // Return reverse iterator to reverse end (public member function )
+		// reverse_iterator rend() { return (_rbtree.begin()); }
 
-		const_reverse_iterator rend() const { return (_rbtree.begin()); }
+		// const_reverse_iterator rend() const { return (_rbtree.begin()); }
 
 
 		// Capacity:

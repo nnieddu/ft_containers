@@ -221,3 +221,4 @@ that function template is not considered. That is, failure to substitute the arg
   
 BinaryPredicate
 forward declarations 
+https://stackoverflow.com/questions/37727096/what-is-the-difference-between-a-trivial-ctor-or-dtor-and-a-user-defined-empty
