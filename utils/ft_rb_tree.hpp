@@ -21,7 +21,7 @@
 // Chaque noeud est rouge ou noir. 
 // Tous les noeuds NIL sont considérés comme noirs. 
 // Un noeud rouge n'a pas d'enfant rouge. 
-// Chaque chemin d'un noeud donné à l'un de ses noeuds NIL descendants passe par le même nombre de noeuds noirs. 
+// Chaque chemin d'un noeud donné à l'un de ses noeuds NIL descendants passe par le même nombre de noeuds noirs.
 
 #pragma once
 
@@ -47,7 +47,7 @@ namespace ft
 
 	// Specialisation to use rb_tree with pair type (mainly for my map container):
 	template <class T, class Compare>
-	class rbtree_pair<T, Compare, true> 
+	class rbtree_pair<T, Compare, true>
 	{
 		protected:
 			typedef typename T::first_type 		key_type;
@@ -71,7 +71,7 @@ namespace ft
 					node*			left;
 					node*			right;
 					node* 			p;
-					bool 			color; 
+					bool 			color;
 					// true == red | false == black
 			};
 
@@ -80,8 +80,8 @@ namespace ft
 			typedef typename rbtree_pair<T, Compare, isPair>::key_type		key_type;
 			typedef typename rbtree_pair<T, Compare, isPair>::mapped_type	mapped_type;
 			
-			typedef typename ft::rbtree_iterator<node>						iterator;
-			// typedef typename ft::rbtree_iterator<node>						const_iterator;
+			typedef typename ft::rbtree_iterator<node, T>						iterator;
+			typedef typename ft::rbtree_iterator<node, const T>					const_iterator;
 
 		private:
 			node* nil;
@@ -102,7 +102,7 @@ namespace ft
 				if (x.root != x.nil)
 					insert(x.root->value);
 				if(root != nil)
-					_cpy(x.root, x.nil);				
+					copy(x.root, x.nil);
 			}
 
 			rbtree& operator=(const rbtree& x)
@@ -119,7 +119,7 @@ namespace ft
 				if (x.root != x.nil)
 				{
 					insert(x.root->value);
-					_cpy(x.root, x.nil);				
+					copy(x.root, x.nil);
 				}
 				return *this;
 			}
@@ -134,23 +134,24 @@ namespace ft
 				delete nil;
 			}
 
-			iterator begin()
+			node* begin()
 			{
 				node* x = root;
 				while (x->left != nil)
 					x = x->left;
-				return iterator(x, nil);
+				return x;
 			}
 
-			iterator end()
+			node* end()
 			{
 				node* x = root;
 				while (x->right != nil)
 					x = x->right;
-				return iterator(x->right, nil);
+				return x;
 			}
 
 			size_type	size() const { return _size; }
+			node*		getNill() const { return nil; }
 
 			node* searchNode(key_type value)
 			{
@@ -578,18 +579,18 @@ namespace ft
 			}
 		private:
 
-			void _cpy(node* x, node* nil)
+			void copy(node* x, node* nil)
 			{
 				if(x->left != nil)
 				{
 					insert(x->left->value);
-					_cpy(x->left, nil);
+					copy(x->left, nil);
 				}
 
 				if(x->right != nil)
 				{
 					insert(x->right->value);
-					_cpy(x->right, nil);
+					copy(x->right, nil);
 				}
 			}
 	};

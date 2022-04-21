@@ -38,7 +38,7 @@ namespace ft
 			typedef typename allocator_type::pointer									pointer;
 			typedef typename allocator_type::const_pointer								const_pointer;
 			typedef typename ft::rbtree<value_type, key_compare, true>::iterator		iterator;
-			typedef typename ft::rbtree<const value_type, key_compare, true>::iterator	const_iterator;
+			typedef typename ft::rbtree<value_type, key_compare, true>::const_iterator	const_iterator;
 			typedef ft::reverse_iterator<iterator>										reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>								const_reverse_iterator;
 			typedef std::ptrdiff_t														difference_type;
@@ -102,27 +102,28 @@ namespace ft
 
 		// begin
 		// Return iterator to beginning (public member function )
-		iterator begin() { return (_rbtree.begin()); }
+		// iterator begin() { return (_rbtree.begin()); }
+		iterator begin() { return iterator(_rbtree.begin(), _rbtree.getNill()); }
 
-		// const_iterator begin() const { return (_rbtree.begin()); }
+		const_iterator begin() const { return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
 
 		// // end
 		// // Return iterator to end (public member function )
-		// iterator end() { return (_rbtree.end()); }
+		iterator end() { return iterator(_rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
-		// const_iterator end() const { return (_rbtree.end()); }
+		const_iterator end() const { return const_iterator(_rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }  /// pass pas par const
 
 		// // rbegin
 		// // Return reverse iterator to reverse beginning (public member function )
-		// reverse_iterator rbegin() { return (reverse_iterator(_rbtree.end())); }
+		reverse_iterator rbegin() { return reverse_iterator(end()); } /////// invalid read si --  dans reverse operator*
 
-		// const_reverse_iterator rbegin() const { return (_rbtree.end()); }
+		const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); } /////// invalid read //
 
 		// // rend
 		// // Return reverse iterator to reverse end (public member function )
-		// reverse_iterator rend() { return (_rbtree.begin()); }
+		reverse_iterator rend() { return reverse_iterator(begin()); }
 
-		// const_reverse_iterator rend() const { return (_rbtree.begin()); }
+		const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
 
 		// Capacity:
@@ -185,7 +186,7 @@ namespace ft
 		// swap : Swap content (public member function )
 		void swap (map& x)
 		{
-			Alloc										&tmp_alloc	= x._alloc;
+			Alloc										&tmp_alloc = x._alloc;
 			ft::rbtree<value_type, key_compare, true> 	tmp_rbtree = x._rbtree;
 
 			x._alloc 	= _alloc;
