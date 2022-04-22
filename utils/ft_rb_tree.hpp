@@ -82,7 +82,7 @@ namespace ft
 			
 			typedef typename ft::rbtree_iterator<node, T>						iterator;
 			typedef typename ft::rbtree_iterator<node, const T>					const_iterator;
-
+			// TODO => faire fonctionner it avec arbre/node simple (sans pair)
 		private:
 			node* nil;
 			node* root;
@@ -170,26 +170,7 @@ namespace ft
 			// -------------------------------- //
 			// -------------ForMap------------- //
 			// -------------------------------- //
-			// mapped_type& searchValue(key_type value)
-			// {
-			// 	node* n = root;
-			// 	while(n != nil && value != this->value_binded(n->value))
-			// 	{
-			// 		if(this->_comp(value, this->value_binded(n->value)))
-			// 			n = n->left;
-			// 		else
-			// 			n = n->right;
-			// 	}
-			// 	if (n == nil)
-			// 	{
-			// 		ft::pair <key_type, mapped_type> foo(value, mapped_type());
-			// 		// foo = ft::make_pair(value, mapped_type());
-			// 		insert(foo);
-			// 	}
-			// 	return (this->value_second(n->value));
-			// }
-
-			size_type count(const key_type value) const //////// test
+			size_type count(const key_type value) const ////////// test
 			{
 				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))

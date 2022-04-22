@@ -48,10 +48,10 @@ namespace ft
 			rbtree_iterator(const rbtree_iterator& x) : _ptr(x._ptr), _prev(x._prev),  _nil(x._nil) {}
 			
 			// Allow iterator to const_iterator conversion
-			template<typename const_iter>
-			rbtree_iterator(rbtree_iterator<const_iter, rbtree_iterator::node_value> &it) : _ptr(it.base()), _prev(it.getPrev()), _nil(it.getNil()) {}
+			// template<typename const_iter>
+			// rbtree_iterator(rbtree_iterator<const_iter, rbtree_iterator::node_value> &it) : _ptr(it.base()), _prev(it.getPrev()), _nil(it.getNil()) {}
 	
-			operator rbtree_iterator<N, const T>() { return (rbtree_iterator<N, const T>(_ptr, _nil)); }
+			operator rbtree_iterator<N, const T>() { return (rbtree_iterator<N, const T>(_ptr, _prev, _nil)); }
 
 			//useless ? Implicitly well created if don't exist
 			rbtree_iterator& operator=(const rbtree_iterator& x) 
@@ -65,7 +65,7 @@ namespace ft
 			~rbtree_iterator() {}
 				
 			const node_pointer &base() const { return _ptr; }
-			const node_pointer &getPrev() const { return _nil; }
+			const node_pointer &getPrev() const { return _prev; }
 			const node_pointer &getNil() const { return _nil; }
 
 			// [ Operators ]

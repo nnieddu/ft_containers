@@ -81,10 +81,10 @@ std::map<char,int> mymap;
 // //   for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
 // //     std::cout << it->first << " => " << it->second << '\n';
 
-	std::map<char,int>::iterator it = mymap.begin(); 
-	std::cout << "STD ITERATOR =" << it->first <<std::endl;
-	*it++;
-	std::cout << "STD ITERATOR *++=" << it->first <<std::endl;
+	std::map<char,int>::reverse_iterator it = mymap.rbegin(); 
+	// std::cout << "STD ITERATOR =" << it->first <<std::endl;
+	// *it++;
+	// std::cout << "STD ITERATOR *++=" << it->first <<std::endl;
 
 // 	it++;
 // 	it++;
@@ -269,18 +269,17 @@ std::map<char,int> mymap;
 	std::cout << "I FIRST=" << i->first << std::endl;
 	std::cout << "Iitre FIRST=" << itre->first << std::endl << std::endl;
 
-	ri--;
-	ri--;
-	ri--;
-	ri++;
-	ri++;
-	ri++;
-	ri++;
-	ri++;
-	ri++;
-	ri++;
-	ri++;
-	ri--;
+	// ri--;
+	// ri--;
+	// ri++;
+	// ri++;
+	// ri--;
+	// ri++;
+	// ri++;
+	// ri++;
+	// ri++;
+	// ri++;
+	// ri++;
 
 	// stdri++;
 	std::cout << "RI FIRST=   " << ri->first << std::endl;
@@ -453,6 +452,12 @@ std::map<char,int> mymap;
   std::cout << m.end()->first << " = end()\n";
   std::cout << m.end()->second << " = end(second)\n";
 
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+
 	// ft::rbtree<int> tr;
 	// tr.insert(42);
 	// tr.insert(420);
@@ -470,4 +475,71 @@ std::map<char,int> mymap;
 	// ittr = tr.begin();
 	// std::cout << ittr << std::endl;
 
+	ft::map<char,int>::const_reverse_iterator ci = m.rbegin();
+	ci++;
+	ci++;
+	ci--;
+	std::cout << ci->first << std::endl;
+	// ci->second = 5;
+	// std::map<char,int>::iterator itre = mymap.end();
+
+	m.display();
+	
+	ft::map<char,int>::iterator fi = m.begin();
+	ft::map<char,int>::iterator fe = m.end();
+	ft::map<char,int> m2(fi, fe);
+
+	std::cout << "JE SUIS LE IT END" << fe->first << std::endl; 
+	// m['K'] = 4654;
+	// m['O'] = 14654;
+	// m['L'] = 94654;
+	ft::map<char,int>::iterator m2i = m.begin();
+	// ft::map<char,int>::iterator m2i = m.end();
+	m2i++;
+	// m2.insert(m2i, ft::pair<char,int>('N',99949890));
+	m2.insert(fi, fe);
+
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << " ------- m2 ------------------" << std::endl;
+	std::cout << std::endl;
+
+	m2.display();
+
+	std::cout << std::endl;
+	m2.display();
+	// ft::map<char,int>::const_iterator m2ci = m2.find('N');
+	// m2ci->second = 666;
+	// std::cout << "N =" << m2.find('N')->second << std::endl;
+
+	ft::map<char, int, std::equal_to<char> > tmap;
+
+	tmap['a'] = 42;
+	tmap['a'] = 4200;
+	// tmap['a'] = 4200;
+	// tmap['a'] = 4200;
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+	tmap['a'] = 4200;
+	tmap['a'] = 4200;
+	tmap['a'] = 4200;
+
+	// tmap.insert(std::make_pair('a', 84));
+	// tmap.insert(std::make_pair('a', 84));
+	// tmap.insert(std::make_pair('a', 84));
+	// tmap.insert(std::make_pair('a', 84));
+	// std::map<char, int, std::equal_to<char> >::iterator itt = tmap.begin();
+	// std::map<char, int, std::equal_to<char> >::iterator ite = tmap.end();
+	// // for(; itt != ite; it++)
+	// while(itt++ != ite)
+	// 	std::cout << itt->first << " = " << itt->second << std::endl;	
+	for (ft::map<char,int, std::equal_to<char> >::iterator itt=tmap.begin(); itt!=tmap.end(); ++itt)
+		std::cout << itt->first << " => " << itt->second << '\n';	
+
+	std::cout << "COUNT =" << tmap.count('a') << std::endl;
 }

@@ -222,3 +222,29 @@ that function template is not considered. That is, failure to substitute the arg
 BinaryPredicate
 forward declarations 
 https://stackoverflow.com/questions/37727096/what-is-the-difference-between-a-trivial-ctor-or-dtor-and-a-user-defined-empty
+
+class/typename
+
+STL LEAK / Issues :
+
+```
+    std::map<char, int, std::equal_to<char> > tmap;
+    tmap['a'] = 42;
+    tmap['a'] = 42;
+    tmap['a'] = 42;
+    tmap['a'] = 42;
+```
+
+Multiple key can work if :
+```
+    std::map<char, int, std::equal_to<char> > tmap;
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+	tmap.insert(std::make_pair('a', 84));
+```
+
+In case of same multiple key count() dosn't work (return 0 even if there is the key)
+```
+	std::cout << "COUNT =" << tmap.count('a') << std::endl;
+```

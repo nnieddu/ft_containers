@@ -75,11 +75,18 @@ namespace ft
 		: _alloc(alloc), _comp(comp), _capacity(0) {}
 
 		// range (2)	
-		// template <class InputIterator>
-		// map (InputIterator first, InputIterator last,
-		// const key_compare& comp = key_compare(),
-		// const allocator_type& alloc = allocator_type());
-		// typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) 
+		template <class InputIterator>
+		map (InputIterator first, InputIterator last,
+		const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
+		: _alloc(alloc), _comp(comp), _capacity(0)
+		{
+			while (first != last)
+			{
+				insert(*first);
+				first++;
+			}
+		}
 
 		// copy (3)	
 		map (const map& x) : _alloc(x._alloc), _comp(x._comp), _capacity(x._capacity), _rbtree(x._rbtree) {} ////
@@ -103,27 +110,31 @@ namespace ft
 		// begin
 		// Return iterator to beginning (public member function )
 		// iterator begin() { return (_rbtree.begin()); }
-		iterator begin() { return iterator(_rbtree.begin(), _rbtree.getNill()); }
+		iterator begin() { return iterator(_rbtree.begin(), _rbtree.getNill()); }  /// pass pas par const ?
 
-		const_iterator begin() const { return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
+		const_iterator begin() const { std::cout << "CONST\n"; return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
 
 		// // end
 		// // Return iterator to end (public member function )
-		iterator end() { return iterator(_rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
+		iterator end() { return iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
-		const_iterator end() const { return const_iterator(_rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }  /// pass pas par const
+		const_iterator end() const { std::cout << "CONST END\n"; return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
 		// // rbegin
 		// // Return reverse iterator to reverse beginning (public member function )
-		reverse_iterator rbegin() { return reverse_iterator(end()); } /////// invalid read si --  dans reverse operator*
+		reverse_iterator rbegin() { return reverse_iterator(iterator( _rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
 
-		const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); } /////// invalid read //
+		const_reverse_iterator rbegin() const 
+		{ 
+			std::cout << "RBEG CONST\n"; 
+			return const_reverse_iterator(iterator( _rbtree.end(), _rbtree.end(), _rbtree.getNill())); 
+		}
 
 		// // rend
 		// // Return reverse iterator to reverse end (public member function )
 		reverse_iterator rend() { return reverse_iterator(begin()); }
 
-		const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
+		const_reverse_iterator rend() const { std::cout << "REND CONST\n"; return const_reverse_iterator(begin()); }
 
 
 		// Capacity:
@@ -163,25 +174,43 @@ namespace ft
 		}
 		
 		// with hint (2)	
-		// iterator insert (iterator position, const value_type& val);
+		iterator insert (iterator position, const value_type& val)
+		{
+			position = insert(val).first;
+			return position; ///////////////// work but position useless need to optimize
+		}
 
 		// range (3)	
-		// template <class InputIterator>
-		// void insert (InputIterator first, InputIterator last);
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last)
+		{
+			while (first != last)
+			{
+				insert(*first);
+				first++;
+			}
+		}
 
 		// erase : Erase elements (public member function )
-		// (1)	
-		// void erase (iterator position);
+		// (1)
+		void erase (iterator position) { _rbtree.erase(position->first); }
 
 		// (2)	
 		size_type erase (const key_type& k) 
 		{ 
 			_rbtree.erase(k);
-			return 1; ////////// test avec std::map avc plusieurs key identique ou une
+			return 1; ////////// test avec std::map avc plusieurs key identique ou une (revoir ref)
 		}
 
 		// (3)	
-		// 	void erase (iterator first, iterator last);
+		void erase (iterator first, iterator last)
+		{
+			while (first != last)
+			{
+				_rbtree.erase(first->first);
+				first++;
+			}
+		}
 
 		// swap : Swap content (public member function )
 		void swap (map& x)
@@ -205,15 +234,15 @@ namespace ft
 		key_compare key_comp() const { return _comp; }
 
 		// value_comp : Return value comparison object (public member function )
-		value_compare value_comp() const { return value_compare(_comp); }
+		value_compare value_comp() const { return value_compare(_comp); } /////// need to test
 
 
 		// Operations:
 
 		// find : Get iterator to element (public member function )
-		// iterator find (const key_type& k);
+		iterator find (const key_type& k) { return iterator(_rbtree.searchNode(k), _rbtree.getNill()); }
 
-		// const_iterator find (const key_type& k) const;
+		const_iterator find (const key_type& k) const { return const_iterator(_rbtree.searchNode(k), _rbtree.getNill()); }
 
 		// count : Count elements with a specific key (public member function )
 		size_type count (const key_type& k) const { return (_rbtree.count(k)); } ///////
@@ -239,35 +268,35 @@ namespace ft
 		allocator_type get_allocator() const { return _alloc; }
 
 
-
 		//////////// Testing, to remove
 		void	display() { _rbtree.display(); }
 	};
 
-// https://en.cppreference.com/w/cpp/container/map
-// Non-member functions
-// lexicographically compares the values in the map (function template)
+	// https://en.cppreference.com/w/cpp/container/map
+	// Non-member functions
+	// lexicographically compares the values in the map (function template)
 
-// template< class Key, class T, class Compare, class Alloc >
-// bool operator==( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator==( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	// { return lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
 
-// template< class Key, class T, class Compare, class Alloc >
-// bool operator!=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator!=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
 
-// template< class Key, class T, class Compare, class Alloc >
-// bool operator<( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator<( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
 
-// template< class Key, class T, class Compare, class Alloc >
-// bool operator<=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator<=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
 
-// template< class Key, class T, class Compare, class Alloc >
-// bool operator>( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator>( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
 
-// template< class Key, class T, class Compare, class Alloc >
-// bool operator>=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator>=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
 
-template< class Key, class T, class Compare, class Alloc >
-void swap( std::map<Key,T,Compare,Alloc>& lhs, std::map<Key,T,Compare,Alloc>& rhs )
-{ lhs.swap(rhs); }
+	template< class Key, class T, class Compare, class Alloc >
+	void swap( std::map<Key,T,Compare,Alloc>& lhs, std::map<Key,T,Compare,Alloc>& rhs )
+	{ lhs.swap(rhs); }
 
 }
