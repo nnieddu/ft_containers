@@ -248,3 +248,8 @@ In case of same multiple key count() dosn't work (return 0 even if there is the 
 ```
 	std::cout << "COUNT =" << tmap.count('a') << std::endl;
 ```
+
+In case of same multiple key erase() remove nothing
+```
+	std::cout << "COUNT =" << tmap.count('a') << std::endl;
+```

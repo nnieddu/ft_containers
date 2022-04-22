@@ -61,10 +61,10 @@ namespace ft
 			};
 
 		private:	
-			allocator_type  					_alloc;
-			Compare								_comp;
-			size_type							_capacity;
-			ft::rbtree<value_type, key_compare, true> _rbtree;
+			allocator_type  							_alloc;
+			Compare										_comp;
+			size_type									_capacity;
+			ft::rbtree<value_type, key_compare, true>	_rbtree;
 
 		public: 
 		// [ Member functions ]
@@ -199,7 +199,7 @@ namespace ft
 		size_type erase (const key_type& k) 
 		{ 
 			_rbtree.erase(k);
-			return 1; ////////// test avec std::map avc plusieurs key identique ou une (revoir ref)
+			return 1;
 		}
 
 		// (3)	
@@ -234,7 +234,7 @@ namespace ft
 		key_compare key_comp() const { return _comp; }
 
 		// value_comp : Return value comparison object (public member function )
-		value_compare value_comp() const { return value_compare(_comp); } /////// need to test
+		value_compare value_comp() const { return value_compare(_comp); } //////////// need to test
 
 
 		// Operations:
@@ -245,22 +245,61 @@ namespace ft
 		const_iterator find (const key_type& k) const { return const_iterator(_rbtree.searchNode(k), _rbtree.getNill()); }
 
 		// count : Count elements with a specific key (public member function )
-		size_type count (const key_type& k) const { return (_rbtree.count(k)); } ///////
+		size_type count (const key_type& k) const { return (_rbtree.count(k)); }
 
 		// lower_bound : Return iterator to lower bound (public member function )
-		// iterator lower_bound (const key_type& k);
+		iterator lower_bound (const key_type& k)
+		{
+			iterator it = begin();
+			while (it != end() && _comp(it->first, k))
+				it++;
+			return it;
+		}
 
-		// const_iterator lower_bound (const key_type& k) const;
+		const_iterator lower_bound (const key_type& k) const
+		{
+			const_iterator it = begin();
+			while (it != end() && _comp(it->first, k))
+				it++;
+			return it;
+		}
 
 		// upper_bound : Return iterator to upper bound (public member function )
-		// iterator upper_bound (const key_type& k);
+		iterator upper_bound (const key_type& k)
+		{
+			iterator it = find(k);
+			if (it != end())
+				return ++it;
+			it = lower_bound(k);
+			return it;
+		}
 
-		// const_iterator upper_bound (const key_type& k) const;
+		const_iterator upper_bound (const key_type& k) const
+		{
+			const_iterator it = find(k);
+			if (it != end())
+				return ++it;
+			it = lower_bound(k);
+			return it;
+		}
+
 
 		// equal_range : Get range of equal elements (public member function )
-		// pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
+		pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+		{
+			// const_iterator first = find(k);
+			// const_iterator second = first;
 
-		// pair<iterator,iterator>	equal_range (const key_type& k);
+			// return ft::make_pair(first, second);
+		}
+
+		pair<iterator,iterator>	equal_range (const key_type& k)
+		{
+			iterator first = find(k);
+			iterator second = first;
+
+			return ft::make_pair(first, second);
+		}
 
 
 		// Allocator:
@@ -268,8 +307,10 @@ namespace ft
 		allocator_type get_allocator() const { return _alloc; }
 
 
-		//////////// Testing, to remove
+		//////////////////////////////////////////
 		void	display() { _rbtree.display(); }
+		//////////////////////////////////////////
+
 	};
 
 	// https://en.cppreference.com/w/cpp/container/map
