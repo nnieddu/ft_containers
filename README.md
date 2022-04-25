@@ -253,3 +253,6 @@ In case of same multiple key erase() remove nothing
 ```
 	std::cout << "COUNT =" << tmap.count('a') << std::endl;
 ```
+
+STL return : 13 (carriage return, CR, \r, ^M)
+when it end() reached
