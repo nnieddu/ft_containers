@@ -14,8 +14,7 @@ NAME	=	ft_containers
 
 COMP 	=	c++
 
-# FLAG	=	-Wall -Wextra -Werror -std=c++98
-FLAG	=	-Wall -Wextra -std=c++98 -g
+FLAG	=	-Wall -Wextra -Werror -std=c++98 -g
 
 SRC		=	mymain.cpp 
 
