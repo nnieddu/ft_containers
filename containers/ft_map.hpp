@@ -16,10 +16,9 @@
 
 #pragma once
 
-
-#include "../utils/ft_utility.hpp"
-#include "../utils/ft_functional.hpp"
+#include "../utils/ft_type_traits.hpp"
 #include "../utils/ft_rb_tree.hpp"
+#include "../iterators/ft_reverse_iterator.hpp"
 
 namespace ft 
 {	
@@ -47,17 +46,16 @@ namespace ft
 			class value_compare : ft::binary_function<value_type, value_type, bool> 
 			{	// in C++98, it is required to inherit binary_function<value_type,value_type,bool>
 				friend class map;
+
 				protected:
-				Compare comp;
-				value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+					Compare comp;
+					value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
 				public:
-				typedef bool result_type;
-				typedef value_type first_argument_type;
-				typedef value_type second_argument_type;
-				bool operator() (const value_type& x, const value_type& y) const
-				{
-					return comp(x.first, y.first);
-				}
+					typedef bool result_type;
+					typedef value_type first_argument_type;
+					typedef value_type second_argument_type;
+					bool operator() (const value_type& x, const value_type& y) const
+					{ return comp(x.first, y.first); }
 			};
 
 		private:	
@@ -112,29 +110,26 @@ namespace ft
 		// iterator begin() { return (_rbtree.begin()); }
 		iterator begin() { return iterator(_rbtree.begin(), _rbtree.getNill()); }  /// pass pas par const ?
 
-		const_iterator begin() const { std::cout << "CONST\n"; return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
+		const_iterator begin() const { return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
 
 		// // end
 		// // Return iterator to end (public member function )
 		iterator end() { return iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
-		const_iterator end() const { std::cout << "CONST END\n"; return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
+		const_iterator end() const { return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
 		// // rbegin
 		// // Return reverse iterator to reverse beginning (public member function )
 		reverse_iterator rbegin() { return reverse_iterator(iterator( _rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
 
 		const_reverse_iterator rbegin() const 
-		{ 
-			std::cout << "RBEG CONST\n"; 
-			return const_reverse_iterator(iterator( _rbtree.end(), _rbtree.end(), _rbtree.getNill())); 
-		}
+		{ return const_reverse_iterator(iterator( _rbtree.end(), _rbtree.end(), _rbtree.getNill())); }
 
 		// // rend
 		// // Return reverse iterator to reverse end (public member function )
 		reverse_iterator rend() { return reverse_iterator(begin()); }
 
-		const_reverse_iterator rend() const { std::cout << "REND CONST\n"; return const_reverse_iterator(begin()); }
+		const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
 
 		// Capacity:
@@ -149,7 +144,7 @@ namespace ft
 
 		// max_size
 		// Return maximum size (public member function )
-		size_type max_size() const { return _alloc.max_size(); }
+		size_type max_size() const { return _rbtree.max_size(); }
 
 		// Element access:
 
@@ -287,18 +282,42 @@ namespace ft
 		// equal_range : Get range of equal elements (public member function )
 		pair<const_iterator,const_iterator> equal_range (const key_type& k) const
 		{
-			// const_iterator first = find(k);
-			// const_iterator second = first;
-
-			// return ft::make_pair(first, second);
+			pair<const_iterator, const_iterator> res;
+			
+			res.first = this->lower_bound(k);
+			res.second = this->upper_bound(k);
+			return (res);
+			// const_iterator beg = find(k);
+			// if (beg == this->end())
+			// {
+			// 	beg--;
+			// 	while (beg != this->begin() && !_comp(beg->first, k) && !_comp(k, beg->first))
+			// 		beg--;
+			// }
+			// const_iterator end = beg;
+			// while (end != this->end() && !_comp(end->first, k) && !_comp(k, end->first))
+			// 	end++;
+			// return ft::make_pair(beg, end);
 		}
 
 		pair<iterator,iterator>	equal_range (const key_type& k)
 		{
-			iterator first = find(k);
-			iterator second = first;
+			pair<iterator, iterator> res;
 
-			return ft::make_pair(first, second);
+			res.first = this->lower_bound(k);
+			res.second = this->upper_bound(k);
+			return (res);
+			// iterator beg = find(k);
+			// if (beg == this->end())
+			// {
+			// 	beg--;
+			// 	while (beg != this->begin() && !_comp(beg->first, k) && !_comp(k, beg->first))
+			// 		beg--;
+			// }
+			// iterator end = beg;
+			// while (end != this->end() && !_comp(end->first, k) && !_comp(k, end->first))
+			// 	end++;
+			// return ft::make_pair(beg, end);
 		}
 
 
@@ -317,27 +336,36 @@ namespace ft
 	// Non-member functions
 	// lexicographically compares the values in the map (function template)
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator==( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
-	// { return lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
+	template <class Key, class T, class Alloc>
+	bool operator==(const map<Key, T, Alloc>& lhs, const map<Key, T, Alloc>& rhs)
+	{
+		if (ft::equal(lhs.begin(), lhs.end(), rhs.begin()) != false)
+			return lhs.size() == rhs.size();
+		return false;
+	}
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator!=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	template <class Key, class T, class Alloc>
+	bool operator!=(const map<Key, T, Alloc>& lhs, const map<Key, T, Alloc>& rhs)
+	{ return !(lhs == rhs); }
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator<( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	template <class Key, class T, class Alloc>
+	bool operator<(const map<Key, T, Alloc> &lhs, const map<Key, T, Alloc> &rhs)
+	{ return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator<=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	template <class Key, class T, class Alloc>
+	bool operator<=(const map<Key, T, Alloc>& lhs, const map<Key, T, Alloc>& rhs)
+	{ return !(lhs > rhs); }
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator>( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	template <class Key, class T, class Alloc>
+	bool operator>(const map<Key, T, Alloc> &lhs, const map<Key, T, Alloc> &rhs)
+	{ return ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()); }
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator>=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs )
+	template <class Key, class T, class Alloc>
+	bool operator>=(const map<Key, T, Alloc>& lhs, const map<Key, T, Alloc>& rhs)
+	{ return !(lhs < rhs); }
 
 	template< class Key, class T, class Compare, class Alloc >
-	void swap( std::map<Key,T,Compare,Alloc>& lhs, std::map<Key,T,Compare,Alloc>& rhs )
+	void swap( ft::map<Key,T,Compare,Alloc>& lhs, ft::map<Key,T,Compare,Alloc>& rhs )
 	{ lhs.swap(rhs); }
 
 }

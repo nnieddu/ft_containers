@@ -25,8 +25,11 @@
 
 #pragma once
 
-#include "../utils/ft_utility.hpp"
-#include "../utils/ft_functional.hpp"
+#include <memory>
+
+#include "ft_algorithm.hpp"
+#include "ft_utility.hpp"
+#include "ft_functional.hpp"
 #include "../iterators/ft_rbtree_iterator.hpp"
 
 namespace ft 
@@ -60,7 +63,7 @@ namespace ft
 	};
 
 	// Rb_tree main class
-	template <class T, class Compare = ft::less<T>, bool isPair = false, class Alloc = std::allocator<T> >
+	template <class T, class Compare = ft::less<T>, bool isPair = false, class ValueAlloc = std::allocator<T> >
 	class rbtree : rbtree_pair<T, Compare, isPair>
 	{
 		public:
@@ -76,7 +79,7 @@ namespace ft
 			};
 
 			typedef std::size_t												size_type;
-
+			typedef std::allocator<node> 									NodeAlloc;
 			typedef typename rbtree_pair<T, Compare, isPair>::key_type		key_type;
 			typedef typename rbtree_pair<T, Compare, isPair>::mapped_type	mapped_type;
 			
@@ -84,21 +87,29 @@ namespace ft
 			typedef typename ft::rbtree_iterator<node, const T>					const_iterator;
 			// TODO => faire fonctionner it avec arbre/node simple (sans pair)
 		private:
+			ValueAlloc		_vAlloc;
+			NodeAlloc		_nAlloc;
+			Compare			_comp;
+			size_type		_size;
+
 			node* nil;
 			node* root;
 
-			Alloc		_alloc;
-			Compare		_comp;
-			size_type	_size;
-
 		public:
-			rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
-			{ nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false; }
+			// rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
+			rbtree() : _nAlloc(NodeAlloc()), _comp(Compare()), _size(0), nil(_nAlloc.allocate(1))
+			{ 
+				_nAlloc.construct(nil, node()); ///////////
+				root = nil;
+			}
 
 			rbtree (const rbtree& x) 
-			: nil(new node), root(nil), _alloc(x._alloc), _comp(x._comp), _size(0)
+			: nil(_nAlloc.allocate(1)), _vAlloc(x._vAlloc), _comp(x._comp), _size(0)
 			{
-				nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
+				// nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
+				// root->left = root->left; root->p = root->p; root->right = root->right; root->color = false;
+				_nAlloc.construct(nil, node()); ///////////
+				root = nil;
 				if (x.root != x.nil)
 					insert(x.root->value);
 				if(root != nil)
@@ -112,9 +123,12 @@ namespace ft
 				if (root != nil)
 				{
 					this->~rbtree();
-					nil = new node;
+					// nil = new node;
+					nil = _nAlloc.allocate(1);
+					_nAlloc.construct(nil, node()); ///////////
 					root = nil;
 					nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
+					root->left = root->left; root->p = root->p; root->right = root->right; root->color = false;
 				}
 				if (x.root != x.nil)
 				{
@@ -134,7 +148,7 @@ namespace ft
 				delete nil;
 			}
 
-			node* begin()
+			node* begin() const
 			{
 				node* x = root;
 				while (x->left != nil)
@@ -142,7 +156,7 @@ namespace ft
 				return x;
 			}
 
-			node* end()
+			node* end() const
 			{
 				node* x = root;
 				while (x->right != nil)
@@ -151,6 +165,7 @@ namespace ft
 			}
 
 			size_type	size() const { return _size; }
+			size_type	max_size() const { return _nAlloc.max_size(); }
 			node*		getNill() const { return nil; }
 
 			node* searchNode(key_type value)
@@ -158,7 +173,7 @@ namespace ft
 				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
 				{
-					if(_comp(value, this->value_binded(n->value)))
+					if(_comp(value, this->value_binded(n->value))) ///////
 						n = n->left;
 					else
 						n = n->right;
@@ -193,12 +208,14 @@ namespace ft
 			{
 				if (onlySameKey == true && _size > 0 && 
 					((this->value_binded(value) != this->value_binded(root->value))))
-						return make_pair(iterator(root, nil), false);
-				node* newNode = new node;
+						return ft::make_pair(iterator(root, nil), false);
+				// node* newNode = new node;
+				node* newNode = _nAlloc.allocate(1);
+				_nAlloc.construct(newNode, node()); ///////////
 				node* x = root;
 				node* y = nil;
 		
-				_alloc.construct(&newNode->value, value);
+				_vAlloc.construct(&newNode->value, value);
 				while(x != nil)
 				{
 					y = x;
@@ -207,7 +224,7 @@ namespace ft
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
 							delete newNode;
-							return make_pair(iterator(x, nil), false);
+							return ft::make_pair(iterator(x, nil), false);
 						}	
 						x = x->left;
 					}
@@ -216,7 +233,7 @@ namespace ft
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
 							delete newNode;
-							return make_pair(iterator(x, nil), false);
+							return ft::make_pair(iterator(x, nil), false);
 						}
 						x = x->right;
 					}
@@ -236,7 +253,7 @@ namespace ft
 				newNode->color = true;
 				rbInsertFixup(newNode);
 				++_size;
-				return make_pair(iterator(newNode, nil), true);
+				return ft::make_pair(iterator(newNode, nil), true);
 			}
 
 		private:
@@ -449,7 +466,7 @@ namespace ft
 						y->p->right = x;
 				}
 				if(y != z)
-					_alloc.construct(&z->value, y->value);
+					_vAlloc.construct(&z->value, y->value);
 				if(y->color == false)
 					rbDeleteFixup(x);
 				delete y;
@@ -533,14 +550,14 @@ namespace ft
 				if(x->right != nil)
 				{
 					clearHelper(x->right);
-					_alloc.destroy(&x->right->value);
+					_vAlloc.destroy(&x->right->value);
 					_size--;
 				}
 
 				if(x->left != nil)
 				{
 					clearHelper(x->left);
-					_alloc.destroy(&x->left->value);
+					_vAlloc.destroy(&x->left->value);
 					_size--;
 				}
 			}
@@ -551,7 +568,7 @@ namespace ft
 				if(root != nil)
 				{
 					clearHelper(root);
-					_alloc.destroy(&root->value);
+					_vAlloc.destroy(&root->value);
 					// std::cout << "ROOT = " <<   root->value.first << std::endl;
 					// std::cout << "ROOT = " <<  root->value.second << std::endl;
 					_size--;
