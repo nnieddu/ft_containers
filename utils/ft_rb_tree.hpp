@@ -99,20 +99,18 @@ namespace ft
 			// rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
 			rbtree() : _nAlloc(NodeAlloc()), _comp(Compare()), _size(0), nil(_nAlloc.allocate(1))
 			{ 
-				_nAlloc.construct(nil, node()); ///////////
+				_nAlloc.construct(nil, node());
 				root = nil;
 			}
 
 			rbtree (const rbtree& x) 
-			: nil(_nAlloc.allocate(1)), _vAlloc(x._vAlloc), _comp(x._comp), _size(0)
+			: _vAlloc(x._vAlloc), _nAlloc(x._nAlloc), _comp(x._comp), _size(0), nil(_nAlloc.allocate(1))
 			{
-				// nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
-				// root->left = root->left; root->p = root->p; root->right = root->right; root->color = false;
-				_nAlloc.construct(nil, node()); ///////////
+				_nAlloc.construct(nil, node());
 				root = nil;
 				if (x.root != x.nil)
 					insert(x.root->value);
-				if(root != nil)
+				if (root != nil)
 					copy(x.root, x.nil);
 			}
 
@@ -150,6 +148,8 @@ namespace ft
 
 			node* begin() const
 			{
+				if (_size == 0)
+					return root;
 				node* x = root;
 				while (x->left != nil)
 					x = x->left;
@@ -158,6 +158,8 @@ namespace ft
 
 			node* end() const
 			{
+				if (_size == 0)
+					return root;
 				node* x = root;
 				while (x->right != nil)
 					x = x->right;

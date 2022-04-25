@@ -110,13 +110,13 @@ namespace ft
 		// iterator begin() { return (_rbtree.begin()); }
 		iterator begin() { return iterator(_rbtree.begin(), _rbtree.getNill()); }  /// pass pas par const ?
 
-		const_iterator begin() const { std::cout << "YOLO\n"; return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
+		const_iterator begin() const { return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
 
 		// // end
 		// // Return iterator to end (public member function )
-		iterator end() { return iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
+		iterator end() { return iterator(_rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
-		const_iterator end() const { std::cout << "YOLO\n"; return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
+		const_iterator end() const { return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
 		// // rbegin
 		// // Return reverse iterator to reverse beginning (public member function )

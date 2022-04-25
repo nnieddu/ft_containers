@@ -97,18 +97,28 @@ int main()
 	// std::cout << it->first << std::endl;
 
 	std::map<char, int> m;
-	ft::map<char, int> m2;
+	const ft::map<char, int> m2(mymap);
+	// m2.insert ( ft::pair<char,int>('c',2006) );
+
 	std::cout << "MAX S=" << mymap.max_size() << std::endl;
 	std::cout << "MAX S=" << smymap.max_size() << std::endl;
 
 	ft::map<char,int>::const_iterator cit = mymap.end();
 	ft::map<char,int>::iterator it = mymap.begin();
 
+	if (it == cit)
+		std::cout << "1IS THIS WORK ?\n";
 	if (cit != it)
 		std::cout << "IS THIS WORK ?\n";
 
-	cit = mymap.begin();
+	// ft::map<char,int>::const_iterator citm = m2.end();
+	// if (cit != citm)
+	// 	std::cout << "IS THIS WORK ?\n";
 
-	if (cit == it)
-		std::cout << "IS THIS WORK ?\n";
+	// cit = mymap.begin();
+
+	// if (cit == it)
+	// 	std::cout << "IS THIS WORK ?\n";
+
+
 }
