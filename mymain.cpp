@@ -48,18 +48,17 @@
 // 	std::cout << std::endl;
 // }
 
-#define TEST 'z'
+#define TEST 'h'
 int main() 
 {
 
-ft::map<char,int, std::greater<char> > mymap;
-  
+	ft::map<char,int > mymap;
 	mymap['a'] = 42;
 	mymap.insert ( ft::pair<char,int>('b',200) );
 	mymap.insert ( ft::pair<char,int>('d',5200) );
 	mymap.insert ( ft::pair<char,int>('h',20540) );
 	mymap.insert ( ft::pair<char,int>('g',2050) );
-	mymap.insert ( ft::pair<char,int>('z',2000) );
+	mymap.insert ( ft::pair<char,int>('o',2000) );
 	mymap.insert ( ft::pair<char,int>('c',2006) );
 	mymap.insert ( ft::pair<char,int>('e',20066) );
 	mymap.insert ( ft::pair<char,int>('f',24006) );
@@ -71,14 +70,15 @@ ft::map<char,int, std::greater<char> > mymap;
 	std::cout << "[" <<  mymap.equal_range(TEST).first->first << "]"; /////
 	std::cout << "[" <<  mymap.equal_range(TEST).second->first << "]" << std::endl; /////
 
-std::map<char,int, std::greater<char> > smymap;
-  
+
+
+	std::map<char,int > smymap;
 	smymap['a'] = 42;
 	smymap.insert ( std::pair<char,int>('b',200) );
 	smymap.insert ( std::pair<char,int>('d',5200) );
 	smymap.insert ( std::pair<char,int>('h',20540) );
 	smymap.insert ( std::pair<char,int>('g',2050) );
-	smymap.insert ( std::pair<char,int>('z',2000) );
+	smymap.insert ( std::pair<char,int>('o',2000) );
 	smymap.insert ( std::pair<char,int>('c',2006) );
 	smymap.insert ( std::pair<char,int>('e',20066) );
 	smymap.insert ( std::pair<char,int>('f',24006) );
@@ -89,11 +89,22 @@ std::map<char,int, std::greater<char> > smymap;
 
 	std::cout << "[" <<  smymap.equal_range(TEST).first->first << "]";
 	std::cout << "[" <<  smymap.equal_range(TEST).second->first << "]" << std::endl;
-	// find un trcu quexiste po
+	// find un truc quexiste pas
 	// ft::map<char, int>::iterator it = mymap.find('W');
 	// if (it == mymap.end())
 	// 	std::cout << "COUCOU \n";
 	// it--;
 	// std::cout << it->first << std::endl;
 
+	std::map<char, int> m;
+	ft::map<char, int> m2;
+	std::cout << "MAX S=" << mymap.max_size() << std::endl;
+	std::cout << "MAX S=" << smymap.max_size() << std::endl;
+
+	// ft::map<char,int>::const_iterator cit = mymap.begin();
+	// ft::map<char,int>::iterator it = mymap.begin();
+	// cit++;
+
+	// if (cit == it)
+	// 	std::cout << "IS THIS WORK ?\n";
 }
