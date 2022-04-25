@@ -14,6 +14,8 @@
 // https://www.cplusplus.com/reference/iterator/iterator/
 // https://www.cplusplus.com/reference/iterator/reverse_iterator/
 
+#pragma once
+
 #include "ft_iterator_traits.hpp"
 
 namespace ft
