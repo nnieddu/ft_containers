@@ -120,13 +120,16 @@ namespace ft
 
 			rbtree_iterator operator--(int) { rbtree_iterator tmp = *this; --(*this); return tmp; }
 
+			bool operator==(const rbtree_iterator& x) const { return (_ptr == x._ptr); }
+			bool operator!=(const rbtree_iterator& x) const { return (_ptr != x._ptr); }
+
 	};
 	// //  Overload to compare iterator with const iterator
-	template<class N, class T, class consT>
-	bool operator==(rbtree_iterator<N, T> const &lhs, rbtree_iterator<N, consT> const &rhs)
+	template<class N, class T>
+	bool operator==(rbtree_iterator<N, T> const &lhs, rbtree_iterator<N, const T> const &rhs)
 	{ return lhs.base() == rhs.base(); }
 
-	template<class N, class T, class consT>
-	bool operator!=(rbtree_iterator<N, T> const &lhs, rbtree_iterator<N, consT> const &rhs)
+	template<class N, class T>
+	bool operator!=(rbtree_iterator<N, T> const &lhs, rbtree_iterator<N, const T> const &rhs)
 	{ return lhs.base() != rhs.base(); }
 }

@@ -108,6 +108,10 @@ int main()
 
 	if (it == cit)
 		std::cout << "1IS THIS WORK ?\n";
+	if (cit == it)
+		std::cout << "1IS THIS WORK ?\n";		
+	if (it != cit)
+		std::cout << "IS THIS WORK ?\n";		
 	if (cit != it)
 		std::cout << "IS THIS WORK ?\n";
 
