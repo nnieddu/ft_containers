@@ -48,7 +48,7 @@
 // 	std::cout << std::endl;
 // }
 
-#define TEST 'h'
+#define TEST 'o'
 int main() 
 {
 
@@ -101,10 +101,14 @@ int main()
 	std::cout << "MAX S=" << mymap.max_size() << std::endl;
 	std::cout << "MAX S=" << smymap.max_size() << std::endl;
 
-	// ft::map<char,int>::const_iterator cit = mymap.begin();
-	// ft::map<char,int>::iterator it = mymap.begin();
-	// cit++;
+	ft::map<char,int>::const_iterator cit = mymap.end();
+	ft::map<char,int>::iterator it = mymap.begin();
 
-	// if (cit == it)
-	// 	std::cout << "IS THIS WORK ?\n";
+	if (cit != it)
+		std::cout << "IS THIS WORK ?\n";
+
+	cit = mymap.begin();
+
+	if (cit == it)
+		std::cout << "IS THIS WORK ?\n";
 }

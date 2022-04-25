@@ -97,7 +97,6 @@ namespace ft
 
 			rbtree_iterator operator++(int) { rbtree_iterator tmp = *this; ++(*this); return tmp; }  
 
-
 			rbtree_iterator& operator--() 
 			{
 				if (_ptr == _nil)
@@ -127,10 +126,8 @@ namespace ft
 
 			rbtree_iterator operator--(int) { rbtree_iterator tmp = *this; --(*this); return tmp; }
 
-			// bool operator==(const rbtree_iterator& x) const { return (_ptr == x._ptr); }
-			// bool operator!=(const rbtree_iterator& x) const { return (_ptr != x._ptr); }
-			friend bool operator==(const rbtree_iterator& lhs, const rbtree_iterator& rhs) { return lhs._ptr == rhs._ptr; }
-			friend bool operator!= (const rbtree_iterator& lhs, const rbtree_iterator& rhs) { return !(lhs._ptr == rhs._ptr); }
+			bool operator==(const rbtree_iterator& x) const { return (_ptr == x._ptr); }
+			bool operator!=(const rbtree_iterator& x) const { return (_ptr != x._ptr); }
 	};
 
 	// //  Overload to compare iterator with const iterator
