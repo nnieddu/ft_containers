@@ -282,42 +282,20 @@ namespace ft
 		// equal_range : Get range of equal elements (public member function )
 		pair<const_iterator,const_iterator> equal_range (const key_type& k) const
 		{
-			pair<const_iterator, const_iterator> res;
+			pair<const_iterator, const_iterator> ret;
 			
-			res.first = this->lower_bound(k);
-			res.second = this->upper_bound(k);
-			return (res);
-			// const_iterator beg = find(k);
-			// if (beg == this->end())
-			// {
-			// 	beg--;
-			// 	while (beg != this->begin() && !_comp(beg->first, k) && !_comp(k, beg->first))
-			// 		beg--;
-			// }
-			// const_iterator end = beg;
-			// while (end != this->end() && !_comp(end->first, k) && !_comp(k, end->first))
-			// 	end++;
-			// return ft::make_pair(beg, end);
+			ret.first = this->lower_bound(k);
+			ret.second = this->upper_bound(k);
+			return (ret);
 		}
 
 		pair<iterator,iterator>	equal_range (const key_type& k)
 		{
-			pair<iterator, iterator> res;
+			pair<iterator, iterator> ret;
 
-			res.first = this->lower_bound(k);
-			res.second = this->upper_bound(k);
-			return (res);
-			// iterator beg = find(k);
-			// if (beg == this->end())
-			// {
-			// 	beg--;
-			// 	while (beg != this->begin() && !_comp(beg->first, k) && !_comp(k, beg->first))
-			// 		beg--;
-			// }
-			// iterator end = beg;
-			// while (end != this->end() && !_comp(end->first, k) && !_comp(k, end->first))
-			// 	end++;
-			// return ft::make_pair(beg, end);
+			ret.first = this->lower_bound(k);
+			ret.second = this->upper_bound(k);
+			return (ret);
 		}
 
 
