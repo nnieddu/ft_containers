@@ -73,7 +73,6 @@ namespace ft
 	};
 
 	// const T* specialization (Partial specialization for const pointer types.)
-	// This specialization lets you use a pointer as a random access iterator.
 	template <class T>
 	struct iterator_traits<const T *>
 	{

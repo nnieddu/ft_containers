@@ -32,6 +32,7 @@
 #include "ft_functional.hpp"
 #include "../iterators/ft_rbtree_iterator.hpp"
 
+
 namespace ft 
 {
 	// Specialisation to use rb_tree without pair (default mode)
@@ -86,6 +87,7 @@ namespace ft
 			typedef typename ft::rbtree_iterator<node, T>						iterator;
 			typedef typename ft::rbtree_iterator<node, const T>					const_iterator;
 			// TODO => faire fonctionner it avec arbre/node simple (sans pair)
+		
 		private:
 			ValueAlloc		_vAlloc;
 			NodeAlloc		_nAlloc;
@@ -96,7 +98,6 @@ namespace ft
 			node* root;
 
 		public:
-			// rbtree() : nil(new node), root(nil), _comp(Compare()), _size(0)
 			rbtree() : _nAlloc(NodeAlloc()), _comp(Compare()), _size(0), nil(_nAlloc.allocate(1))
 			{ 
 				_nAlloc.construct(nil, node());
@@ -118,21 +119,22 @@ namespace ft
 			{
 				if (&x == this)
 					return *this;
+
 				if (root != nil)
 				{
+					_vAlloc = x._vAlloc;
+					_nAlloc = x._nAlloc;
 					this->~rbtree();
-					// nil = new node;
 					nil = _nAlloc.allocate(1);
-					_nAlloc.construct(nil, node()); ///////////
+					_nAlloc.construct(nil, node());
 					root = nil;
-					nil->left = NULL; nil->p = NULL; nil->right = NULL; nil->color = false;
-					root->left = root->left; root->p = root->p; root->right = root->right; root->color = false;
 				}
+
 				if (x.root != x.nil)
-				{
 					insert(x.root->value);
+				if (root != nil)
 					copy(x.root, x.nil);
-				}
+
 				return *this;
 			}
 
@@ -140,10 +142,11 @@ namespace ft
 			{
 				if(root != nil)
 				{
-					clean(root);
-					delete root;
+					destroy(root);
+					_nAlloc.deallocate(root, 1);
 				}
-				delete nil;
+				_nAlloc.deallocate(nil, 1);
+				_size = 0;
 			}
 
 			node* begin() const
@@ -170,7 +173,7 @@ namespace ft
 			size_type	max_size() const { return _nAlloc.max_size(); }
 			node*		getNill() const { return nil; }
 
-			node* searchNode(key_type value)
+			node* searchNode(key_type value) const
 			{
 				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
@@ -225,7 +228,7 @@ namespace ft
 					{
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
-							delete newNode;
+							_nAlloc.deallocate(newNode, 1);
 							return ft::make_pair(iterator(x, nil), false);
 						}	
 						x = x->left;
@@ -234,7 +237,7 @@ namespace ft
 					{
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
-							delete newNode;
+							_nAlloc.deallocate(newNode, 1);
 							return ft::make_pair(iterator(x, nil), false);
 						}
 						x = x->right;
@@ -471,18 +474,20 @@ namespace ft
 					_vAlloc.construct(&z->value, y->value);
 				if(y->color == false)
 					rbDeleteFixup(x);
-				delete y;
+				_nAlloc.deallocate(y, 1);
 			}
 
 		public:	
-			void erase(key_type value)
+			size_type erase(key_type value)
 			{
 				node* x = searchNode(value);
 				if(x != nil)
 				{
 					rbDelete(x);
-					_size--;
+					--_size;
+					return 1;
 				}
+				return 0;
 			}
 
 			// -------------------------------- //
@@ -532,49 +537,47 @@ namespace ft
 			// -------------Utils-------------- //
 			// -------------------------------- //
 		private:
-			void clean(node* x)
+			void destroy(node* x)
 			{
 				if(x->right != nil)
 				{
-					clean(x->right);
-					delete x->right;
+					destroy(x->right);
+					_nAlloc.deallocate(x->right, 1);
 				}
 
 				if(x->left != nil)
 				{
-					clean(x->left);
-					delete x->left;
+					destroy(x->left);
+					_nAlloc.deallocate(x->left, 1);
 				}
 			}
 
-			void clearHelper(node* x)
-			{
-				if(x->right != nil)
-				{
-					clearHelper(x->right);
-					_vAlloc.destroy(&x->right->value);
-					_size--;
-				}
+			// void clearHelper(node* x)
+			// {
+			// 	if(x->left != nil)
+			// 	{
+			// 		clearHelper(x->left);
+			// 		_vAlloc.destroy(&x->left->value);
+			// 		_size--;
+			// 	}
 
-				if(x->left != nil)
-				{
-					clearHelper(x->left);
-					_vAlloc.destroy(&x->left->value);
-					_size--;
-				}
-			}
+			// 	if(x->right != nil)
+			// 	{
+			// 		clearHelper(x->right);
+			// 		_vAlloc.destroy(&x->right->value);
+			// 		_size--;
+			// 	}
+			// }
 
 		public:
 			void clear()
 			{ 
 				if(root != nil)
 				{
-					clearHelper(root);
-					_vAlloc.destroy(&root->value);
-					// std::cout << "ROOT = " <<   root->value.first << std::endl;
-					// std::cout << "ROOT = " <<  root->value.second << std::endl;
-					_size--;
-					//// value still accessible???
+					destroy(root);
+					_nAlloc.deallocate(root, 1);
+					root = nil;
+					_size = 0;
 				}
 			}
 		private:

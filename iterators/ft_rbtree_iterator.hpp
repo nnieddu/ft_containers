@@ -27,11 +27,9 @@ namespace ft
 		public:
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type            value_type;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type       difference_type;
-			typedef T																				node_value;
 			typedef T*																				node_value_ptr;
 			typedef T&																				node_value_ref;
 			typedef N*               																node_pointer;
-			typedef N&            																	node_reference;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
 		private:
 			node_pointer _ptr;
@@ -122,8 +120,8 @@ namespace ft
 
 			bool operator==(const rbtree_iterator& x) const { return (_ptr == x._ptr); }
 			bool operator!=(const rbtree_iterator& x) const { return (_ptr != x._ptr); }
-
 	};
+
 	// //  Overload to compare iterator with const iterator
 	template<class N, class T>
 	bool operator==(rbtree_iterator<N, T> const &lhs, rbtree_iterator<N, const T> const &rhs)

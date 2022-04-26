@@ -112,21 +112,21 @@ namespace ft
 
 		const_iterator begin() const { return const_iterator(_rbtree.begin(), _rbtree.getNill()); }
 
-		// // end
-		// // Return iterator to end (public member function )
+		// end
+		// Return iterator to end (public member function )
 		iterator end() { return iterator(_rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
 		const_iterator end() const { return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
-		// // rbegin
-		// // Return reverse iterator to reverse beginning (public member function )
+		// rbegin
+		// Return reverse iterator to reverse beginning (public member function )
 		reverse_iterator rbegin() { return reverse_iterator(iterator( _rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
 
 		const_reverse_iterator rbegin() const 
 		{ return const_reverse_iterator(iterator( _rbtree.end(), _rbtree.end(), _rbtree.getNill())); }
 
-		// // rend
-		// // Return reverse iterator to reverse end (public member function )
+		// rend
+		// Return reverse iterator to reverse end (public member function )
 		reverse_iterator rend() { return reverse_iterator(begin()); }
 
 		const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
@@ -191,11 +191,7 @@ namespace ft
 		void erase (iterator position) { _rbtree.erase(position->first); }
 
 		// (2)	
-		size_type erase (const key_type& k) 
-		{ 
-			_rbtree.erase(k);
-			return 1;
-		}
+		size_type erase (const key_type& k) { return _rbtree.erase(k); }
 
 		// (3)	
 		void erase (iterator first, iterator last)
@@ -210,13 +206,11 @@ namespace ft
 		// swap : Swap content (public member function )
 		void swap (map& x)
 		{
-			Alloc										&tmp_alloc = x._alloc;
-			ft::rbtree<value_type, key_compare, true> 	tmp_rbtree = x._rbtree;
+			ft::rbtree<value_type, key_compare, true> 	tmp_rbtree;
+			tmp_rbtree = x._rbtree;
 
-			x._alloc 	= _alloc;
 			x._rbtree 	= _rbtree;
 
-			_alloc 		= tmp_alloc;
 			_rbtree		= tmp_rbtree;			
 		}
 
