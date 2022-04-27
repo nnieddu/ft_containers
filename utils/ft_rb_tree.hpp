@@ -169,9 +169,9 @@ namespace ft
 				return x;
 			}
 
-			size_type	size() const { return _size; }
-			size_type	max_size() const { return _nAlloc.max_size(); }
+			size_type	getSize() const { return _size; }
 			node*		getNill() const { return nil; }
+			size_type	max_size() const { return _nAlloc.max_size(); }
 
 			node* searchNode(key_type value) const
 			{
@@ -186,7 +186,29 @@ namespace ft
 				return n;
 			}
 
+			void swap(rbtree& toSwap)
+			{
+				node* 		tmp_root = toSwap.root;
+				node* 		tmp_nil = toSwap.nil;
+				ValueAlloc	tmp_vAlloc = toSwap._vAlloc;
+				NodeAlloc	tmp_nAlloc = toSwap._nAlloc;
+				Compare		tmp_comp = toSwap._comp;
+				size_type	tmp_size = toSwap._size;
+			
+				toSwap.root 	= this->root;
+				toSwap.nil 		= this->nil;
+				toSwap._vAlloc 	= this->_vAlloc;
+				toSwap._nAlloc 	= this->_nAlloc;
+				toSwap._comp 	= this->_comp;
+				toSwap._size 	= this->_size;
 
+				this->root 	 	= tmp_root;
+				this->nil 		= tmp_nil;
+				this->_vAlloc 	= tmp_vAlloc;
+				this->_nAlloc 	= tmp_nAlloc;
+				this->_comp 	= tmp_comp;
+				this->_size 	= tmp_size;
+			}
 			// -------------------------------- //
 			// -------------ForMap------------- //
 			// -------------------------------- //
@@ -216,7 +238,7 @@ namespace ft
 						return ft::make_pair(iterator(root, nil), false);
 				// node* newNode = new node;
 				node* newNode = _nAlloc.allocate(1);
-				_nAlloc.construct(newNode, node()); ///////////
+				_nAlloc.construct(newNode, node());
 				node* x = root;
 				node* y = nil;
 		
@@ -477,6 +499,66 @@ namespace ft
 				_nAlloc.deallocate(y, 1);
 			}
 
+		void rb_transplant(node *u, node *v) 
+		{
+			if(u->p == nil)
+				root = v;
+			else if(u == u->p->left)
+				u->p->left = v;
+			else
+				u->p->right = v;
+			v->p = u->p;
+		}
+
+		node* minimum(node *x) 
+		{
+			while(x->left != nil)
+				x = x->left;
+			return x;
+		}
+
+		
+		void rbDelete2(node* z) 
+		{
+			node *y = z;
+			node *x;
+			bool y_orignal_color = y->color;
+
+			if(z->left == nil) 
+			{
+				x = z->right;
+				rb_transplant(z, z->right);
+			}
+			else if(z->right == nil) 
+			{
+				x = z->left;
+				rb_transplant(z, z->left);
+			}
+			else 
+			{
+				y = minimum(z->right);
+				y_orignal_color = y->color;
+				x = y->right;
+				if(y->p == z) 
+				{
+					x->p = z;
+				}
+				else 
+				{
+					rb_transplant(y, y->right);
+					y->right = z->right;
+					y->right->p = y;
+				}
+				rb_transplant(z, y);
+				y->left = z->left;
+				y->left->p = y;
+				y->color = z->color;
+			}
+			if(y_orignal_color == false)
+				rbDeleteFixup(x);
+			_nAlloc.deallocate(z, 1);
+		}
+
 		public:	
 			size_type erase(key_type value)
 			{
@@ -551,23 +633,6 @@ namespace ft
 					_nAlloc.deallocate(x->left, 1);
 				}
 			}
-
-			// void clearHelper(node* x)
-			// {
-			// 	if(x->left != nil)
-			// 	{
-			// 		clearHelper(x->left);
-			// 		_vAlloc.destroy(&x->left->value);
-			// 		_size--;
-			// 	}
-
-			// 	if(x->right != nil)
-			// 	{
-			// 		clearHelper(x->right);
-			// 		_vAlloc.destroy(&x->right->value);
-			// 		_size--;
-			// 	}
-			// }
 
 		public:
 			void clear()

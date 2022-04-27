@@ -61,7 +61,6 @@ namespace ft
 		private:	
 			allocator_type  							_alloc;
 			Compare										_comp;
-			size_type									_capacity;
 			ft::rbtree<value_type, key_compare, true>	_rbtree;
 
 		public: 
@@ -70,24 +69,24 @@ namespace ft
 		// empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type())
-		: _alloc(alloc), _comp(comp), _capacity(0) {}
+		: _alloc(alloc), _comp(comp) {}
 
 		// range (2)	
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last,
 		const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
 		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
-		: _alloc(alloc), _comp(comp), _capacity(0)
+		: _alloc(alloc), _comp(comp)
 		{
 			while (first != last)
 			{
 				insert(*first);
-				first++;
+				++first;
 			}
 		}
 
 		// copy (3)	
-		map (const map& x) : _alloc(x._alloc), _comp(x._comp), _capacity(x._capacity), _rbtree(x._rbtree) {} ////
+		map (const map& x) : _alloc(x._alloc), _comp(x._comp), _rbtree(x._rbtree) {} ////
 
 		// (destructor) : Map destructor (public member function )
 		~map() {};
@@ -97,7 +96,6 @@ namespace ft
 		{
 			_alloc = x._alloc;
 			_comp = x._comp;
-			_capacity = x._capacity;
 			_rbtree = x._rbtree;
 			return *this;
 		}
@@ -136,11 +134,11 @@ namespace ft
 
 		// empty
 		// Test whether container is empty (public member function )
-		bool empty() const { return ( _rbtree.size() == 0 ? true : false); };
+		bool empty() const { return ( _rbtree.getSize() == 0 ? true : false); };
 
 		// size
 		// Return container size (public member function )
-		size_type size() const { return _rbtree.size(); }
+		size_type size() const { return _rbtree.getSize(); }
 
 		// max_size
 		// Return maximum size (public member function )
@@ -182,7 +180,7 @@ namespace ft
 			while (first != last)
 			{
 				insert(*first);
-				first++;
+				++first;
 			}
 		}
 
@@ -196,22 +194,28 @@ namespace ft
 		// (3)	
 		void erase (iterator first, iterator last)
 		{
-			while (first != last)
+			iterator tmp;
+			while (first != this->end() && first != last)
 			{
-				_rbtree.erase(first->first);
-				first++;
+				tmp = first;
+				++first;
+				_rbtree.erase(tmp->first);
 			}
 		}
 
 		// swap : Swap content (public member function )
 		void swap (map& x)
 		{
-			ft::rbtree<value_type, key_compare, true> 	tmp_rbtree;
-			tmp_rbtree = x._rbtree;
+			allocator_type	tmp_alloc = x._alloc;
+			Compare			tmp_comp = x._comp;
 
-			x._rbtree 	= _rbtree;
+			x._rbtree.swap(this->_rbtree);
 
-			_rbtree		= tmp_rbtree;			
+			x._alloc	= _alloc;
+			x._comp		= _comp;
+
+			_alloc		= tmp_alloc;
+			_comp		= tmp_comp;
 		}
 
 		// clear : Clear content (public member function )
