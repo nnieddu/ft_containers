@@ -209,6 +209,7 @@ namespace ft
 				this->_comp 	= tmp_comp;
 				this->_size 	= tmp_size;
 			}
+			
 			// -------------------------------- //
 			// -------------ForMap------------- //
 			// -------------------------------- //
@@ -382,17 +383,19 @@ namespace ft
 		private:
 			node* treeSuccessor(node* x)
 			{
-				if(x->right != nil)
+				node* y = nil;
+
+				if (x->left != nil)
 				{
-					while(x->left != nil)
-						x = x->left;
-					return x;
+					y = x->left;
+					while (y->right!=nil)
+						y = y->right;
 				}
-				node* y = x->p;
-				while(y != nil && x == y->right)
+				else
 				{
-					x = y;
-					y = y->p;
+					y = x->right;
+					while (y->left != nil)
+						y = y->left;
 				}
 				return y;
 			}
@@ -469,7 +472,7 @@ namespace ft
 				x->color = false;
 			}
 
-		void rbDelete(node* z)
+			void rbDelete(node* z)
 			{
 				node* x = nil;
 				node* y = nil;
@@ -498,66 +501,6 @@ namespace ft
 					rbDeleteFixup(x);
 				_nAlloc.deallocate(y, 1);
 			}
-
-		void rb_transplant(node *u, node *v) 
-		{
-			if(u->p == nil)
-				root = v;
-			else if(u == u->p->left)
-				u->p->left = v;
-			else
-				u->p->right = v;
-			v->p = u->p;
-		}
-
-		node* minimum(node *x) 
-		{
-			while(x->left != nil)
-				x = x->left;
-			return x;
-		}
-
-		
-		void rbDelete2(node* z) 
-		{
-			node *y = z;
-			node *x;
-			bool y_orignal_color = y->color;
-
-			if(z->left == nil) 
-			{
-				x = z->right;
-				rb_transplant(z, z->right);
-			}
-			else if(z->right == nil) 
-			{
-				x = z->left;
-				rb_transplant(z, z->left);
-			}
-			else 
-			{
-				y = minimum(z->right);
-				y_orignal_color = y->color;
-				x = y->right;
-				if(y->p == z) 
-				{
-					x->p = z;
-				}
-				else 
-				{
-					rb_transplant(y, y->right);
-					y->right = z->right;
-					y->right->p = y;
-				}
-				rb_transplant(z, y);
-				y->left = z->left;
-				y->left->p = y;
-				y->color = z->color;
-			}
-			if(y_orignal_color == false)
-				rbDeleteFixup(x);
-			_nAlloc.deallocate(z, 1);
-		}
 
 		public:	
 			size_type erase(key_type value)
