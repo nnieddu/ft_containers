@@ -459,5 +459,11 @@ int main ()
 // 	std::cout << "stdFill.begin() - stdFill.end() return : " << stdFill.begin() - stdFill.end() << std::endl;
 // 	std::cout << "test stdFill addr return : " << &*stdFill.begin() << std::endl;
 
+
+
+	ft::map<std::string, char> untest;
+	untest["yolo"] = 'b';
+	untest.insert(ft::make_pair("ewwq", 'd'));
+	untest.display();
   return 0;
 }

@@ -158,12 +158,14 @@ namespace ft
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{
-			if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
-				return(_rbtree.insert(val, true, true));
-			else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1))) // greater/less _equal
-				return (_rbtree.insert(val, true, false));
-			else
-				return (_rbtree.insert(val, false, false));
+			// if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
+			// 	return(_rbtree.insert(val, true, true));
+			// else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1))) // greater/less _equal
+			// 	return (_rbtree.insert(val, true, false));
+			// else
+			// 	return (_rbtree.insert(val, false, false));
+
+			return (_rbtree.insert(val, false, false));
 		}
 		
 		// with hint (2)	
