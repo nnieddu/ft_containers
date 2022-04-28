@@ -101,7 +101,6 @@ namespace ft
 			virtual ~vector()
 			{
 				clear();
-				// if (_capacity)
 				_alloc.deallocate(_items, _capacity);
 				_items = NULL;
 			}
@@ -123,11 +122,6 @@ namespace ft
 	
 			// -----------[ Iterators: ]-----------
 
-			// En retournant un ptr direct = plus optimised mais stl retourne un it 
-			// (dans le cas d'un it1 = vec.begin(), il y a un appel au constructeur 
-			// et destructeur d'iterateur qui me semble useless pour le moment, a voir)
-
-			//TODO : TERNAIRES //////////
 			iterator begin() { return iterator(_items); } 
 
 			const_iterator begin() const { return const_iterator(_items); }
@@ -146,35 +140,15 @@ namespace ft
 				return const_iterator(&_items[_size]);
 			}
 			
-			// 		[Reverse :]
+			//----------[Reverse : ]-----------
+			
+			reverse_iterator rbegin() { return reverse_iterator(end()); }
 
-			reverse_iterator rbegin()
-			{
-				if (_items == NULL)
-					return reverse_iterator(); //
-				return reverse_iterator(end());
-			}
+			const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
 
-			const_reverse_iterator rbegin() const 
-			{
-				if (_items == NULL)
-					return const_reverse_iterator(); //
-				return const_reverse_iterator(end());
-			}
+			reverse_iterator rend()	{ return reverse_iterator(begin());	}
 
-			reverse_iterator rend()
-			{
-				if (_items == NULL)
-					return rbegin();
-				return reverse_iterator(begin());
-			}
-
-			const_reverse_iterator rend() const 
-			{
-				if (_items == NULL)
-					return rbegin();
-				return const_reverse_iterator(begin());
-			}
+			const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
 			// ----------[ Capacity: ]-----------
 
@@ -218,6 +192,11 @@ namespace ft
 					{
 						for (size_type index = 0; index < _size; index++)
 							_alloc.construct(&tmp[index], _items[index]);
+						
+						size_type tmp_size = _size;
+						for (size_type index = 0; index < tmp_size; index++)
+							_alloc.destroy(&_items[index]);
+
 						_alloc.deallocate(_items, _capacity);
 					}
 					_items = tmp;
@@ -229,11 +208,11 @@ namespace ft
 			//		 Access element at n
 			reference operator[] (size_type n) { return (_items[n]); }
 
-			const_reference operator[] (size_type n) const { return (_items[n]); } // a test w
+			const_reference operator[] (size_type n) const { return (_items[n]); }
 		
 			reference at (size_type n)
 			{
-				if (n >= _size) //test avec stl pour les negatif
+				if (n >= _size)
 				{
 					std::stringstream s;
 					s << "n (which is " << n << ") >= this->size() (which is " << _size << ")";
@@ -244,7 +223,7 @@ namespace ft
 
 			const_reference at (size_type n) const
 			{
-				if (n >= _size) //test avec stl pour les negatif
+				if (n >= _size)
 				{
 					std::stringstream s;
 					s << "n (which is " << n << ") >= this->size() (which is " << _size << ")";
@@ -258,22 +237,18 @@ namespace ft
 			const_reference front() const { return (_items[0]); };
 		
 			// back		Access last element
-			// TODO TERNAIRES //
 			reference back()
 			{
 				if (_size > 0)
 					return _items[_size - 1];
-				else
-					return *_items;
+				return *_items;
 			}
 
-			// TODO TERNAIRES //
 			const_reference back() const
 			{
 				if (_size > 0)
 					return _items[_size - 1];
-				else
-					return *_items;
+				return *_items;
 			}
 
 			// ----------[MODIFIERS]----------
@@ -418,7 +393,7 @@ namespace ft
 				Alloc		&tmp_alloc	= x._alloc;
 				size_type	tmp_size	= x._size;
 				size_type	tmp_capa	= x._capacity;
-				value_type	*tmp_items	= x._items; ////////////////
+				value_type	*tmp_items	= x._items;
 
 				x._alloc 	= _alloc;
 				x._size 	= _size;
@@ -449,14 +424,12 @@ namespace ft
 		// [Non-member function overloads]
 		// Relational operators for vector (function template)
 		
-		//TODO TERNAIRES for == 
 		template <class T, class Alloc>
 		bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) 
 		{
 			if (lhs.size() != rhs.size())
 				return (false);
-			else
-				return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 		}
 		
 		template <class T, class Alloc>
@@ -476,16 +449,4 @@ namespace ft
 		// Swap
 		template<class T, class Alloc>
 		void swap (vector<T, Alloc>& lhs, vector<T, Alloc>& rhs) { lhs.swap(rhs); }
-
-
-		////////////////// for testing
-		// template<class T >
-		// std::ostream& operator<<(std::ostream& os, const vector<T>& v)
-		// {
-		// 	if (v.size() > 0)
-		// 		os << *v.begin();
-		// 	else
-		// 		os << "Empty";
-		// 	return os;
-		// }
 }
