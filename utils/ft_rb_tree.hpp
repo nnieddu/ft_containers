@@ -82,6 +82,7 @@ namespace ft
 			typedef std::size_t												size_type;
 			typedef std::allocator<node> 									NodeAlloc;
 			typedef typename rbtree_pair<T, Compare, isPair>::key_type		key_type;
+			// typedef std::allocator<key_type> 									keyAlloc;
 			typedef typename rbtree_pair<T, Compare, isPair>::mapped_type	mapped_type;
 			
 			typedef typename ft::rbtree_iterator<node, T>						iterator;
@@ -90,6 +91,7 @@ namespace ft
 		
 		private:
 			ValueAlloc		_vAlloc;
+			// keyAlloc		_kAlloc;
 			NodeAlloc		_nAlloc;
 			Compare			_comp;
 			size_type		_size;
@@ -237,7 +239,6 @@ namespace ft
 				if (onlySameKey == true && _size > 0 && 
 					((this->value_binded(value) != this->value_binded(root->value))))
 						return ft::make_pair(iterator(root, nil), false);
-				// node* newNode = new node;
 				node* newNode = _nAlloc.allocate(1);
 				_nAlloc.construct(newNode, node());
 				node* x = root;
@@ -499,6 +500,7 @@ namespace ft
 					_vAlloc.construct(&z->value, y->value);
 				if(y->color == false)
 					rbDeleteFixup(x);
+				// _kAlloc.deallocate(y->value.first, 1);
 				_nAlloc.deallocate(y, 1);
 			}
 

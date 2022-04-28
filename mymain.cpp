@@ -37,37 +37,21 @@
 
 
 #define MAX_TEST 10000
-#define TESTNS ft
-
-void	printOk() {
-	std::cout << "\033[0;32m" << "V" << "\033[0;37m";
-}
-
-void	printError(std::string message) {
-	std::cout << "\033[0;31m" << message << "\033[0;37m" << std::endl;
-}
-
-void	printvector(ft::vector<std::string> vector) 
-{
-	for (unsigned long i = 0; i < vector.size(); i++)
-		std::cout << vector[i] << " ";
-	std::cout << std::endl;
-}
+#define TESTNS std
+#define T1 TESTNS::vector<std::string>
+#define T2 char
+#define COMP TESTNS::less<T1>
 
 int main ()
 {
+    TESTNS::vector<std::string> v;
+    v.insert(v.begin(), "Je suis le premier");
+    TESTNS::vector<std::string> v2(v);
+    TESTNS::vector<std::string> v3;
+    v3.insert(v3.begin(), "Je suis v3 le troisieme");
 
-	TESTNS::map<std::string, char, std::greater_equal<std::string> > untest;
-	untest["yolo"] = 'e';
-	untest["yolo"] = 'e';
-	untest.insert(TESTNS::make_pair("dwwq", 'd'));
-	untest.insert(TESTNS::make_pair("cwwaasdq", 'd'));
-	untest.insert(TESTNS::make_pair("bwdsdwq", 'd'));
-	untest.insert(TESTNS::make_pair("adwwq", 'd'));
-
-	for (TESTNS::map<std::string, char, std::greater_equal<std::string> >::iterator it=untest.begin(); it!=untest.end(); ++it)
-    	std::cout << it->first << " => " << it->second << '\n';
-	
-	// untest.display();
-  return 0;
+    TESTNS::map<T1, T2, COMP> untest;
+    untest[v] = 'a';
+    untest.insert(TESTNS::make_pair(v2, 'b'));
+    untest.insert(TESTNS::make_pair(v3, 'c'));
 }

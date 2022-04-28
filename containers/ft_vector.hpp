@@ -469,13 +469,13 @@ namespace ft
 
 
 		////////////////// for testing
-		template<class T >
-		std::ostream& operator<<(std::ostream& os, const vector<T>& v)
-		{
-			if (v.size() > 0)
-				os << *v.begin();
-			else
-				os << "Empty";
-			return os;
-		}
+		// template<class T >
+		// std::ostream& operator<<(std::ostream& os, const vector<T>& v)
+		// {
+		// 	if (v.size() > 0)
+		// 		os << *v.begin();
+		// 	else
+		// 		os << "Empty";
+		// 	return os;
+		// }
 }

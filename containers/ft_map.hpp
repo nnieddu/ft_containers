@@ -61,7 +61,6 @@ namespace ft
 		private:	
 			allocator_type  							_alloc;
 			Compare										_comp;
-			Compare										_insrert_comp;
 			ft::rbtree<value_type, key_compare, true>	_rbtree;
 
 		public: 
@@ -159,13 +158,26 @@ namespace ft
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{
-			// if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
-			// 	return(_rbtree.insert(val, true, true));
-			// else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1))) // greater/less _equal
-			// 	return (_rbtree.insert(val, true, false));
-			// else
-			// 	return (_rbtree.insert(val, false, false));
+			if (_rbtree.getSize() > 0)
+			{
+				key_type	one = val.first;
+				key_type	two = this->begin()->first;
 
+				if (val.first < this->begin()->first)
+				{
+					one = this->begin()->first;
+					two = val.first;
+				}
+				if (one == two)
+					one = key_type();
+					
+				if (!_comp(one, two) && !_comp(two, one)) // equal_to
+					return(_rbtree.insert(val, true, true));
+				else  if (_comp(one, one) && (_comp(one, two) || _comp(two, one))) // greater/less _equal
+					return (_rbtree.insert(val, true, false));
+				else
+					return (_rbtree.insert(val, false, false));
+			}
 			return (_rbtree.insert(val, false, false));
 		}
 		
