@@ -27,6 +27,7 @@
 #include "../utils/ft_type_traits.hpp"
 #include "../utils/ft_algorithm.hpp"
 
+
 namespace ft 
 {	
 	template < class T, class Alloc = std::allocator<T> >
@@ -111,10 +112,8 @@ namespace ft
 					return *this;
 
 				clear();
+				reserve(x._capacity);
 				_size = x._size;
-				_capacity = x._capacity;
-				reserve(_capacity);
-
 				for (size_type index = 0; index < _size; index++)
 					_alloc.construct(&_items[index], x[index]);
 				return *this;

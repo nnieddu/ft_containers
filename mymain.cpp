@@ -36,7 +36,7 @@
 
 #define MAX_TEST 10000
 
-#define TESTNS ft
+#define TESTNS std
 #define T1 TESTNS::vector<std::string>
 #define T2 char
 #define COMP TESTNS::less<T1>
