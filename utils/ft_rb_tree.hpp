@@ -82,7 +82,6 @@ namespace ft
 			typedef std::size_t												size_type;
 			typedef std::allocator<node> 									NodeAlloc;
 			typedef typename rbtree_pair<T, Compare, isPair>::key_type		key_type;
-			// typedef std::allocator<key_type> 									keyAlloc;
 			typedef typename rbtree_pair<T, Compare, isPair>::mapped_type	mapped_type;
 			
 			typedef typename ft::rbtree_iterator<node, T>						iterator;
@@ -91,7 +90,6 @@ namespace ft
 		
 		private:
 			ValueAlloc		_vAlloc;
-			// keyAlloc		_kAlloc;
 			NodeAlloc		_nAlloc;
 			Compare			_comp;
 			size_type		_size;
@@ -100,7 +98,7 @@ namespace ft
 			node* root;
 
 		public:
-			rbtree() : _nAlloc(NodeAlloc()), _comp(Compare()), _size(0), nil(_nAlloc.allocate(1))
+			rbtree() : _vAlloc(ValueAlloc()), _nAlloc(NodeAlloc()), _comp(Compare()), _size(0), nil(_nAlloc.allocate(1))
 			{ 
 				_nAlloc.construct(nil, node());
 				root = nil;
@@ -145,6 +143,7 @@ namespace ft
 				if(root != nil)
 				{
 					destroy(root);
+					_vAlloc.destroy(&root->value);
 					_nAlloc.deallocate(root, 1);
 				}
 				_nAlloc.deallocate(nil, 1);
@@ -245,6 +244,7 @@ namespace ft
 				node* y = nil;
 		
 				_vAlloc.construct(&newNode->value, value);
+
 				while(x != nil)
 				{
 					y = x;
@@ -252,6 +252,7 @@ namespace ft
 					{
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
+							_vAlloc.destroy(&newNode->value);
 							_nAlloc.deallocate(newNode, 1);
 							return ft::make_pair(iterator(x, nil), false);
 						}	
@@ -261,6 +262,7 @@ namespace ft
 					{
 						if (allowSameKey == false && this->value_binded(value) == this->value_binded(x->value))
 						{
+							_vAlloc.destroy(&newNode->value);
 							_nAlloc.deallocate(newNode, 1);
 							return ft::make_pair(iterator(x, nil), false);
 						}
@@ -500,7 +502,7 @@ namespace ft
 					_vAlloc.construct(&z->value, y->value);
 				if(y->color == false)
 					rbDeleteFixup(x);
-				// _kAlloc.deallocate(y->value.first, 1);
+				_vAlloc.destroy(&y->value);
 				_nAlloc.deallocate(y, 1);
 			}
 
@@ -569,12 +571,14 @@ namespace ft
 				if(x->right != nil)
 				{
 					destroy(x->right);
+					_vAlloc.destroy(&x->right->value);
 					_nAlloc.deallocate(x->right, 1);
 				}
 
 				if(x->left != nil)
 				{
 					destroy(x->left);
+					_vAlloc.destroy(&x->left->value);
 					_nAlloc.deallocate(x->left, 1);
 				}
 			}
@@ -585,6 +589,7 @@ namespace ft
 				if(root != nil)
 				{
 					destroy(root);
+					_vAlloc.destroy(&root->value);
 					_nAlloc.deallocate(root, 1);
 					root = nil;
 					_size = 0;

@@ -14,8 +14,7 @@ NAME	=	ft_containers
 
 COMP 	=	c++
 
-FLAG	=	-Wall -Wextra -std=c++98 -g
-# FLAG	=	-Wall -Wextra -Werror -std=c++98 -g
+FLAG	=	-Wall -Wextra -Werror -std=c++98 -g
 
 SRC		=	mymain.cpp 
 
@@ -36,7 +35,7 @@ run : $(NAME)
 	./$(NAME)
 	
 runv : $(NAME)
-	valgrind ./$(NAME)
+	valgrind --leak-check=full -s ./$(NAME)
 
 clean :
 	rm -f $(OBJ)
