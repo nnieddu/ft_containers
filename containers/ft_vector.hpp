@@ -15,17 +15,14 @@
 
 #pragma once
 
-#include <string.h>
-
 #include <stdexcept>
 #include <sstream>
-#include <iostream>
 #include <memory>
 
-#include "../iterators/ft_random_access_iterator.hpp"
-#include "../iterators/ft_reverse_iterator.hpp"
-#include "../utils/ft_type_traits.hpp"
-#include "../utils/ft_algorithm.hpp"
+#include "iterators/ft_random_access_iterator.hpp"
+#include "iterators/ft_reverse_iterator.hpp"
+#include "utils/ft_type_traits.hpp"
+#include "utils/ft_algorithm.hpp"
 
 namespace ft 
 {	
