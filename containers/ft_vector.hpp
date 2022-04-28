@@ -27,7 +27,6 @@
 #include "../utils/ft_type_traits.hpp"
 #include "../utils/ft_algorithm.hpp"
 
-
 namespace ft 
 {	
 	template < class T, class Alloc = std::allocator<T> >

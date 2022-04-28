@@ -311,15 +311,9 @@ namespace ft
 			return (ret);
 		}
 
-
 		// Allocator:
 		// get_allocator : Get allocator (public member function )
 		allocator_type get_allocator() const { return _alloc; }
-
-
-		//////////////////////////////////////////
-		void	display() { _rbtree.display(); }
-		//////////////////////////////////////////
 
 	};
 
