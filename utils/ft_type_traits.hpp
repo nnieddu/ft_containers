@@ -10,18 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/SFINAE
 // https://www.cplusplus.com/reference/type_traits/
-// https://www.cplusplus.com/reference/type_traits/enable_if/
-// https://www.cplusplus.com/reference/type_traits/integral_constant/
-// https://www.cplusplus.com/reference/type_traits/false_type/
-// https://www.cplusplus.com/reference/type_traits/true_type/
+// https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/SFINAE
 
 #pragma once
 
 namespace ft 
 {
 	//	----------[ ft_enable_if ]----------
+	// https://www.cplusplus.com/reference/type_traits/enable_if/
 	
 	template<bool B, class T = void>
 	struct enable_if {};
@@ -32,6 +29,7 @@ namespace ft
 
 
 	//	----------[ ft_integral_constant ]----------
+	// https://www.cplusplus.com/reference/type_traits/integral_constant/
 
 	template<class T, T v>
 	struct integral_constant 
@@ -41,13 +39,11 @@ namespace ft
 		typedef integral_constant<T, v> type;
 	};
 
-	// Helper classes
-	struct true_type : ft::integral_constant<bool, true> {};
-
+	// 	----------[ helper struct ]----------
+	// https://www.cplusplus.com/reference/type_traits/false_type/
+	// https://www.cplusplus.com/reference/type_traits/true_type/
+	struct true_type  : ft::integral_constant<bool, true > {};
 	struct false_type : ft::integral_constant<bool, false> {};
-
-	// add remove cv ?
-	// https://www.cplusplus.com/reference/type_traits/remove_cv/?kw=remove_cv
 
 	template<typename>
 	struct is_integral_helper : public ft::false_type {};

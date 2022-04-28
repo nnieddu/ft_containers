@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include <cstddef>
+#include <cstddef> // ptrdiff_t
 
 namespace ft
 {
@@ -123,6 +123,7 @@ namespace ft
 
 	// https://www.cplusplus.com/reference/iterator/distance/
 	// Distance (function template )
+	
 	template<class InputIterator>
 	typename ft::iterator_traits<InputIterator>::difference_type
 		distance(InputIterator& first, InputIterator& last, ft::input_iterator_tag)
