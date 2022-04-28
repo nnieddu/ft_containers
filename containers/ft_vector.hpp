@@ -58,10 +58,14 @@ namespace ft
 			// fill (2) Constructs a container with n elements. Each element is a copy of val.
 			explicit vector(size_type n, const value_type& val = value_type(), 
 				const allocator_type& alloc = allocator_type()) 
-			: _alloc(alloc), _capacity(n), _size(n), _items(_alloc.allocate(n))
+			: _alloc(alloc), _capacity(n), _size(n), _items(NULL)
 			{
-				for (size_type index = 0; index < n; index++)
-					_alloc.construct(&_items[index], val);
+				if (n)
+				{
+					_items = _alloc.allocate(n);
+					for (size_type index = 0; index < n; index++)
+						_alloc.construct(&_items[index], val);
+				}
 			}
 			
 			// range (3)
@@ -84,15 +88,20 @@ namespace ft
 
 			// copy (4) The copy constructor creates a container that keeps and uses a copy of x's allocator.
 			vector (const vector& x)
-			: _alloc(x._alloc), _capacity(x._capacity), _size(x._size), _items(_alloc.allocate(_capacity))
+			: _alloc(x._alloc), _capacity(x._capacity), _size(x._size), _items(x._items)
 			{
-				for (size_type index = 0; index < _size; index++)
-					_alloc.construct(&_items[index], x._items[index]);
+				if (_capacity)
+				{
+					_items = _alloc.allocate(_capacity);
+					for (size_type index = 0; index < _size; index++)
+						_alloc.construct(&_items[index], x._items[index]);
+				}
 			}
 					
 			virtual ~vector()
 			{
 				clear();
+				// if (_capacity)
 				_alloc.deallocate(_items, _capacity);
 				_items = NULL;
 			}
@@ -103,11 +112,12 @@ namespace ft
 					return *this;
 
 				clear();
-				reserve(x._capacity);
-				for (size_type index = 0; index < x._size; index++)
-					_alloc.construct(&_items[index], x[index]);
 				_size = x._size;
 				_capacity = x._capacity;
+				reserve(_capacity);
+
+				for (size_type index = 0; index < _size; index++)
+					_alloc.construct(&_items[index], x[index]);
 				return *this;
 			}
 	
