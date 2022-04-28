@@ -13,11 +13,12 @@
 // https://docs.microsoft.com/en-us/cpp/standard-library/function-objects-in-the-stl?view=msvc-170
 
 #pragma once
+
 namespace ft
 {
 	// https://www.cplusplus.com/reference/functional/binary_function/
 	template <class Arg1, class Arg2, class Result>
-	struct binary_function 
+	struct binary_function
 	{
 		typedef Arg1 first_argument_type;
 		typedef Arg2 second_argument_type;

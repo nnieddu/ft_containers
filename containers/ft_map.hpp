@@ -61,6 +61,7 @@ namespace ft
 		private:	
 			allocator_type  							_alloc;
 			Compare										_comp;
+			Compare										_insrert_comp;
 			ft::rbtree<value_type, key_compare, true>	_rbtree;
 
 		public: 
@@ -168,7 +169,7 @@ namespace ft
 			return (_rbtree.insert(val, false, false));
 		}
 		
-		// with hint (2)	
+		// with hint (2)
 		iterator insert (iterator position, const value_type& val)
 		{
 			position = insert(val).first;
