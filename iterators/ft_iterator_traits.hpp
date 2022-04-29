@@ -73,6 +73,7 @@ namespace ft
 	};
 
 	// const T* specialization (Partial specialization for const pointer types.)
+	// This specialization lets you use a pointer as a random access iterator.
 	template <class T>
 	struct iterator_traits<const T *>
 	{
@@ -123,7 +124,6 @@ namespace ft
 
 	// https://www.cplusplus.com/reference/iterator/distance/
 	// Distance (function template )
-	
 	template<class InputIterator>
 	typename ft::iterator_traits<InputIterator>::difference_type
 		distance(InputIterator& first, InputIterator& last, ft::input_iterator_tag)

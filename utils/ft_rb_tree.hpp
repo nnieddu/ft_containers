@@ -32,7 +32,6 @@
 #include "ft_functional.hpp"
 #include "../iterators/ft_rbtree_iterator.hpp"
 
-
 namespace ft 
 {
 	// Specialisation to use rb_tree without pair (default mode)
