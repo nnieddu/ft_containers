@@ -45,7 +45,7 @@ namespace ft
 			//useless ? Implicitly well created if don't exist
 			rbtree_iterator(const rbtree_iterator& x) : _ptr(x._ptr), _prev(x._prev),  _nil(x._nil) {}
 			
-			operator rbtree_iterator<N, const T>() { return (rbtree_iterator<N, const T>(_ptr, _prev, _nil)); }
+			operator rbtree_iterator<N, const T>() const { return (rbtree_iterator<N, const T>(_ptr, _prev, _nil)); }
 
 			//useless ? Implicitly well created if don't exist
 			rbtree_iterator& operator=(const rbtree_iterator& x) 

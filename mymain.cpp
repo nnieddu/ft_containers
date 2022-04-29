@@ -36,8 +36,7 @@
 
 #define MAX_TEST 10000
 
-#define TESTNS std
-#define NAMESPACE ft
+#define TESTNS ft
 #define T1 TESTNS::vector<std::string>
 #define T2 char
 #define COMP TESTNS::less<T1>
@@ -56,8 +55,8 @@ int main ()
 	untest.insert(TESTNS::make_pair(v2, 'b'));
 	untest.insert(TESTNS::make_pair(v3, 'c'));
 
-	// TESTNS::map<int, int> map;
+	ft::map<int, int> map;
 
-	// NAMESPACE::pair<NAMESPACE::map<int, int>::const_iterator, NAMESPACE::map<int, int>::const_iterator> p_c;
-	// 	p_c = map.equal_range(3);
+	ft::pair<ft::map<int, int>::const_iterator, ft::map<int, int>::const_iterator> p_c;
+		p_c = map.equal_range(3);
 }
