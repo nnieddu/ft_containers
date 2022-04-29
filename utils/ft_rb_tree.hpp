@@ -83,8 +83,8 @@ namespace ft
 			typedef typename rbtree_pair<T, Compare, isPair>::key_type		key_type;
 			typedef typename rbtree_pair<T, Compare, isPair>::mapped_type	mapped_type;
 			
-			typedef typename ft::rbtree_iterator<node, T>						iterator;
-			typedef typename ft::rbtree_iterator<node, const T>					const_iterator;
+			typedef typename ft::rbtree_iterator<node, T>					iterator;
+			typedef typename ft::rbtree_iterator<node, const T>				const_iterator;
 			// TODO => faire fonctionner it avec arbre/node simple (sans pair)
 		
 		private:
@@ -406,7 +406,7 @@ namespace ft
 			{
 				while(x != root && x->color == false)
 				{
-					node* w = 0;
+					node* w = nil;
 
 					if(x->p->left == x)
 					{
@@ -499,7 +499,7 @@ namespace ft
 				}
 				if(y != z)
 					_vAlloc.construct(&z->value, y->value);
-				if(y->color == false)
+				if(x != nil && y->color == false)
 					rbDeleteFixup(x);
 				_vAlloc.destroy(&y->value);
 				_nAlloc.deallocate(y, 1);
@@ -595,7 +595,7 @@ namespace ft
 				}
 			}
 		private:
-
+ 
 			void copy(node* x, node* nil)
 			{
 				if(x->left != nil)

@@ -1,62 +1,57 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mymain.cpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 17:59:51 by ninieddu         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
+#include "common.hpp"
+#include <list>
 
-#include <iostream>
-#include <vector>
-#include <stack>
-#include <map>
+#define T1 std::string
 
-#include "containers/ft_vector.hpp"
-#include "containers/ft_stack.hpp"
-#include "containers/ft_map.hpp"
+static int iter = 0;
 
-#define DUMPSTR_WNAME(os, name, a) \
-	do { (os) << (name) << " = " << (a) << std::endl; } while(false)
-	
-#define DUMPSTR_WNAME_NO_STDENDL(os, name, a) \
-	do { (os) << (name) << " = " << "[" << (a) << "]"; } while(false)
-	
-#define DUMPSTR(os, a) DUMPSTR_WNAME((os), #a, (a))
-#define DUMP(a)        DUMPSTR_WNAME(std::cout, #a, (a))
-#define DUMPN(a)        DUMPSTR_WNAME_NO_STDENDL(std::cout, #a, (a))
-
-#define COUT_I(os, name, i) \
-	do { (os) << " " << (name) << " = " << (i++) << std::endl; } while(false)
-	
-#define COUNT(i)       COUT_I(std::cout, #i, (i))
-
-#define MAX_TEST 10000
-
-#define TESTNS ft
-#define T1 TESTNS::vector<std::string>
-#define T2 char
-#define COMP TESTNS::less<T1>
-
-int main ()
+template <typename SET, typename U>
+void	ft_erase(SET &st, U param)
 {
-	TESTNS::vector<std::string> v;
-	v.insert(v.begin(), "Je suis le premier");
-	TESTNS::vector<std::string> v2(v);
-	TESTNS::vector<std::string> v3;
-	v3.insert(v3.begin(), "Je suis v3 le troisieme");
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	st.erase(param);
+	printSize(st);
+}
 
-	TESTNS::map<T1, T2, COMP> untest;
-	untest[v] = 'a';
-	untest.erase(v);
-	untest.insert(TESTNS::make_pair(v2, 'b'));
-	untest.insert(TESTNS::make_pair(v3, 'c'));
+template <typename SET, typename U, typename V>
+void	ft_erase(SET &st, U param, V param2)
+{
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	st.erase(param, param2);
+	printSize(st);
+}
 
-	ft::map<int, int> map;
+int		main(void)
+{
+	std::list<T1> lst;
+	unsigned int lst_size = 10;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(std::string((lst_size - i), i + 65));
+	TESTED_NAMESPACE::set<T1> st(lst.begin(), lst.end());
+	printSize(st);
 
-	ft::pair<ft::map<int, int>::const_iterator, ft::map<int, int>::const_iterator> p_c;
-		p_c = map.equal_range(3);
+	ft_erase(st, ++st.begin());
+
+	ft_erase(st, st.begin());
+	ft_erase(st, --st.end());
+
+	// ft::set<T1>::iterator test = ++(++(++st.begin()));
+	// std::cout << ".................--------" << *test << "---------..................-" << std::endl;
+
+	// ft_erase(st, st.begin(), ++(++(++st.begin())));
+	ft_erase(st, --(--(--st.end())), --st.end());
+
+	st.insert("Hello");
+	st.insert("Hi there");
+	printSize(st);
+	ft_erase(st, --(--(--st.end())), st.end());
+
+	st.insert("ONE");
+	st.insert("TWO");
+	st.insert("THREE");
+	st.insert("FOUR");
+	printSize(st);
+	ft_erase(st, st.begin(), st.end());
+
+	return (0);
 }

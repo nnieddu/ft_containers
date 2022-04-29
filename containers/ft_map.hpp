@@ -64,7 +64,7 @@ namespace ft
 			ft::rbtree<value_type, key_compare, true>	_rbtree;
 
 		public: 
-		// [ Member functions ]
+		// ----------[ Member functions ]----------
 		// (constructor) : Construct map (public member function )
 		// empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
@@ -101,7 +101,7 @@ namespace ft
 		}
 
 
-		// Iterators: 
+		// -----------[ Iterators: ]-----------
 
 		// begin
 		// Return iterator to beginning (public member function )
@@ -115,6 +115,8 @@ namespace ft
 		iterator end() { return iterator(_rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
 		const_iterator end() const { return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
+
+		//----------[ Reverse : ]-----------
 
 		// rbegin
 		// Return reverse iterator to reverse beginning (public member function )
@@ -130,7 +132,7 @@ namespace ft
 		const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
 
-		// Capacity:
+		// ----------[ Capacity: ]-----------
 
 		// empty
 		// Test whether container is empty (public member function )
@@ -152,7 +154,7 @@ namespace ft
 		{ return insert(ft::make_pair(k, mapped_type())).first->second;}
 
 
-		// Modifiers:
+		// -----------[ Modifiers: ]-----------
 
 		// insert() : Insert elements (public member function )
 		// single element (1)	
@@ -236,7 +238,7 @@ namespace ft
 		// clear : Clear content (public member function )
 		void clear() { _rbtree.clear(); }
 
-		// Observers:
+		// -----------[ Observers: ]-----------
 
 		// key_comp : Return key comparison object (public member function )
 		key_compare key_comp() const { return _comp; }
@@ -311,7 +313,7 @@ namespace ft
 			return (ret);
 		}
 
-		// Allocator:
+		// -----------[ Allocator: ]-----------
 		// get_allocator : Get allocator (public member function )
 		allocator_type get_allocator() const { return _alloc; }
 

@@ -19,6 +19,7 @@
 #include "../utils/ft_type_traits.hpp"
 #include "../utils/ft_rb_tree.hpp"
 #include "../iterators/ft_reverse_iterator.hpp"
+
 namespace ft 
 {	
 	template < class T, class Compare = ft::less<T>, class Alloc = std::allocator<T> >
@@ -33,7 +34,7 @@ namespace ft
 			typedef typename allocator_type::const_reference						const_reference;
 			typedef typename allocator_type::pointer								pointer;
 			typedef typename allocator_type::const_pointer							const_pointer;
-			typedef typename ft::rbtree<value_type, key_compare>::iterator			iterator;
+			typedef typename ft::rbtree<value_type, key_compare>::const_iterator	iterator;
 			typedef typename ft::rbtree<value_type, key_compare>::const_iterator	const_iterator;
 			typedef ft::reverse_iterator<iterator>									reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>							const_reverse_iterator;
@@ -56,12 +57,12 @@ namespace ft
 			};
 
 		private:	
-			allocator_type  					_alloc;
-			Compare								_comp;
-			ft::rbtree<value_type, key_compare>	_rbtree;
+			allocator_type  						_alloc;
+			Compare									_comp;
+			ft::rbtree<value_type, key_compare>		_rbtree;
 
 		public: 
-		// [ Member functions ]
+		// -----------[ Member functions ]-----------
 		// (constructor) : Construct set (public member function )
 		// empty (1)	
 		explicit set (const key_compare& comp = key_compare(),
@@ -85,7 +86,7 @@ namespace ft
 		// copy (3)	
 		set (const set& x) : _alloc(x._alloc), _comp(x._comp), _rbtree(x._rbtree) {} ////
 
-		// (destructor) : set destructor (public member function )
+		// (destructor) : Map destructor (public member function )
 		~set() {};
 
 		// operator= : Copy container content (public member function )
@@ -97,8 +98,7 @@ namespace ft
 			return *this;
 		}
 
-
-		// Iterators: 
+		// -----------[ Iterators: ]-----------
 
 		// begin
 		// Return iterator to beginning (public member function )
@@ -113,6 +113,9 @@ namespace ft
 
 		const_iterator end() const { return const_iterator( _rbtree.getNill(), _rbtree.end(), _rbtree.getNill()); }
 
+		
+		//----------[ Reverse : ]-----------
+		
 		// rbegin
 		// Return reverse iterator to reverse beginning (public member function )
 		reverse_iterator rbegin() { return reverse_iterator(iterator( _rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
@@ -127,7 +130,7 @@ namespace ft
 		const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
 
-		// Capacity:
+		// ----------[ Capacity: ]-----------
 
 		// empty
 		// Test whether container is empty (public member function )
@@ -141,23 +144,37 @@ namespace ft
 		// Return maximum size (public member function )
 		size_type max_size() const { return _rbtree.max_size(); }
 
-		// Modifiers:
+
+		// ----------[ Modifiers: ]-----------
 
 		// insert() : Insert elements (public member function )
 		// single element (1)	
 		pair<iterator,bool> insert (const value_type& val)
 		{
-			// if (!_comp(1, 2) && !_comp(2, 1)) // equal_to
-			// 	return(_rbtree.insert(val, true, true));
-			// else  if (_comp(1, 1) && (_comp(1, 2) || _comp(2, 1))) // greater/less _equal
-			// 	return (_rbtree.insert(val, true, false));
-			// else
-				// return (_rbtree.insert(val, false, false));
-			
+			if (_rbtree.getSize() > 0)
+			{
+				value_type	one = val;
+				value_type	two = *this->begin();
+
+				if (val < *this->begin())
+				{
+					one = *this->begin();
+					two = val;
+				}
+				if (one == two)
+					one = value_type();
+					
+				if (!_comp(one, two) && !_comp(two, one)) // equal_to
+					return(_rbtree.insert(val, true, true));
+				else  if (_comp(one, one) && (_comp(one, two) || _comp(two, one))) // greater/less _equal
+					return (_rbtree.insert(val, true, false));
+				else
+					return (_rbtree.insert(val, false, false));
+			}
 			return (_rbtree.insert(val, false, false));
 		}
 		
-		// with hint (2)	
+		// with hint (2)
 		iterator insert (iterator position, const value_type& val)
 		{
 			position = insert(val).first;
@@ -212,7 +229,7 @@ namespace ft
 		// clear : Clear content (public member function )
 		void clear() { _rbtree.clear(); }
 
-		// Observers:
+		// ----------[ Observers: ]-----------
 
 		// key_comp : Return key comparison object (public member function )
 		key_compare key_comp() const { return _comp; }
@@ -221,7 +238,7 @@ namespace ft
 		value_compare value_comp() const { return value_compare(_comp); } //////////// need to test
 
 
-		// Operations:
+		// ----------[ Operations: ]-----------
 
 		// find : Get iterator to element (public member function )
 		iterator find (const key_type& k) { return iterator(_rbtree.searchNode(k), _rbtree.getNill()); }
@@ -287,15 +304,9 @@ namespace ft
 			return (ret);
 		}
 
-
-		// Allocator:
+		// ----------[ Allocator: ]-----------
 		// get_allocator : Get allocator (public member function )
 		allocator_type get_allocator() const { return _alloc; }
-
-
-		//////////////////////////////////////////
-		void	display() { _rbtree.display(); }
-		//////////////////////////////////////////
 
 	};
 

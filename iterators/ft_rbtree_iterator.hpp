@@ -45,7 +45,11 @@ namespace ft
 			//useless ? Implicitly well created if don't exist
 			rbtree_iterator(const rbtree_iterator& x) : _ptr(x._ptr), _prev(x._prev),  _nil(x._nil) {}
 			
+			// allows for const_iterator => iterator conversion
 			operator rbtree_iterator<N, const T>() const { return (rbtree_iterator<N, const T>(_ptr, _prev, _nil)); }
+
+			// template<class N2, class T2>
+			// rbtree_iterator(rbtree_iterator<N2, T2> const &it) : _ptr(it.base()), _prev(it.getPrev()), _nil(it.getNil()) {}
 
 			//useless ? Implicitly well created if don't exist
 			rbtree_iterator& operator=(const rbtree_iterator& x) 
@@ -59,6 +63,8 @@ namespace ft
 			~rbtree_iterator() {}
 				
 			const node_pointer &base() const { return _ptr; }
+			const node_pointer &getPrev() const { return _prev; }
+			const node_pointer &getNil() const { return _nil; }
 
 			// [ Operators ]
 			node_value_ref operator*() const { return _ptr->value; }

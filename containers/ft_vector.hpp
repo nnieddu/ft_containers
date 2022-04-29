@@ -135,7 +135,7 @@ namespace ft
 				return const_iterator(&_items[_size]);
 			}
 			
-			//----------[Reverse : ]-----------
+			// ----------[ Reverse : ]-----------
 			
 			reverse_iterator rbegin() { return reverse_iterator(end()); }
 
@@ -199,7 +199,7 @@ namespace ft
 				}
 			}
 
-			// ----------[ACCESORS]----------
+			// ----------[ Accesors ]----------
 			//		 Access element at n
 			reference operator[] (size_type n) { return (_items[n]); }
 
@@ -246,7 +246,7 @@ namespace ft
 				return *_items;
 			}
 
-			// ----------[MODIFIERS]----------
+			// ----------[ Modifiers ]----------
 			// assign		Assign vector content 
 			// range (1)	
 			template <class InputIterator>

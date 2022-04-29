@@ -48,7 +48,7 @@ namespace ft
 	typedef struct std::forward_iterator_tag forward_iterator_tag;
 	typedef struct std::bidirectional_iterator_tag bidirectional_iterator_tag;
 	typedef struct std::random_access_iterator_tag random_access_iterator_tag;
- 
+
   	// Generic iterator traits definition
 	template <class iterator>
 	struct iterator_traits
