@@ -1,16 +1,9 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
-	#include <vector>
-	namespace ft = std;
-#else
-	#include <map.hpp>
-	#include <stack.hpp>
-	#include <vector.hpp>
-#endif
+#include "containers/ft_vector.hpp"
+#include "containers/ft_stack.hpp"
+#include "containers/ft_map.hpp"
 
 #include <stdlib.h>
 
