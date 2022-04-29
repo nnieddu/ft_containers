@@ -25,25 +25,25 @@ namespace ft
 			typedef T		        value_type;
 			typedef Container       container_type;
 			typedef std::size_t     size_type;
-		private:
-			container_type _items;
+		protected:
+			container_type c;
 		public:
 			explicit stack (const container_type& ctnr = container_type())
-			: _items(ctnr) {}
+			: c(ctnr) {}
 
 			~stack() {}
 			
 			// Member functions
-			bool empty() const { return _items.empty(); }
+			bool empty() const { return c.empty(); }
 			
-			size_type size() const { return _items.size(); }
+			size_type size() const { return c.size(); }
 
-			value_type& top() { return _items.back(); }
-			const value_type& top() const { return _items.back(); }
+			value_type& top() { return c.back(); }
+			const value_type& top() const { return c.back(); }
 
-			void push(const value_type& val) { _items.push_back(val); }
+			void push(const value_type& val) { c.push_back(val); }
 
-			void pop() { _items.pop_back(); }
+			void pop() { c.pop_back(); }
 
 			template<class _T, class _Container>
 			friend bool operator==(const stack<_T, _Container> &, const stack<_T, _Container> &);
@@ -55,7 +55,7 @@ namespace ft
 	// Non-member function overloads : relational operators
 	template<class T, class Container>
 	bool operator==(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{ return lhs._items == rhs._items; }
+	{ return lhs.c == rhs.c; }
 
 	template<class T, class Container>
 	bool operator!=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
@@ -63,7 +63,7 @@ namespace ft
 	
 	template<class T, class Container>
 	bool operator<(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{ return lhs._items < rhs._items; }
+	{ return lhs.c < rhs.c; }
 
 	template<class T, class Container>
 	bool operator<=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)

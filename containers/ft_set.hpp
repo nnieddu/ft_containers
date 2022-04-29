@@ -178,7 +178,7 @@ namespace ft
 		iterator insert (iterator position, const value_type& val)
 		{
 			position = insert(val).first;
-			return position; ///////////////// work but position useless need to optimize
+			return position;
 		}
 
 		// range (3)	

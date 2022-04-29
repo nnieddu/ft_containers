@@ -256,3 +256,6 @@ In case of same multiple key erase() remove nothing
 
 STL return : 13 (carriage return, CR, \r, ^M)
 when it end() reached
+
+TODO :
+- optimize insert (hint) 
