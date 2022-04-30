@@ -25,11 +25,11 @@ then
 	exit
 elif [ "$1" = "-compile" ]
 then
-	clang++ -g3 -Wall -Wextra -fsanitize=address -std=c++98 ./containers_test/srcs/$2/$3
+	clang++ -g3 -Wall -Wextra -fsanitize=address -std=c++98 ./containers_test_mli42/srcs/$2/$3
 	exit
 elif [ "$1" = "-unit_test" ]
 then
-	cd containers_test
+	cd containers_test_mli42
 	if [ "$2" = "all" ]
 	then
 		./do.sh vector
