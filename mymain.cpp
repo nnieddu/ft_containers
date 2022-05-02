@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:43:42 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/04/04 17:59:51 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 10:50:19 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,70 @@
 #include "containers/ft_vector.hpp"
 #include "containers/ft_stack.hpp"
 #include "containers/ft_map.hpp"
+
+#include <map>
+
+#include <vector>
+#include <iostream>
+#include <iterator>
+#include <utility>
+#include <ctime>
+#include <iomanip>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/time.h>
+#include <random>
+
+#define BLUE "\e[0;34m"
+#define RED "\e[0;31m"
+#define GREEN "\e[0;32m"
+#define YELLOW "\e[1;33m"
+#define RESET "\e[0m"
+
+#define EQUAL(x) ((x) ? (std::cout << "\033[1;32mAC\033[0m\n") : (std::cout << "\033[1;31mWA\033[0m\n"))
+#define TIME_FAC 20 // the ft::map methods can be slower up to std::map methods * TIME_FAC (MAX 20)
+
+typedef std::pair<std::map<int, std::string>::iterator, std::map<int, std::string>::iterator> iter_def;
+typedef ft::pair<ft::map<int, std::string>::iterator, ft::map<int, std::string>::iterator> ft_iter_def;
+typedef std::pair<std::map<int, std::string>::const_iterator, std::map<int, std::string>::const_iterator> const_iter_def;
+typedef ft::pair<ft::map<int, std::string>::const_iterator, ft::map<int, std::string>::const_iterator> ft_const_iter_def;
+
+#define TEST_CASE(fn)                                                                                                             \
+    cout << GREEN << "\t======================================================================================" << RESET << endl; \
+    cout << endl;                                                                                                                 \
+    cout << BLUE << "\t   Running " << #fn << " ... \t\t\t\t\t\t" << RESET << std::endl;                                          \
+    fn();                                                                                                                         \
+    cout << endl;                                                                                                                 \
+    cout << GREEN << "\t======================================================================================" << RESET << endl;
+using namespace std;
+
+time_t get_time(void)
+{
+    struct timeval time_now;
+
+    gettimeofday(&time_now, NULL);
+    time_t msecs_time = (time_now.tv_sec * 1e3) + (time_now.tv_usec / 1e3);
+    return (msecs_time);
+}
+
+template <typename Iter1, typename Iter2>
+bool comparemaps(Iter1 first1, Iter1 last1, Iter2 first2, Iter2 last2)
+{
+    for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
+        if (first1->first != first2->first || first1->second != first2->second)
+            return false;
+    return true;
+}
+
+bool fncomp(char lhs, char rhs) { return lhs < rhs; }
+
+struct classcomp
+{
+    bool operator()(const char &lhs, const char &rhs) const
+    {
+        return lhs < rhs;
+    }
+};
 
 #define DUMPSTR_WNAME(os, name, a) \
     do { (os) << (name) << " = " << (a) << std::endl; } while(false)
@@ -55,409 +119,70 @@ void	printvector(ft::vector<std::string> vector)
 
 int main ()
 {
-	// int myints[] = {16,2,77,29};
-//  -------------------------------------------------------------d
-// [-----------------------VECTOR TESTS--------------------------]
-//  -------------------------------------------------------------
-
-
-    std::vector<std::string> v1(10, "string2");
-    std::vector<std::string> const v2(10, "string2");
-    /*-----------------------------------------------------*/
-    /*------------------ ft::vectors ---------------------*/
-    ft::vector<std::string> ft_v1(10, "string2");
-    ft::vector<std::string> const ft_v2(10, "string2");
-    /*----------------------------------------------------*/
-    /*------------------ strings to store the results ----*/
-    std::string res, ft_res, c_res, c_ft_res;
-    /*----------------------------------------------------*/
-    // for (std::vector<std::string>::reverse_iterator rit = v1.rbegin(); rit != v1.rend(); ++rit) // fill res from v1
-    //     res += *rit;
-    // for (std::vector<std::string>::const_reverse_iterator rit = v2.rbegin(); rit != v2.rend(); ++rit) // fill c_res from const v1
-    //     c_res += *rit;
-
-    // for (ft::Vector<std::string>::reverse_iterator rit = ft_v1.rbegin(); rit != ft_v1.rend(); ++rit) // fill ft_res from ft_v1
-    //     ft_res += *rit;
-    // for (ft::Vector<std::string>::const_reverse_iterator rit = ft_v2.rbegin(); rit != ft_v2.rend(); ++rit) // fill c_ft_res from const ft_v1
-    //     c_ft_res += *rit;
-
-		
-//						[MY VECTOR]
-//					CONSTRUCTORS AND DESTRUCTOR 
-
-    ft::vector<int> vector(10, 8);
-    std::cout << "capacity: " << vector.capacity() << std::endl;
-    std::cout << "size: " << vector.size() << std::endl;
-    vector.pop_back();
-    vector.pop_back();
-    std::cout << "capacity: " << vector.capacity() << std::endl;
-    std::cout << "size: " << vector.size() << std::endl;
-    vector.insert(vector.begin() + 2, 1, 42);
-    vector.insert(vector.begin(), 42);
-    vector.insert(vector.begin(), 5, 42);
-    // vector.insert(vector.begin() + 2, 1, 42);
-    // vector.insert(vector.begin() + 2, 1, 42);
-
-
-	ft::vector<int> ftDefault;									// empty vector of ints (default constructor)
-	ft::vector<int> ftEmptyFill (10);							// 10 zero-initialized elements
-	ft::vector<int> ftFill (5,100);								// four ints with value 100 (fill constructor)
-	// ft::vector<int> ftRange (ftFill.begin(),ftFill.end());	// iterating through second (range constructor)
-	ft::vector<int> ftCpy (ftFill);								// a copy of third (copy constructor)
-
-	ft::vector<int> *ftNew = new ft::vector<int>(4, 100);
-	delete ftNew;
-	ftDefault.~vector();
-
-//					ITERATORS TESTS
-	int *ptr;
-	ptr = &ftFill[2];
-
-	// copy-constructible, copy-assignable and destructible
-	ft::vector<int>::iterator *ftItNew = new ft::vector<int>::iterator;
-	delete ftItNew;
-	ft::vector<int>::iterator ftItDestroy;
-	ftItDestroy.~random_access_iterator();
-
-	ft::vector<int>::iterator ftIt2(ptr);
-	ft::vector<int>::iterator ftIt3(ftIt2);
-
-	ftIt2 = ftIt3;
-
-	// Can be incremented
-	++ftIt2;
-	ftIt2++;
-
-	// Supports equality/inequality comparisons
-	ftIt2 = ftDefault.end();
-	if (ftIt2 == ftDefault.end())
-		std::cout << "== works" << std::endl;
-
-	if (ftIt2 != ftFill.begin())
-		std::cout << "!= works" << std::endl;
-
-	// Can be dereferenced as an rvalue
-	ftIt2 = ftFill.begin();
-	std::cout << "dereferenced as an rvalue " << *ftIt2 << std::endl;
-
-	// Can be dereferenced as an lvalue
-	// (only for mutable iterator types)
-	*ftIt2 = 24;
-	*ftIt2++ = 6;
-
-	// default-constructible
-	ft::vector<int>::iterator ftIt;
-	ft::vector<int>::iterator();
-
-	// Multi-pass: neither dereferencing nor incrementing affects dereferenceability
-	DUMP(&*ftIt2);
-	DUMP(&*ftIt);
-	ftIt = ftIt2;
-	DUMP(&*ftIt);
-	*ftIt2++;
-	DUMP(&*ftIt);
-
-	// Can be decremented
-	--ftIt2;
-	ftIt2--;
-	*ftIt2--;
-
-	// Supports arithmetic operators + and -
-	ftIt2 + 1;
-	1 + ftIt2;
-	ftIt2 - 1;
-	
-	// // 1 - ftIt2;
-    // std::vector<int> stdvector(10, 8);
-	// std::vector<int>::iterator sstdIt = stdvector.end();
-	// 1 - sstdIt;
-
-	// Supports inequality comparisons (<, >, <= and >=) between iterators
-	ftIt2 < ftIt;
-	ftIt2 <= ftIt;
-	ftIt2 > ftIt;
-	ftIt2 >= ftIt;
-
-	// Supports compound assignment operations += and -=	
-	ftIt2 += 1;
-	ftIt2 -= 1;
-
-	// Supports offset dereference operator ([])
-	ftIt2[1];
-
-
-	//-------- SAMPLE OF FORBIDEN / BAD THINGS --------
-	// ftIt2 = ptr;
-	// ftIt2 = &ptr;
-	// *ftIt2 = *ptr; // Segmentation fault if ptr = NULL;
-	// ftIt2 + ftIt;
-	// ftIt2 * 1;
-	// ftIt2 / 1;
-	// ftIt2[ftIt];
-	// ftIt2[ptr];
-	// ftIt2 -= ftIt;
-
-	// ftIt2 = ftDefault.end(); // Segmentation fault (like stl) if print :
-	// std::cout << "dereferenced as an rvalue " << *ftIt2 << std::endl;
-	// ft::vector<int>::iterator ftItempty;
-	// std::cout << "dereferenced as an rvalue " << *ftItempty << std::endl;
-
-
-	//-------- END OF FORBIDEN THINGS -----------
-	// int *stdptr = NULL;
-	// std::vector<int> stddefau;
-	// std::vector<int>::iterator lol;
-	// *lol = *stdptr;
-
-
-
-
-
-	std::vector<int> stdvec(5,100);
-	std::vector<int>::iterator stdIt(ptr);
-	// stdIt(tst);
-	// *stdItemd = cool;
-	// *stdItemd = 42;
-	// std::cout << "STD END=" << *stdItemd << std::endl;
-
-	// *stdIt = NULL;
-	// std::vector<int>::iterator *stdItNew = new std::vector<int>::iterator;
-	// delete stdItNew;
-
-
-//					OPERATORS TESTS
-// Assignement Operator (=) and operator[]
-	// std::cout << "ftDefault size avant : " << ftDefault.size()  << std::endl;
-	// ftDefault = ftFill;
-	// std::cout << "ftDefault size apres : " << ftDefault.size()  << std::endl;
-	// std::cout << "ftDefault de 0 apres : " << ftDefault[0] << std::endl<< std::endl;
-
-	const int arrtest = 42;
-	int array[1] = {arrtest};
-	int* pa = &array[0];
-	int* pb = &array[1];
-	std::cout << "ptr DISTANCE: " << std::distance(pb, pa) << std::endl << std::endl;
-
-
-	// std::vector<int>::iterator it = &test[0];
-	// std::vector<int>::iterator it = test.begin();
-	
-
-	// ft::vector<int> fttest(5, 24);
-	// fttest[1] = 1994;
-	// ft::vector<int>::iterator ftit = &fttest[0];
-
-	// ft::iterator_traits<int> traits;
-	// traits = test.begin();
-
-	// ft::vector<int>::iterator ftit = fttest.begin();
-	// ftit = test.begin();
-	// ftit++;
-	// std::cout << "JE SUIS EGALE A :" << *ftit << std::endl;
-
-	// ft::vector<int> test(5, 42);
-	// ft::vector<int>::iterator a = test.begin();
-	// ft::vector<int>::iterator b = test.end();
-
-
-
-	std::vector<int> test(5, 42);
-	std::vector<int> stddefau;
-	std::vector<int>::iterator a = test.begin();
-	std::vector<int>::iterator b = test.end();
-	std::cout << "DISTANCE: " << std::distance(b, a) << std::endl;
-
-	ft::vector<int> fttest(5, 42);
-	ft::vector<int>::iterator fta = fttest.begin();
-	ft::vector<int>::const_iterator ftb = fttest.end();
-	std::cout << "DISTANCE: " << ft::distance(fttest.begin(), fta) << std::endl;
-	if (fta == ftb)
-		std::cout << "wow" << std::endl;
-	// int * pa = &test[0];
-	// int * pb = &test[5];
-	// std::cout << "DISTANCE: " << ft::distance(pb, pa) << std::endl;
-
-	// std::list<int> second (4,100);  
-	// std::list<int>::iterator itlst = second.begin();
-	// itlst++;
-	// std::list<int>::iterator itlst2 = second.end();
-
-	// std::cout << "DISTANCE: " << ft::distance(itlst2, itlst) << std::endl << std::endl;
-
-    // std::cout << "std::vector::begin() returns a " << get_iterator_type(a) << " Iterator.\n" << std::endl;
-
-	// const int array[10] = {0,0,0,0,0,0,0,0,0,0};
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << array[i] << " ";
-    // const int* a = &array[0];
-    // const int* b = &array[8];
-    // std::cout << "DISTANCE: " << NAMESPACE::distance(const_cast<int*>(a), const_cast<int*>(b)) << std::endl;
-
-    // ft::vector<int>::const_iterator ab = ftDefault.begin(); ////////////
-	// int* ptr = ftFill.begin();
-
-	// ft::vector<int> ftFill (4,100);
-	// std::vector<int>::iterator it = stdFill.begin();
-	// int* ptr = *(it);
-
-    // if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
-    // std::cout << "int* is a random-access iterator";
-
-    // ft::vector<int>::const_iterator b = ftFill.begin();
-	// std::cout << *b << std::endl;
-
-
-// 					ITERATORS TESTS
-// 	std::cout << "ftEmptyFill.begin() :" << *ftEmptyFill.begin() << std::endl;
-// 	std::cout << "ftFill.begin() :" << *ftFill.begin() << std::endl;
-
-
-// // FT FUNCTIONS TESTS
-// 	std::cout << "FT size() : " << ftFill.size() << std::endl;
-// 	std::cout << "FT max_size() : " << ftFill.max_size() << std::endl;
-// 	std::cout << "FT capacity() : " << ftFill.capacity() << std::endl;
-// 	std::cout << "FT empty() : " << ftFill.empty() << std::endl;
-
-// 	// std::cout << "ft::distance return : " << ft::distance(ftFill.begin(),ftFill.end()) << std::endl;
-// 	std::cout << "*ftFill.begin() - 5 return : " << *ftFill.begin() - 5 << std::endl;
-// 	std::cout << "ftFill.begin() - ftFill.end() return : " << ftFill.begin() - ftFill.end() << std::endl;
-// 	std::cout << "test addr return : " << &*ftFill.begin() << std::endl;
-
-//   ft::vector<double> arr(3);
-//   arr[0] = 2.6;
-//   arr[1] = 5.2;
-//   arr[2] = 8.9;
-
-//   std::cout << "ft::vector Contents: ";
-//   for (ft::vector<double>::iterator it = arr.begin(); it != arr.end(); it++) {
-//     std::cout << *it << " ";
-//   }
-
-//   std::cout << std::endl;
-
-//   std::vector<double> vec;
-// //   ft::vector<double>::iterator it2 = vec.begin();
-
-//   std::copy(arr.begin(), arr.end(), std::back_inserter(vec));
-
-//   std::cout << "Vector Contents after copy: ";
-//   for (std::vector<double>::iterator it = vec.begin(); it != vec.end(); it++) {
-//     std::cout << *it << " ";
-//   }
-
-//   std::cout << std::endl;
-
-//   std::cout << typeid(std::iterator_traits<
-//                           ft::vector<double>::iterator>::iterator_category())
-//                    .name()
-//             << std::endl;
-
-//   std::cout << std::endl << std::endl << "---[ STL TEST PART ]---\n" << std::endl;
-
-	// std::iterator_traits<int*> traits;
-	// (void)traits;
-
-	ft::vector<ft::vector<int> > myvector;
-	ft::vector<int> myvector2(10, 10);
-	myvector.push_back(myvector2);
-
-	ft::vector<ft::vector<int> >::reverse_iterator itb = myvector.rbegin();
-	ft::vector<ft::vector<int> >::reverse_iterator ite = myvector.rend();
-	// DUMP(&*itb);
-	// DUMP(&*ite);
-
-//   for (int i=0; i<10; i++) myvector.push_back(i);  // myvector: 0 1 2 3 4 5 6 7 8 9
-
-//   typedef std::vector<int>::iterator iter_type;
-
-//   std::reverse_iterator<iter_type> rev_iterator = myvector.rbegin();
-
-//   std::cout << "The fourth element from the end is: " << rev_iterator[3] << '\n';
-
-// 	 std::vector<int> myvector (3,100);
-//   	std::vector<int>::iterator it;
-
-//   it = myvector.begin();
-//   it = myvector.insert ( it , 200 );
-
-//   myvector.insert (it,2,300);
-
-//   // "it" no longer valid, get a new one:
-//   it = myvector.begin();
-
-//   std::vector<int> anothervector (2,400);
-//   myvector.insert (it+2,anothervector.begin(),anothervector.end());
-
-//   int myarray [] = { 501,502,503 };
-//   myvector.insert (myvector.begin(), myarray, myarray+3);
-
-//   std::cout << "myvector contains:";
-//   for (it=myvector.begin(); it<myvector.end(); it++)
-//     std::cout << ' ' << *it;
-//   std::cout << '\n';
-
-
-	// vector.insert(vector.begin(), 15);
-	// vector.insert(vector.begin(), 15);
-	// vector.insert(vector.begin(), 15);
-	// vector.insert(vector.begin(), 15);
-	// // vector.insert(vector.begin(), 15);
-	// // vector.insert(vector.begin(), 15);
-	// // vector.insert(vector.begin(), 15);
-	// // vector.insert(vector.begin(), 15);
-	// // vector.insert(vector.begin(), 15);
-	// std::cout << "INSERTION :" << *vector.begin() <<  std::endl;
-	// std::cout << "capacity: " << vector.capacity() << std::endl;
-	// std::cout << "size: " << vector.size() << std::endl;
-	// // // vector.insert(vector.begin() + 2, 1, 42);
-	// // // vector.insert(vector.begin() + 2, 1, 42);
-	// // // vector.insert(vector.begin() + 2, 1, 42);
-
-
-//						[STL VECTOR]
-//					CONSTRUCTORS AND DESTRUCTOR 
-
-// 	std::vector<int> stdDefault;                                // empty vector of ints
-// 	std::vector<int> stdFill (4,100);							// four ints with value 100
-// 	std::vector<int> stdRange (stdFill.begin(),stdFill.end());  // iterating through second
-// 	std::vector<int> stdCpy (stdDefault);							// a copy of third
-
-// 	std::vector<int> *stdNew = new std::vector<int>(5, 100);
-// 	delete stdNew;
-// 	stdDefault.~vector();
-
-// //					OPERATORS TESTS
-// // Assignement Operator (=)
-// 	std::cout << "stdDefault size avant : " << stdDefault.size() << std::endl;
-// 	stdDefault = stdFill;
-// 	std::cout << "stdDefault size apres : " << stdDefault.size() << std::endl;
-// 	std::cout << "stdDefault de 0 apres = " << stdDefault[0] << std::endl;
-
-//     // std::vector<int>::const_iterator a = stdDefault.begin();
-//     // std::cout << *(a + 3) << std::endl;
-//     // std::cout << *a << std::endl;
-// 	// // *a = 5;
-//     // std::cout << *a << std::endl;
-
-//   std::vector<int> stdfifth (myints, myints + sizeof(myints) / sizeof(int) );
-
-//   std::cout << "The contents of stdfifth are:";
-//   for (std::vector<int>::iterator stdit = stdfifth.begin(); stdit != stdfifth.end(); ++stdit)
-// 	std::cout << ' ' << *stdit;
-//   std::cout << std::endl;
-
-// //   std::cout << "std::vector::begin() returns a " << get_iterator_type(stdfifth.begin()) << " Iterator.\n" << std::endl;
-
-// // STL FUNCTIONS TESTS
-//   	std::cout << "FT size() : " << stdFill.size() << std::endl;
-//   	std::cout << "FT max_size() : " << stdFill.max_size() << std::endl;
-//   	std::cout << "FT capacity() : " << stdFill.capacity() << std::endl;
-//   	std::cout << "FT empty() : " << stdFill.empty() << std::endl;
-
-//   	std::cout << "std::distance return : " << std::distance(stdFill.begin(),stdFill.end()) << std::endl;
-//   	std::cout << "*stdFill.begin() - 5 return : " << *stdFill.begin() - 5 << std::endl;
-// 	std::cout << "stdFill.begin() - stdFill.end() return : " << stdFill.begin() - stdFill.end() << std::endl;
-// 	std::cout << "test stdFill addr return : " << &*stdFill.begin() << std::endl;
-
-  return 0;
+  {
+            time_t start, end, diff;
+            /*------------------ std::maps ---------------------*/
+            std::map<int, std::string> m1;
+            ft::map<int, std::string> ft_m1;
+            for (size_t i = 0; i < 1e6; i++)
+            {
+                m1.insert(std::make_pair(i, "string2"));
+                ft_m1.insert(ft::make_pair(i, "string2"));
+            }
+
+            start = get_time();
+            m1.rbegin();
+            m1.rend();
+            end = get_time();
+            diff = end - start;
+            diff = (diff) ? (diff * TIME_FAC) : TIME_FAC;
+            /*-----------------------------------------------------*/
+            /*------------------ ft::maps ---------------------*/
+            ualarm(diff * 1e3, 0);
+            ft_m1.rbegin();
+            ft_m1.rend();
+            ualarm(0, 0);
+            /*----------------------------------------------------*/
+        }
+        /*------------------------------------------------------------------------------------------*/
+        /*------------------ std::maps ---------------------*/
+        std::map<int, std::string> m1;
+        ft::map<int, std::string> ft_m1;
+
+        for (size_t i = 0; i < 10; i++)
+        {
+            m1.insert(std::make_pair(i, "string2"));
+            ft_m1.insert(ft::make_pair(i, "string2"));
+        }
+
+        std::map<int, std::string> const m2(m1.rbegin(), m1.rend());
+        ft::map<int, std::string> const ft_m2(ft_m1.rbegin(), ft_m1.rend());
+
+        /*-----------------------------------------------------*/
+        /*------------------ ft::maps ---------------------*/
+        /*----------------------------------------------------*/
+        /*------------------ strings to store the results ----*/
+        std::string res, ft_res, c_res, c_ft_res;
+        /*----------------------------------------------------*/
+        for (std::map<int, std::string>::reverse_iterator it = m1.rbegin(); it != m1.rend(); ++it) // fill res from m1
+            res += it->second;
+        for (std::map<int, std::string>::const_reverse_iterator rit = m2.rbegin(); rit != m2.rend(); ++rit) // fill c_res from const m1
+            c_res += rit->second;
+
+        for (ft::map<int, std::string>::reverse_iterator it = ft_m1.rbegin(); it != ft_m1.rend(); ++it) // fill ft_res from ft_m1
+            ft_res += it->second;
+        for (ft::map<int, std::string>::const_reverse_iterator rit = ft_m2.rbegin(); rit != ft_m2.rend(); ++rit) // fill c_ft_res from const ft_m1
+            c_ft_res += rit->second;
+        int arr[] = {12, 82, 37, 64, 15};
+        ft::map<int, int> end_test;
+        for(size_t i = 0; i < 5; ++i)
+            end_test.insert(ft::make_pair(arr[i], i));
+        ft::map<int, int>::reverse_iterator rit = end_test.rend();
+        rit--;
+        std::cout << "res        =" << res << std::endl;
+        std::cout << "ft_res     =" << ft_res << std::endl;
+        std::cout << "c_res      =" << c_res << std::endl;
+        std::cout << "c_ft_res   =" << c_ft_res << std::endl;
+        std::cout << "rit->first =" << rit->first << std::endl;
+        EQUAL(res == ft_res && c_res == c_ft_res && rit->first == 12);
 }

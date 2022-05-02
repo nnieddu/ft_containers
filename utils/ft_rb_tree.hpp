@@ -6,7 +6,7 @@
 /*   By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 13:47:54 by ninieddu          #+#    #+#             */
-/*   Updated: 2022/03/31 00:01:42 by ninieddu         ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 10:19:34 by ninieddu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #pragma once
 
 #include <memory>
+#include <iostream>
 
 #include "ft_algorithm.hpp"
 #include "ft_utility.hpp"
