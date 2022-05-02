@@ -262,7 +262,6 @@ namespace ft
 		// lower_bound : Return iterator to lower bound (public member function )
 		iterator lower_bound (const key_type& k)
 		{
-			// iterator it = begin();
 			iterator it = find(k);
 			if (it != end())
 				return it;

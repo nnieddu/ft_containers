@@ -7,7 +7,6 @@
 	#undef NAMESPACE
 	#define NAMESPACE std
 #endif
-// NAMESPACE::vector<int> foo;
 
 void	stack_test();
 

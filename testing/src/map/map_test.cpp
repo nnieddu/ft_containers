@@ -164,15 +164,6 @@ void	map_constructor() {
 		std::cout << map2.empty() << std::endl;
 		std::cout << map2.size() << std::endl;
 		std::cout << map2.max_size() << std::endl;
-		//std::cout << "\t=== Operator= on same map ===" << std::endl;
-		//map2 = map2;
-		//it = map2.begin();
-		//while (it != map2.end())
-		//	std::cout << (it++)->first << " ";
-		//std::cout << std::endl;
-		//std::cout << map2.empty() << std::endl;
-		//std::cout << map2.size() << std::endl;
-		//std::cout << map2.max_size() << std::endl;
 	}
 }
 
@@ -337,7 +328,6 @@ void	map_insert_1() {
 		std::cout << ret.second << std::endl;
 		print_after_insert(ret.first, begin, end);
 	}
-	// Add test to check no leaks with empty map.
 }
 
 void	map_insert_2() {
@@ -564,13 +554,8 @@ void	map_case2() {
 	std::cout << "===" << std::endl;
 }
 
-void	print_exit(NAMESPACE::map<int, float>& map) {
-	//map.print();
-	(void)map;
-	exit(0);
-}
-
-void	map_case3() {
+void	map_case3() 
+{
 	NAMESPACE::map<int, float> map;
 	map.insert(NAMESPACE::make_pair(17, 1.02));
 	map.insert(NAMESPACE::make_pair(9, 1.32));
@@ -595,7 +580,8 @@ void	map_case3() {
 	std::cout << "===" << std::endl;
 }
 
-void	map_case4() {
+void	map_case4() 
+{
 	NAMESPACE::map<int, float> map;
 	map.insert(NAMESPACE::make_pair(0, 1.02));
 	map.insert(NAMESPACE::make_pair(-1, 1.02));
@@ -618,7 +604,8 @@ void	map_case4() {
 	std::cout << "===" << std::endl;
 }
 
-void	map_case5() {
+void	map_case5() 
+{
 	NAMESPACE::map<int, float> map;
 	for (int i = 0; i < 200; ++i)
 		map.insert(NAMESPACE::make_pair(i % 2 == 0 ? i : -i, 1.02));
@@ -638,13 +625,12 @@ void	map_case5() {
 	std::cout << "===" << std::endl;
 }
 
-void	map_swap() {
+void	map_swap() 
+{
 	NAMESPACE::map<int, float> map;
 	NAMESPACE::map<int, float> map2;
 	for (int i = 0; i < 4; i++)
 		map.insert(NAMESPACE::make_pair(i + 1, 1.03 + i));
-	//NAMESPACE::map<int, float>::iterator it1 = map.begin();
-	//NAMESPACE::map<int, float>::iterator it2 = map2.begin();
 	NAMESPACE::map<int, float>::iterator t_it1 = map.begin();
 	NAMESPACE::map<int, float>::iterator t_it2 = map2.begin();
 	std::cout << "BEFORE SWAP" << std::endl;
@@ -656,12 +642,6 @@ void	map_swap() {
 	std::cout << std::endl;
 	map.swap(map2);
 	std::cout << "AFTER SWAP" << std::endl;
-	//while (it1 != map2.end())
-	//	std::cout << (it1++)->first << " ";
-	//std::cout << std::endl;
-	//while (it2 != map.end())
-	//	std::cout << (it2++)->first << " ";
-	//std::cout << std::endl;
 	t_it1 = map.begin();
 	t_it2 = map2.begin();
 	while (t_it1 != map.end())
@@ -689,8 +669,6 @@ void	map_swap_non_member() {
 	NAMESPACE::map<int, float> map2;
 	for (int i = 0; i < 4; i++)
 		map.insert(NAMESPACE::make_pair(i + 1, 1.03 + i));
-	//NAMESPACE::map<int, float>::iterator it1 = map.begin();
-	//NAMESPACE::map<int, float>::iterator it2 = map2.begin();
 	NAMESPACE::map<int, float>::iterator t_it1 = map.begin();
 	NAMESPACE::map<int, float>::iterator t_it2 = map2.begin();
 	std::cout << "BEFORE SWAP" << std::endl;
@@ -702,12 +680,6 @@ void	map_swap_non_member() {
 	std::cout << std::endl;
 	NAMESPACE::swap(map, map2);
 	std::cout << "AFTER SWAP" << std::endl;
-	//while (it1 != map2.end())
-	//	std::cout << (it1++)->first << " ";
-	//std::cout << std::endl;
-	//while (it2 != map.end())
-	//	std::cout << (it2++)->first << " ";
-	//std::cout << std::endl;
 	t_it1 = map.begin();
 	t_it2 = map2.begin();
 	while (t_it1 != map.end())
@@ -998,16 +970,6 @@ void	map_upper_bound() {
 		while (it != map.end())
 			std::cout << "[" << it->first << ";" << (it++)->second << "] ";
 		std::cout << std::endl;
-		// std::cout << "\tClassic (no-existant value)" << std::endl;
-		// it = map.upper_bound(7);
-		// while (it != map.end())
-		// 	std::cout << "[" << it->first << ";" << (it++)->second << "] ";
-		// std::cout << std::endl;
-		// std::cout << "\tk < begin()" << std::endl;
-		// it = map.upper_bound(-1);
-		// while (it != map.end())
-		// 	std::cout << "[" << it->first << ";" << (it++)->second << "] ";
-		// std::cout << std::endl;
 		std::cout << "\tk == begin" << std::endl;
 		it = map.upper_bound(map.begin()->first);
 		while (it != map.end())

@@ -10,7 +10,6 @@
 	#undef NAMESPACE
 	#define NAMESPACE std
 #endif
-// NAMESPACE::vector<int> foo;
 
 void	map_test();
 void	map_iterator();

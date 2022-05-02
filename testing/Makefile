@@ -30,7 +30,7 @@ EXEC_FT	=	ft_test
 EXEC_STD = 	std_test
 
 all:	Makefile $(EXEC_FT) $(EXEC_STD)
-	@echo "\033[0;32mAll compilation done, run ./exec_test.sh"
+	@echo "\033[0;32mAll compilation done, run ./exec_test.sh \033[37m"
 
 $(EXEC_FT):	$(FT_OBJS)
 	@echo "\033[0;32mCompiling ft_test"

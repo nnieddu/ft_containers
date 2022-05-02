@@ -253,7 +253,10 @@ namespace ft
 		// lower_bound : Return iterator to lower bound (public member function )
 		iterator lower_bound (const key_type& k)
 		{
-			iterator it = begin();
+			iterator it = find(k);
+			if (it != end())
+				return it;
+			it = begin();
 			while (it != end() && _comp(*it, k))
 				it++;
 			return it;
@@ -261,7 +264,10 @@ namespace ft
 
 		const_iterator lower_bound (const key_type& k) const
 		{
-			const_iterator it = begin();
+			const_iterator it = find(k);
+			if (it != end())
+				return it;
+			it = begin();
 			while (it != end() && _comp(*it, k))
 				it++;
 			return it;

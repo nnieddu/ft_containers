@@ -6,7 +6,6 @@
 	#undef NAMESPACE
 	#define NAMESPACE std
 #endif
-// NAMESPACE::vector<int> foo;
 
 #include <ctime>
 #include "../../../containers/ft_vector.hpp"

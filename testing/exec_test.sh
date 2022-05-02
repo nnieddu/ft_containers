@@ -1,8 +1,5 @@
 #! /usr/bin/env bash
 
-#./ft_test > ft_results
-#./std_test > std_results
-
 RED="\033[31m"
 NC="\033[37m"
 GREEN="\033[32m"
@@ -25,11 +22,11 @@ then
 	exit
 elif [ "$1" = "-compile" ]
 then
-	clang++ -g3 -Wall -Wextra -fsanitize=address -std=c++98 ./containers_test_mli42/srcs/$2/$3
+	c++ -g3 -Wall -Wextra -fsanitize=address -std=c++98 ./testeurs-git/mli42-test/srcs/$2/$3
 	exit
-elif [ "$1" = "-unit_test" ]
+elif [ "$1" = "-mli" ]
 then
-	cd containers_test_mli42
+	cd testeurs-git/mli42-tests
 	if [ "$2" = "all" ]
 	then
 		./do.sh vector
@@ -40,16 +37,34 @@ then
 		./do.sh $2
 	fi
 	exit
+elif [ "$1" = "-mam" ]
+then
+	cd testeurs-git/mamoussa405-tests
+	make vector_tle
+	./vector.out
+	make stack
+	./stack.out
+	make map
+	./map.out
+	make set
+	./set.out
+	make clean
+	exit	
 fi
 
+make
+echo
 if [ "$OSTYPE" = "linux-gnu" ]
 then
 	/usr/bin/time --format="%C took %e seconds" ./ft_test > ft_results.txt
 	/usr/bin/time --format="%C took %e seconds" ./std_test > std_results.txt
 elif [ "$OSTYPE" = "darwin18.7.0" ]
 then
-	time -p ./ft_test > ft_results.txt
-	time -p ./std_test > std_results.txt
+	echo -e "=== FT  time ==="
+	time ./ft_test > ft_results.txt
+	echo
+	echo -e "=== STD time ==="
+	time ./std_test > std_results.txt
 else
 	echo -e "${RED} Unknown platform, impossible to display execution time.${NC}"
 	./ft_test > ft_results.txt
@@ -57,12 +72,11 @@ else
 fi
 
 diff ft_results.txt std_results.txt > /dev/null
+echo
 if [ $? -eq 0 ]
 then
-	echo -e "${GREEN}=== VectorTest OK :) ===${NC}"
+	echo -e "${GREEN}=== Test OK : No diff :) ===${NC}"
 else
-	echo -e "${RED}=== VectorTest BAD :'( ===${NC}"
+	echo -e "${RED}=== Test BAD :'( ===${NC}"
 	echo -e "$(diff ft_results.txt std_results.txt)"
 fi
-
-echo -e "$GREEN=== All tests done ===${NC}"

@@ -5,7 +5,8 @@
 #include <vector>
 #include <deque>
 
-void	stack_test() {
+void	stack_test() 
+{
 	std::cout << "STACK TEST" << std::endl;
 	NAMESPACE::stack<int, NAMESPACE::vector<int> > s;
 	for (int i = 0; i < 1000000; i++)

@@ -33,8 +33,6 @@ void	simpleCreation() {
 	for (unsigned long i = 0; i < vector.size(); i++)
 		std::cout << vector[i] << " ";
 	std::cout << std::endl;
-	//struct fooStruct foo;
-	//NAMESPACE::vector<int> vectorIterator(foo, foo);
 	NAMESPACE::vector<int> vectorIterator(vector.begin(), vector.end());
 	for (unsigned long i = 0; i < vectorIterator.size(); i++)
 		std::cout << vectorIterator[i] << " ";
@@ -48,10 +46,10 @@ void	simpleCreation() {
 	for (unsigned long i = 0; i < a.size(); i++) {
 		std::cout << b[i] << std::endl;
 	}
-	std::cout << b.size() <<  " " << b.capacity() << " " << b.max_size() << std::endl;
+	std::cout << b.size() << " " << b.max_size() << std::endl;
 	NAMESPACE::vector<int> empty;
 	NAMESPACE::vector<int> empty_copy(empty);
-	std::cout << empty.size() << " " << empty.capacity() << std::endl;
+	std::cout << empty.size() << std::endl;
 	std::cout << "\n===" << std::endl;
 }
 
@@ -61,10 +59,9 @@ void	vectorExpansion() {
 		// Default constructor
 		std::cout << "=== Default constructor ===" << std::endl;;
 		NAMESPACE::vector<int> vector;
-    std::cout << vector.capacity() << std::endl;
 		for (std::size_t i = 0; i < MAX_TEST; ++i) {
       vector.push_back(i);
-			std::cout << vector.size() << " " << vector.capacity() << std::endl;
+			std::cout << vector.size() << std::endl;
     }
 		printOk();
 	}
@@ -72,10 +69,10 @@ void	vectorExpansion() {
 		// Fill constructor
 		std::cout << "\nFill constructor" << std::endl;
 		NAMESPACE::vector<int> vector(10, 8);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
     for (std::size_t i = 0; i < MAX_TEST; ++i) {
       vector.push_back(i);
-			std::cout << vector[vector.size() - 1] << " " << vector.capacity() << std::endl;
+			std::cout << vector[vector.size() - 1] << std::endl;
     }
 		printOk();
 		printOk();
@@ -91,7 +88,7 @@ void	vectorOperatorEqual() {
     NAMESPACE::vector<int> st_vector(3, 4);
 
     vector = st_vector;
-    std::cout << vector.size() << " " << vector.capacity() << std::endl;
+    std::cout << vector.size() << std::endl;
     NAMESPACE::vector<int>::iterator it = vector.begin();
     while (it != vector.end()) {
 			std::cout << *it;
@@ -106,7 +103,7 @@ void	vectorOperatorEqual() {
 
     vector = st_vector;
     NAMESPACE::vector<int>::iterator it = vector.begin();
-    std::cout << vector.size() << " " << vector.capacity() << std::endl;
+    std::cout << vector.size() << std::endl;
 		while (it != vector.end()) {
 			std::cout << *it;
 			it++;
@@ -135,7 +132,7 @@ void	vectorBeginEnd() {
 	{
 		std::cout << "=== With const iterator ===" << std::endl;
 		NAMESPACE::vector<int>::const_iterator start = vector.begin();
-		NAMESPACE::vector<int>::const_iterator end = vector.end();
+		NAMESPACE::vector<int>::const_iterator end = vector.end() - 1;
 		while (start != end) {
 			std::cout << *start << " " << *end << std::endl;
 			start++;
@@ -188,7 +185,7 @@ void	vectorResize() {
 	{
 		std::cout << "=== Size/max_size/capacity of empty vector ===" << std::endl;
 		NAMESPACE::vector<int> empty;
-		std::cout << empty.size() << " " << empty.capacity() << " " << empty.max_size() << " " << empty.empty() << std::endl;
+		std::cout << empty.size() << " " << empty.max_size() << " " << empty.empty() << std::endl;
 	}
 	{
 		std::cout << vector.empty() << std::endl;
@@ -201,7 +198,6 @@ void	vectorResize() {
     vector.resize(5);
 
 		std::cout << vector.size() << std::endl;
-		std::cout << vector.capacity() << std::endl;
     /*  Iterator still must be valid a resize */
     NAMESPACE::vector<int>::iterator second_it = vector.begin();
     while (second_it != vector.end()) {
@@ -218,7 +214,6 @@ void	vectorResize() {
     vector.resize(15);
 
 		std::cout << vector.size() << std::endl;
-		std::cout << vector.capacity() << std::endl;
     NAMESPACE::vector<int>::iterator it = vector.begin();
 		std::cout << *(it + 12) << std::endl;
 	}
@@ -228,12 +223,10 @@ void	vectorResize() {
     vector.push_back(1);
     vector.resize(22);
 		std::cout << vector.size() << std::endl;
-		std::cout << vector.capacity() << std::endl;
     NAMESPACE::vector<int>::iterator it = vector.begin();
 		std::cout << *(it + 12) << std::endl;
     for (int i = 0; i < 20; ++i) {
       vector.push_back(i);
-			std::cout << vector.capacity() << std::endl;
     }
 		printOk();
 	}
@@ -247,17 +240,17 @@ void	vectorReserve() {
   {
 		std::cout << "\n=== n < _capacity ===" << std::endl;
     vector.reserve(5);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 	}
   {
     std::cout << "\nn == _capacity" << std::endl;
 		vector.reserve(10);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 	}
 	{
     std::cout << "\nn > _capacity" << std::endl;
 		vector.reserve(15);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 	}
 	{
 		std::cout << "\nTest that exception is thrown" << std::endl;
@@ -268,7 +261,7 @@ void	vectorReserve() {
 			vector.reserve(max + 1);
 			printError("vector.reserve(NAMESPACE_max + 15) should throw an error");
 		} catch (std::exception& e) {
-			std::cout << e.what() << std::endl;
+			// std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "\n\t===" << std::endl;
@@ -335,7 +328,8 @@ void vectorFrontBack() {
 	while (!vector.empty()) {
 		vector.clear();
 	}
-	std::cout << vector.size() << " " << vector.capacity() << " " << vector.front() << " " << std::endl;
+	std::cout << vector.size() << std::endl;
+	// std::cout << vector.size() << " " << vector.front() << " " << std::endl;
 	std::cout << "\n\t===" << std::endl;
 }
 
@@ -344,7 +338,7 @@ void	vectorAssign() {
 	NAMESPACE::vector<int> vector;
 	for (int i = 0; i < 30; i++)
 		vector.push_back(i);
-	std::cout << vector.size() << " " << vector.capacity() << " " << vector.max_size() << std::endl;
+	std::cout << vector.size() << " " << vector.max_size() << std::endl;
 	{
 		std::cout << "=== n <= _size ===" << std::endl;
 		for (int j = 0; j <= 30; j++) {
@@ -355,7 +349,7 @@ void	vectorAssign() {
 			for (unsigned long i = 0; i < v.size(); i++)
 				std::cout << v.at(i) << " ";
 			std::cout << std::endl;
-			std::cout << v.size() << " " << v.capacity() << " " << v.max_size() << std::endl;
+			std::cout << v.size() << " " << v.max_size() << std::endl;
 		}
 	}
 	{
@@ -365,37 +359,35 @@ void	vectorAssign() {
 			for (unsigned long i = 0; i < vector.size(); i++)
 				std::cout << vector.at(i) << " ";
 			std::cout << std::endl;
-			std::cout << vector.size() << " " << vector.capacity() << " " << vector.max_size() << std::endl;
+			std::cout << vector.size() << " " << vector.max_size() << std::endl;
 		}
 	}
 	{
 		std::cout << "=== from Empty vector ===" << std::endl;
 		NAMESPACE::vector<int> v;
-		std::cout << v.size() << " " << v.capacity() << " " << v.max_size() << std::endl;
+		std::cout << v.size() << v.max_size() << std::endl;
 		for (int i = 0; i < 100; i++) {
 			v.assign(i, i);
 			for (unsigned long j = 0; j < v.size(); j++)
 				std::cout << v.at(j) << " ";
 			std::cout << std::endl;
-			std::cout << v.size() << " " << v.capacity() << " " << v.max_size() << std::endl;
+			std::cout << v.size() << " " << v.max_size() << std::endl;
 		}
 	}
 	{
 		std::cout << "=== from vector to emptyVector ===" << std::endl;
 		NAMESPACE::vector<int> v(10, 8);
-		std::cout << v.size() << " " << v.capacity() << " " << v.max_size() << std::endl;
+		std::cout << v.size() << " " << v.max_size() << std::endl;
 		printVector(v);
 		v.assign(0, 10);
 		for (unsigned long j = 0; j < v.size(); j++)
 			std::cout << v[j] << " ";
 		std::cout << std::endl;
-		std::cout << v.size() << " " << v.capacity() << " " << v.max_size() << std::endl;
+		std::cout << v.size() << " " << v.max_size() << std::endl;
 		std::cout << v.empty() << std::endl;
 		v.assign(5, 2);
-		for (unsigned long j = 0; j < 10; j++)
-			std::cout << v[j] << " ";
 		std::cout << std::endl;
-		std::cout << v.size() << " " << v.capacity() << " " << v.max_size() << std::endl;
+		std::cout << v.size() << " " << v.max_size() << std::endl;
 		std::cout << v.empty() << std::endl;
 	}
 	std::cout << "=== Assign range ===" << std::endl;
@@ -422,15 +414,15 @@ void	vectorPushPopBack() {
 		NAMESPACE::vector<int> vector;
 		int sum = 0;
 		vector.push_back(100);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 		vector.push_back(200);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 		vector.push_back(300);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 
 		while (!vector.empty())
 		{
-			std::cout << vector.size() << " X " << vector.capacity() << std::endl;
+			std::cout << vector.size() << " X " << std::endl;
 			sum += vector.back();
 			vector.pop_back();
 		}
@@ -441,7 +433,7 @@ void	vectorPushPopBack() {
 		NAMESPACE::vector<int> vector;
 		for (int i = 0; i < 1000000; i++) {
 			vector.push_back(i * 2);
-			std::cout << vector.size() << " " << vector.capacity() << " ";
+			std::cout << vector.size() << " ";
 		}
 		std::cout << std::endl;
 		NAMESPACE::vector<int>::iterator it = vector.begin();
@@ -451,9 +443,9 @@ void	vectorPushPopBack() {
 		std::cout << "=== Pop_back until empty ===" << std::endl;
 		while (!vector.empty()) {
 			vector.pop_back();
-			std::cout << vector.size() << " " << vector.capacity() << std::endl;
+			std::cout << vector.size() << std::endl;
 		}
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 		it = vector.begin();
 		while (it != vector.end())
 			std::cout << *(it++) << " ";
@@ -471,7 +463,7 @@ void	vectorInsert() {
 		NAMESPACE::vector<int> vector(10, 8);
 		vector.pop_back();
 		vector.pop_back();
-		std::cout << "capacity: " << vector.capacity() << std::endl;
+		std::cout << "capacity: " << std::endl;
 		vector.insert(vector.begin() + 2, 1, 42);
 		NAMESPACE::vector<int>::iterator it = vector.begin();
 		while (++it != vector.end())
@@ -526,7 +518,7 @@ void	vectorInsert() {
 		NAMESPACE::vector<int>::iterator ret;
 		for (unsigned long i = 0; i < 10; i++) {
 			ret = vector.insert(vector.end(), i * 10);
-			std::cout << vector.size() << " " << vector.capacity() << std::endl;
+			std::cout << vector.size() << std::endl;
 			while (ret != vector.end())
 				std::cout << *(ret++) << " ";
 			std::cout << std::endl;
@@ -582,7 +574,7 @@ void	vectorInsert() {
 		for (unsigned long i = 0; i < 15; i++)
 			vector[i] = i * 2;
 		printVector(vector);
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		std::cout << vector.size() << std::endl;
 		NAMESPACE::vector<int>::iterator ret = vector.insert(vector.begin() + 2, 42);
 		while (ret != vector.end())
 			std::cout << *(ret++) << " ";
@@ -769,7 +761,7 @@ void	vectorErase() {
 		printVector(vector);
 		std::cout << "value: " << *it << std::endl;
 		std::cout << "size: " << vector.size() << std::endl;
-		std::cout << "capacity: " << vector.capacity() << std::endl;
+		std::cout << "capacity: " << std::endl;
 	}
 	{
 		//	Provoke segfault for both.
@@ -782,17 +774,15 @@ void	vectorErase() {
 		std::cout << "\n=== Erase last element ===" << std::endl;
 		NAMESPACE::vector<int>::iterator it = vector.end() - 1;
 		it = vector.erase(vector.end() - 1);
-		std::cout << *it << std::endl;
-		if (*it == *(vector.end()))
-			std::cout << "TRUE" << std::endl;
-		std::cout << vector.size() << " " << vector.capacity() << std::endl;
+		if (it != vector.end())
+			std::cout << *it << std::endl;
+		std::cout << vector.size() << std::endl;
 	}
 	{
 		std::cout << "\n=== Erase while i > 0 ===" << std::endl;
 		NAMESPACE::vector<int>:: iterator b = vector.begin();
 		for (unsigned long i = vector.size(); i > 0; i = vector.size()) {
 			b = vector.erase(b);
-			std::cout << *b << std::endl;
 			printVector(vector);
 		}
 		//std::vector<int>::iterator it;
@@ -970,7 +960,7 @@ void	vectorClear() {
 	std::cout << "VectorClear" << std::endl;
 	NAMESPACE::vector<int> vector(1000, 8);
   vector.clear();
-	std::cout << vector.size() << " " << vector.capacity() << std::endl;
+	std::cout << vector.size() << std::endl;
 	std::cout << "\n=== On empty Vector ===" << std::endl;
 	NAMESPACE::vector<int> empty;
 	empty.clear();

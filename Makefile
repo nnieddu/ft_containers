@@ -16,7 +16,7 @@ COMP 	=	c++
 
 FLAG	=	 -Wall -Wextra -Werror -std=c++98
 
-SRC		=	mymain.cpp 
+SRC		=	school-main.cpp 
 
 INCS	=
 
@@ -25,15 +25,12 @@ OBJ		=	$(SRC:.cpp=.o)
 %.o : %.cpp $(INCS)
 	$(COMP) $(FLAG) -c $< -o $@
 
-all : $(NAME) run
-# all : $(NAME)
+all : $(NAME)
+# all : $(NAME) runv
 
 $(NAME) : $(OBJ)
 	$(COMP) $(FLAG) $(OBJ) -o $(NAME)
 
-run : $(NAME)
-	./$(NAME)
-	
 runv : $(NAME)
 	valgrind --leak-check=full -s ./$(NAME)
 
