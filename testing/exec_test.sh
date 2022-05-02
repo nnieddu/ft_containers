@@ -46,10 +46,10 @@ if [ "$OSTYPE" = "linux-gnu" ]
 then
 	/usr/bin/time --format="%C took %e seconds" ./ft_test > ft_results.txt
 	/usr/bin/time --format="%C took %e seconds" ./std_test > std_results.txt
-elif [ "$OSTYPE" = "darwin20" ]
+elif [ "$OSTYPE" = "darwin18.7.0" ]
 then
-	time ./ft_test > ft_results.txt
-	time ./std_test > std_results.txt
+	time -p ./ft_test > ft_results.txt
+	time -p ./std_test > std_results.txt
 else
 	echo -e "${RED} Unknown platform, impossible to display execution time.${NC}"
 	./ft_test > ft_results.txt

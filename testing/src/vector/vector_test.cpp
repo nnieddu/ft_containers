@@ -124,7 +124,7 @@ void	vectorBeginEnd() {
 	{
 		std::cout << "=== With regular iterator ===" << std::endl;
 		NAMESPACE::vector<int>::iterator start = vector.begin();
-		NAMESPACE::vector<int>::iterator end = vector.end();
+		NAMESPACE::vector<int>::iterator end = vector.end() - 1;
 		while (start != end) {
 			std::cout << *start << " " << *end << std::endl;
 			start++;
@@ -989,20 +989,20 @@ void	vectorGetAllocator() {
 void isIntegralTest() {
 	std::cout << "is_integral Test" << std::endl;
 	std::cout << std::boolalpha;
-	//std::cout << NAMESPACE::is_integral<bool>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<char>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<wchar_t>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<signed char>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<short int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<long int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<long long int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<unsigned char>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<unsigned short int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<unsigned int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<unsigned long int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<unsigned long long int>::value << std::endl;
-	//std::cout << NAMESPACE::is_integral<struct fooStruct>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<bool>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<char>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<wchar_t>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<signed char>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<short int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<long int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<long long int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<unsigned char>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<unsigned short int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<unsigned int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<unsigned long int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<unsigned long long int>::value << std::endl;
+	std::cout << NAMESPACE::is_integral<struct fooStruct>::value << std::endl;
 }
 
 bool	fooComp(int a, int b) {

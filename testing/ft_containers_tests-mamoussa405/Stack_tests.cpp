@@ -11,11 +11,11 @@
 /* ************************************************************************************************ */
 
 // you should include your path to this files
-#include "../containers/ft_stack.hpp"
+#include "../../containers/ft_stack.hpp"
        // your stack path.
-#include "../containers/ft_vector.hpp"
+#include "../../containers/ft_vector.hpp"
  // your Vector path.
-#include "../utils/ft_utility.hpp"
+#include "../../utils/ft_utility.hpp"
   // path to ft::pair.
 
 #include <vector>

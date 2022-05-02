@@ -6,7 +6,7 @@
 #    By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 06:10:57 by ninieddu          #+#    #+#              #
-#    Updated: 2022/05/02 10:48:50 by ninieddu         ###   ########lyon.fr    #
+#    Updated: 2022/05/02 12:18:59 by ninieddu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	ft_containers
 
 COMP 	=	c++
 
-FLAG	=	
+FLAG	=	 -Wall -Wextra -Werror -std=c++98
 
 SRC		=	mymain.cpp 
 
@@ -25,7 +25,7 @@ OBJ		=	$(SRC:.cpp=.o)
 %.o : %.cpp $(INCS)
 	$(COMP) $(FLAG) -c $< -o $@
 
-all : $(NAME) 
+all : $(NAME) run
 # all : $(NAME)
 
 $(NAME) : $(OBJ)

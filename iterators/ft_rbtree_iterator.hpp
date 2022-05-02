@@ -91,7 +91,7 @@ namespace ft
 					_ptr = _ptr->p;
 				_ptr = _ptr->p;
 				return *this;
-			};
+			}
 
 			rbtree_iterator operator++(int) { rbtree_iterator tmp = *this; ++(*this); return tmp; }  
 

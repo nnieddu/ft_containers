@@ -70,8 +70,7 @@ namespace ft
 		public:
 			struct node
 			{
-					typedef T		node_value;
-					node_value 		value;
+					T		 		value;
 					node*			left;
 					node*			right;
 					node* 			p;
@@ -133,7 +132,6 @@ namespace ft
 					insert(x.root->value);
 				if (root != nil)
 					copy(x.root, x.nil);
-
 				return *this;
 			}
 
@@ -178,7 +176,7 @@ namespace ft
 				node* n = root;
 				while(n != nil && value != this->value_binded(n->value))
 				{
-					if(_comp(value, this->value_binded(n->value))) ///////
+					if(_comp(value, this->value_binded(n->value)))
 						n = n->left;
 					else
 						n = n->right;

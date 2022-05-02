@@ -123,7 +123,7 @@ namespace ft
 		reverse_iterator rbegin() { return reverse_iterator(iterator( _rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
 
 		const_reverse_iterator rbegin() const 
-		{ return const_reverse_iterator(iterator( _rbtree.end(), _rbtree.end(), _rbtree.getNill())); }
+		{ return const_reverse_iterator(iterator( _rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
 
 		// rend
 		// Return reverse iterator to reverse end (public member function )
@@ -211,11 +211,13 @@ namespace ft
 		// (3)	
 		void erase (iterator first, iterator last)
 		{
+			if (first == begin() && last == end())
+				return clear();
 			iterator tmp;
 			while (first != this->end() && first != last)
 			{
 				tmp = first;
-				++first;
+				first++;
 				_rbtree.erase(tmp->first);
 			}
 		}
@@ -260,7 +262,11 @@ namespace ft
 		// lower_bound : Return iterator to lower bound (public member function )
 		iterator lower_bound (const key_type& k)
 		{
-			iterator it = begin();
+			// iterator it = begin();
+			iterator it = find(k);
+			if (it != end())
+				return it;
+			it = begin();
 			while (it != end() && _comp(it->first, k))
 				it++;
 			return it;
@@ -268,7 +274,10 @@ namespace ft
 
 		const_iterator lower_bound (const key_type& k) const
 		{
-			const_iterator it = begin();
+			const_iterator it = find(k);
+			if (it != end())
+				return it;
+			it = begin();
 			while (it != end() && _comp(it->first, k))
 				it++;
 			return it;

@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <sys/time.h>
-#include "../containers/ft_vector.hpp"
+#include "../../containers/ft_vector.hpp"
 
 
 #define BLUE "\e[0;34m"
@@ -3335,10 +3335,10 @@ int main(void)
     std::cout << RED << "**** The test is taking so much time to test the all cases and the time complexity of each method ****" << std::endl;
     std::cout << RED << "--------------------------------------------------------------------------------------------------------" << RESET << std::endl;
     signal(SIGALRM, alarm_handler);
-    // iterator_tests();
-    // const_iterator_tests();
-    // reverse_iterator_tests();
-    // reverse_iterator_with_ft_vector();
+    iterator_tests();
+    const_iterator_tests();
+    reverse_iterator_tests();
+    reverse_iterator_with_ft_vector();
     vector_tests();
     return 0;
 }

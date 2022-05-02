@@ -118,10 +118,10 @@ namespace ft
 		
 		// rbegin
 		// Return reverse iterator to reverse beginning (public member function )
-		reverse_iterator rbegin() { return reverse_iterator(iterator( _rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
+		reverse_iterator rbegin() { return reverse_iterator(iterator(_rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
 
 		const_reverse_iterator rbegin() const 
-		{ return const_reverse_iterator(iterator( _rbtree.end(), _rbtree.end(), _rbtree.getNill())); }
+		{ return const_reverse_iterator(iterator(_rbtree.end()->right, _rbtree.end(), _rbtree.getNill())); }
 
 		// rend
 		// Return reverse iterator to reverse end (public member function )
@@ -202,6 +202,8 @@ namespace ft
 		// (3)	
 		void erase (iterator first, iterator last)
 		{
+			if (first == begin() && last == end())
+				return clear();			
 			iterator tmp;
 			while (first != this->end() && first != last)
 			{
