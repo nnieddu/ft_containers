@@ -4,10 +4,10 @@
 
 // you should include your path to this files
 
-#include "../ft_containers/containers/ft_map.hpp"
-#include "../ft_containers/containers/ft_vector.hpp"
+#include "../containers/ft_map.hpp"
+#include "../containers/ft_vector.hpp"
  // your Vector path.
-#include "../ft_containers/utils/ft_utility.hpp"
+#include "../utils/ft_utility.hpp"
 // #include "map-test-helper.hpp"
 #include <map>
 
