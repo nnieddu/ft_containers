@@ -327,6 +327,11 @@ void	map_insert_1() {
 		}
 		std::cout << ret.second << std::endl;
 		print_after_insert(ret.first, begin, end);
+
+		NAMESPACE::map<std::string, int> mapstr;
+		for (int i = 0; i < MAP_BIG_N; i++) {
+			mapstr.insert(NAMESPACE::make_pair("YOLO", i));
+		}
 	}
 }
 
