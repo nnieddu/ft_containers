@@ -103,14 +103,15 @@ map    :
 - https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus
 - https://github.com/pratikparvati/cpp_stl_iterators/blob/master/readme.md
 - https://www.tutorialspoint.com/cplusplus/cpp_friend_functions.htm
+- https://stackoverflow.com/questions/37727096/what-is-the-difference-between-a-trivial-ctor-or-dtor-and-a-user-defined-empty
 
+- Book C++ in a nutshell
 ### Notes
 
 [std::allocator](https://www.cplusplus.com/reference/memory/allocator/)  
 Allocators are classes that define memory models to be used by some parts of the Standard Library, and most specifically, by STL containers.  
   
 [Pointer const recap]
-To summarize, you only need to remember 4 rules, and they are pretty logical:
  - A non-const pointer can be assigned another address to change what it is pointing at
  - A const pointer always points to the same address, and this address can not be changed.
 
@@ -170,7 +171,7 @@ Empty struct to identifies the iterator concept modeled by the iterator.
    ```
 
 [explicit](https://www.tutorialspoint.com/What-does-the-explicit-keyword-mean-in-Cplusplus)  
-The explicit keyword in C++ is used to mark constructors to not implicitly convert types.
+The explicit keyword in C++ is used to mark constructors or function to not implicitly convert arguments types.
 
 [friend](https://www.tutorialspoint.com/cplusplus/cpp_friend_functions.htm)  
 A friend function of a class is defined outside that class' scope but it has the right to access all private and protected members of the class. Even though the prototypes for friend functions appear in the class definition, friends are not member functions.
@@ -178,6 +179,7 @@ A friend can be a function, function template, or member function, or a class or
 
 [typeid] wip
 [typename] wip
+[class] wip
 [typedef] wip
 [virtual] wip
 [static] wip
@@ -218,14 +220,16 @@ When the compiler looks for candidate functions for overload resolution,
 all function templates with the desired name are initially considered.  
 If the compiler cannot generate a template instance to match the function call’s arguments, 
 that function template is not considered. That is, failure to substitute the arguments is not an error.
+
+[enable_if]
+[is_integral]
+[lexicographical_compare]
   
 BinaryPredicate
 forward declarations 
-https://stackoverflow.com/questions/37727096/what-is-the-difference-between-a-trivial-ctor-or-dtor-and-a-user-defined-empty
 
-class/typename
 
-STL LEAK / Issues :
+#### STL LEAK / Issues :
 
 ```
     std::map<char, int, std::equal_to<char> > tmap;
@@ -254,12 +258,8 @@ In case of same multiple key erase() remove nothing
 	std::cout << "COUNT =" << tmap.count('a') << std::endl;
 ```
 
-STL return : 13 (carriage return, CR, \r, ^M)
-when it end() reached
+STL return : 13 (carriage return, CR, \r, ^M) when end() reached
 
-TODO :
-- optimize insert (hint)  
-
-TESTEURS :
+#### TESTEURS :
 https://github.com/mli42/containers_test
 https://github.com/mamoussa405/ft_containers_tests

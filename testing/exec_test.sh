@@ -12,43 +12,42 @@ then
 elif [ "$1" = "-help" ]
 then
 	echo "-show to show tests results."
-	echo "-leaks to show memory usage."
-	echo "-unit_test to show mli42_tests"
+	echo "-valgrind to show memory usage with valgrind."
+	echo "-mli to show mli42_tests"
+	echo "-mam to show mamoussa405_tests"
 	exit
-elif [ "$1" = "-leaks" ]
+elif [ "$1" = "-valgrind" ]
 then
 	valgrind --leak-check=full --show-leak-kinds=all ./ft_test > /dev/null
 	valgrind --leak-check=full --show-leak-kinds=all ./std_test > /dev/null
 	exit
-elif [ "$1" = "-compile" ]
-then
-	c++ -g3 -Wall -Wextra -fsanitize=address -std=c++98 ./testeurs-git/mli42-test/srcs/$2/$3
-	exit
 elif [ "$1" = "-mli" ]
 then
 	cd testeurs-git/mli42-tests
-	if [ "$2" = "all" ]
-	then
-		./do.sh vector
-		./do.sh stack
-		./do.sh map
-		./do.sh set
-	else
-		./do.sh $2
-	fi
+	./do.sh $2
 	exit
 elif [ "$1" = "-mam" ]
 then
 	cd testeurs-git/mamoussa405-tests
 	make vector_tle
+	echo -e "${GREEN}=== VECTOR ===${NC}"
 	./vector.out
 	make stack
+	echo -e "${GREEN}=== STACK ===${NC}"
 	./stack.out
 	make map
+	echo -e "${GREEN}=== MAP ===${NC}"
 	./map.out
 	make set
+	echo -e "${GREEN}=== SET ===${NC}"
 	./set.out
 	make clean
+	exit
+elif [ "$1" = "-all" ]
+then
+	./exec_test.sh -mli
+	./exec_test.sh -mam
+	./exec_test.sh
 	exit	
 fi
 
@@ -60,10 +59,10 @@ then
 	/usr/bin/time --format="%C took %e seconds" ./std_test > std_results.txt
 elif [ "$OSTYPE" = "darwin18.7.0" ]
 then
-	echo -e "=== FT  time ==="
+	echo "=== FT  time ==="
 	time ./ft_test > ft_results.txt
 	echo
-	echo -e "=== STD time ==="
+	echo "=== STD time ==="
 	time ./std_test > std_results.txt
 else
 	echo -e "${RED} Unknown platform, impossible to display execution time.${NC}"
@@ -76,6 +75,7 @@ echo
 if [ $? -eq 0 ]
 then
 	echo -e "${GREEN}=== Test OK : No diff :) ===${NC}"
+	# make fclean
 else
 	echo -e "${RED}=== Test BAD :'( ===${NC}"
 	echo -e "$(diff ft_results.txt std_results.txt)"

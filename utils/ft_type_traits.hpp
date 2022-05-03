@@ -20,10 +20,10 @@ namespace ft
 	//	----------[ ft_enable_if ]----------
 	// https://www.cplusplus.com/reference/type_traits/enable_if/
 	
-	template<bool B, class T = void>
+	template<bool Cond, class T = void> 
 	struct enable_if {};
 
-	template<class T>
+	template<class T> 
 	struct enable_if<true, T> 
 	{ typedef T type; };
 
@@ -39,12 +39,15 @@ namespace ft
 		typedef integral_constant<T, v> type;
 	};
 
+
 	// 	----------[ helper struct ]----------
 	// https://www.cplusplus.com/reference/type_traits/false_type/
 	// https://www.cplusplus.com/reference/type_traits/true_type/
 	struct true_type  : ft::integral_constant<bool, true > {};
 	struct false_type : ft::integral_constant<bool, false> {};
 
+	// 	----------[ is_integral ]----------
+	// https://www.cplusplus.com/reference/type_traits/is_integral/
 	template<typename>
 	struct is_integral_helper : public ft::false_type {};
 

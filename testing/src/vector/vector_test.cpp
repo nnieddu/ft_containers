@@ -6,7 +6,7 @@
 #include <string.h>
 #include "vector_test.hpp"
 
-#define MAX_TEST 10000
+#define MAX_TEST 2000000
 
 void	printOk() {
 	std::cout << "\033[0;32m" << "V" << "\033[0;37m";
@@ -60,9 +60,9 @@ void	vectorExpansion() {
 		std::cout << "=== Default constructor ===" << std::endl;;
 		NAMESPACE::vector<int> vector;
 		for (std::size_t i = 0; i < MAX_TEST; ++i) {
-      vector.push_back(i);
+      		vector.push_back(i);
 			std::cout << vector.size() << std::endl;
-    }
+    	}
 		printOk();
 	}
 	{
@@ -534,7 +534,7 @@ void	vectorInsert() {
 		for (unsigned long i = 0; i < 5; i++)
 			vector[i] = i * 2;
 		printVector(vector);
-		vector.insert(vector.begin() + 2, 10000, 42);
+		vector.insert(vector.begin() + 2, MAX_TEST, 42);
 		NAMESPACE::vector<int>::iterator it = vector.begin();
 		while (it != vector.end())
 			std::cout << *(it)++ << " ";
@@ -558,7 +558,7 @@ void	vectorInsert() {
 		for (unsigned long i = 0; i < 5; i++)
 			vector[i] = i * 2;
 		printVector(vector);
-		vector.insert(vector.end(), 10000, 42);
+		vector.insert(vector.end(), MAX_TEST, 42);
 		NAMESPACE::vector<int>::iterator it = vector.begin();
 		while (it != vector.end())
 			std::cout << *(it)++ << " ";
@@ -1202,7 +1202,7 @@ void	vector_test() {
 	vectorFrontBack(); // DONE
 	vectorAssign(); // DONE
 	vectorPushPopBack(); // DONE
-	vectorInsert(); // TODO
+	vectorInsert(); // DONE
 	vectorErase(); // DONE
 	vectorSwap(); // DONE
 	vectorClear(); // DONE

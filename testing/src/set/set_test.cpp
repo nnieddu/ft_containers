@@ -2,7 +2,7 @@
 #include <set>
 #include "../../../containers/ft_set.hpp"
 
-#define SET_BIG_N	10000
+#define SET_BIG_N	100000
 
 void	print_after_insert(NAMESPACE::set<int>::iterator returnedIterator, NAMESPACE::set<int>::iterator begin, NAMESPACE::set<int>::iterator end) {
 	std::cout << "From returned iterator" << std::endl;

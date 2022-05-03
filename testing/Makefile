@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-CPP	=	clang++
+CPP	=	c++
 
-FT_FLAGS	= -Wall -Wextra -g3 -std=c++98 -fsanitize=address
-STD_FLAGS 	= -Wall -Wextra -g3 -std=c++98 -fsanitize=address  -DSTD_TEST
+FT_FLAGS	= -Wall -Wextra -Werror -g3 -std=c++98 -fsanitize=address
+STD_FLAGS 	= -Wall -Wextra -Werror -g3 -std=c++98 -fsanitize=address -DSTD_TEST
 
 SRCS	=	src/main.cpp\
 			src/vector/vector_test.cpp\
