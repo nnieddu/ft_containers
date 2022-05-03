@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: philippe <philippe@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: ninieddu <ninieddu@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/23 02:26:02 by pminne            #+#    #+#              #
-#    Updated: 2021/07/21 15:57:51 by philippe         ###   ########lyon.fr    #
+#    Updated: 2022/05/03 22:00:20 by ninieddu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 CPP	=	c++
 
 FT_FLAGS	= -Wall -Wextra -Werror -g3 -std=c++98 -fsanitize=address
-STD_FLAGS 	= -Wall -Wextra -Werror -g3 -std=c++98 -fsanitize=address -DSTD_TEST
+STD_FLAGS 	= -Wall -Wextra -Werror -g3 -std=c++11 -fsanitize=address -DSTD_TEST
 
 SRCS	=	src/main.cpp\
 			src/vector/vector_test.cpp\
