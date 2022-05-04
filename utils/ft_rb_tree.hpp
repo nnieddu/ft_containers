@@ -18,7 +18,8 @@
 // https://fr.abcdef.wiki/wiki/Red%E2%80%93black_tree
 // https://www.codesdope.com/course/data-structures-rFR
 
-// Chaque noeud est rouge ou noir. 
+// Chaque noeud est rouge ou noir.
+// Le noeud root est noir.
 // Tous les noeuds NIL sont considérés comme noirs. 
 // Un noeud rouge n'a pas d'enfant rouge. 
 // Chaque chemin d'un noeud donné à l'un de ses noeuds NIL descendants passe par le même nombre de noeuds noirs.

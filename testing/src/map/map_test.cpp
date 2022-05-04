@@ -10,7 +10,7 @@
 #include <set>
 #include <list>
 
-#define MAP_BIG_N	1000000
+#define MAP_BIG_N	3000000
 
 void	pair_relational_operators_output(const NAMESPACE::pair<int, float>& p1, const NAMESPACE::pair<int, float>& p2) {
 	std::cout << std::boolalpha;
@@ -328,10 +328,14 @@ void	map_insert_1() {
 		std::cout << ret.second << std::endl;
 		print_after_insert(ret.first, begin, end);
 
-		NAMESPACE::map<std::string, int> mapstr;
-		for (int i = 0; i < MAP_BIG_N; i++) {
-			mapstr.insert(NAMESPACE::make_pair("YOLO", i));
-		}
+		NAMESPACE::map<int, std::string> mapstr;
+		for (int i = 0; i < 5000; i++)
+			mapstr.insert(NAMESPACE::make_pair(i, "YOLO"));
+		NAMESPACE::map<int, std::string>::iterator mapstrIT = mapstr.begin();
+		for (int i = 0; i < 2000; i++)
+			mapstrIT++;
+		for (int i = MAP_BIG_N; i < 5000; i--)
+			mapstr.insert(mapstrIT, NAMESPACE::make_pair(i, "OLOY"));
 	}
 }
 

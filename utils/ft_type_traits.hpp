@@ -51,44 +51,31 @@ namespace ft
 	template<typename>
 	struct is_integral_helper : public ft::false_type {};
 
-	template<>
-	struct is_integral_helper<bool> : public ft::true_type {};
+	template<>	struct is_integral_helper<bool> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<char> : public ft::true_type {};
+	template<>	struct is_integral_helper<char> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<wchar_t> : public ft::true_type {};
+	template<>	struct is_integral_helper<wchar_t> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<signed char> : public ft::true_type {};
+	template<>	struct is_integral_helper<signed char> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<short int> : public ft::true_type {};
+	template<>	struct is_integral_helper<short int> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<int> : public ft::true_type {};
+	template<>	struct is_integral_helper<int> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<long int> : public ft::true_type {};
+	template<>	struct is_integral_helper<long int> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<long long int> : public ft::true_type {};
+	template<>	struct is_integral_helper<long long int> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<unsigned char> : public ft::true_type {};
+	template<>	struct is_integral_helper<unsigned char> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<unsigned short int> : public ft::true_type {};
+	template<>	struct is_integral_helper<unsigned short int> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<unsigned int> : public ft::true_type {};
+	template<>	struct is_integral_helper<unsigned int> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<unsigned long int> : public ft::true_type {};
+	template<>	struct is_integral_helper<unsigned long int> : public ft::true_type {};
 
-	template<>
-	struct is_integral_helper<unsigned long long int> : public ft::true_type {};
+	template<>	struct is_integral_helper<unsigned long long int> : public ft::true_type {};
 
 	template<typename T>
 	struct is_integral : public ft::is_integral_helper<T> {};

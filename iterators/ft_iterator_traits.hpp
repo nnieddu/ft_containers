@@ -20,7 +20,6 @@
 
 namespace ft
 {
-
 	// Base iterator struct
 	template <class Category, class T, class Distance = ptrdiff_t,
 		class Pointer = T*, class Reference = T&> 
@@ -85,7 +84,6 @@ namespace ft
 	};
 
 	// [ ITERATORS FTs ] 
-
 	// https://www.cplusplus.com/reference/iterator/advance/
 	// Advance iterator (function template )
 	template <class InputIterator, class Distance>
@@ -111,15 +109,11 @@ namespace ft
 	template <class RandomAccessIterator, class Distance>
 	void advance(RandomAccessIterator &i, Distance n,
 		ft::random_access_iterator_tag)
-	{
-		i += n;
-	}
+	{ i += n; }
 
 	template <class InputIterator, class Distance>
 	void advance(InputIterator i, Distance n)
-	{
-		advance(i, n, typename iterator_traits<InputIterator>::iterator_category());
-	}
+	{ advance(i, n, typename iterator_traits<InputIterator>::iterator_category()); }
 
 
 	// https://www.cplusplus.com/reference/iterator/distance/
@@ -141,28 +135,11 @@ namespace ft
 	template<class RandomAccessIterator>
 	typename iterator_traits<RandomAccessIterator>::difference_type
 		distance(RandomAccessIterator& first, RandomAccessIterator& last, ft::random_access_iterator_tag)
-	{
-		return last - first;
-	}
+	{ return last - first; }
 
 	template<class Iterator>
 	typename iterator_traits<Iterator>::difference_type
 		distance(Iterator first, Iterator last)
-	{
-		return ft::distance(first, last, typename iterator_traits<Iterator>::iterator_category());
-	}
+	{ return ft::distance(first, last, typename iterator_traits<Iterator>::iterator_category()); }
 
-	// [Iterator generators:]
-	
-	// back_inserter : Construct back insert iterator (function template )
-	// template <class Container>
-	// back_insert_iterator<Container> back_inserter (Container& x);
-
-	// front_inserter : Constructs front insert iterator (function template )
-	// template <class Container>
-	// front_insert_iterator<Container> front_inserter (Container& x);
-		
-	// inserter : Construct insert iterator (function template )
-	// template <class Container, class Iterator>
-	// insert_iterator<Container> inserter (Container& x, Iterator it);
 }

@@ -13,7 +13,7 @@
 CPP	=	c++
 
 FT_FLAGS	= -Wall -Wextra -Werror -g3 -std=c++98 -fsanitize=address
-STD_FLAGS 	= -Wall -Wextra -Werror -g3 -std=c++11 -fsanitize=address -DSTD_TEST
+STD_FLAGS 	= -Wall -Wextra -Werror -g3 -std=c++11 -fsanitize=address -DSTD_TEST #c++11 for enable_if/is_integral
 
 SRCS	=	src/main.cpp\
 			src/vector/vector_test.cpp\
@@ -29,7 +29,7 @@ STD_OBJS = $(SRCS:%.cpp=std_objs/%.o)
 EXEC_FT	=	ft_test
 EXEC_STD = 	std_test
 
-all:	Makefile $(EXEC_FT) $(EXEC_STD)
+all: $(EXEC_FT) $(EXEC_STD)
 	@echo "\033[0;32mAll compilation done, run ./exec_test.sh \033[37m"
 
 $(EXEC_FT):	$(FT_OBJS)

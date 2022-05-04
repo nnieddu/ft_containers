@@ -71,8 +71,8 @@ else
 	./std_test > std_results.txt
 fi
 
-diff ft_results.txt std_results.txt > /dev/null
 echo
+diff ft_results.txt std_results.txt > /dev/null
 if [ $? -eq 0 ]
 then
 	echo -e "${GREEN}=== Test OK : No diff :) ===${NC}"

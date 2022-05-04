@@ -6,7 +6,7 @@
 #include <string.h>
 #include "vector_test.hpp"
 
-#define MAX_TEST 2000000
+#define MAX_TEST 1000000
 
 void	printOk() {
 	std::cout << "\033[0;32m" << "V" << "\033[0;37m";
@@ -329,7 +329,6 @@ void vectorFrontBack() {
 		vector.clear();
 	}
 	std::cout << vector.size() << std::endl;
-	// std::cout << vector.size() << " " << vector.front() << " " << std::endl;
 	std::cout << "\n\t===" << std::endl;
 }
 
@@ -354,7 +353,7 @@ void	vectorAssign() {
 	}
 	{
 		std::cout << "=== n > _size ===" << std::endl;
-		for (int j = 1000; j < 10000; j++) {
+		for (int j = 1000; j < 2000; j++) {
 			vector.assign(j, 42);
 			for (unsigned long i = 0; i < vector.size(); i++)
 				std::cout << vector.at(i) << " ";
